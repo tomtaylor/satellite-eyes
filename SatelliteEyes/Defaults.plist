@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>mapTypes</key>
+	<array>
+		<dict>
+			<key>source</key>
+			<string>http://a.tile.stamen.com/watercolor/{z}/{x}/{y}.jpg</string>
+			<key>name</key>
+			<string>Watercolor</string>
+			<key>maxZoom</key>
+			<integer>15</integer>
+		</dict>
+		<dict>
+			<key>source</key>
+			<string>http://a.tile.stamen.com/toner/{z}/{x}/{y}.png</string>
+			<key>name</key>
+			<string>Toner</string>
+		</dict>
+		<dict>
+			<key>source</key>
+			<string>http://a.tile.stamen.com/terrain/{z}/{x}/{y}.png</string>
+			<key>name</key>
+			<string>Terrain (US only)</string>
+			<key>maxZoom</key>
+			<integer>18</integer>
+		</dict>
+		<dict>
+			<key>logoImage</key>
+			<string>bing-logo.png</string>
+			<key>source</key>
+			<string>http://ecn.t3.tiles.virtualearth.net/tiles/a{q}.jpeg?g=915</string>
+			<key>name</key>
+			<string>Bing Aerial</string>
+			<key>maxZoom</key>
+			<integer>17</integer>
+		</dict>
+	</array>
+	<key>zoomLevel</key>
+	<integer>17</integer>
+	<key>imageEffect</key>
+	<integer>0</integer>
+	<key>selectedMapTypeIndex</key>
+	<integer>3</integer>
+	<key>cleanCache</key>
+	<true/>
+</dict>
+</plist>
