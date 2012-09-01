@@ -66,7 +66,17 @@
                                                    options:NSKeyValueObservingOptionNew
                                                    context:nil];
 
-        [[[NSWorkspace sharedWorkspace] notificationCenter] addObserver:self 
+        [[NSUserDefaults standardUserDefaults] addObserver:self
+                                                forKeyPath:@"useManualLocation"
+                                                   options:NSKeyValueObservingOptionNew
+                                                   context:nil];
+        
+        [[NSUserDefaults standardUserDefaults] addObserver:self
+                                                forKeyPath:@"manualLocationURL"
+                                                   options:NSKeyValueObservingOptionNew
+                                                   context:nil];
+        
+        [[[NSWorkspace sharedWorkspace] notificationCenter] addObserver:self
                                                                selector:@selector(spaceChanged:) 
                                                                    name:NSWorkspaceActiveSpaceDidChangeNotification 
                                                                  object:nil];
@@ -79,8 +89,44 @@
     return self;
 }
 
+- (CLLocationCoordinate2D)manualLocationCoordinates
+{
+    NSString *latitude = nil;
+    NSString *longitude = nil;
+    CLLocationCoordinate2D coordinate;
+    
+    // The URL is assumend to be of the following form as seen as the permalink on http://www.openstreetmap.org/
+    // http://www.openstreetmap.org/?lat=45.5235&lon=-122.6762&zoom=12&layers=C
+    NSURL *manualLocationURL = [NSURL URLWithString:[[NSUserDefaults standardUserDefaults] stringForKey:@"manualLocationURL"]];
+    if (manualLocationURL) {
+        DDLogInfo(@"URL = %@", [manualLocationURL absoluteString]);
+        NSArray *keyValues = [[manualLocationURL query] componentsSeparatedByString:@"&"];
+        for (NSString *aKeyValue in keyValues) {
+            NSArray *aPair = [aKeyValue componentsSeparatedByString:@"="];
+            if (aPair.count == 2) {
+                if ([aPair[0] isEqualToString:@"lat"]) {
+                    latitude = aPair[1];
+                }
+                else if ([aPair[0] isEqualToString:@"lon"]) {
+                    longitude = aPair[1];
+                }
+            }
+        }
+        
+        if (latitude && longitude) {
+            coordinate = CLLocationCoordinate2DMake([latitude doubleValue], [longitude doubleValue]);
+        }
+    }
+    return coordinate;
+}
+
 - (void)start {
-    if ([CLLocationManager locationServicesEnabled]) {
+    BOOL useManualLocation = [[NSUserDefaults standardUserDefaults] boolForKey:@"useManualLocation"];
+    if (useManualLocation) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:TTMapManagerLocationUpdated object:nil];
+        [self updateMapToCoordinate:[self manualLocationCoordinates]];
+    }
+    else if ([CLLocationManager locationServicesEnabled]) {
         [locationManager startUpdatingLocation];
     } else {
         [[NSNotificationCenter defaultCenter] postNotificationName:TTMapManagerLocationPermissionDenied object:nil];
@@ -111,8 +157,21 @@
 }
 
 - (void)updateMap {
-    if (lastSeenLocation) {
+    BOOL useManualLocation = [[NSUserDefaults standardUserDefaults] boolForKey:@"useManualLocation"];
+    
+    if (useManualLocation) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:TTMapManagerLocationUpdated object:nil];
+        [self updateMapToCoordinate:[self manualLocationCoordinates]];
+    }
+    
+    else if (lastSeenLocation) {
         [self updateMapToCoordinate:lastSeenLocation.coordinate];
+    }
+    
+    else if ([CLLocationManager locationServicesEnabled]) {
+        [locationManager startUpdatingLocation];
+    } else {
+        [[NSNotificationCenter defaultCenter] postNotificationName:TTMapManagerLocationPermissionDenied object:nil];
     }
 }
 

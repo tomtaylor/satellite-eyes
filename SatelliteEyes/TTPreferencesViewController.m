@@ -13,6 +13,7 @@
 
 @synthesize startAtLogin;
 @synthesize aboutView;
+@synthesize urlTextField;
 
 - (void)awakeFromNib {
     self.startAtLogin = [LLManager launchAtLogin];

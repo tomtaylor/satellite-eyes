@@ -45,5 +45,9 @@
 	<integer>3</integer>
 	<key>cleanCache</key>
 	<true/>
+	<key>useManualLocation</key>
+	<false/>
+	<key>manualLocationURL</key>
+	<string></string>
 </dict>
 </plist>
