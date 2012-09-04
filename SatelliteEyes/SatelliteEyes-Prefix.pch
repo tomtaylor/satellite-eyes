@@ -7,6 +7,8 @@
   
   #import "DDLog.h"
 
+  #import <MapKit/MapKit.h>
+
   #if DEBUG
     static const int ddLogLevel = LOG_LEVEL_VERBOSE;
   #else

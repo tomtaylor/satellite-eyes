@@ -47,7 +47,12 @@
 	<true/>
 	<key>useManualLocation</key>
 	<false/>
-	<key>manualLocationURL</key>
-	<string></string>
+	<key>manualCoordinates</key>
+	<dict>
+		<key>latitude</key>
+		<integer>0</integer>
+		<key>longitude</key>
+		<integer>0</integer>
+	</dict>
 </dict>
 </plist>

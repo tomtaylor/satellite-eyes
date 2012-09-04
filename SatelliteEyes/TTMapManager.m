@@ -72,7 +72,7 @@
                                                    context:nil];
         
         [[NSUserDefaults standardUserDefaults] addObserver:self
-                                                forKeyPath:@"manualLocationURL"
+                                                forKeyPath:@"manualCoordinates"
                                                    options:NSKeyValueObservingOptionNew
                                                    context:nil];
         
@@ -88,19 +88,25 @@
     }
     return self;
 }
-
 - (CLLocationCoordinate2D)manualLocationCoordinates
+{
+    CLLocationCoordinate2D coordinate;
+    NSDictionary *manualCoords = [[NSUserDefaults standardUserDefaults] objectForKey:@"manualCoordinates"];
+    coordinate = CLLocationCoordinate2DMake([manualCoords[@"latitude"] doubleValue], [manualCoords[@"longitude"] doubleValue]);
+    return coordinate;
+}
+
+// The URL is assumend to be of the following form as seen as the permalink on http://www.openstreetmap.org/
+// http://www.openstreetmap.org/?lat=45.5235&lon=-122.6762&zoom=12&layers=C
+- (CLLocationCoordinate2D)manualLocationCoordinatesFromURL:(NSURL *)URL
 {
     NSString *latitude = nil;
     NSString *longitude = nil;
     CLLocationCoordinate2D coordinate;
     
-    // The URL is assumend to be of the following form as seen as the permalink on http://www.openstreetmap.org/
-    // http://www.openstreetmap.org/?lat=45.5235&lon=-122.6762&zoom=12&layers=C
-    NSURL *manualLocationURL = [NSURL URLWithString:[[NSUserDefaults standardUserDefaults] stringForKey:@"manualLocationURL"]];
-    if (manualLocationURL) {
-        DDLogInfo(@"URL = %@", [manualLocationURL absoluteString]);
-        NSArray *keyValues = [[manualLocationURL query] componentsSeparatedByString:@"&"];
+    if (URL) {
+        DDLogInfo(@"URL = %@", [URL absoluteString]);
+        NSArray *keyValues = [[URL query] componentsSeparatedByString:@"&"];
         for (NSString *aKeyValue in keyValues) {
             NSArray *aPair = [aKeyValue componentsSeparatedByString:@"="];
             if (aPair.count == 2) {
