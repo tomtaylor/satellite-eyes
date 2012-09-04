@@ -45,5 +45,14 @@
 	<integer>3</integer>
 	<key>cleanCache</key>
 	<true/>
+	<key>useManualLocation</key>
+	<false/>
+	<key>manualCoordinates</key>
+	<dict>
+		<key>latitude</key>
+		<integer>0</integer>
+		<key>longitude</key>
+		<integer>0</integer>
+	</dict>
 </dict>
 </plist>

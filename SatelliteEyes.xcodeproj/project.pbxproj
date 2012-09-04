@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		22A9259415F54D1900BCD1AE /* TTMapWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 22A9259315F54D1900BCD1AE /* TTMapWindowController.m */; };
+		22A9259615F54D5700BCD1AE /* TTMapWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 22A9259515F54D5700BCD1AE /* TTMapWindow.xib */; };
+		22A9259C15F554C200BCD1AE /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22A9258C15F549DE00BCD1AE /* MapKit.framework */; };
+		22A9259D15F5594A00BCD1AE /* MapKit.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 22A9258C15F549DE00BCD1AE /* MapKit.framework */; };
 		E20D5C3A14F1B6940075072F /* MD5Digest.m in Sources */ = {isa = PBXBuildFile; fileRef = E20D5C3914F1B6940075072F /* MD5Digest.m */; };
 		E20D5C3F14F1BC5B0075072F /* TTMapManager.m in Sources */ = {isa = PBXBuildFile; fileRef = E20D5C3E14F1BC5B0075072F /* TTMapManager.m */; };
 		E210613015910B5B00F0F008 /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E210612F15910B5B00F0F008 /* Sparkle.framework */; };
@@ -61,6 +65,34 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		22A9258915F549DE00BCD1AE /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 22A9257F15F549DE00BCD1AE /* MapKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 5F6EF13511F13B0D0077E84F;
+			remoteInfo = DemoApp;
+		};
+		22A9258B15F549DE00BCD1AE /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 22A9257F15F549DE00BCD1AE /* MapKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 5F6EF17D11F13F690077E84F;
+			remoteInfo = MapKitFramework;
+		};
+		22A9258D15F549DE00BCD1AE /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 22A9257F15F549DE00BCD1AE /* MapKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 5FB7435711FE6E4A00AB2079;
+			remoteInfo = MapKit;
+		};
+		22A9259015F54A4600BCD1AE /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 22A9257F15F549DE00BCD1AE /* MapKit.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 5F6EF17C11F13F690077E84F;
+			remoteInfo = MapKitFramework;
+		};
 		E27B20FF156AE61300BADF13 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = E27B20F3156AE61300BADF13 /* LaunchAtLoginHelper.xcodeproj */;
@@ -84,6 +116,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				22A9259D15F5594A00BCD1AE /* MapKit.framework in CopyFiles */,
 				E210613215910BD600F0F008 /* Sparkle.framework in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -101,6 +134,10 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		22A9257F15F549DE00BCD1AE /* MapKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = MapKit.xcodeproj; path = Externals/MacMapKit/Source/MapKit.xcodeproj; sourceTree = "<group>"; };
+		22A9259215F54D1900BCD1AE /* TTMapWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTMapWindowController.h; sourceTree = "<group>"; };
+		22A9259315F54D1900BCD1AE /* TTMapWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTMapWindowController.m; sourceTree = "<group>"; };
+		22A9259515F54D5700BCD1AE /* TTMapWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TTMapWindow.xib; sourceTree = "<group>"; };
 		E20D5C3814F1B6940075072F /* MD5Digest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MD5Digest.h; path = SatelliteEyes/MD5Digest.h; sourceTree = "<group>"; };
 		E20D5C3914F1B6940075072F /* MD5Digest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MD5Digest.m; path = SatelliteEyes/MD5Digest.m; sourceTree = "<group>"; };
 		E20D5C3D14F1BC5B0075072F /* TTMapManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTMapManager.h; path = SatelliteEyes/TTMapManager.h; sourceTree = SOURCE_ROOT; };
@@ -195,6 +232,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				22A9259C15F554C200BCD1AE /* MapKit.framework in Frameworks */,
 				E2B9D24D154EA56D0034A419 /* WebKit.framework in Frameworks */,
 				E2A86965154D60EC00404147 /* SystemConfiguration.framework in Frameworks */,
 				E22AD5D0153082410047BA9D /* ServiceManagement.framework in Frameworks */,
@@ -208,6 +246,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		22A9258015F549DE00BCD1AE /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				22A9258A15F549DE00BCD1AE /* DemoApp.app */,
+				22A9258C15F549DE00BCD1AE /* MapKit.framework */,
+				22A9258E15F549DE00BCD1AE /* MapKit.ibplugin */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		E2796C0614F0FFE200B054AD = {
 			isa = PBXGroup;
 			children = (
@@ -268,6 +316,8 @@
 				E2A7E2BC14FB779300AAA82A /* TTPreferencesViewController.m */,
 				E2CC332A152DFD9600799D46 /* TTPreferencesWindowController.h */,
 				E2CC332B152DFD9600799D46 /* TTPreferencesWindowController.m */,
+				22A9259215F54D1900BCD1AE /* TTMapWindowController.h */,
+				22A9259315F54D1900BCD1AE /* TTMapWindowController.m */,
 				E28CBFEC152F2F5C008876BD /* Assets */,
 				E2796C1C14F0FFE200B054AD /* Supporting Files */,
 			);
@@ -343,6 +393,7 @@
 			children = (
 				E2796C2A14F0FFE300B054AD /* MainMenu.xib */,
 				E2CC3335152E011600799D46 /* TTPreferencesWindow.xib */,
+				22A9259515F54D5700BCD1AE /* TTMapWindow.xib */,
 			);
 			name = NIBs;
 			sourceTree = "<group>";
@@ -381,6 +432,7 @@
 		E2A86960154D5F4300404147 /* Third Party */ = {
 			isa = PBXGroup;
 			children = (
+				22A9257F15F549DE00BCD1AE /* MapKit.xcodeproj */,
 				E27B20F3156AE61300BADF13 /* LaunchAtLoginHelper.xcodeproj */,
 				E28F863E15C57E9C0008E19B /* Lumberjack */,
 				E27B20F6156AE61300BADF13 /* LLManager.h */,
@@ -416,6 +468,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				22A9259115F54A4600BCD1AE /* PBXTargetDependency */,
 				E27B2102156AE64100BADF13 /* PBXTargetDependency */,
 			);
 			name = "Satellite Eyes";
@@ -446,6 +499,10 @@
 					ProductGroup = E27B20F4156AE61300BADF13 /* Products */;
 					ProjectRef = E27B20F3156AE61300BADF13 /* LaunchAtLoginHelper.xcodeproj */;
 				},
+				{
+					ProductGroup = 22A9258015F549DE00BCD1AE /* Products */;
+					ProjectRef = 22A9257F15F549DE00BCD1AE /* MapKit.xcodeproj */;
+				},
 			);
 			projectRoot = "";
 			targets = (
@@ -455,6 +512,27 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
+		22A9258A15F549DE00BCD1AE /* DemoApp.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = DemoApp.app;
+			remoteRef = 22A9258915F549DE00BCD1AE /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		22A9258C15F549DE00BCD1AE /* MapKit.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = MapKit.framework;
+			remoteRef = 22A9258B15F549DE00BCD1AE /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		22A9258E15F549DE00BCD1AE /* MapKit.ibplugin */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = MapKit.ibplugin;
+			remoteRef = 22A9258D15F549DE00BCD1AE /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		E27B2100156AE61300BADF13 /* LaunchAtLoginHelper.app */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.application;
@@ -481,6 +559,7 @@
 				E2B9D24B154EA09A0034A419 /* About.html in Resources */,
 				E274ADCC155ECED500608B3A /* menu-outline.png in Resources */,
 				E28F865615C57E9C0008E19B /* README.txt in Resources */,
+				22A9259615F54D5700BCD1AE /* TTMapWindow.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -537,12 +616,18 @@
 				E28F865315C57E9C0008E19B /* DDTTYLogger.m in Sources */,
 				E28F865415C57E9C0008E19B /* ContextFilterLogFormatter.m in Sources */,
 				E28F865515C57E9C0008E19B /* DispatchQueueLogFormatter.m in Sources */,
+				22A9259415F54D1900BCD1AE /* TTMapWindowController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		22A9259115F54A4600BCD1AE /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = MapKitFramework;
+			targetProxy = 22A9259015F54A4600BCD1AE /* PBXContainerItemProxy */;
+		};
 		E27B2102156AE64100BADF13 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = LaunchAtLoginHelper;
