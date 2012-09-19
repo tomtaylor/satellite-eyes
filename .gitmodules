@@ -1,0 +1,3 @@
+[submodule "Externals/MacMapKit"]
+	path = Externals/MacMapKit
+	url = git@github.com:samgrover/MacMapKit.git
