@@ -16,8 +16,4 @@
 @property (nonatomic) BOOL startAtLogin;
 @property (nonatomic, retain) IBOutlet WebView *aboutView;
 
-@property (nonatomic, strong) NSWindowController *mapWindowController;
-
-- (IBAction)showMapAction:(id)sender;
-
 @end

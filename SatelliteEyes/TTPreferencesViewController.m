@@ -7,18 +7,15 @@
 //
 
 #import "TTPreferencesViewController.h"
-#import "TTMapWindowController.h"
 #import "LLManager.h"
 
 @implementation TTPreferencesViewController
 
 @synthesize startAtLogin;
 @synthesize aboutView;
-@synthesize mapWindowController;
 
 - (void)awakeFromNib {
     self.startAtLogin = [LLManager launchAtLogin];
-    self.mapWindowController = [[TTMapWindowController alloc] init];
     
     if (aboutView) {
         aboutView.policyDelegate = self;
@@ -54,11 +51,6 @@ decisionListener:(id <WebPolicyDecisionListener>)listener
     else {
         [listener use];
     }
-}
-
-- (IBAction)showMapAction:(id)sender
-{
-    [self.mapWindowController.window makeKeyAndOrderFront:self];
 }
 
 @end
