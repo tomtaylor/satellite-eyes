@@ -8,7 +8,7 @@
 			<key>source</key>
 			<string>http://a.tile.stamen.com/watercolor/{z}/{x}/{y}.jpg</string>
 			<key>name</key>
-			<string>Watercolor</string>
+			<string>Stamen Watercolor</string>
 			<key>maxZoom</key>
 			<integer>17</integer>
 		</dict>
@@ -16,13 +16,13 @@
 			<key>source</key>
 			<string>http://a.tile.stamen.com/toner/{z}/{x}/{y}.png</string>
 			<key>name</key>
-			<string>Toner</string>
+			<string>Stamen Toner</string>
 		</dict>
 		<dict>
 			<key>source</key>
 			<string>http://a.tile.stamen.com/terrain/{z}/{x}/{y}.png</string>
 			<key>name</key>
-			<string>Terrain (US only)</string>
+			<string>Stamen Terrain (US only)</string>
 			<key>maxZoom</key>
 			<integer>18</integer>
 		</dict>
