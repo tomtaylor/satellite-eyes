@@ -92,7 +92,7 @@
                 [rowArray enumerateObjectsUsingBlock:^(TTMapTile *mapTile, NSUInteger rowIndex, BOOL *rowStop) {
                     AFHTTPRequestOperation *httpOperation = [[AFHTTPRequestOperation alloc] initWithRequest:[mapTile urlRequest]];
                     [httpOperation setAcceptableStatusCodes:[NSIndexSet indexSetWithIndex:200]];
-                    [httpOperation setAcceptableContentTypes:[NSSet setWithObjects:@"image/jpeg", @"image/png", nil]];
+                    [httpOperation setAcceptableContentTypes:[NSSet setWithObjects:@"image/jpeg", @"image/png", @"image/jpg", nil]];
                     
                     [httpOperation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, NSData *responseData) {
                         mapTile.imageData = responseData;
