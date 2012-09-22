@@ -36,6 +36,38 @@
 			<key>maxZoom</key>
 			<integer>17</integer>
 		</dict>
+		<dict>
+			<key>source</key>
+			<string>http://tiles.mapbox.com/v3/mapbox.mapbox-light/{z}/{x}/{y}.png</string>
+			<key>name</key>
+			<string>MapBox Light</string>
+			<key>maxZoom</key>
+			<integer>17</integer>
+		</dict>
+		<dict>
+			<key>source</key>
+			<string>http://tiles.mapbox.com/v3/examples.map-4l7djmvo/{z}/{x}/{y}.png</string>
+			<key>name</key>
+			<string>MapBox Terrain</string>
+			<key>maxZoom</key>
+			<integer>17</integer>
+		</dict>
+		<dict>
+			<key>source</key>
+			<string>http://tiles.mapbox.com/v3/mapbox.mapbox-warden/{z}/{x}/{y}.png</string>
+			<key>name</key>
+			<string>MapBox Warden</string>
+			<key>maxZoom</key>
+			<integer>17</integer>
+		</dict>
+		<dict>
+			<key>source</key>
+			<string>http://tiles.mapbox.com/v3/mapbox.mapbox-streets/{z}/{x}/{y}.png</string>
+			<key>name</key>
+			<string>MapBox Streets</string>
+			<key>maxZoom</key>
+			<integer>17</integer>
+		</dict>
 	</array>
 	<key>zoomLevel</key>
 	<integer>17</integer>
