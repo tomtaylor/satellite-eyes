@@ -24,6 +24,22 @@
 		</dict>
 		<dict>
 			<key>id</key>
+			<string>stamen-toner-background</string>
+			<key>source</key>
+			<string>http://tile.stamen.com/toner-background/{z}/{x}/{y}.png</string>
+			<key>name</key>
+			<string>Stamen Toner Background</string>
+		</dict>
+		<dict>
+			<key>id</key>
+			<string>stamen-toner-lite</string>
+			<key>source</key>
+			<string>http://tile.stamen.com/toner-lite/{z}/{x}/{y}.png</string>
+			<key>name</key>
+			<string>Stamen Toner Lite</string>
+		</dict>
+		<dict>
+			<key>id</key>
 			<string>stamen-terrain</string>
 			<key>source</key>
 			<string>http://a.tile.stamen.com/terrain/{z}/{x}/{y}.png</string>
