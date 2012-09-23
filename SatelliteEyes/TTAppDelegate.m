@@ -58,6 +58,10 @@
   [preferencesWindowController.window makeFirstResponder:nil];
 }
 
+- (void)forceMapUpdate:(id)sender {
+    [mapManager forceUpdateMap];
+}
+
 - (void)checkForUpdates:(id)sender {
   [[SUUpdater sharedUpdater] checkForUpdates:sender];
 }

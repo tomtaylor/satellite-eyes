@@ -112,7 +112,13 @@
 
 - (void)updateMap {
     if (lastSeenLocation) {
-        [self updateMapToCoordinate:lastSeenLocation.coordinate];
+        [self updateMapToCoordinate:lastSeenLocation.coordinate force:NO];
+    }
+}
+
+- (void)forceUpdateMap {
+    if (lastSeenLocation) {
+        [self updateMapToCoordinate:lastSeenLocation.coordinate force:YES];
     }
 }
 
@@ -129,7 +135,7 @@
     [self updateMap];
 }
 
-- (void)updateMapToCoordinate:(CLLocationCoordinate2D)coordinate
+- (void)updateMapToCoordinate:(CLLocationCoordinate2D)coordinate force:(BOOL)force
 {
     [[NSScreen screens] enumerateObjectsUsingBlock:^(NSScreen *screen, NSUInteger idx, BOOL *stop) {
         // put everything through the serial dispatch queue to ensure we're 
@@ -151,14 +157,39 @@
             
             [mapImage fetchTilesWithSuccess:^(NSURL *filePath) {
                 [[NSNotificationCenter defaultCenter] postNotificationName:TTMapManagerFinishedLoad object:nil];
-                [[NSWorkspace sharedWorkspace] setDesktopImageURL:filePath 
-                                                        forScreen:screen
-                                                          options:nil
-                                                            error:nil];
+                
+                NSURL *currentImageUrl = [[NSWorkspace sharedWorkspace] desktopImageURLForScreen:screen];
+                
+                // If the desktop image is already set to the same path, it won't update the image, even if the content has changed
+                if (force && [currentImageUrl isEqual:filePath]) {
+                    NSURL *tempImage = [[NSBundle mainBundle] URLForImageResource:@"loading"];
+                    
+                    // We set a temp image
+                    [[NSWorkspace sharedWorkspace] setDesktopImageURL:tempImage
+                                                            forScreen:screen
+                                                              options:nil
+                                                                error:nil];
+                    
+                    // 1 second later, update with the main image - if we do immediately after, it never seems to set it
+                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 1 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
+                        [[NSWorkspace sharedWorkspace] setDesktopImageURL:filePath
+                                                                forScreen:screen
+                                                                  options:nil
+                                                                    error:nil];
+                    });
+                    
+                } else {
+                    [[NSWorkspace sharedWorkspace] setDesktopImageURL:filePath
+                                                            forScreen:screen
+                                                              options:nil
+                                                                error:nil];
+                }
+                
+                
             } failure:^(NSError *error) {
                 [[NSNotificationCenter defaultCenter] postNotificationName:TTMapManagerFailedLoad object:nil];
                 DDLogError(@"Error fetching image: %@", error);
-            }];
+            } skipCache:force];
         });
     }];
 }
@@ -173,7 +204,7 @@
 	if (newLocation && abs([newLocation.timestamp timeIntervalSinceNow]) < 120) {
         [[NSNotificationCenter defaultCenter] postNotificationName:TTMapManagerLocationUpdated object:newLocation];
         lastSeenLocation = newLocation;
-        [self updateMapToCoordinate:newLocation.coordinate];
+        [self updateMapToCoordinate:newLocation.coordinate force:NO];
     }
 }
 

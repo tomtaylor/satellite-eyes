@@ -35,8 +35,9 @@ typedef enum {
                 effect:(TTMapImageEffect)_effect
                   logo:(NSImage *)logoImage;
 
-- (void)fetchTilesWithSuccess:(void (^)(NSURL *filePath))success 
-                      failure:(void (^)(NSError *error))failure;
+- (void)fetchTilesWithSuccess:(void (^)(NSURL *filePath))success
+                      failure:(void (^)(NSError *error))failure
+                    skipCache:(BOOL)skipCache;
 
 - (NSURL *)fileURL;
 

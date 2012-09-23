@@ -12,6 +12,7 @@
 @interface TTStatusItemController : NSObject <NSMenuDelegate> {
     NSStatusItem *statusItem;
     NSMenuItem *statusMenuItem;
+    NSMenuItem *forceMapUpdateMenuItem;
     NSImage *activeImage;
     NSImage *inactiveImage;
     NSImage *errorImage;

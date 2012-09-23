@@ -24,10 +24,15 @@
 
         NSMenu *menu = [[NSMenu alloc] initWithTitle:@"Menu"];
         [menu setDelegate:self];
+        [menu setAutoenablesItems:NO];
         
         statusMenuItem = [[NSMenuItem alloc] initWithTitle:@"" action:nil keyEquivalent:@""];
         [statusMenuItem setEnabled:NO];
         [menu addItem:statusMenuItem];
+        
+        forceMapUpdateMenuItem = [[NSMenuItem alloc] initWithTitle:@"Refresh the map now" action:@selector(forceMapUpdate:) keyEquivalent:@""];
+        [forceMapUpdateMenuItem setEnabled:NO];
+        [menu addItem:forceMapUpdateMenuItem];
         
         [menu addItem:[NSMenuItem separatorItem]];
         
@@ -96,6 +101,7 @@
 
 - (void)updateStatus {
     if (mapManagerhasLocation) {
+        [forceMapUpdateMenuItem setEnabled:YES];
         if (mapManagerisActive) {
             [self showActivity];
             
@@ -108,6 +114,7 @@
         
     } else {
         [self showOffline];
+        [forceMapUpdateMenuItem setEnabled:NO];
     }
 }
     
@@ -118,6 +125,7 @@
 
 - (void)showNormal {
     statusItem.image = inactiveImage;
+    [forceMapUpdateMenuItem setHidden:NO];
     
     if (mapLastUpdated) {
         statusMenuItem.title = [NSString stringWithFormat:@"Map updated %@", [[mapLastUpdated distanceOfTimeInWords] lowercaseString]];

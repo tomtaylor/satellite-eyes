@@ -27,8 +27,9 @@ static NSString *const TTMapManagerLocationPermissionDenied = @"TTMapManagerLoca
 }
 
 - (void)start;
-- (void)updateMapToCoordinate:(CLLocationCoordinate2D)coordinate;
+- (void)updateMapToCoordinate:(CLLocationCoordinate2D)coordinate force:(BOOL)force;
 - (void)updateMap;
+- (void)forceUpdateMap;
 - (void)cleanCache;
 
 @property (readonly) NSString *source;
