@@ -52,7 +52,7 @@
                                                    object:nil];
         
         [[NSUserDefaults standardUserDefaults] addObserver:self 
-                                                forKeyPath:@"selectedMapTypeIndex" 
+                                                forKeyPath:@"selectedMapTypeId" 
                                                    options:NSKeyValueObservingOptionNew
                                                    context:nil];
         
@@ -276,16 +276,22 @@
 
 - (NSDictionary *)selectedMapType {
     NSArray *mapTypes = [[NSUserDefaults standardUserDefaults] objectForKey:@"mapTypes"];
-    NSNumber *selectedMapTypeIndex = [[NSUserDefaults standardUserDefaults] objectForKey:@"selectedMapTypeIndex"];
+    NSString *selectedMapTypeId = [[NSUserDefaults standardUserDefaults] objectForKey:@"selectedMapTypeId"];
     
-    int selectedMapTypeInt = [selectedMapTypeIndex intValue];
-    if (selectedMapTypeInt < 0) {
-        selectedMapTypeInt = 0;
-    } else if (selectedMapTypeInt > [mapTypes count]-1) {
-        selectedMapTypeInt = (int)[mapTypes count] - 1;
-    }
+    // Default to the first map type
+    __block NSDictionary *selectedMapType = [mapTypes objectAtIndex:0];
     
-    return [mapTypes objectAtIndex:selectedMapTypeInt];
+    // Now try and find a matching map type id, and set that to be the selected one
+    [mapTypes enumerateObjectsUsingBlock:^(NSDictionary *mapType, NSUInteger idx, BOOL *stop) {
+        NSString *mapTypeId = [mapType objectForKey:@"id"];
+        
+        if ([mapTypeId isEqualToString:selectedMapTypeId]) {
+            selectedMapType = mapType;
+            *stop = YES;
+        }
+    }];
+    
+    return selectedMapType;
 }
 
 // Flushes out old map images, leaving the currently displayed ones, and the last 20 modified.
