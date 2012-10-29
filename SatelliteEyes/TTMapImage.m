@@ -183,6 +183,15 @@
             coreImageOutput = [dotScreenFilter valueForKey:@"outputImage"];
             break;
         }
+        case TTVibranceEffect: {
+            CIFilter *vibranceFilter = [CIFilter filterWithName:@"CIVibrance"];
+            [vibranceFilter setDefaults];
+            [vibranceFilter setValue:coreImageInput forKey:@"inputImage"];
+            [vibranceFilter setValue:[NSNumber numberWithFloat:100]
+                               forKey:@"inputAmount"];
+            coreImageOutput = [vibranceFilter valueForKey: @"outputImage"];
+            break;
+        }
         default:
             coreImageOutput = coreImageInput;
             break;
