@@ -363,6 +363,18 @@
 											<int key="NSTag">2</int>
 											<reference key="NSTarget" ref="787578515"/>
 										</object>
+										<object class="NSMenuItem" id="107380084">
+											<reference key="NSMenu" ref="382460510"/>
+											<string key="NSTitle">Vibrance</string>
+											<string key="NSKeyEquiv"/>
+											<int key="NSKeyEquivModMask">1048576</int>
+											<int key="NSMnemonicLoc">2147483647</int>
+											<reference key="NSOnImage" ref="244926933"/>
+											<reference key="NSMixedImage" ref="2387339"/>
+											<string key="NSAction">_popUpItemAction:</string>
+											<int key="NSTag">4</int>
+											<reference key="NSTarget" ref="787578515"/>
+										</object>
 									</array>
 									<reference key="NSMenuFont" ref="112955984"/>
 								</object>
@@ -791,6 +803,7 @@
 							<reference ref="1008142738"/>
 							<reference ref="283098658"/>
 							<reference ref="81542368"/>
+							<reference ref="107380084"/>
 						</array>
 						<reference key="parent" ref="787578515"/>
 					</object>
@@ -838,6 +851,11 @@
 						<reference key="object" ref="988732398"/>
 						<reference key="parent" ref="0"/>
 					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">350</int>
+						<reference key="object" ref="107380084"/>
+						<reference key="parent" ref="382460510"/>
+					</object>
 				</array>
 			</object>
 			<dictionary class="NSMutableDictionary" key="flattenedProperties">
@@ -870,6 +888,7 @@
 				<string key="2.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="236.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="324.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<string key="350.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="4.CustomClassName">TTPreferencesViewController</string>
 				<string key="4.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="6.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -887,7 +906,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">349</int>
+			<int key="maxID">350</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">

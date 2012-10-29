@@ -15,7 +15,8 @@ typedef enum {
     TTNoImageEffect = 0,
     TTPixellateImageEffect = 1,
     TTDotScreenImageEffect = 2,
-    TTAtkinsonDitherImageEffect = 3
+    TTAtkinsonDitherImageEffect = 3,
+    TTVibranceEffect = 4
 } TTMapImageEffect;
 
 @interface TTMapImage : NSObject {
