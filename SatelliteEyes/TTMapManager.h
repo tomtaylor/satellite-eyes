@@ -36,6 +36,6 @@ static NSString *const TTMapManagerLocationPermissionDenied = @"TTMapManagerLoca
 @property (readonly) short unsigned int zoomLevel;
 @property (readonly) NSDictionary *selectedMapType;
 @property (readonly) NSImage *logoImage;
-@property (readonly) TTMapImageEffect imageEffect;
+@property (readonly) NSDictionary *selectedImageEffect;
 
 @end

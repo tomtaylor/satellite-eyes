@@ -62,7 +62,7 @@
                                                    context:nil];
         
         [[NSUserDefaults standardUserDefaults] addObserver:self 
-                                                forKeyPath:@"imageEffect" 
+                                                forKeyPath:@"selectedImageEffectId"
                                                    options:NSKeyValueObservingOptionNew
                                                    context:nil];
 
@@ -152,7 +152,7 @@
             [[TTMapImage alloc] initWithTileRect:tileRect
                                        zoomLevel:self.zoomLevel
                                           source:self.source
-                                          effect:self.imageEffect
+                                          effect:self.selectedImageEffect
                                             logo:self.logoImage];
             
             [mapImage fetchTilesWithSuccess:^(NSURL *filePath) {
@@ -241,9 +241,24 @@
     return CGRectMake(targetScreenTileOriginX, targetScreenTileOriginY, targetScreenTileWidth, targetScreenTileHeight);
 }
 
-- (TTMapImageEffect)imageEffect {
-    NSNumber *imageEffectNumber = [[NSUserDefaults standardUserDefaults] objectForKey:@"imageEffect"];
-    return [imageEffectNumber intValue];
+- (NSDictionary *)selectedImageEffect {
+    NSArray *imageEffects = [[NSUserDefaults standardUserDefaults] objectForKey:@"imageEffectTypes"];
+    NSString *selectedImageEffectId = [[NSUserDefaults standardUserDefaults] objectForKey:@"selectedImageEffectId"];
+
+    // Default to the first image effect
+    __block NSDictionary *selectedImageEffect = [imageEffects objectAtIndex:0];
+    
+    // Now try and find a matching image effect type id, and set that to be the selected one
+    [imageEffects enumerateObjectsUsingBlock:^(NSDictionary *imageEffect, NSUInteger idx, BOOL *stop) {
+        NSString *imageEffectId = [imageEffect objectForKey:@"id"];
+        
+        if ([imageEffectId isEqualToString:selectedImageEffectId]) {
+            selectedImageEffect = imageEffect;
+            *stop = YES;
+        }
+    }];
+    
+    return selectedImageEffect;
 }
 
 - (NSString *)source {
@@ -371,7 +386,7 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     [[NSUserDefaults standardUserDefaults] removeObserver:self forKeyPath:@"selectedMapTypeIndex"];
     [[NSUserDefaults standardUserDefaults] removeObserver:self forKeyPath:@"zoomLevel"];
-    [[NSUserDefaults standardUserDefaults] removeObserver:self forKeyPath:@"imageEffect"];
+    [[NSUserDefaults standardUserDefaults] removeObserver:self forKeyPath:@"selectedImageEffectId"];
     [[[NSWorkspace sharedWorkspace] notificationCenter] removeObserver:self];
 }
 

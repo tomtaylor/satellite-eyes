@@ -25,7 +25,7 @@
 - (id)initWithTileRect:(CGRect)_tileRect 
              zoomLevel:(unsigned short)_zoomLevel
                 source:(NSString *)_source
-                effect:(TTMapImageEffect)_effect
+                effect:(NSDictionary *)_effect
                   logo:(NSImage *)_logoImage
 {
     self = [super init];
@@ -162,33 +162,36 @@
     CIImage *coreImageInput = [CIImage imageWithCGImage:imageRef];
     CGImageRelease(imageRef);
     
-    CIImage *coreImageOutput;
+    __block CIImage *coreImageOutput = coreImageInput;
     
-    switch (imageEffect) {
-        case TTPixellateImageEffect: {
-            CIFilter *pixellateFilter = [CIFilter filterWithName:@"CIPixellate"];
-            [pixellateFilter setDefaults];
-            [pixellateFilter setValue:coreImageInput forKey:@"inputImage"];
-            [pixellateFilter setValue:[NSNumber numberWithFloat:8]
-                               forKey:@"inputScale"];
-            coreImageOutput = [pixellateFilter valueForKey: @"outputImage"];
-            break;
-        }
-        case TTDotScreenImageEffect: {
-            CIFilter *dotScreenFilter = [CIFilter filterWithName:@"CIDotScreen"];
-            [dotScreenFilter setDefaults];
-            [dotScreenFilter setValue:coreImageInput forKey:@"inputImage"];
-            [dotScreenFilter setValue:[NSNumber numberWithFloat:2]
-                               forKey:@"inputWidth"];
-            coreImageOutput = [dotScreenFilter valueForKey:@"outputImage"];
-            break;
-        }
-        default:
-            coreImageOutput = coreImageInput;
-            break;
-    }
+    // use an affine clamp so "gloom" and "gaussian blur" type filters work
+    CGAffineTransform transform = CGAffineTransformIdentity;
+    CIFilter *clampFilter = [CIFilter filterWithName:@"CIAffineClamp"];
+    [clampFilter setDefaults];
+    [clampFilter setValue:coreImageInput forKey:@"inputImage"];
+    [clampFilter setValue:[NSValue valueWithBytes:&transform
+                                         objCType:@encode(CGAffineTransform)]
+                   forKey:@"inputTransform"];
     
-    CGImageRef tiledImageRef = [coreImageContext createCGImage:coreImageOutput fromRect:coreImageOutput.extent];
+    coreImageOutput = [clampFilter valueForKey:@"outputImage"];
+
+    // iterate through filters, applying each...
+    NSArray *filters = [imageEffect valueForKey:@"filters"];
+    [filters enumerateObjectsUsingBlock:^(NSDictionary *filter, NSUInteger filterIndex, BOOL *stop) {
+        CIFilter *imageFilter = [CIFilter filterWithName:[filter valueForKey:@"name"]];
+        [imageFilter setDefaults];
+        [imageFilter setValue:coreImageOutput forKey:@"inputImage"];
+        
+        NSArray *parameters = [filter valueForKey:@"parameters"];
+        [parameters enumerateObjectsUsingBlock:^(NSDictionary *parameter, NSUInteger filterIndex, BOOL *stop) {
+            [imageFilter setValue:[parameter valueForKey:@"value"]
+                           forKey:[parameter valueForKey:@"name"]];
+        }];
+        
+        coreImageOutput = [imageFilter valueForKey:@"outputImage"];
+    }];
+    
+    CGImageRef tiledImageRef = [coreImageContext createCGImage:coreImageOutput fromRect:coreImageInput.extent];
     CGContextDrawImage(context, CGRectMake(0, 0, width, height), tiledImageRef);
     CGImageRelease(tiledImageRef);
     
@@ -226,7 +229,7 @@
 
 // Returns a hash that keys the map details
 - (NSString *)uniqueHash {
-    NSString *key = [NSString stringWithFormat:@"%@_%.1f_%.1f_%.2f_%.2f_%u_%u", 
+    NSString *key = [NSString stringWithFormat:@"%@_%.1f_%.1f_%.2f_%.2f_%@_%u",
                      source,
                      tileRect.origin.x,
                      tileRect.origin.y,
