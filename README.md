@@ -18,6 +18,19 @@ I haven't got round to looking at properly.
 It's not very well documented, sorry, but it's not a big codebase, so I'm sure
 you'll work it out.
 
+To build for Debug:
+
+1. Create a new Code Signing cert named "Mac Developer".
+
+2. Set up the LaunchAtLoginHelper:
+   
+   ```bash
+   cd LaunchAtLoginHelper
+   python setup.py satelliteeyes uk.co.tomtaylor.SatelliteEyes
+   ```
+
+3. Build!
+
 Contributions
 --
 
