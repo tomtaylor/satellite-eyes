@@ -11,18 +11,11 @@
 
 #define TILE_SIZE 256
 
-typedef enum {
-    TTNoImageEffect = 0,
-    TTPixellateImageEffect = 1,
-    TTDotScreenImageEffect = 2,
-    TTAtkinsonDitherImageEffect = 3
-} TTMapImageEffect;
-
 @interface TTMapImage : NSObject {
     CGRect tileRect;
     unsigned short zoomLevel;
     NSString *source;
-    TTMapImageEffect imageEffect;
+    NSDictionary *imageEffect;
     NSArray *tiles;
     CGPoint pixelShift;
     NSOperationQueue *tileQueue;
@@ -32,7 +25,7 @@ typedef enum {
 - (id)initWithTileRect:(CGRect)_tileRect 
              zoomLevel:(unsigned short)_zoomLevel
                 source:(NSString *)_provider
-                effect:(TTMapImageEffect)_effect
+                effect:(NSDictionary *)_effect
                   logo:(NSImage *)logoImage;
 
 - (void)fetchTilesWithSuccess:(void (^)(NSURL *filePath))success

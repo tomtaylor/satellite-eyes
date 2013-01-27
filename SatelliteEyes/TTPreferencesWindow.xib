@@ -129,7 +129,6 @@
 									</array>
 									<reference key="NSMenuFont" ref="112955984"/>
 								</object>
-								<int key="NSSelectedIndex">-1</int>
 								<int key="NSPreferredEdge">1</int>
 								<bool key="NSUsesItemFromMenu">YES</bool>
 								<bool key="NSAltersState">YES</bool>
@@ -322,23 +321,22 @@
 								<string key="NSKeyEquivalent"/>
 								<int key="NSPeriodicDelay">400</int>
 								<int key="NSPeriodicInterval">75</int>
-								<object class="NSMenuItem" key="NSMenuItem" id="1008142738">
-									<reference key="NSMenu" ref="382460510"/>
-									<string key="NSTitle">None</string>
-									<string key="NSKeyEquiv"/>
-									<int key="NSKeyEquivModMask">1048576</int>
-									<int key="NSMnemonicLoc">2147483647</int>
-									<int key="NSState">1</int>
-									<reference key="NSOnImage" ref="244926933"/>
-									<reference key="NSMixedImage" ref="2387339"/>
-									<string key="NSAction">_popUpItemAction:</string>
-									<reference key="NSTarget" ref="787578515"/>
-								</object>
+								<nil key="NSMenuItem"/>
 								<bool key="NSMenuItemRespectAlignment">YES</bool>
 								<object class="NSMenu" key="NSMenu" id="382460510">
 									<string key="NSTitle">OtherViews</string>
 									<array class="NSMutableArray" key="NSMenuItems">
-										<reference ref="1008142738"/>
+										<object class="NSMenuItem" id="1008142738">
+											<reference key="NSMenu" ref="382460510"/>
+											<string key="NSTitle">None</string>
+											<string key="NSKeyEquiv"/>
+											<int key="NSKeyEquivModMask">1048576</int>
+											<int key="NSMnemonicLoc">2147483647</int>
+											<reference key="NSOnImage" ref="244926933"/>
+											<reference key="NSMixedImage" ref="2387339"/>
+											<string key="NSAction">_popUpItemAction:</string>
+											<reference key="NSTarget" ref="787578515"/>
+										</object>
 										<object class="NSMenuItem" id="283098658">
 											<reference key="NSMenu" ref="382460510"/>
 											<string key="NSTitle">Pixellate</string>
@@ -556,19 +554,70 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
-						<string key="label">selectedTag: values.imageEffect</string>
+						<string key="label">content: values.imageEffectTypes</string>
+						<reference key="source" ref="606765555"/>
+						<reference key="destination" ref="819849576"/>
+						<object class="NSNibBindingConnector" key="connector" id="1061834234">
+							<reference key="NSSource" ref="606765555"/>
+							<reference key="NSDestination" ref="819849576"/>
+							<string key="NSLabel">content: values.imageEffectTypes</string>
+							<string key="NSBinding">content</string>
+							<string key="NSKeyPath">values.imageEffectTypes</string>
+							<int key="NSNibBindingConnectorVersion">2</int>
+						</object>
+					</object>
+					<int key="connectionID">354</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBBindingConnection" key="connection">
+						<string key="label">contentObjects: values.imageEffectTypes.id</string>
+						<reference key="source" ref="606765555"/>
+						<reference key="destination" ref="819849576"/>
+						<object class="NSNibBindingConnector" key="connector" id="853095924">
+							<reference key="NSSource" ref="606765555"/>
+							<reference key="NSDestination" ref="819849576"/>
+							<string key="NSLabel">contentObjects: values.imageEffectTypes.id</string>
+							<string key="NSBinding">contentObjects</string>
+							<string key="NSKeyPath">values.imageEffectTypes.id</string>
+							<reference key="NSPreviousConnector" ref="1061834234"/>
+							<int key="NSNibBindingConnectorVersion">2</int>
+						</object>
+					</object>
+					<int key="connectionID">358</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBBindingConnection" key="connection">
+						<string key="label">contentValues: values.imageEffectTypes.name</string>
+						<reference key="source" ref="606765555"/>
+						<reference key="destination" ref="819849576"/>
+						<object class="NSNibBindingConnector" key="connector" id="800739344">
+							<reference key="NSSource" ref="606765555"/>
+							<reference key="NSDestination" ref="819849576"/>
+							<string key="NSLabel">contentValues: values.imageEffectTypes.name</string>
+							<string key="NSBinding">contentValues</string>
+							<string key="NSKeyPath">values.imageEffectTypes.name</string>
+							<reference key="NSPreviousConnector" ref="853095924"/>
+							<int key="NSNibBindingConnectorVersion">2</int>
+						</object>
+					</object>
+					<int key="connectionID">370</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBBindingConnection" key="connection">
+						<string key="label">selectedObject: values.selectedImageEffectId</string>
 						<reference key="source" ref="606765555"/>
 						<reference key="destination" ref="819849576"/>
 						<object class="NSNibBindingConnector" key="connector">
 							<reference key="NSSource" ref="606765555"/>
 							<reference key="NSDestination" ref="819849576"/>
-							<string key="NSLabel">selectedTag: values.imageEffect</string>
-							<string key="NSBinding">selectedTag</string>
-							<string key="NSKeyPath">values.imageEffect</string>
+							<string key="NSLabel">selectedObject: values.selectedImageEffectId</string>
+							<string key="NSBinding">selectedObject</string>
+							<string key="NSKeyPath">values.selectedImageEffectId</string>
+							<reference key="NSPreviousConnector" ref="800739344"/>
 							<int key="NSNibBindingConnectorVersion">2</int>
 						</object>
 					</object>
-					<int key="connectionID">143</int>
+					<int key="connectionID">373</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
@@ -631,8 +680,8 @@
 							<reference ref="177571657"/>
 							<reference ref="872438"/>
 							<reference ref="119413481"/>
-							<reference ref="606765555"/>
 							<reference ref="668855721"/>
+							<reference ref="606765555"/>
 						</array>
 						<reference key="parent" ref="1005"/>
 					</object>
@@ -887,7 +936,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">349</int>
+			<int key="maxID">373</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">

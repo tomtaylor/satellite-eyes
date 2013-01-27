@@ -101,10 +101,87 @@
 			<integer>17</integer>
 		</dict>
 	</array>
+	<key>imageEffectTypes</key>
+	<array>
+		<dict>
+			<key>id</key>
+			<string>none</string>
+			<key>name</key>
+			<string>None</string>
+			<key>filters</key>
+			<array/>
+		</dict>
+		<dict>
+			<key>id</key>
+			<string>pixellate</string>
+			<key>name</key>
+			<string>Pixellate</string>
+			<key>filters</key>
+			<array>
+				<dict>
+					<key>name</key>
+					<string>CIPixellate</string>
+					<key>parameters</key>
+					<array>
+						<dict>
+							<key>name</key>
+							<string>inputScale</string>
+							<key>value</key>
+							<integer>8</integer>
+						</dict>
+					</array>
+				</dict>
+			</array>
+		</dict>
+		<dict>
+			<key>id</key>
+			<string>halftone</string>
+			<key>name</key>
+			<string>Halftone</string>
+			<key>filters</key>
+			<array>
+				<dict>
+					<key>name</key>
+					<string>CIDotScreen</string>
+					<key>parameters</key>
+					<array>
+						<dict>
+							<key>name</key>
+							<string>inputWidth</string>
+							<key>value</key>
+							<integer>2</integer>
+						</dict>
+					</array>
+				</dict>
+			</array>
+		</dict>
+		<dict>
+			<key>id</key>
+			<string>desaturate</string>
+			<key>name</key>
+			<string>Desaturate</string>
+			<key>filters</key>
+			<array>
+				<dict>
+					<key>name</key>
+					<string>CIColorControls</string>
+					<key>parameters</key>
+					<array>
+						<dict>
+							<key>name</key>
+							<string>inputSaturation</string>
+							<key>value</key>
+							<real>0.1</real>
+						</dict>
+					</array>
+				</dict>
+			</array>
+		</dict>
+	</array>
 	<key>zoomLevel</key>
 	<integer>15</integer>
-	<key>imageEffect</key>
-	<integer>0</integer>
+	<key>selectedImageEffectId</key>
+	<string>none</string>
 	<key>selectedMapTypeId</key>
 	<string>stamen-watercolor</string>
 	<key>cleanCache</key>
