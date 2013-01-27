@@ -31,6 +31,16 @@ To build for Debug:
 
 3. Build!
 
+Thanks
+--
+
+Many thanks to the following folks for their contributions to Satellite Eyes:
+
+* [James Bridle](https://github.com/stml) for the icon.
+* [Justin Hileman](https://github.com/bobthecow) for work on the image effects
+  pipeline.
+* [Alex Forey](https://github.com/alfo) for Retina compatible icons.
+
 Contributions
 --
 
