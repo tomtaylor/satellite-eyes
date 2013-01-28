@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		CAB49D4616B68D970039E59E /* menu-black@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CAB49D4216B68D970039E59E /* menu-black@2x.png */; };
+		CAB49D4716B68D970039E59E /* menu-blue@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CAB49D4316B68D970039E59E /* menu-blue@2x.png */; };
+		CAB49D4816B68D970039E59E /* menu-outline@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CAB49D4416B68D970039E59E /* menu-outline@2x.png */; };
+		CAB49D4916B68D970039E59E /* menu-red@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CAB49D4516B68D970039E59E /* menu-red@2x.png */; };
 		E20D5C3A14F1B6940075072F /* MD5Digest.m in Sources */ = {isa = PBXBuildFile; fileRef = E20D5C3914F1B6940075072F /* MD5Digest.m */; };
 		E20D5C3F14F1BC5B0075072F /* TTMapManager.m in Sources */ = {isa = PBXBuildFile; fileRef = E20D5C3E14F1BC5B0075072F /* TTMapManager.m */; };
 		E210613015910B5B00F0F008 /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E210612F15910B5B00F0F008 /* Sparkle.framework */; };
@@ -102,6 +106,10 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		CAB49D4216B68D970039E59E /* menu-black@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "menu-black@2x.png"; sourceTree = "<group>"; };
+		CAB49D4316B68D970039E59E /* menu-blue@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "menu-blue@2x.png"; sourceTree = "<group>"; };
+		CAB49D4416B68D970039E59E /* menu-outline@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "menu-outline@2x.png"; sourceTree = "<group>"; };
+		CAB49D4516B68D970039E59E /* menu-red@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "menu-red@2x.png"; sourceTree = "<group>"; };
 		E20D5C3814F1B6940075072F /* MD5Digest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MD5Digest.h; path = SatelliteEyes/MD5Digest.h; sourceTree = "<group>"; };
 		E20D5C3914F1B6940075072F /* MD5Digest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MD5Digest.m; path = SatelliteEyes/MD5Digest.m; sourceTree = "<group>"; };
 		E20D5C3D14F1BC5B0075072F /* TTMapManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTMapManager.h; path = SatelliteEyes/TTMapManager.h; sourceTree = SOURCE_ROOT; };
@@ -335,6 +343,10 @@
 				E2A86968154D887600404147 /* bing-logo.png */,
 				E2F26E2C1531F3F400909C74 /* icon.icns */,
 				E28CBFF1152F3AC2008876BD /* menu-blue.png */,
+				CAB49D4216B68D970039E59E /* menu-black@2x.png */,
+				CAB49D4316B68D970039E59E /* menu-blue@2x.png */,
+				CAB49D4416B68D970039E59E /* menu-outline@2x.png */,
+				CAB49D4516B68D970039E59E /* menu-red@2x.png */,
 				E28CBFF2152F3AC2008876BD /* menu-red.png */,
 				E28CBFEF152F3231008876BD /* menu-black.png */,
 			);
@@ -485,6 +497,10 @@
 				E274ADCC155ECED500608B3A /* menu-outline.png in Resources */,
 				E28F865615C57E9C0008E19B /* README.txt in Resources */,
 				E25F6DFF160F0E210026C9D0 /* loading.png in Resources */,
+				CAB49D4616B68D970039E59E /* menu-black@2x.png in Resources */,
+				CAB49D4716B68D970039E59E /* menu-blue@2x.png in Resources */,
+				CAB49D4816B68D970039E59E /* menu-outline@2x.png in Resources */,
+				CAB49D4916B68D970039E59E /* menu-red@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
