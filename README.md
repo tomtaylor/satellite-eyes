@@ -11,7 +11,7 @@ It's available for download at
 Building
 --
 
-Satellite Eyes (SE) is an Xcode 4.4 compatible project, targeting 10.7 upwards.
+Satellite Eyes (SE) is an Xcode 4.6 compatible project, targeting 10.7 upwards.
 It seems to work best on 10.8, as 10.7 has a few bugs in Location Services that
 I haven't got round to looking at properly.
 
