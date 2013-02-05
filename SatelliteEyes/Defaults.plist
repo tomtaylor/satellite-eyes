@@ -82,16 +82,6 @@
 		</dict>
 		<dict>
 			<key>id</key>
-			<string>mapbox-warden</string>
-			<key>source</key>
-			<string>http://a.tiles.mapbox.com/v3/mapbox.mapbox-warden/{z}/{x}/{y}.png</string>
-			<key>name</key>
-			<string>MapBox Warden</string>
-			<key>maxZoom</key>
-			<integer>17</integer>
-		</dict>
-		<dict>
-			<key>id</key>
 			<string>mapbox-streets</string>
 			<key>source</key>
 			<string>http://a.tiles.mapbox.com/v3/mapbox.mapbox-streets/{z}/{x}/{y}.png</string>
