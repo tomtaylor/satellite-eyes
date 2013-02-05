@@ -116,4 +116,15 @@
     [NSApp terminate:nil];
 }
 
+- (NSURL *)visibleMapBrowserURL {
+    return [mapManager browserURL];
+}
+
+- (void)openMapInBrowser:(id)sender {
+    NSURL *browserURL = [mapManager browserURL];
+    if (browserURL) {
+        [[NSWorkspace sharedWorkspace] openURL:browserURL];
+    }
+}
+
 @end

@@ -13,6 +13,7 @@
     NSStatusItem *statusItem;
     NSMenuItem *statusMenuItem;
     NSMenuItem *forceMapUpdateMenuItem;
+    NSMenuItem *openInBrowserMenuItem;
     NSImage *activeImage;
     NSImage *inactiveImage;
     NSImage *errorImage;

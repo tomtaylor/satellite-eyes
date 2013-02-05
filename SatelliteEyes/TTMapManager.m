@@ -376,6 +376,34 @@
     }];
 }
 
+- (NSURL *)browserURL {
+    if (!lastSeenLocation) {
+        return nil;
+    }
+    
+    NSString *browserURL = [self.selectedMapType objectForKey:@"browserURL"];
+    if (!browserURL) {
+        return nil;
+    }
+    
+    NSNumberFormatter *coordinateFormatter = [[NSNumberFormatter alloc] init];
+    [coordinateFormatter setNumberStyle:NSNumberFormatterDecimalStyle];
+    [coordinateFormatter setMaximumFractionDigits:8];
+    
+    NSNumber *latitudeNumber = [NSNumber numberWithDouble:lastSeenLocation.coordinate.latitude];
+    NSNumber *longitudeNumber = [NSNumber numberWithDouble:lastSeenLocation.coordinate.longitude];
+    
+    NSString *latitudeString = [coordinateFormatter stringFromNumber:latitudeNumber];
+    NSString *longitudeString = [coordinateFormatter stringFromNumber:longitudeNumber];
+    NSString *zoomString = [NSString stringWithFormat:@"%u", self.zoomLevel];
+    
+    browserURL = [browserURL stringByReplacingOccurrencesOfString:@"{latitude}" withString:latitudeString];
+    browserURL = [browserURL stringByReplacingOccurrencesOfString:@"{longitude}" withString:longitudeString];
+    browserURL = [browserURL stringByReplacingOccurrencesOfString:@"{zoom}" withString:zoomString];
+    
+    return [NSURL URLWithString:browserURL];
+}
+
 - (void)dealloc
 {
     [reachability stopNotifier];

@@ -13,6 +13,8 @@
 			<string>Stamen Watercolor</string>
 			<key>maxZoom</key>
 			<integer>17</integer>
+			<key>browserURL</key>
+			<string>http://maps.stamen.com/watercolor/#{zoom}/{latitude}/{longitude}</string>
 		</dict>
 		<dict>
 			<key>id</key>
@@ -21,6 +23,8 @@
 			<string>http://a.tile.stamen.com/toner/{z}/{x}/{y}.png</string>
 			<key>name</key>
 			<string>Stamen Toner</string>
+			<key>browserURL</key>
+			<string>http://maps.stamen.com/toner/#{zoom}/{latitude}/{longitude}</string>
 		</dict>
 		<dict>
 			<key>id</key>
@@ -29,6 +33,8 @@
 			<string>http://tile.stamen.com/toner-background/{z}/{x}/{y}.png</string>
 			<key>name</key>
 			<string>Stamen Toner Background</string>
+			<key>browserURL</key>
+			<string>http://maps.stamen.com/toner-background/#{zoom}/{latitude}/{longitude}</string>
 		</dict>
 		<dict>
 			<key>id</key>
@@ -37,6 +43,8 @@
 			<string>http://tile.stamen.com/toner-lite/{z}/{x}/{y}.png</string>
 			<key>name</key>
 			<string>Stamen Toner Lite</string>
+			<key>browserURL</key>
+			<string>http://maps.stamen.com/toner-lite/#{zoom}/{latitude}/{longitude}</string>
 		</dict>
 		<dict>
 			<key>id</key>
@@ -47,6 +55,8 @@
 			<string>Stamen Terrain (US only)</string>
 			<key>maxZoom</key>
 			<integer>18</integer>
+			<key>browserURL</key>
+			<string>http://maps.stamen.com/terrain/#{zoom}/{latitude}/{longitude}</string>
 		</dict>
 		<dict>
 			<key>id</key>
@@ -59,6 +69,8 @@
 			<string>Bing Aerial</string>
 			<key>maxZoom</key>
 			<integer>17</integer>
+			<key>browserURL</key>
+			<string>http://bing.com/maps/default.aspx?v=2&amp;cp={latitude}~{longitude}&amp;lvl={zoom}&amp;style=a</string>
 		</dict>
 		<dict>
 			<key>id</key>
@@ -69,6 +81,8 @@
 			<string>MapBox Light</string>
 			<key>maxZoom</key>
 			<integer>17</integer>
+			<key>browserURL</key>
+			<string>https://tiles.mapbox.com/tomtaylor/map/map-4hs0y67t#{zoom}/{latitude}/{longitude}</string>
 		</dict>
 		<dict>
 			<key>id</key>
@@ -79,6 +93,8 @@
 			<string>MapBox Terrain</string>
 			<key>maxZoom</key>
 			<integer>17</integer>
+			<key>browserURL</key>
+			<string>https://tiles.mapbox.com/tomtaylor/map/map-q0kbynb9#{zoom}/{latitude}/{longitude}</string>
 		</dict>
 		<dict>
 			<key>id</key>
@@ -89,6 +105,8 @@
 			<string>MapBox Streets</string>
 			<key>maxZoom</key>
 			<integer>17</integer>
+			<key>browserURL</key>
+			<string>https://tiles.mapbox.com/tomtaylor/map/map-l0knec12#{zoom}/{latitude}/{longitude}</string>
 		</dict>
 		<dict>
 			<key>id</key>
@@ -99,6 +117,8 @@
 			<string>MapBox Satellite</string>
 			<key>maxZoom</key>
 			<integer>17</integer>
+			<key>browserURL</key>
+			<string>https://tiles.mapbox.com/tomtaylor/map/map-vjvxqzcd#{zoom}/{latitude}/{longitude}</string>
 		</dict>
 	</array>
 	<key>imageEffectTypes</key>

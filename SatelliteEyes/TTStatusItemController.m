@@ -6,6 +6,7 @@
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
+#import "TTAppDelegate.h"
 #import "TTStatusItemController.h"
 #import "TTMapManager.h"
 #import "Reachability.h"
@@ -33,6 +34,10 @@
         forceMapUpdateMenuItem = [[NSMenuItem alloc] initWithTitle:@"Refresh the map now" action:@selector(forceMapUpdate:) keyEquivalent:@""];
         [forceMapUpdateMenuItem setEnabled:NO];
         [menu addItem:forceMapUpdateMenuItem];
+        
+        openInBrowserMenuItem = [[NSMenuItem alloc] initWithTitle:@"Open in browser" action:@selector(openMapInBrowser:) keyEquivalent:@""];
+        [openInBrowserMenuItem setEnabled:NO];
+        [menu addItem:openInBrowserMenuItem];
         
         [menu addItem:[NSMenuItem separatorItem]];
         
@@ -102,6 +107,8 @@
 - (void)updateStatus {
     if (mapManagerhasLocation) {
         [forceMapUpdateMenuItem setEnabled:YES];
+        [self enableOpenInBrowser];
+        
         if (mapManagerisActive) {
             [self showActivity];
             
@@ -115,6 +122,7 @@
     } else {
         [self showOffline];
         [forceMapUpdateMenuItem setEnabled:NO];
+        [self disableOpenInBrowser];
     }
 }
     
@@ -143,6 +151,19 @@
 - (void)showError {
     statusItem.image = errorImage;
     statusMenuItem.title = @"Problem updating the map";
+}
+
+- (void)enableOpenInBrowser {
+    // It's a bit hacky to reach up into the App Delegate for this, but hey.
+    TTAppDelegate *appDelegate = (TTAppDelegate *)[[NSApplication sharedApplication] delegate];
+    
+    if ([appDelegate visibleMapBrowserURL]) {
+        [openInBrowserMenuItem setEnabled:YES];
+    }
+}
+
+- (void)disableOpenInBrowser {
+    [openInBrowserMenuItem setEnabled:NO];
 }
 
 - (void)dealloc {

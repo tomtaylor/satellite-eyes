@@ -21,5 +21,6 @@
 
 - (void)menuActionExit:(id)sender;
 - (void)setUserDefaults;
+- (NSURL *)visibleMapBrowserURL;
 
 @end
