@@ -51,6 +51,8 @@
 	<true/>
 	<key>SUEnableSystemProfiling</key>
 	<false/>
+	<key>NSSupportsAutomaticGraphicsSwitching</key>
+	<true/>
 	<key>SUFeedURL</key>
 	<string>https://satellite-eyes.s3.amazonaws.com/appcast.xml</string>
 </dict>
