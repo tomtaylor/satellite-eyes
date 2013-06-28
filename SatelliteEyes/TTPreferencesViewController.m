@@ -13,6 +13,7 @@
 
 @synthesize startAtLogin;
 @synthesize aboutView;
+@synthesize manageMapStylesWindowController;
 
 - (void)awakeFromNib {
     self.startAtLogin = [LLManager launchAtLogin];
@@ -51,6 +52,13 @@ decisionListener:(id <WebPolicyDecisionListener>)listener
     else {
         [listener use];
     }
+}
+
+- (IBAction)showManageMapStyles:(id)sender {
+    self.manageMapStylesWindowController = [[TTManageMapStylesWindowController alloc] init];
+    [manageMapStylesWindowController showWindow:self];
+    [manageMapStylesWindowController.window makeKeyAndOrderFront:self];
+    [manageMapStylesWindowController.window makeFirstResponder:nil];
 }
 
 @end

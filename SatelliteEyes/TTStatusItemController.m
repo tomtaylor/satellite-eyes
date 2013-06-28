@@ -159,6 +159,8 @@
     
     if ([appDelegate visibleMapBrowserURL]) {
         [openInBrowserMenuItem setEnabled:YES];
+    } else {
+        [openInBrowserMenuItem setEnabled:NO];
     }
 }
 

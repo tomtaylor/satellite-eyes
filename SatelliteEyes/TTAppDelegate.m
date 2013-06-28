@@ -67,9 +67,10 @@
 }
 
 - (void)setUserDefaults {
-    [[NSUserDefaults standardUserDefaults] registerDefaults:
-     [NSDictionary dictionaryWithContentsOfFile:
-      [[NSBundle mainBundle] pathForResource:@"Defaults" ofType:@"plist"]]];
+    NSDictionary *appDefaults = [NSDictionary dictionaryWithContentsOfFile:
+                                [[NSBundle mainBundle] pathForResource:@"Defaults" ofType:@"plist"]];
+    [[NSUserDefaults standardUserDefaults] registerDefaults:appDefaults];
+    [[NSUserDefaultsController sharedUserDefaultsController] setInitialValues:appDefaults];
 }
 
 - (void)doFirstRun {
