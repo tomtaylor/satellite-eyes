@@ -112,7 +112,7 @@
 							<object class="NSTextFieldCell" key="NSCell" id="623701031">
 								<int key="NSCellFlags">68157504</int>
 								<int key="NSCellFlags2">272630784</int>
-								<string key="NSContents">Use {z} for zoom level, {x} for latitude, {y} for longitude</string>
+								<string key="NSContents">Use {x} for latitude, {y} for longitude, and {z} for zoom level.</string>
 								<object class="NSFont" key="NSSupport" id="26">
 									<string key="NSName">LucidaGrande</string>
 									<double key="NSSize">11</double>
