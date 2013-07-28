@@ -2,9 +2,9 @@
 <archive type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="8.00">
 	<data>
 		<int key="IBDocument.SystemTarget">1080</int>
-		<string key="IBDocument.SystemVersion">12D78</string>
+		<string key="IBDocument.SystemVersion">12E55</string>
 		<string key="IBDocument.InterfaceBuilderVersion">3084</string>
-		<string key="IBDocument.AppKitVersion">1187.37</string>
+		<string key="IBDocument.AppKitVersion">1187.39</string>
 		<string key="IBDocument.HIToolboxVersion">626.00</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginVersions">
 			<string key="NS.key.0">com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -103,16 +103,15 @@
 						<object class="NSTextField" id="135544798">
 							<reference key="NSNextResponder" ref="1006"/>
 							<int key="NSvFlags">268</int>
-							<string key="NSFrame">{{194, 20}, {351, 17}}</string>
+							<string key="NSFrame">{{194, 20}, {456, 17}}</string>
 							<reference key="NSSuperview" ref="1006"/>
 							<reference key="NSWindow"/>
-							<reference key="NSNextKeyView"/>
 							<string key="NSReuseIdentifierKey">_NS:1535</string>
 							<bool key="NSEnabled">YES</bool>
 							<object class="NSTextFieldCell" key="NSCell" id="623701031">
 								<int key="NSCellFlags">68157504</int>
 								<int key="NSCellFlags2">272630784</int>
-								<string key="NSContents">Use {x} for latitude, {y} for longitude, and {z} for zoom level.</string>
+								<string key="NSContents">Use {x} for tile x offset, {y} for tile y offset, {z} for zoom level, and {q} for quadkey.</string>
 								<object class="NSFont" key="NSSupport" id="26">
 									<string key="NSName">LucidaGrande</string>
 									<double key="NSSize">11</double>
@@ -139,7 +138,7 @@
 											<string key="NSFrameSize">{627, 258}</string>
 											<reference key="NSSuperview" ref="503089042"/>
 											<reference key="NSWindow"/>
-											<reference key="NSNextKeyView" ref="249427260"/>
+											<reference key="NSNextKeyView" ref="625621686"/>
 											<string key="NSReuseIdentifierKey">_NS:13</string>
 											<bool key="NSEnabled">YES</bool>
 											<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
@@ -311,7 +310,7 @@
 							<string key="NSFrame">{{20, 49}, {629, 276}}</string>
 							<reference key="NSSuperview" ref="1006"/>
 							<reference key="NSWindow"/>
-							<reference key="NSNextKeyView" ref="625621686"/>
+							<reference key="NSNextKeyView" ref="503089042"/>
 							<string key="NSReuseIdentifierKey">_NS:9</string>
 							<int key="NSsFlags">133682</int>
 							<reference key="NSVScroller" ref="249427260"/>
@@ -879,22 +878,6 @@
 						<reference key="object" ref="135544798"/>
 						<array class="NSMutableArray" key="children">
 							<reference ref="623701031"/>
-							<object class="IBNSLayoutConstraint" id="424648188">
-								<reference key="firstItem" ref="135544798"/>
-								<int key="firstAttribute">7</int>
-								<int key="relation">0</int>
-								<nil key="secondItem"/>
-								<int key="secondAttribute">0</int>
-								<float key="multiplier">1</float>
-								<object class="IBLayoutConstant" key="constant">
-									<double key="value">345</double>
-								</object>
-								<float key="priority">1000</float>
-								<reference key="containingView" ref="135544798"/>
-								<int key="scoringType">3</int>
-								<float key="scoringTypeFloat">9</float>
-								<int key="contentType">1</int>
-							</object>
 							<object class="IBNSLayoutConstraint" id="871181575">
 								<reference key="firstItem" ref="135544798"/>
 								<int key="firstAttribute">8</int>
@@ -1139,11 +1122,6 @@
 						<reference key="parent" ref="135544798"/>
 					</object>
 					<object class="IBObjectRecord">
-						<int key="objectID">351</int>
-						<reference key="object" ref="424648188"/>
-						<reference key="parent" ref="135544798"/>
-					</object>
-					<object class="IBObjectRecord">
 						<int key="objectID">352</int>
 						<reference key="object" ref="533636296"/>
 						<reference key="parent" ref="1066306710"/>
@@ -1277,7 +1255,6 @@
 				<string key="315.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="343.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="348.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
-				<string key="351.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="352.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="359.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="360.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -1287,9 +1264,8 @@
 				<string key="365.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="367.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="368.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
-				<array key="72.IBNSViewMetadataConstraints">
+				<array class="NSMutableArray" key="72.IBNSViewMetadataConstraints">
 					<reference ref="871181575"/>
-					<reference ref="424648188"/>
 				</array>
 				<boolean value="NO" key="72.IBNSViewMetadataTranslatesAutoresizingMaskIntoConstraints"/>
 				<string key="72.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
