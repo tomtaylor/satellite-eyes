@@ -20,7 +20,11 @@ you'll work it out.
 
 To build for Debug:
 
-1. Create a new Code Signing cert named "Mac Developer".
+1. Create a new Code Signing cert named "Mac Developer". If you don't have a Mac
+   developer account and can't create a cert, you can disable code signing for
+   local development. To do this, under Build Settings, set "Code Signing
+   Identity" to "Don't Code Sign" for the Debug configuration on both the
+   SatelliteEyes and LaunchAtLoginHelper targets.
 
 2. Set up the LaunchAtLoginHelper:
    
