@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		633D3A2A17764338003CAE50 /* TTMapTypesArrayController.m in Sources */ = {isa = PBXBuildFile; fileRef = 633D3A2917764338003CAE50 /* TTMapTypesArrayController.m */; };
+		635E331717750DB300E6CD89 /* TTManageMapStylesWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 635E331617750DB300E6CD89 /* TTManageMapStylesWindow.xib */; };
+		635E33201775135100E6CD89 /* TTManageMapStylesWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 635E331E1775135000E6CD89 /* TTManageMapStylesWindowController.m */; };
 		CAB49D4616B68D970039E59E /* menu-black@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CAB49D4216B68D970039E59E /* menu-black@2x.png */; };
 		CAB49D4716B68D970039E59E /* menu-blue@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CAB49D4316B68D970039E59E /* menu-blue@2x.png */; };
 		CAB49D4816B68D970039E59E /* menu-outline@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CAB49D4416B68D970039E59E /* menu-outline@2x.png */; };
@@ -106,6 +109,11 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		633D3A2817764338003CAE50 /* TTMapTypesArrayController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTMapTypesArrayController.h; path = ../TTMapTypesArrayController.h; sourceTree = "<group>"; };
+		633D3A2917764338003CAE50 /* TTMapTypesArrayController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TTMapTypesArrayController.m; path = ../TTMapTypesArrayController.m; sourceTree = "<group>"; };
+		635E331617750DB300E6CD89 /* TTManageMapStylesWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TTManageMapStylesWindow.xib; sourceTree = "<group>"; };
+		635E331D1775134F00E6CD89 /* TTManageMapStylesWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTManageMapStylesWindowController.h; sourceTree = "<group>"; };
+		635E331E1775135000E6CD89 /* TTManageMapStylesWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTManageMapStylesWindowController.m; sourceTree = "<group>"; };
 		CAB49D4216B68D970039E59E /* menu-black@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "menu-black@2x.png"; sourceTree = "<group>"; };
 		CAB49D4316B68D970039E59E /* menu-blue@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "menu-blue@2x.png"; sourceTree = "<group>"; };
 		CAB49D4416B68D970039E59E /* menu-outline@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "menu-outline@2x.png"; sourceTree = "<group>"; };
@@ -266,10 +274,14 @@
 				E28CBFF5152F3DF4008876BD /* NIBs */,
 				E2796C2714F0FFE200B054AD /* TTAppDelegate.h */,
 				E2796C2814F0FFE200B054AD /* TTAppDelegate.m */,
+				635E331D1775134F00E6CD89 /* TTManageMapStylesWindowController.h */,
+				635E331E1775135000E6CD89 /* TTManageMapStylesWindowController.m */,
 				E2796C3214F1078D00B054AD /* TTMapImage.h */,
 				E2796C3314F1078D00B054AD /* TTMapImage.m */,
 				E2796C3714F1233500B054AD /* TTMapTile.h */,
 				E2796C3814F1233500B054AD /* TTMapTile.m */,
+				633D3A2817764338003CAE50 /* TTMapTypesArrayController.h */,
+				633D3A2917764338003CAE50 /* TTMapTypesArrayController.m */,
 				E20D5C3D14F1BC5B0075072F /* TTMapManager.h */,
 				E20D5C3E14F1BC5B0075072F /* TTMapManager.m */,
 				E24334B114F2FFC800F57E36 /* TTStatusItemController.h */,
@@ -358,6 +370,7 @@
 			children = (
 				E2796C2A14F0FFE300B054AD /* MainMenu.xib */,
 				E2CC3335152E011600799D46 /* TTPreferencesWindow.xib */,
+				635E331617750DB300E6CD89 /* TTManageMapStylesWindow.xib */,
 			);
 			name = NIBs;
 			sourceTree = "<group>";
@@ -501,6 +514,7 @@
 				CAB49D4716B68D970039E59E /* menu-blue@2x.png in Resources */,
 				CAB49D4816B68D970039E59E /* menu-outline@2x.png in Resources */,
 				CAB49D4916B68D970039E59E /* menu-red@2x.png in Resources */,
+				635E331717750DB300E6CD89 /* TTManageMapStylesWindow.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -557,6 +571,8 @@
 				E28F865315C57E9C0008E19B /* DDTTYLogger.m in Sources */,
 				E28F865415C57E9C0008E19B /* ContextFilterLogFormatter.m in Sources */,
 				E28F865515C57E9C0008E19B /* DispatchQueueLogFormatter.m in Sources */,
+				635E33201775135100E6CD89 /* TTManageMapStylesWindowController.m in Sources */,
+				633D3A2A17764338003CAE50 /* TTMapTypesArrayController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
