@@ -120,6 +120,42 @@
 			<key>browserURL</key>
 			<string>https://tiles.mapbox.com/tomtaylor/map/map-vjvxqzcd#{zoom}/{latitude}/{longitude}</string>
 		</dict>
+		<dict>
+			<key>id</key>
+			<string>thunderforest-opencyclemap</string>
+			<key>source</key>
+      <string>http://a.tile.opencyclemap.org/cycle/{z}/{x}/{y}.png</string>
+			<key>name</key>
+			<string>Thunderforest OpenCycleMap</string>
+			<key>browserURL</key>
+      <string>http://www.opencyclemap.org/?zoom={zoom}&amp;lat={latitude}&amp;lon={longitude}&amp;layers=B000</string>
+		</dict>
+		<dict>
+			<key>id</key>
+			<string>thunderforest-transport</string>
+			<key>source</key>
+      <string>http://a.tile2.opencyclemap.org/transport/{z}/{x}/{y}.png</string>
+			<key>name</key>
+			<string>Thunderforest Transport</string>
+			<key>browserURL</key>
+      <string>http://www.openstreetmap.org/?zoom={zoom}&amp;lat={latitude}&amp;lon={longitude}&amp;layers=T</string>
+		</dict>
+		<dict>
+			<key>id</key>
+			<string>thunderforest-landscape</string>
+			<key>source</key>
+      <string>http://a.tile3.opencyclemap.org/landscape/{z}/{x}/{y}.png</string>
+			<key>name</key>
+			<string>Thunderforest Landscape</string>
+		</dict>
+		<dict>
+			<key>id</key>
+			<string>thunderforest-outdoors</string>
+			<key>source</key>
+      <string>http://a.tile.thunderforest.com/outdoors/{z}/{x}/{y}.png</string>
+			<key>name</key>
+			<string>Thunderforest Outdoors</string>
+		</dict>
 	</array>
 	<key>imageEffectTypes</key>
 	<array>
