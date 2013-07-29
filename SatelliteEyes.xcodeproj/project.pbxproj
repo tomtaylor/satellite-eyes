@@ -65,7 +65,6 @@
 		E2A86963154D5F6A00404147 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = E2A86962154D5F6A00404147 /* Reachability.m */; };
 		E2A86965154D60EC00404147 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E2A86964154D60EC00404147 /* SystemConfiguration.framework */; };
 		E2A86969154D887600404147 /* bing-logo.png in Resources */ = {isa = PBXBuildFile; fileRef = E2A86968154D887600404147 /* bing-logo.png */; };
-		E2B9D24B154EA09A0034A419 /* About.html in Resources */ = {isa = PBXBuildFile; fileRef = E2B9D24A154EA09A0034A419 /* About.html */; };
 		E2CC332C152DFD9600799D46 /* TTPreferencesWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = E2CC332B152DFD9600799D46 /* TTPreferencesWindowController.m */; };
 		E2CC3336152E011600799D46 /* TTPreferencesWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = E2CC3335152E011600799D46 /* TTPreferencesWindow.xib */; };
 		E2F26E2D1531F3F400909C74 /* icon.icns in Resources */ = {isa = PBXBuildFile; fileRef = E2F26E2C1531F3F400909C74 /* icon.icns */; };
@@ -209,7 +208,6 @@
 		E2A86962154D5F6A00404147 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Reachability.m; path = SatelliteEyes/Reachability.m; sourceTree = "<group>"; };
 		E2A86964154D60EC00404147 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		E2A86968154D887600404147 /* bing-logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bing-logo.png"; sourceTree = "<group>"; };
-		E2B9D24A154EA09A0034A419 /* About.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = About.html; sourceTree = "<group>"; };
 		E2B9D24C154EA56D0034A419 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		E2CC332A152DFD9600799D46 /* TTPreferencesWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTPreferencesWindowController.h; sourceTree = "<group>"; };
 		E2CC332B152DFD9600799D46 /* TTPreferencesWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTPreferencesWindowController.m; sourceTree = "<group>"; };
@@ -317,7 +315,6 @@
 				E2796C2114F0FFE200B054AD /* main.m */,
 				E2796C2314F0FFE200B054AD /* SatelliteEyes-Prefix.pch */,
 				E28CBFEA152EF132008876BD /* Defaults.plist */,
-				E2B9D24A154EA09A0034A419 /* About.html */,
 				E2224E4317A52DCF009B664E /* Credits.rtf */,
 			);
 			name = "Supporting Files";
@@ -521,7 +518,6 @@
 				E28CBFF4152F3AC2008876BD /* menu-red.png in Resources */,
 				E2F26E2D1531F3F400909C74 /* icon.icns in Resources */,
 				E2A86969154D887600404147 /* bing-logo.png in Resources */,
-				E2B9D24B154EA09A0034A419 /* About.html in Resources */,
 				E274ADCC155ECED500608B3A /* menu-outline.png in Resources */,
 				E28F865615C57E9C0008E19B /* README.txt in Resources */,
 				E25F6DFF160F0E210026C9D0 /* loading.png in Resources */,
