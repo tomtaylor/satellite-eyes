@@ -53,6 +53,8 @@
 	<false/>
 	<key>NSSupportsAutomaticGraphicsSwitching</key>
 	<true/>
+	<key>GitRevision</key>
+	<string></string>
 	<key>SUFeedURL</key>
 	<string>https://satellite-eyes.s3.amazonaws.com/appcast.xml</string>
 </dict>

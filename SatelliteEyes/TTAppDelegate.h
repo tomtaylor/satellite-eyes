@@ -10,14 +10,17 @@
 @class TTMapManager;
 @class TTStatusItemController;
 @class TTPreferencesWindowController;
+@class TTAboutWindowController;
 
 @interface TTAppDelegate : NSObject <NSApplicationDelegate> {
     TTMapManager *mapManager;
     TTStatusItemController *statusItemController;
     TTPreferencesWindowController *preferencesWindowController;
+    TTAboutWindowController *aboutWindowController;
 }
 
-@property (nonatomic, retain) TTPreferencesWindowController *preferencesWindowController;
+@property IBOutlet TTPreferencesWindowController *preferencesWindowController;
+@property IBOutlet TTAboutWindowController *aboutWindowController;
 
 - (void)menuActionExit:(id)sender;
 - (void)setUserDefaults;

@@ -41,6 +41,9 @@
         
         [menu addItem:[NSMenuItem separatorItem]];
         
+        NSMenuItem *aboutMenuItem = [[NSMenuItem alloc] initWithTitle:@"About" action:@selector(showAbout:) keyEquivalent:@""];
+        [menu addItem:aboutMenuItem];
+        
         NSMenuItem *preferencesMenuItem = [[NSMenuItem alloc] initWithTitle:@"Open preferences..." action:@selector(showPreferences:) keyEquivalent:@""];
         [menu addItem:preferencesMenuItem];
         

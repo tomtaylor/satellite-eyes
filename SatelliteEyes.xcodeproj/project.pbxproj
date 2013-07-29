@@ -18,6 +18,10 @@
 		E20D5C3F14F1BC5B0075072F /* TTMapManager.m in Sources */ = {isa = PBXBuildFile; fileRef = E20D5C3E14F1BC5B0075072F /* TTMapManager.m */; };
 		E210613015910B5B00F0F008 /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E210612F15910B5B00F0F008 /* Sparkle.framework */; };
 		E210613215910BD600F0F008 /* Sparkle.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = E210612F15910B5B00F0F008 /* Sparkle.framework */; };
+		E2224E3E17A527F8009B664E /* TTAboutWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = E2224E3C17A527F8009B664E /* TTAboutWindowController.m */; };
+		E2224E3F17A527F8009B664E /* TTAboutWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = E2224E3D17A527F8009B664E /* TTAboutWindow.xib */; };
+		E2224E4217A52A41009B664E /* TTAboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E2224E4117A52A41009B664E /* TTAboutViewController.m */; };
+		E2224E4417A52DCF009B664E /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = E2224E4317A52DCF009B664E /* Credits.rtf */; };
 		E22AD5D0153082410047BA9D /* ServiceManagement.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E22AD5CF153082410047BA9D /* ServiceManagement.framework */; };
 		E243347414F2F77C00F57E36 /* NSFileManager+StandardPaths.m in Sources */ = {isa = PBXBuildFile; fileRef = E243347314F2F77C00F57E36 /* NSFileManager+StandardPaths.m */; };
 		E24334B314F2FFC800F57E36 /* TTStatusItemController.m in Sources */ = {isa = PBXBuildFile; fileRef = E24334B214F2FFC800F57E36 /* TTStatusItemController.m */; };
@@ -62,7 +66,6 @@
 		E2A86965154D60EC00404147 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E2A86964154D60EC00404147 /* SystemConfiguration.framework */; };
 		E2A86969154D887600404147 /* bing-logo.png in Resources */ = {isa = PBXBuildFile; fileRef = E2A86968154D887600404147 /* bing-logo.png */; };
 		E2B9D24B154EA09A0034A419 /* About.html in Resources */ = {isa = PBXBuildFile; fileRef = E2B9D24A154EA09A0034A419 /* About.html */; };
-		E2B9D24D154EA56D0034A419 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E2B9D24C154EA56D0034A419 /* WebKit.framework */; };
 		E2CC332C152DFD9600799D46 /* TTPreferencesWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = E2CC332B152DFD9600799D46 /* TTPreferencesWindowController.m */; };
 		E2CC3336152E011600799D46 /* TTPreferencesWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = E2CC3335152E011600799D46 /* TTPreferencesWindow.xib */; };
 		E2F26E2D1531F3F400909C74 /* icon.icns in Resources */ = {isa = PBXBuildFile; fileRef = E2F26E2C1531F3F400909C74 /* icon.icns */; };
@@ -123,6 +126,12 @@
 		E20D5C3D14F1BC5B0075072F /* TTMapManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTMapManager.h; path = SatelliteEyes/TTMapManager.h; sourceTree = SOURCE_ROOT; };
 		E20D5C3E14F1BC5B0075072F /* TTMapManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TTMapManager.m; path = SatelliteEyes/TTMapManager.m; sourceTree = SOURCE_ROOT; };
 		E210612F15910B5B00F0F008 /* Sparkle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Sparkle.framework; sourceTree = "<group>"; };
+		E2224E3B17A527F8009B664E /* TTAboutWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTAboutWindowController.h; sourceTree = "<group>"; };
+		E2224E3C17A527F8009B664E /* TTAboutWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTAboutWindowController.m; sourceTree = "<group>"; };
+		E2224E3D17A527F8009B664E /* TTAboutWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TTAboutWindow.xib; sourceTree = "<group>"; };
+		E2224E4017A52A41009B664E /* TTAboutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTAboutViewController.h; sourceTree = "<group>"; };
+		E2224E4117A52A41009B664E /* TTAboutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTAboutViewController.m; sourceTree = "<group>"; };
+		E2224E4317A52DCF009B664E /* Credits.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; path = Credits.rtf; sourceTree = "<group>"; };
 		E22AD5CF153082410047BA9D /* ServiceManagement.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ServiceManagement.framework; path = System/Library/Frameworks/ServiceManagement.framework; sourceTree = SDKROOT; };
 		E243347214F2F77C00F57E36 /* NSFileManager+StandardPaths.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSFileManager+StandardPaths.h"; path = "SatelliteEyes/NSFileManager+StandardPaths.h"; sourceTree = "<group>"; };
 		E243347314F2F77C00F57E36 /* NSFileManager+StandardPaths.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSFileManager+StandardPaths.m"; path = "SatelliteEyes/NSFileManager+StandardPaths.m"; sourceTree = "<group>"; };
@@ -213,7 +222,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E2B9D24D154EA56D0034A419 /* WebKit.framework in Frameworks */,
 				E2A86965154D60EC00404147 /* SystemConfiguration.framework in Frameworks */,
 				E22AD5D0153082410047BA9D /* ServiceManagement.framework in Frameworks */,
 				E2A7E2B914FAB12A00AAA82A /* QuartzCore.framework in Frameworks */,
@@ -290,6 +298,10 @@
 				E2A7E2BC14FB779300AAA82A /* TTPreferencesViewController.m */,
 				E2CC332A152DFD9600799D46 /* TTPreferencesWindowController.h */,
 				E2CC332B152DFD9600799D46 /* TTPreferencesWindowController.m */,
+				E2224E3B17A527F8009B664E /* TTAboutWindowController.h */,
+				E2224E3C17A527F8009B664E /* TTAboutWindowController.m */,
+				E2224E4017A52A41009B664E /* TTAboutViewController.h */,
+				E2224E4117A52A41009B664E /* TTAboutViewController.m */,
 				E28CBFEC152F2F5C008876BD /* Assets */,
 				E2796C1C14F0FFE200B054AD /* Supporting Files */,
 			);
@@ -306,6 +318,7 @@
 				E2796C2314F0FFE200B054AD /* SatelliteEyes-Prefix.pch */,
 				E28CBFEA152EF132008876BD /* Defaults.plist */,
 				E2B9D24A154EA09A0034A419 /* About.html */,
+				E2224E4317A52DCF009B664E /* Credits.rtf */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -371,6 +384,7 @@
 				E2796C2A14F0FFE300B054AD /* MainMenu.xib */,
 				E2CC3335152E011600799D46 /* TTPreferencesWindow.xib */,
 				635E331617750DB300E6CD89 /* TTManageMapStylesWindow.xib */,
+				E2224E3D17A527F8009B664E /* TTAboutWindow.xib */,
 			);
 			name = NIBs;
 			sourceTree = "<group>";
@@ -438,6 +452,7 @@
 				E2796C0E14F0FFE200B054AD /* Frameworks */,
 				E2796C0F14F0FFE200B054AD /* Resources */,
 				E210613115910BC800F0F008 /* CopyFiles */,
+				E2224E4517A6525C009B664E /* ShellScript */,
 				E22AD5DD1530834B0047BA9D /* CopyFiles */,
 				E2FADF52156E1540002CEFEF /* ShellScript */,
 			);
@@ -515,12 +530,27 @@
 				CAB49D4816B68D970039E59E /* menu-outline@2x.png in Resources */,
 				CAB49D4916B68D970039E59E /* menu-red@2x.png in Resources */,
 				635E331717750DB300E6CD89 /* TTManageMapStylesWindow.xib in Resources */,
+				E2224E3F17A527F8009B664E /* TTAboutWindow.xib in Resources */,
+				E2224E4417A52DCF009B664E /* Credits.rtf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		E2224E4517A6525C009B664E /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "BUILD_NUMBER=`git rev-parse --short HEAD`\n/usr/libexec/PlistBuddy -c \"Set :GitRevision $BUILD_NUMBER\" \"${TARGET_BUILD_DIR}\"/\"${INFOPLIST_PATH}\"";
+		};
 		E2FADF52156E1540002CEFEF /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -573,6 +603,8 @@
 				E28F865515C57E9C0008E19B /* DispatchQueueLogFormatter.m in Sources */,
 				635E33201775135100E6CD89 /* TTManageMapStylesWindowController.m in Sources */,
 				633D3A2A17764338003CAE50 /* TTMapTypesArrayController.m in Sources */,
+				E2224E3E17A527F8009B664E /* TTAboutWindowController.m in Sources */,
+				E2224E4217A52A41009B664E /* TTAboutViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

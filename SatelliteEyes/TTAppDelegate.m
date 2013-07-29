@@ -10,13 +10,14 @@
 #import "TTMapManager.h"
 #import "TTStatusItemController.h"
 #import "TTPreferencesWindowController.h"
+#import "TTAboutWindowController.h"
 #import "LLManager.h"
 #import "DDASLLogger.h"
 #import "DDTTYLogger.h"
 
 @implementation TTAppDelegate
 
-@synthesize preferencesWindowController;
+@synthesize preferencesWindowController, aboutWindowController;
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
@@ -56,6 +57,13 @@
     [preferencesWindowController showWindow:self];
     [preferencesWindowController.window makeKeyAndOrderFront:self];
     [preferencesWindowController.window makeFirstResponder:nil];
+}
+
+- (void)showAbout:(id)sender {
+    [[NSApplication sharedApplication] activateIgnoringOtherApps:YES];
+    [aboutWindowController showWindow:self];
+    [aboutWindowController.window makeKeyAndOrderFront:self];
+    [aboutWindowController.window makeFirstResponder:nil];
 }
 
 - (void)forceMapUpdate:(id)sender {
