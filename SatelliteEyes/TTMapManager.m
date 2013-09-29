@@ -246,11 +246,11 @@
     NSString *selectedImageEffectId = [[NSUserDefaults standardUserDefaults] objectForKey:@"selectedImageEffectId"];
 
     // Default to the first image effect
-    __block NSDictionary *selectedImageEffect = [imageEffects objectAtIndex:0];
+    __block NSDictionary *selectedImageEffect = imageEffects[0];
     
     // Now try and find a matching image effect type id, and set that to be the selected one
     [imageEffects enumerateObjectsUsingBlock:^(NSDictionary *imageEffect, NSUInteger idx, BOOL *stop) {
-        NSString *imageEffectId = [imageEffect objectForKey:@"id"];
+        NSString *imageEffectId = imageEffect[@"id"];
         
         if ([imageEffectId isEqualToString:selectedImageEffectId]) {
             selectedImageEffect = imageEffect;
@@ -262,11 +262,11 @@
 }
 
 - (NSString *)source {
-    return [self.selectedMapType objectForKey:@"source"];
+    return (self.selectedMapType)[@"source"];
 }
 
 - (NSImage *)logoImage {
-    NSString *imageName = [self.selectedMapType objectForKey:@"logoImage"];
+    NSString *imageName = (self.selectedMapType)[@"logoImage"];
     if (imageName) {
         return [NSImage imageNamed:imageName];
     } else {
@@ -275,8 +275,8 @@
 }
 
 - (short unsigned int)zoomLevel {
-    NSNumber *maxZoom = [self.selectedMapType objectForKey:@"maxZoom"];
-    NSNumber *minZoom = [self.selectedMapType objectForKey:@"minZoom"];
+    NSNumber *maxZoom = (self.selectedMapType)[@"maxZoom"];
+    NSNumber *minZoom = (self.selectedMapType)[@"minZoom"];
     NSNumber *desiredZoom = [[NSUserDefaults standardUserDefaults] objectForKey:@"zoomLevel"];
     int desiredZoomInt = [desiredZoom intValue];
     
@@ -294,11 +294,11 @@
     NSString *selectedMapTypeId = [[NSUserDefaults standardUserDefaults] objectForKey:@"selectedMapTypeId"];
     
     // Default to the first map type
-    __block NSDictionary *selectedMapType = [mapTypes objectAtIndex:0];
+    __block NSDictionary *selectedMapType = mapTypes[0];
     
     // Now try and find a matching map type id, and set that to be the selected one
     [mapTypes enumerateObjectsUsingBlock:^(NSDictionary *mapType, NSUInteger idx, BOOL *stop) {
-        NSString *mapTypeId = [mapType objectForKey:@"id"];
+        NSString *mapTypeId = mapType[@"id"];
         
         if ([mapTypeId isEqualToString:selectedMapTypeId]) {
             selectedMapType = mapType;
@@ -333,7 +333,7 @@
     // Make an array of dictionaries with the modification date for each file
     NSMutableArray *filesAndProperties = [NSMutableArray arrayWithCapacity:[filesToRemove count]];
     [filesToRemove enumerateObjectsUsingBlock:^(NSString *file, NSUInteger idx, BOOL *stop) {
-        NSString *filePath = [NSString pathWithComponents:[NSArray arrayWithObjects:cacheDirectoryPath, file, nil]];
+        NSString *filePath = [NSString pathWithComponents:@[cacheDirectoryPath, file]];
         NSError *error;
         NSDictionary* properties = [[NSFileManager defaultManager]
                                     attributesOfItemAtPath:filePath
@@ -341,19 +341,17 @@
         if (error)
             return;
         
-        NSDate* modificationDate = [properties objectForKey:NSFileModificationDate];
+        NSDate* modificationDate = properties[NSFileModificationDate];
         
-        [filesAndProperties addObject:[NSDictionary dictionaryWithObjectsAndKeys:
-                                       filePath, @"filePath", 
-                                       modificationDate, @"modificationDate",
-                                       nil]];
+        [filesAndProperties addObject:@{@"filePath": filePath, 
+                                       @"modificationDate": modificationDate}];
     }];
     
     // Sort by most recent first
     NSArray *sortedFiles = [filesAndProperties sortedArrayUsingComparator:
                              ^(id path1, id path2) {
-                                 NSComparisonResult comp = [[path1 objectForKey:@"modificationDate"] compare:
-                                                            [path2 objectForKey:@"modificationDate"]];
+                                 NSComparisonResult comp = [path1[@"modificationDate"] compare:
+                                                            path2[@"modificationDate"]];
                                  if (comp == NSOrderedDescending) {
                                      comp = NSOrderedAscending;
                                  }
@@ -366,7 +364,7 @@
     // Leave the 20 most recent, and delete the rest
     [sortedFiles enumerateObjectsUsingBlock:^(NSDictionary *fileDict, NSUInteger idx, BOOL *stop) {
         if (idx >= 20) {
-            NSString *path = [fileDict objectForKey:@"filePath"];
+            NSString *path = fileDict[@"filePath"];
             NSError *error;
             [[NSFileManager defaultManager] removeItemAtPath:path error:&error];
             if (error) {
@@ -381,7 +379,7 @@
         return nil;
     }
     
-    NSString *browserURL = [self.selectedMapType objectForKey:@"browserURL"];
+    NSString *browserURL = (self.selectedMapType)[@"browserURL"];
     if (!browserURL) {
         return nil;
     }
@@ -390,8 +388,8 @@
     [coordinateFormatter setNumberStyle:NSNumberFormatterDecimalStyle];
     [coordinateFormatter setMaximumFractionDigits:8];
     
-    NSNumber *latitudeNumber = [NSNumber numberWithDouble:lastSeenLocation.coordinate.latitude];
-    NSNumber *longitudeNumber = [NSNumber numberWithDouble:lastSeenLocation.coordinate.longitude];
+    NSNumber *latitudeNumber = @(lastSeenLocation.coordinate.latitude);
+    NSNumber *longitudeNumber = @(lastSeenLocation.coordinate.longitude);
     
     NSString *latitudeString = [coordinateFormatter stringFromNumber:latitudeNumber];
     NSString *longitudeString = [coordinateFormatter stringFromNumber:longitudeNumber];

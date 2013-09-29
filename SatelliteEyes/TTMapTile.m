@@ -38,7 +38,7 @@
                                  cachePolicy:NSURLRequestUseProtocolCachePolicy 
                              timeoutInterval:60.0];
     
-    NSString *version = [[[NSBundle mainBundle] infoDictionary] objectForKey:(NSString*)kCFBundleVersionKey];
+    NSString *version = [[NSBundle mainBundle] infoDictionary][(NSString*)kCFBundleVersionKey];
     NSString *userAgent = [NSString stringWithFormat:@"Satellite Eyes/%@ (http://satelliteeyes.tomtaylor.co.uk)", version];
     
     [request addValue:userAgent forHTTPHeaderField:@"User-Agent"];
