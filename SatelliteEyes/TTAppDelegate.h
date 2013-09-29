@@ -23,6 +23,11 @@
 @property IBOutlet TTAboutWindowController *aboutWindowController;
 
 - (void)menuActionExit:(id)sender;
+- (void)forceMapUpdate:(id)sender;
+- (void)openMapInBrowser:(id)sender;
+- (void)checkForUpdates:(id)sender;
+- (void)showPreferences:(id)sender;
+- (void)showAbout:(id)sender;
 - (void)setUserDefaults;
 - (NSURL *)visibleMapBrowserURL;
 
