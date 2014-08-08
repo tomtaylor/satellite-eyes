@@ -40,8 +40,10 @@
     
     NSString *version = [[NSBundle mainBundle] infoDictionary][(NSString*)kCFBundleVersionKey];
     NSString *userAgent = [NSString stringWithFormat:@"Satellite Eyes/%@ (http://satelliteeyes.tomtaylor.co.uk)", version];
+    NSString *referrer = @"http://satelliteeyes.tomtaylor.co.uk";
     
     [request addValue:userAgent forHTTPHeaderField:@"User-Agent"];
+    [request addValue:referrer forHTTPHeaderField:@"Referer"]; // note deliberate typo
     return request;
 }
 
