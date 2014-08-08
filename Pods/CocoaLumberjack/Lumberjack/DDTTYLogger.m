@@ -7,14 +7,14 @@
  * Welcome to Cocoa Lumberjack!
  * 
  * The project page has a wealth of documentation if you have any questions.
- * https://github.com/robbiehanson/CocoaLumberjack
+ * https://github.com/CocoaLumberjack/CocoaLumberjack
  * 
  * If you're new to the project you may wish to read the "Getting Started" wiki.
- * https://github.com/robbiehanson/CocoaLumberjack/wiki/GettingStarted
+ * https://github.com/CocoaLumberjack/CocoaLumberjack/wiki/GettingStarted
 **/
 
 #if ! __has_feature(objc_arc)
-#warning This file must be compiled with ARC. Use -fobjc-arc flag (or convert project to ARC).
+#error This file must be compiled with ARC. Use -fobjc-arc flag (or convert project to ARC).
 #endif
 
 // We probably shouldn't be using DDLog() statements within the DDLog implementation.
@@ -65,15 +65,14 @@
 // Some simple defines to make life easier on ourself
 
 #if TARGET_OS_IPHONE
-  #define MakeColor(r, g, b) [UIColor colorWithRed:(r/255.0f) green:(g/255.0f) blue:(b/255.0f) alpha:1.0f]
-#else
-  #define MakeColor(r, g, b) [NSColor colorWithCalibratedRed:(r/255.0f) green:(g/255.0f) blue:(b/255.0f) alpha:1.0f]
-#endif
-
-#if TARGET_OS_IPHONE
   #define OSColor UIColor
-#else
+  #define MakeColor(r, g, b) [UIColor colorWithRed:(r/255.0f) green:(g/255.0f) blue:(b/255.0f) alpha:1.0f]
+#elif !defined (COCOAPODS_POD_AVAILABLE_CocoaLumberjack_CLI)
   #define OSColor NSColor
+  #define MakeColor(r, g, b) [NSColor colorWithCalibratedRed:(r/255.0f) green:(g/255.0f) blue:(b/255.0f) alpha:1.0f]
+#else
+  #define OSColor CLIColor
+  #define MakeColor(r, g, b) [CLIColor colorWithCalibratedRed:(r/255.0f) green:(g/255.0f) blue:(b/255.0f) alpha:1.0f]
 #endif
 
 // If running in a shell, not all RGB colors will be supported.
@@ -702,13 +701,19 @@ static DDTTYLogger *sharedInstance;
         CGColorSpaceRelease(rgbColorSpace);
     }
     
-    #else
+    #elif !defined (COCOAPODS_POD_AVAILABLE_CocoaLumberjack_CLI)
     
-    // Mac OS X
+    // OS X with AppKit
     
     NSColor *safeColor = [color colorUsingColorSpaceName:NSCalibratedRGBColorSpace];
     
     [safeColor getRed:rPtr green:gPtr blue:bPtr alpha:NULL];
+    
+    #else
+    
+    // OS X without AppKit
+    
+    [color getRed:rPtr green:gPtr blue:bPtr alpha:NULL];
     
     #endif
 }
@@ -760,23 +765,25 @@ static DDTTYLogger *sharedInstance;
     return bestIndex;
 }
 
-/**
- * The runtime sends initialize to each class in a program exactly one time just before the class,
- * or any class that inherits from it, is sent its first message from within the program. (Thus the
- * method may never be invoked if the class is not used.) The runtime sends the initialize message to
- * classes in a thread-safe manner. Superclasses receive this message before their subclasses.
- *
- * This method may also be called directly (assumably by accident), hence the safety mechanism.
-**/
-+ (void)initialize
++ (instancetype)sharedInstance
 {
-    static BOOL initialized = NO;
-    if (!initialized)
-    {
-        initialized = YES;
+    static dispatch_once_t DDTTYLoggerOnceToken;
+    dispatch_once(&DDTTYLoggerOnceToken, ^{
         
+        
+        // Xcode does NOT natively support colors in the Xcode debugging console.
+        // You'll need to install the XcodeColors plugin to see colors in the Xcode console.
+        //
+        // PS - Please read the header file before diving into the source code.
+        
+        char *xcode_colors = getenv("XcodeColors");
         char *term = getenv("TERM");
-        if (term)
+        
+        if (xcode_colors && (strcmp(xcode_colors, "YES") == 0))
+        {
+            isaXcodeColorTTY = YES;
+        }
+        else if (term)
         {
             if (strcasestr(term, "color") != NULL)
             {
@@ -789,30 +796,14 @@ static DDTTYLogger *sharedInstance;
                     [self initialize_colors_16];
             }
         }
-        else
-        {
-            // Xcode does NOT natively support colors in the Xcode debugging console.
-            // You'll need to install the XcodeColors plugin to see colors in the Xcode console.
-            // 
-            // PS - Please read the header file before diving into the source code.
-            
-            char *xcode_colors = getenv("XcodeColors");
-            if (xcode_colors && (strcmp(xcode_colors, "YES") == 0))
-            {
-                isaXcodeColorTTY = YES;
-            }
-        }
         
         NSLogInfo(@"DDTTYLogger: isaColorTTY = %@", (isaColorTTY ? @"YES" : @"NO"));
         NSLogInfo(@"DDTTYLogger: isaColor256TTY: %@", (isaColor256TTY ? @"YES" : @"NO"));
         NSLogInfo(@"DDTTYLogger: isaXcodeColorTTY: %@", (isaXcodeColorTTY ? @"YES" : @"NO"));
         
         sharedInstance = [[[self class] alloc] init];
-    }
-}
-
-+ (instancetype)sharedInstance
-{
+    });
+    
     return sharedInstance;
 }
 
@@ -827,24 +818,28 @@ static DDTTYLogger *sharedInstance;
     {
         calendar = [NSCalendar autoupdatingCurrentCalendar];
         
-        calendarUnitFlags = 0;
-        calendarUnitFlags |= NSYearCalendarUnit;
-        calendarUnitFlags |= NSMonthCalendarUnit;
-        calendarUnitFlags |= NSDayCalendarUnit;
-        calendarUnitFlags |= NSHourCalendarUnit;
-        calendarUnitFlags |= NSMinuteCalendarUnit;
-        calendarUnitFlags |= NSSecondCalendarUnit;
+        calendarUnitFlags = (NSCalendarUnitYear     |
+                             NSCalendarUnitMonth    |
+                             NSCalendarUnitDay      |
+                             NSCalendarUnitHour     |
+                             NSCalendarUnitMinute   |
+                             NSCalendarUnitSecond);
         
         // Initialze 'app' variable (char *)
         
         appName = [[NSProcessInfo processInfo] processName];
         
         appLen = [appName lengthOfBytesUsingEncoding:NSUTF8StringEncoding];
+        if (appLen == 0) {
+            appName = @"<UnnamedApp>";
+            appLen = [appName lengthOfBytesUsingEncoding:NSUTF8StringEncoding];
+        }
         app = (char *)malloc(appLen + 1);
         if (app == NULL) return nil;
         
-        [appName getCString:app maxLength:(appLen+1) encoding:NSUTF8StringEncoding];
-        
+        BOOL processedAppName = [appName getCString:app maxLength:(appLen+1) encoding:NSUTF8StringEncoding];
+        if (NO == processedAppName) return nil;
+
         // Initialize 'pid' variable (char *)
         
         processID = [NSString stringWithFormat:@"%i", (int)getpid()];
@@ -1277,25 +1272,28 @@ static DDTTYLogger *sharedInstance;
             // The log message is unformatted, so apply standard NSLog style formatting.
             
             int len;
+            char ts[24] = "";
+            size_t tsLen = 0;
             
             // Calculate timestamp.
             // The technique below is faster than using NSDateFormatter.
-            
-            NSDateComponents *components = [calendar components:calendarUnitFlags fromDate:logMessage->timestamp];
-            
-            NSTimeInterval epoch = [logMessage->timestamp timeIntervalSinceReferenceDate];
-            int milliseconds = (int)((epoch - floor(epoch)) * 1000);
-            
-            char ts[24];
-            len = snprintf(ts, 24, "%04ld-%02ld-%02ld %02ld:%02ld:%02ld:%03d", // yyyy-MM-dd HH:mm:ss:SSS
-                           (long)components.year,
-                           (long)components.month,
-                           (long)components.day,
-                           (long)components.hour,
-                           (long)components.minute,
-                           (long)components.second, milliseconds);
-            
-            size_t tsLen = MIN(24-1, len);
+            if (logMessage->timestamp)
+            {
+                NSDateComponents *components = [calendar components:calendarUnitFlags fromDate:logMessage->timestamp];
+                
+                NSTimeInterval epoch = [logMessage->timestamp timeIntervalSinceReferenceDate];
+                int milliseconds = (int)((epoch - floor(epoch)) * 1000);
+                
+                len = snprintf(ts, 24, "%04ld-%02ld-%02ld %02ld:%02ld:%02ld:%03d", // yyyy-MM-dd HH:mm:ss:SSS
+                               (long)components.year,
+                               (long)components.month,
+                               (long)components.day,
+                               (long)components.hour,
+                               (long)components.minute,
+                               (long)components.second, milliseconds);
+                
+                tsLen = (NSUInteger)MAX(MIN(24-1, len), 0);
+            }
             
             // Calculate thread ID
             // 
@@ -1308,7 +1306,7 @@ static DDTTYLogger *sharedInstance;
             char tid[9];
             len = snprintf(tid, 9, "%x", logMessage->machThreadID);
             
-            size_t tidLen = MIN(9-1, len);
+            size_t tidLen = (NSUInteger)MAX(MIN(9-1, len), 0);
             
             // Here is our format: "%s %s[%i:%s] %s", timestamp, appName, processID, threadID, logMsg
             
@@ -1438,7 +1436,7 @@ static DDTTYLogger *sharedInstance;
             const char *escapeSeq = XCODE_COLORS_ESCAPE_SEQ;
             
             int result = snprintf(fgCode, 24, "%sfg%u,%u,%u;", escapeSeq, fg_r, fg_g, fg_b);
-            fgCodeLen = MIN(result, (24-1));
+            fgCodeLen = (NSUInteger)MAX(MIN(result, (24-1)), 0);
         }
         else
         {
@@ -1473,7 +1471,7 @@ static DDTTYLogger *sharedInstance;
             const char *escapeSeq = XCODE_COLORS_ESCAPE_SEQ;
             
             int result = snprintf(bgCode, 24, "%sbg%u,%u,%u;", escapeSeq, bg_r, bg_g, bg_b);
-            bgCodeLen = MIN(result, (24-1));
+            bgCodeLen = (NSUInteger)MAX(MIN(result, (24-1)), 0);
         }
         else
         {
@@ -1485,11 +1483,11 @@ static DDTTYLogger *sharedInstance;
         
         if (isaColorTTY)
         {
-            resetCodeLen = snprintf(resetCode, 8, "\033[0m");
+            resetCodeLen = (NSUInteger)MAX(snprintf(resetCode, 8, "\033[0m"), 0);
         }
         else if (isaXcodeColorTTY)
         {
-            resetCodeLen = snprintf(resetCode, 8, XCODE_COLORS_RESET);
+            resetCodeLen = (NSUInteger)MAX(snprintf(resetCode, 8, XCODE_COLORS_RESET), 0);
         }
         else
         {

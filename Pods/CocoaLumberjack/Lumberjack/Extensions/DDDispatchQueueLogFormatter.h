@@ -7,17 +7,17 @@
  * Welcome to Cocoa Lumberjack!
  * 
  * The project page has a wealth of documentation if you have any questions.
- * https://github.com/robbiehanson/CocoaLumberjack
+ * https://github.com/CocoaLumberjack/CocoaLumberjack
  * 
  * If you're new to the project you may wish to read the "Getting Started" page.
- * https://github.com/robbiehanson/CocoaLumberjack/wiki/GettingStarted
+ * https://github.com/CocoaLumberjack/CocoaLumberjack/wiki/GettingStarted
  * 
  * 
  * This class provides a log formatter that prints the dispatch_queue label instead of the mach_thread_id.
  * 
  * A log formatter can be added to any logger to format and/or filter its output.
  * You can learn more about log formatters here:
- * https://github.com/robbiehanson/CocoaLumberjack/wiki/CustomFormatters
+ * https://github.com/CocoaLumberjack/CocoaLumberjack/wiki/CustomFormatters
  * 
  * A typical NSLog (or DDTTYLogger) prints detailed info as [<process_id>:<thread_id>].
  * For example:
@@ -79,7 +79,7 @@
  * If you want every [detail box] to have the exact same width,
  * set both minQueueLength and maxQueueLength to the same value.
 **/
-@property (assign) NSUInteger minQueueLength;
+@property (assign, atomic) NSUInteger minQueueLength;
 
 /**
  * The maxQueueLength restricts the number of characters that will be inside the [detail box].
@@ -99,7 +99,7 @@
  * If you want every [detail box] to have the exact same width,
  * set both minQueueLength and maxQueueLength to the same value.
 **/
-@property (assign) NSUInteger maxQueueLength;
+@property (assign, atomic) NSUInteger maxQueueLength;
 
 /**
  * Sometimes queue labels have long names like "com.apple.main-queue",

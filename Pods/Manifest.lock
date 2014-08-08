@@ -1,21 +1,20 @@
 PODS:
   - AFNetworking (1.3.4)
-  - CocoaLumberjack (1.6.5.1):
-    - CocoaLumberjack/Core
+  - CocoaLumberjack (1.9.1):
     - CocoaLumberjack/Extensions
-  - CocoaLumberjack/Core (1.6.5.1)
-  - CocoaLumberjack/Extensions (1.6.5.1):
+  - CocoaLumberjack/Core (1.9.1)
+  - CocoaLumberjack/Extensions (1.9.1):
     - CocoaLumberjack/Core
   - Reachability (3.1.1)
 
 DEPENDENCIES:
   - AFNetworking (~> 1.3.3)
-  - CocoaLumberjack (~> 1.6.2)
+  - CocoaLumberjack (~> 1.9.1)
   - Reachability (~> 3.1.0)
 
 SPEC CHECKSUMS:
   AFNetworking: 80c4e0652b08eb34e25b9c0ff3c82556fe5967b4
-  CocoaLumberjack: baf4a09a3bcbdfea3363556a90104e026d3504e2
+  CocoaLumberjack: 94accd5749f5c5d15134c8d50f34a973aed8ef69
   Reachability: 8e9635e3cb4f98e7f825e51147f677ecc694d0e7
 
 COCOAPODS: 0.33.1
