@@ -4,10 +4,10 @@
  * Welcome to Cocoa Lumberjack!
  *
  * The project page has a wealth of documentation if you have any questions.
- * https://github.com/robbiehanson/CocoaLumberjack
+ * https://github.com/CocoaLumberjack/CocoaLumberjack
  *
  * If you're new to the project you may wish to read the "Getting Started" page.
- * https://github.com/robbiehanson/CocoaLumberjack/wiki/GettingStarted
+ * https://github.com/CocoaLumberjack/CocoaLumberjack/wiki/GettingStarted
  **/
 
 #if TARGET_OS_IPHONE
@@ -24,6 +24,11 @@
 #else                                         // Mac OS X 10.7 or earlier
 #define NEEDS_DISPATCH_RETAIN_RELEASE 1
 #endif
+#endif
+
+
+#if ! __has_feature(objc_arc)
+#error This file must be compiled with ARC. Use -fobjc-arc flag (or convert project to ARC).
 #endif
 
 
