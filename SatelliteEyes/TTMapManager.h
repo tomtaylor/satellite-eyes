@@ -33,10 +33,4 @@ static NSString *const TTMapManagerLocationPermissionDenied = @"TTMapManagerLoca
 - (void)cleanCache;
 - (NSURL *)browserURL;
 
-@property (readonly) NSString *source;
-@property (readonly) short unsigned int zoomLevel;
-@property (readonly) NSDictionary *selectedMapType;
-@property (readonly) NSImage *logoImage;
-@property (readonly) NSDictionary *selectedImageEffect;
-
 @end

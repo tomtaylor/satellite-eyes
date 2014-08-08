@@ -9,10 +9,9 @@
 #import <Foundation/Foundation.h>
 #import <CoreLocation/CoreLocation.h>
 
-#define TILE_SIZE 256
-
 @interface TTMapImage : NSObject {
     CGRect tileRect;
+    NSUInteger tileSize;
     unsigned short zoomLevel;
     NSString *source;
     NSDictionary *imageEffect;
@@ -22,7 +21,8 @@
     NSImage *logoImage;
 }
 
-- (id)initWithTileRect:(CGRect)_tileRect 
+- (id)initWithTileRect:(CGRect)_tileRect
+              tileSize:(NSUInteger)_tileSize
              zoomLevel:(unsigned short)_zoomLevel
                 source:(NSString *)_provider
                 effect:(NSDictionary *)_effect

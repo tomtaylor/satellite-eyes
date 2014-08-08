@@ -20,10 +20,9 @@
 
 @end
 
-@implementation TTMapManager
+#define BASE_TILE_SIZE 256
 
-@synthesize source;
-@synthesize zoomLevel;
+@implementation TTMapManager
 
 - (id)init
 {
@@ -147,11 +146,15 @@
             CGRect tileRect = [self tileRectForScreen:screen 
                                            coordinate:coordinate 
                                             zoomLevel:self.zoomLevel];
+
+            NSUInteger tileSize = [self tileSizeForScreen:screen];
+            NSString *source = [self sourceForScreen:screen];
             
             TTMapImage *mapImage = 
             [[TTMapImage alloc] initWithTileRect:tileRect
+                                        tileSize:tileSize
                                        zoomLevel:self.zoomLevel
-                                          source:self.source
+                                          source:source
                                           effect:self.selectedImageEffect
                                             logo:self.logoImage];
             
@@ -225,18 +228,18 @@
 
     CGRect mainScreenFrame = [[NSScreen mainScreen] frame];
     CGRect targetScreenFrame = screen.frame;
-    
+
     // Get the size and origin of the main screen in tiles
-    float mainScreenTileHeight = NSHeight(mainScreenFrame)/TILE_SIZE;
-    float mainScreenTileWidth = NSWidth(mainScreenFrame)/TILE_SIZE;
+    float mainScreenTileHeight = NSHeight(mainScreenFrame)/BASE_TILE_SIZE;
+    float mainScreenTileWidth = NSWidth(mainScreenFrame)/BASE_TILE_SIZE;
     float mainScreenTileOriginX = centerTile.x - mainScreenTileWidth/2;
     float mainScreenTileOriginY = centerTile.y + mainScreenTileHeight/2;
     
     // Calculate the size and origin of the target screen in tiles, offset from the main screen centre point
-    float targetScreenTileHeight = NSHeight(targetScreenFrame)/TILE_SIZE;
-    float targetScreenTileWidth = NSWidth(targetScreenFrame)/TILE_SIZE;
-    float targetScreenTileOriginX = mainScreenTileOriginX + targetScreenFrame.origin.x/TILE_SIZE;
-    float targetScreenTileOriginY = mainScreenTileOriginY - targetScreenFrame.origin.y/TILE_SIZE;
+    float targetScreenTileHeight = NSHeight(targetScreenFrame)/BASE_TILE_SIZE;
+    float targetScreenTileWidth = NSWidth(targetScreenFrame)/BASE_TILE_SIZE;
+    float targetScreenTileOriginX = mainScreenTileOriginX + targetScreenFrame.origin.x/BASE_TILE_SIZE;
+    float targetScreenTileOriginY = mainScreenTileOriginY - targetScreenFrame.origin.y/BASE_TILE_SIZE;
     
     return CGRectMake(targetScreenTileOriginX, targetScreenTileOriginY, targetScreenTileWidth, targetScreenTileHeight);
 }
@@ -261,8 +264,26 @@
     return selectedImageEffect;
 }
 
-- (NSString *)source {
-    return (self.selectedMapType)[@"source"];
+- (BOOL)screenIsRetina:(NSScreen *)screen {
+    return screen.backingScaleFactor > 1;
+}
+
+- (NSString *)sourceForScreen:(NSScreen *)screen {
+    NSString *source2x = self.selectedMapType[@"source2x"];
+    if (source2x && [self screenIsRetina:screen]) {
+        return source2x;
+    } else {
+        return self.selectedMapType[@"source"];
+    }
+}
+
+- (NSUInteger)tileSizeForScreen:(NSScreen *)screen {
+    NSString *source2x = self.selectedMapType[@"source2x"];
+    if (source2x && [self screenIsRetina:screen]) {
+        return 512;
+    } else {
+        return 256;
+    }
 }
 
 - (NSImage *)logoImage {

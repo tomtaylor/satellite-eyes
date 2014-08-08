@@ -26,7 +26,8 @@
     [AFHTTPRequestOperation addAcceptableContentTypes:[NSSet setWithObjects:@"image/jpeg", @"image/png", @"image/jpg", nil]];
 }
 
-- (id)initWithTileRect:(CGRect)_tileRect 
+- (id)initWithTileRect:(CGRect)_tileRect
+              tileSize:(NSUInteger)_tileSize
              zoomLevel:(unsigned short)_zoomLevel
                 source:(NSString *)_source
                 effect:(NSDictionary *)_effect
@@ -35,6 +36,7 @@
     self = [super init];
     if (self) {
         tileRect = _tileRect;
+        tileSize = _tileSize;
         zoomLevel = _zoomLevel;
         imageEffect = _effect;
         source = _source;
@@ -42,8 +44,8 @@
 
         // calculate the offset of the tiles on the final image
         float dummy; // throw away variable for catching the int component
-        int shiftX = floor(modff(tileRect.origin.x, &dummy) * TILE_SIZE);
-        int shiftY = TILE_SIZE - floor(modff(tileRect.origin.y, &dummy) * TILE_SIZE);
+        int shiftX = floor(modff(tileRect.origin.x, &dummy) * tileSize);
+        int shiftY = tileSize - floor(modff(tileRect.origin.y, &dummy) * tileSize);
         pixelShift = CGPointMake(shiftX, shiftY);
         
         tiles = [self tilesArray];
@@ -126,8 +128,8 @@
 }
 
 - (NSURL *)writeImageData {
-    CGFloat width = floor(tileRect.size.width * TILE_SIZE);
-    CGFloat height = floor(tileRect.size.height * TILE_SIZE);
+    CGFloat width = floor(tileRect.size.width * tileSize);
+    CGFloat height = floor(tileRect.size.height * tileSize);
     CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
     
     size_t bitsPerComponent = 8;
@@ -147,9 +149,9 @@
         [rowArray enumerateObjectsUsingBlock:^(TTMapTile *tile, NSUInteger tileIndex, BOOL *tileStop) {
             CGImageRef tileImageRef = [tile newImageRef];
             
-            float drawX = (tileIndex * TILE_SIZE) - pixelShift.x;
-            float drawY = ((rowIndex * TILE_SIZE)) - pixelShift.y;
-            CGRect rect = CGRectMake(drawX, drawY, TILE_SIZE, TILE_SIZE);
+            float drawX = (tileIndex * tileSize) - pixelShift.x;
+            float drawY = (rowIndex * tileSize) - pixelShift.y;
+            CGRect rect = CGRectMake(drawX, drawY, tileSize, tileSize);
             CGContextDrawImage(context, rect, tileImageRef);
             CGImageRelease(tileImageRef);
         }];
@@ -231,12 +233,13 @@
 
 // Returns a hash that keys the map details
 - (NSString *)uniqueHash {
-    NSString *key = [NSString stringWithFormat:@"%@_%.1f_%.1f_%.2f_%.2f_%@_%u",
+    NSString *key = [NSString stringWithFormat:@"%@_%.1f_%.1f_%.2f_%.2f_%zd_%@_%u",
                      source,
                      tileRect.origin.x,
                      tileRect.origin.y,
                      tileRect.size.width,
                      tileRect.size.height,
+                     tileSize,
                      imageEffect,
                      zoomLevel];
     return [key md5Digest];
