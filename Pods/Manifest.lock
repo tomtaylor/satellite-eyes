@@ -8,7 +8,7 @@ PODS:
   - Reachability (3.1.1)
 
 DEPENDENCIES:
-  - AFNetworking (~> 1.3.3)
+  - AFNetworking (~> 1.3)
   - CocoaLumberjack (~> 1.9.1)
   - Reachability (~> 3.1.0)
 
