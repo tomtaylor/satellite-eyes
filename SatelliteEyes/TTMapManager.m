@@ -156,7 +156,8 @@
                                        zoomLevel:self.zoomLevel
                                           source:source
                                           effect:self.selectedImageEffect
-                                            logo:self.logoImage];
+                                            logo:self.logoImage
+                                     filterScale:screen.backingScaleFactor];
             
             [mapImage fetchTilesWithSuccess:^(NSURL *filePath) {
                 [[NSNotificationCenter defaultCenter] postNotificationName:TTMapManagerFinishedLoad object:nil];

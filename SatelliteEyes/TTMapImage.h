@@ -19,6 +19,7 @@
     CGPoint pixelShift;
     NSOperationQueue *tileQueue;
     NSImage *logoImage;
+    float filterScale;
 }
 
 - (id)initWithTileRect:(CGRect)_tileRect
@@ -26,7 +27,8 @@
              zoomLevel:(unsigned short)_zoomLevel
                 source:(NSString *)_provider
                 effect:(NSDictionary *)_effect
-                  logo:(NSImage *)logoImage;
+                  logo:(NSImage *)_logoImage
+           filterScale:(float)_filterScale;
 
 - (void)fetchTilesWithSuccess:(void (^)(NSURL *filePath))success
                       failure:(void (^)(NSError *error))failure

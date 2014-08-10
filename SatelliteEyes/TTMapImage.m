@@ -32,6 +32,7 @@
                 source:(NSString *)_source
                 effect:(NSDictionary *)_effect
                   logo:(NSImage *)_logoImage
+           filterScale:(float)_filterScale
 {
     self = [super init];
     if (self) {
@@ -41,6 +42,7 @@
         imageEffect = _effect;
         source = _source;
         logoImage = _logoImage;
+        filterScale = _filterScale;
 
         // calculate the offset of the tiles on the final image
         float dummy; // throw away variable for catching the int component
@@ -188,7 +190,11 @@
         
         NSArray *parameters = [filter valueForKey:@"parameters"];
         [parameters enumerateObjectsUsingBlock:^(NSDictionary *parameter, NSUInteger filterIndex, BOOL *stop) {
-            [imageFilter setValue:[parameter valueForKey:@"value"]
+            id value = parameter[@"value"];
+            id name = parameter[@"name"];
+            value = [self scaledFilterValue:value key:name];
+
+            [imageFilter setValue:value
                            forKey:[parameter valueForKey:@"name"]];
         }];
         
@@ -249,6 +255,16 @@
     NSString *fileName = [NSString stringWithFormat:@"map-%@.png", [self uniqueHash]];
     NSString *path = [[NSFileManager defaultManager] pathForPrivateFile:fileName];
     return [NSURL fileURLWithPath:path];
+}
+
+// Some filter values (widths, radiuses, etc.) should be scaled up for retina devices
+- (id)scaledFilterValue:(id)value key:(id)key {
+    if ([@[kCIInputRadiusKey, kCIInputScaleKey, kCIInputWidthKey] containsObject:key]) {
+        NSNumber *number = value;
+        return @(number.floatValue * filterScale);
+    } else {
+        return value;
+    }
 }
 
 @end
