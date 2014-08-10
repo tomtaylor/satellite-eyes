@@ -8,7 +8,7 @@
 			<key>id</key>
 			<string>stamen-watercolor</string>
 			<key>source</key>
-			<string>http://a.tile.stamen.com/watercolor/{z}/{x}/{y}.jpg</string>
+			<string>https://stamen-tiles.a.ssl.fastly.net/watercolor/{z}/{x}/{y}.jpg</string>
 			<key>name</key>
 			<string>Stamen Watercolor</string>
 			<key>maxZoom</key>
@@ -20,7 +20,7 @@
 			<key>id</key>
 			<string>stamen-toner</string>
 			<key>source</key>
-			<string>http://a.tile.stamen.com/toner/{z}/{x}/{y}.png</string>
+			<string>https://stamen-tiles.a.ssl.fastly.net/toner/{z}/{x}/{y}.png</string>
 			<key>name</key>
 			<string>Stamen Toner</string>
 			<key>browserURL</key>
@@ -30,7 +30,7 @@
 			<key>id</key>
 			<string>stamen-toner-background</string>
 			<key>source</key>
-			<string>http://tile.stamen.com/toner-background/{z}/{x}/{y}.png</string>
+			<string>https://stamen-tiles.a.ssl.fastly.net/toner-background/{z}/{x}/{y}.png</string>
 			<key>name</key>
 			<string>Stamen Toner Background</string>
 			<key>browserURL</key>
@@ -40,7 +40,7 @@
 			<key>id</key>
 			<string>stamen-toner-lite</string>
 			<key>source</key>
-			<string>http://tile.stamen.com/toner-lite/{z}/{x}/{y}.png</string>
+			<string>https://stamen-tiles.a.ssl.fastly.net/toner-lite/{z}/{x}/{y}.png</string>
 			<key>name</key>
 			<string>Stamen Toner Lite</string>
 			<key>browserURL</key>
@@ -50,7 +50,7 @@
 			<key>id</key>
 			<string>stamen-terrain</string>
 			<key>source</key>
-			<string>http://a.tile.stamen.com/terrain/{z}/{x}/{y}.png</string>
+			<string>https://stamen-tiles.a.ssl.fastly.net/terrain/{z}/{x}/{y}.png</string>
 			<key>name</key>
 			<string>Stamen Terrain (US only)</string>
 			<key>maxZoom</key>
