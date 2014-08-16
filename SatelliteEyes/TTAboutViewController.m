@@ -27,8 +27,8 @@
     NSRect rect = [layoutManager usedRectForTextContainer:textContainer];
     [aboutTextView setFrameSize:rect.size];
     
-    NSString *version = [[NSBundle mainBundle] infoDictionary][@"CFBundleVersion"];
-    NSString *gitRevision = [[NSBundle mainBundle] infoDictionary][@"GitRevision"];
+    NSString *version = [[NSBundle mainBundle] infoDictionary][@"CFBundleShortVersionString"];
+    NSString *gitRevision = [[NSBundle mainBundle] infoDictionary][@"CFBundleVersion"];
     NSString *longVersion = [NSString stringWithFormat:@"Version %@\nBuild %@", version, gitRevision];
     
     [versionTextField setStringValue:longVersion];

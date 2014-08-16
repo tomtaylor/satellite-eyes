@@ -323,6 +323,7 @@
 				60237CDE65D0D58F1B5424CF0104AD02 /* Frameworks */,
 				42BD6E8FC2281A4AE00979FE1E7C1921 /* Resources */,
 				E23953A41995065900241B73 /* CopyFiles */,
+				E2B80DDF199F6DFA002CD817 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -402,6 +403,22 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		E2B80DDF199F6DFA002CD817 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# This script sets CFBundleVersion in the Info.plist of a target to the version\n# as returned by 'git describe'.\n# Info: http://zargony.com/2014/08/10/automatic-versioning-in-xcode-with-git-describe\nset -e\nset -x\nVERSION=`git rev-parse --short HEAD`\necho \"Updating Info.plist version to: ${VERSION}\"\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion \\\"${VERSION}\\\"\" \"${TARGET_BUILD_DIR}/${INFOPLIST_PATH}\"\n/usr/bin/plutil -convert binary1 \"${TARGET_BUILD_DIR}/${INFOPLIST_PATH}\"";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		1BA14FD04AE46C791F4DC95096A0DE54 /* Sources */ = {

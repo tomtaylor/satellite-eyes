@@ -15,15 +15,19 @@
         <window title="About Satellite Eyes" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" animationBehavior="default" id="1">
             <windowStyleMask key="styleMask" titled="YES" closable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
-            <rect key="contentRect" x="196" y="240" width="480" height="511"/>
+            <rect key="contentRect" x="196" y="240" width="618" height="511"/>
             <rect key="screenRect" x="0.0" y="0.0" width="1280" height="778"/>
             <view key="contentView" id="2">
-                <rect key="frame" x="0.0" y="0.0" width="480" height="511"/>
+                <rect key="frame" x="0.0" y="0.0" width="618" height="511"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <customView translatesAutoresizingMaskIntoConstraints="NO" id="29" customClass="NSTextView">
-                        <rect key="frame" x="166" y="20" width="294" height="471"/>
+                        <rect key="frame" x="167" y="20" width="431" height="471"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="431" id="K0t-hh-MdV"/>
+                            <constraint firstAttribute="height" constant="471" id="PI5-TR-kw4"/>
+                        </constraints>
                         <connections>
                             <outlet property="delegate" destination="70" id="74"/>
                         </connections>
@@ -37,21 +41,24 @@
                         </constraints>
                         <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageAlignment="top" imageScaling="proportionallyUpOrDown" image="icon" id="46"/>
                     </imageView>
-                    <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="79">
-                        <rect key="frame" x="18" y="323" width="130" height="34"/>
+                    <textField verticalHuggingPriority="750" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="79">
+                        <rect key="frame" x="18" y="340" width="130" height="17"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <constraints>
-                            <constraint firstAttribute="height" constant="34" id="92"/>
+                            <constraint firstAttribute="width" constant="126" id="occ-Ld-hBE"/>
                         </constraints>
-                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="Label" id="80">
+                        <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="center" title="Label" id="80">
                             <font key="font" metaFont="systemBold"/>
                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
                     <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="95">
-                        <rect key="frame" x="20" y="291" width="126" height="25"/>
+                        <rect key="frame" x="20" y="308" width="126" height="25"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="126" id="Xsk-qW-Ruf"/>
+                        </constraints>
                         <buttonCell key="cell" type="roundTextured" title="Visit Homepage" bezelStyle="texturedRounded" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="96">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="system"/>
@@ -65,8 +72,6 @@
                     <constraint firstAttribute="trailing" secondItem="29" secondAttribute="trailing" constant="20" symbolic="YES" id="34"/>
                     <constraint firstItem="45" firstAttribute="top" secondItem="2" secondAttribute="top" constant="20" symbolic="YES" id="59"/>
                     <constraint firstItem="45" firstAttribute="leading" secondItem="2" secondAttribute="leading" constant="20" symbolic="YES" id="60"/>
-                    <constraint firstItem="29" firstAttribute="leading" secondItem="45" secondAttribute="trailing" constant="20" id="61"/>
-                    <constraint firstItem="79" firstAttribute="trailing" secondItem="45" secondAttribute="trailing" id="83"/>
                     <constraint firstItem="79" firstAttribute="top" secondItem="45" secondAttribute="bottom" constant="8" symbolic="YES" id="93"/>
                     <constraint firstItem="79" firstAttribute="leading" secondItem="2" secondAttribute="leading" constant="20" symbolic="YES" id="94"/>
                     <constraint firstItem="95" firstAttribute="leading" secondItem="2" secondAttribute="leading" constant="20" symbolic="YES" id="97"/>
@@ -74,6 +79,8 @@
                     <constraint firstItem="95" firstAttribute="trailing" secondItem="79" secondAttribute="trailing" id="99"/>
                     <constraint firstAttribute="bottom" secondItem="29" secondAttribute="bottom" constant="20" symbolic="YES" id="127"/>
                     <constraint firstItem="29" firstAttribute="top" secondItem="2" secondAttribute="top" constant="20" symbolic="YES" id="128"/>
+                    <constraint firstItem="29" firstAttribute="leading" secondItem="45" secondAttribute="trailing" constant="21" id="16x-vq-lJj"/>
+                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="29" secondAttribute="trailing" constant="20" id="ivT-89-jYa"/>
                 </constraints>
             </view>
             <connections>
