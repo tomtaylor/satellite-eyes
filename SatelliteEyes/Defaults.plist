@@ -21,6 +21,8 @@
 			<string>stamen-toner</string>
 			<key>source</key>
 			<string>https://stamen-tiles.a.ssl.fastly.net/toner/{z}/{x}/{y}.png</string>
+			<key>source2x</key>
+			<string>https://stamen-tiles.a.ssl.fastly.net/toner/{z}/{x}/{y}@2x.png</string>
 			<key>name</key>
 			<string>Stamen Toner</string>
 			<key>browserURL</key>
@@ -31,6 +33,8 @@
 			<string>stamen-toner-background</string>
 			<key>source</key>
 			<string>https://stamen-tiles.a.ssl.fastly.net/toner-background/{z}/{x}/{y}.png</string>
+			<key>source2x</key>
+			<string>https://stamen-tiles.a.ssl.fastly.net/toner-background/{z}/{x}/{y}@2x.png</string>
 			<key>name</key>
 			<string>Stamen Toner Background</string>
 			<key>browserURL</key>
@@ -41,6 +45,8 @@
 			<string>stamen-toner-lite</string>
 			<key>source</key>
 			<string>https://stamen-tiles.a.ssl.fastly.net/toner-lite/{z}/{x}/{y}.png</string>
+			<key>source2x</key>
+			<string>https://stamen-tiles.a.ssl.fastly.net/toner-lite/{z}/{x}/{y}@2x.png</string>
 			<key>name</key>
 			<string>Stamen Toner Lite</string>
 			<key>browserURL</key>
