@@ -11,7 +11,7 @@
 
 @interface TTMapImage : NSObject {
     CGRect tileRect;
-    NSUInteger tileSize;
+    float tileScale;
     unsigned short zoomLevel;
     NSString *source;
     NSDictionary *imageEffect;
@@ -19,16 +19,15 @@
     CGPoint pixelShift;
     NSOperationQueue *tileQueue;
     NSImage *logoImage;
-    float filterScale;
+    NSUInteger tileSize;
 }
 
 - (id)initWithTileRect:(CGRect)_tileRect
-              tileSize:(NSUInteger)_tileSize
+             tileScale:(float)_tileScale
              zoomLevel:(unsigned short)_zoomLevel
                 source:(NSString *)_provider
                 effect:(NSDictionary *)_effect
-                  logo:(NSImage *)_logoImage
-           filterScale:(float)_filterScale;
+                  logo:(NSImage *)_logoImage;
 
 - (void)fetchTilesWithSuccess:(void (^)(NSURL *filePath))success
                       failure:(void (^)(NSError *error))failure

@@ -12,6 +12,8 @@
 #import "NSFileManager+StandardPaths.h"
 #import <QuartzCore/QuartzCore.h>
 
+#define BASE_TILE_SIZE 256
+
 @interface TTMapImage (Private)
 
 - (NSURL *)writeImageData;
@@ -27,22 +29,22 @@
 }
 
 - (id)initWithTileRect:(CGRect)_tileRect
-              tileSize:(NSUInteger)_tileSize
+             tileScale:(float)_tileScale
              zoomLevel:(unsigned short)_zoomLevel
                 source:(NSString *)_source
                 effect:(NSDictionary *)_effect
                   logo:(NSImage *)_logoImage
-           filterScale:(float)_filterScale
 {
     self = [super init];
     if (self) {
         tileRect = _tileRect;
-        tileSize = _tileSize;
+        tileScale = _tileScale;
         zoomLevel = _zoomLevel;
         imageEffect = _effect;
         source = _source;
         logoImage = _logoImage;
-        filterScale = _filterScale;
+
+        tileSize = BASE_TILE_SIZE * tileScale;
 
         // calculate the offset of the tiles on the final image
         float dummy; // throw away variable for catching the int component
@@ -239,13 +241,13 @@
 
 // Returns a hash that keys the map details
 - (NSString *)uniqueHash {
-    NSString *key = [NSString stringWithFormat:@"%@_%.1f_%.1f_%.2f_%.2f_%zd_%@_%u",
+    NSString *key = [NSString stringWithFormat:@"%@_%.1f_%.1f_%.2f_%.2f_%.2f_%@_%u",
                      source,
                      tileRect.origin.x,
                      tileRect.origin.y,
                      tileRect.size.width,
                      tileRect.size.height,
-                     tileSize,
+                     tileScale,
                      imageEffect,
                      zoomLevel];
     return [key md5Digest];
@@ -261,7 +263,7 @@
 - (id)scaledFilterValue:(id)value key:(id)key {
     if ([@[kCIInputRadiusKey, kCIInputScaleKey, kCIInputWidthKey] containsObject:key]) {
         NSNumber *number = value;
-        return @(number.floatValue * filterScale);
+        return @(number.floatValue * tileScale);
     } else {
         return value;
     }

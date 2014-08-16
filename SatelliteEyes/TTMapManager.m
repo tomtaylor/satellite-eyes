@@ -147,17 +147,16 @@
                                            coordinate:coordinate 
                                             zoomLevel:self.zoomLevel];
 
-            NSUInteger tileSize = [self tileSizeForScreen:screen];
             NSString *source = [self sourceForScreen:screen];
+            float tileScale = [self tileScaleForScren:screen];
             
             TTMapImage *mapImage = 
             [[TTMapImage alloc] initWithTileRect:tileRect
-                                        tileSize:tileSize
+                                       tileScale:tileScale
                                        zoomLevel:self.zoomLevel
                                           source:source
                                           effect:self.selectedImageEffect
-                                            logo:self.logoImage
-                                     filterScale:screen.backingScaleFactor];
+                                            logo:self.logoImage];
             
             [mapImage fetchTilesWithSuccess:^(NSURL *filePath) {
                 [[NSNotificationCenter defaultCenter] postNotificationName:TTMapManagerFinishedLoad object:nil];
@@ -278,13 +277,16 @@
     }
 }
 
-- (NSUInteger)tileSizeForScreen:(NSScreen *)screen {
-    NSString *source2x = self.selectedMapType[@"source2x"];
-    if (source2x && [self screenIsRetina:screen]) {
-        return 512;
+- (float)tileScaleForScren:(NSScreen *)screen {
+    if (self.selectedMapTypeSupportsRetina && [self screenIsRetina:screen]) {
+        return 2;
     } else {
-        return 256;
+        return 1;
     }
+}
+
+- (BOOL)selectedMapTypeSupportsRetina {
+    return !!self.selectedMapType[@"source2x"];
 }
 
 - (NSImage *)logoImage {
