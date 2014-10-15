@@ -170,6 +170,14 @@
 			<key>name</key>
 			<string>Thunderforest Outdoors</string>
 		</dict>
+		<dict>
+			<key>id</key>
+			<string>amigocloud-streets</string>
+			<key>source</key>
+			<string>https://www.amigocloud.com/api/v1/base_layers/2/tiles/{z}/{x}/{y}.png</string>
+			<key>name</key>
+			<string>AmigoCloud Streets</string>
+		</dict>
 	</array>
 	<key>imageEffectTypes</key>
 	<array>
