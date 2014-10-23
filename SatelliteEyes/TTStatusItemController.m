@@ -18,10 +18,6 @@
 {
     self = [super init];
     if (self) {
-        offlineImage = [NSImage imageNamed:@"menu-outline"];
-        activeImage = [NSImage imageNamed:@"menu-blue"];
-        inactiveImage = [NSImage imageNamed:@"menu-black"];
-        errorImage = [NSImage imageNamed:@"menu-red"];
 
         NSMenu *menu = [[NSMenu alloc] initWithTitle:@"Menu"];
         [menu setDelegate:self];
@@ -57,8 +53,8 @@
         [statusItem setHighlightMode:YES];
         [statusItem setMenu:menu];
         
-        [self updateStatus];
-        
+        [self updateMode];
+
         [[NSNotificationCenter defaultCenter] addObserverForName:TTMapManagerStartedLoad 
                                                           object:nil 
                                                            queue:nil 
@@ -103,11 +99,45 @@
                                                           mapManagerhasLocation = NO;
                                                           [self performSelectorOnMainThread:@selector(updateStatus) withObject:nil waitUntilDone:YES];
                                                       }];
+
+        [[NSDistributedNotificationCenter defaultCenter] addObserver:self selector:@selector(darkModeNotification:) name:@"AppleInterfaceThemeChangedNotification" object:nil];
+
     }
     return self;
 }
 
+- (void) updateMode
+{
+    NSDictionary *dict = [[NSUserDefaults standardUserDefaults] persistentDomainForName:NSGlobalDomain];
+    id style = [dict objectForKey:@"AppleInterfaceStyle"];
+    darkModeEnabled = ( style && [style isKindOfClass:[NSString class]] && NSOrderedSame == [style caseInsensitiveCompare:@"dark"] );
+    NSLog(@"SATELLITE EYES Dark mode changed %d" , darkModeEnabled);
+
+    if (darkModeEnabled)
+    {
+        offlineImage = [NSImage imageNamed:@"menu-outline-darkmode"];
+        activeImage = [NSImage imageNamed:@"menu-blue-darkmode"];
+        inactiveImage = [NSImage imageNamed:@"menu-black-darkmode"];
+        errorImage = [NSImage imageNamed:@"menu-red-darkmode"];
+    }
+    else
+    {
+        offlineImage = [NSImage imageNamed:@"menu-outline"];
+        activeImage = [NSImage imageNamed:@"menu-blue"];
+        inactiveImage = [NSImage imageNamed:@"menu-black"];
+        errorImage = [NSImage imageNamed:@"menu-red"];
+    }
+
+    [self updateStatus];
+}
+
+- (void)darkModeNotification:(NSNotification *)notification
+{
+    [self updateMode];
+}
+
 - (void)updateStatus {
+
     if (mapManagerhasLocation) {
         [forceMapUpdateMenuItem setEnabled:YES];
         [self enableOpenInBrowser];

@@ -23,8 +23,11 @@
     BOOL mapManagerisActive;
     BOOL mapManagerdidError;
     NSDate *mapLastUpdated;
+
+    BOOL darkModeEnabled;
 }
 
+- (void)darkModeNotification:(NSNotification *)notification;
 - (void)showActivity;
 - (void)showError;
 - (void)showNormal;
