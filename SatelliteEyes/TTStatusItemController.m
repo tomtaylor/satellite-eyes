@@ -18,11 +18,6 @@
 {
     self = [super init];
     if (self) {
-        offlineImage = [NSImage imageNamed:@"menu-outline"];
-        activeImage = [NSImage imageNamed:@"menu-blue"];
-        inactiveImage = [NSImage imageNamed:@"menu-black"];
-        errorImage = [NSImage imageNamed:@"menu-red"];
-
         NSMenu *menu = [[NSMenu alloc] initWithTitle:@"Menu"];
         [menu setDelegate:self];
         [menu setAutoenablesItems:NO];
@@ -113,16 +108,19 @@
         [self enableOpenInBrowser];
         
         if (mapManagerisActive) {
-            [self showActivity];
+            [self startActivityAnimation];
             
         } else if (mapManagerdidError) {
+            [self stopActivityAnimation];
             [self showError];
             
         } else { // is idle
+            [self stopActivityAnimation];
             [self showNormal];
         }
         
     } else {
+        [self stopActivityAnimation];
         [self showOffline];
         [forceMapUpdateMenuItem setEnabled:NO];
         [self disableOpenInBrowser];
@@ -130,12 +128,17 @@
 }
     
 - (void)showOffline {
-    statusItem.image = offlineImage;
+    NSImage *image = [NSImage imageNamed:@"status-icon-offline"];
+    image.template = YES;
+    statusItem.image = image;
     statusMenuItem.title = @"Waiting for location fix";
 }
 
 - (void)showNormal {
-    statusItem.image = inactiveImage;
+    NSImage *image = [NSImage imageNamed:@"status-icon-online"];
+    image.template = YES;
+    statusItem.image = image;
+
     [forceMapUpdateMenuItem setHidden:NO];
     
     if (mapLastUpdated) {
@@ -146,13 +149,37 @@
     }
 }
 
-- (void)showActivity {
-    statusItem.image = activeImage;
+- (void)startActivityAnimation {
+    activityAnimationFrameIndex = 0;
+    [self updateActivityImage];
+    activityAnimationTimer = [NSTimer scheduledTimerWithTimeInterval:1.0/4.0
+                                                              target:self
+                                                            selector:@selector(updateActivityImage)
+                                                            userInfo:nil
+                                                             repeats:YES];
     statusMenuItem.title = @"Updating the map";
 }
 
+- (void)updateActivityImage {
+    NSString *imageName = [NSString stringWithFormat:@"status-icon-activity-%lu", (unsigned long)activityAnimationFrameIndex];
+    NSImage *image = [NSImage imageNamed:imageName];
+    image.template = YES;
+    statusItem.image = image;
+    if (activityAnimationFrameIndex >= 3) {
+        activityAnimationFrameIndex = 0;
+    } else {
+        activityAnimationFrameIndex += 1;
+    }
+}
+
+- (void)stopActivityAnimation {
+    [activityAnimationTimer invalidate];
+}
+
 - (void)showError {
-    statusItem.image = errorImage;
+    NSImage *image = [NSImage imageNamed:@"status-icon-error"];
+    image.template = YES;
+    statusItem.image = image;
     statusMenuItem.title = @"Problem updating the map";
 }
 

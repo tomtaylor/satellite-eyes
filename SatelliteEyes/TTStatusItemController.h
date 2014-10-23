@@ -14,19 +14,13 @@
     NSMenuItem *statusMenuItem;
     NSMenuItem *forceMapUpdateMenuItem;
     NSMenuItem *openInBrowserMenuItem;
-    NSImage *activeImage;
-    NSImage *inactiveImage;
-    NSImage *errorImage;
-    NSImage *offlineImage;
     Reachability *reachability;
     BOOL mapManagerhasLocation;
     BOOL mapManagerisActive;
     BOOL mapManagerdidError;
     NSDate *mapLastUpdated;
+    NSUInteger activityAnimationFrameIndex;
+    NSTimer *activityAnimationTimer;
 }
-
-- (void)showActivity;
-- (void)showError;
-- (void)showNormal;
 
 @end
