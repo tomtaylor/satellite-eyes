@@ -152,11 +152,19 @@
 - (void)startActivityAnimation {
     activityAnimationFrameIndex = 0;
     [self updateActivityImage];
-    activityAnimationTimer = [NSTimer scheduledTimerWithTimeInterval:1.0/4.0
-                                                              target:self
-                                                            selector:@selector(updateActivityImage)
-                                                            userInfo:nil
-                                                             repeats:YES];
+
+    if (activityAnimationTimer) {
+        [activityAnimationTimer invalidate];
+    }
+
+    activityAnimationTimer = [NSTimer timerWithTimeInterval:1.0/4.0
+                                                     target:self
+                                                   selector:@selector(updateActivityImage)
+                                                   userInfo:nil
+                                                    repeats:YES];
+    activityAnimationTimer.tolerance = 0.01;
+    [[NSRunLoop currentRunLoop] addTimer:activityAnimationTimer forMode:NSDefaultRunLoopMode];
+
     statusMenuItem.title = @"Updating the map";
 }
 
@@ -174,6 +182,7 @@
 
 - (void)stopActivityAnimation {
     [activityAnimationTimer invalidate];
+    activityAnimationTimer = nil;
 }
 
 - (void)showError {
