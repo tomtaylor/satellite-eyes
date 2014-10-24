@@ -3,7 +3,8 @@
 //  LaunchAtLoginSample
 //
 //  Created by David Keegan on 4/20/12.
-//  Copyright (c) 2012 David Keegan. All rights reserved.
+//  Copyright (c) 2012 David Keegan.
+//  Some rights reserved: <http://opensource.org/licenses/mit-license.php>
 //
 
 #import "LLAppDelegate.h"

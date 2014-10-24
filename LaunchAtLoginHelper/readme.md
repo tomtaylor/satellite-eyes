@@ -12,7 +12,7 @@ First download or even better submodule **LaunchAtLoginHelper**. To clone the re
 
 ```
 $ cd <main_app_project>
-$ git clone --recursive git://github.com/kgn/LaunchAtLoginHelper.git
+$ git clone --recursive https://github.com/kgn/LaunchAtLoginHelper.git
 ```
 
 **LaunchAtLoginHelper** uses a url scheme to launch the main app, if the main app doesn't have a url scheme yet add one.
@@ -26,7 +26,14 @@ $ cd LaunchAtLoginHelper
 $ python setup.py <main_app_url_scheme> <helper_app_bundle_identifier>
 ```
 
-This will create `LLManager.h` which is used in both the helper app and the main app and contains `#define`'s for the url scheme and the helper app's bundle identifier. `LaunchAtLoginHelper-Info.plist` is also created for the helper app with it's custom bundle identifier filled in.
+For the sample code the above will look like this:
+
+```
+$ cd LaunchAtLoginHelper
+$ python setup.py launchatloginsample com.InScopeApps.ShellTo.LaunchAtLoginHelper
+```
+
+This will create `LLStrings.h` which is used in both the helper app and the main app and contains `#define`'s for the url scheme and the helper app's bundle identifier. `LaunchAtLoginHelper-Info.plist` is also created for the helper app with it's custom bundle identifier filled in.
 
 Once these two files are generated it's time to add **LaunchAtLoginHelper** to the main app. Drag `LaunchAtLoginHelper.xcodeproj`, `LLStrings.h`, `LLManager.h`, and `LLManager.m` to the main app's project.
 
@@ -46,6 +53,10 @@ Once this is done use `LLManager` to enable and disable launching at login! [**L
 [LLManager launchAtLogin] // will the app launch at login?
 [LLManager setLaunchAtLogin:YES] // set the app to launch at login
 ```
+
+# Bindings
+
+The `LLManager` class supports KVO and Cocoa Bindings. This allows for a completely code-free implementaion of this class. To get started, open the Interface Builder document in which you plan to create a login toggle. Drag a generic `NSObject` from the Utilities pane, and drop it onto your canvas. Select the newly created object, and open the Identity inspector tab in the Utilities pane. Change the class from `NSObject` to `LLManager`. Now, select to your login toggle (checkbox) and open the Bindings inspector in the Utilities pane. Expand `Value`, check the "Bind to", and select the name of the `LLManager` object you created earlier. Set the key path to `self.launchAtLogin`. You're done!
 
 ---
 
