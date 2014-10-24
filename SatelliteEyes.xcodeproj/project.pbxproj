@@ -36,7 +36,7 @@
 		D7569B7412ADF6DEEB9CAC8C1908D4A0 /* Defaults.plist in Resources */ = {isa = PBXBuildFile; fileRef = 459ED31A223FC63BAB241C074B5E7CFA /* Defaults.plist */; };
 		DD34200C9683B62B64B7C53F0A1205AD /* TTManageMapStylesWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 17855E355BB7E50A29F3A9E1B8936BB3 /* TTManageMapStylesWindowController.m */; };
 		DF563156051108AA7E68D6E8114EB6FB /* TTPreferencesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A959991FBB569201437B74805D167D7 /* TTPreferencesViewController.m */; };
-		E23953A51995066500241B73 /* Sparkle.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 781082EB8C986C2965C11EA91650CD69 /* Sparkle.framework */; };
+		E23953A51995066500241B73 /* Sparkle.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 781082EB8C986C2965C11EA91650CD69 /* Sparkle.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		E261EA3719F9735B00F5341B /* status-icon-activity-0@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E261EA3019F9735B00F5341B /* status-icon-activity-0@2x.png */; };
 		E261EA3819F9735B00F5341B /* status-icon-activity-1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E261EA3119F9735B00F5341B /* status-icon-activity-1@2x.png */; };
 		E261EA3919F9735B00F5341B /* status-icon-activity-2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E261EA3219F9735B00F5341B /* status-icon-activity-2@2x.png */; };
