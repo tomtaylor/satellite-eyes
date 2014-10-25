@@ -462,7 +462,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "# From: http://zargony.com/2014/08/10/automatic-versioning-in-xcode-with-git-describe\nset -e\nset -x\nBUILD_NUMBER=`git rev-list HEAD | wc -l | tr -d ' '`\n((BUILD_NUMBER+=1000))\necho \"Updating Info.plist CFBundleVersion to: ${BUILD_NUMBER}\"\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion \\\"${BUILD_NUMBER}\\\"\" \"${TARGET_BUILD_DIR}/${INFOPLIST_PATH}\"\n/usr/bin/plutil -convert binary1 \"${TARGET_BUILD_DIR}/${INFOPLIST_PATH}\"";
+			shellScript = "# From: http://zargony.com/2014/08/10/automatic-versioning-in-xcode-with-git-describe\nset -e\nset -x\nBUILD_NUMBER=`git rev-list HEAD | wc -l | tr -d ' '`\n# We increment this by 1000 because I did something stupid with an old release, and if the build number isn't higher than 438 then Sparkle won't prompt for an upgrade.\n((BUILD_NUMBER+=1000))\necho \"Updating Info.plist CFBundleVersion to: ${BUILD_NUMBER}\"\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion \\\"${BUILD_NUMBER}\\\"\" \"${TARGET_BUILD_DIR}/${INFOPLIST_PATH}\"\n/usr/bin/plutil -convert binary1 \"${TARGET_BUILD_DIR}/${INFOPLIST_PATH}\"";
 		};
 /* End PBXShellScriptBuildPhase section */
 
