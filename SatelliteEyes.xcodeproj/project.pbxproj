@@ -462,7 +462,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "# This script sets CFBundleVersion in the Info.plist of a target to the version\n# as returned by 'git describe'.\n# Info: http://zargony.com/2014/08/10/automatic-versioning-in-xcode-with-git-describe\nset -e\nset -x\nSHORT_VERSION=`git describe --abbrev=0 --tags`\nLONG_VERSION=`git describe --dirty --tags`\necho \"Updating Info.plist version to: ${SHORT_VERSION} (${LONG_VERSION})\"\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion \\\"${LONG_VERSION}\\\"\" \"${TARGET_BUILD_DIR}/${INFOPLIST_PATH}\"\n/usr/libexec/PlistBuddy -c \"Set :CFBundleShortVersionString \\\"${SHORT_VERSION}\\\"\" \"${TARGET_BUILD_DIR}/${INFOPLIST_PATH}\"\n/usr/bin/plutil -convert binary1 \"${TARGET_BUILD_DIR}/${INFOPLIST_PATH}\"";
+			shellScript = "# From: http://zargony.com/2014/08/10/automatic-versioning-in-xcode-with-git-describe\nset -e\nset -x\nBUILD_NUMBER=`git rev-list HEAD | wc -l | tr -d ' '`\necho \"Updating Info.plist CFBundleVersion to: ${BUILD_NUMBER}\"\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion \\\"${BUILD_NUMBER}\\\"\" \"${TARGET_BUILD_DIR}/${INFOPLIST_PATH}\"\n/usr/bin/plutil -convert binary1 \"${TARGET_BUILD_DIR}/${INFOPLIST_PATH}\"";
 		};
 /* End PBXShellScriptBuildPhase section */
 
