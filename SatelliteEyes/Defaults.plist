@@ -197,6 +197,75 @@
 	<array>
 		<dict>
 			<key>id</key>
+			<string>blueprint</string>
+			<key>name</key>
+			<string>Blueprint</string>
+			<key>disableAffineClamp</key>
+			<true/>
+			<key>filters</key>
+			<array>
+				<dict>
+					<key>name</key>
+					<string>CIColorInvert</string>
+					<key>parameters</key>
+					<array/>
+				</dict>
+				<dict>
+					<key>name</key>
+					<string>CIFalseColor</string>
+					<key>parameters</key>
+					<array>
+						<dict>
+							<key>name</key>
+							<string>inputColor0</string>
+							<key>value</key>
+							<dict>
+								<key>red</key>
+								<real>0.1</real>
+								<key>green</key>
+								<real>0.1</real>
+								<key>blue</key>
+								<real>0.2</real>
+							</dict>
+						</dict>
+						<dict>
+							<key>name</key>
+							<string>inputColor1</string>
+							<key>value</key>
+							<dict>
+								<key>red</key>
+								<integer>0</integer>
+								<key>green</key>
+								<real>0.25</real>
+								<key>blue</key>
+								<real>0.5</real>
+							</dict>
+						</dict>
+					</array>
+				</dict>
+				<dict>
+					<key>name</key>
+					<string>CIVignette</string>
+					<key>parameters</key>
+					<array>
+						<dict>
+							<key>name</key>
+							<string>inputRadius</string>
+							<key>value</key>
+							<integer>2</integer>
+						</dict>
+						<dict>
+							<key>name</key>
+							<string>inputIntensity</string>
+							<key>value</key>
+							<real>0.5</real>
+						</dict>
+					</array>
+				</dict>
+			</array>
+		</dict>
+		<dict>
+			<key>id</key>
 			<string>none</string>
 			<key>name</key>
 			<string>None</string>
