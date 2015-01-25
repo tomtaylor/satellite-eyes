@@ -249,6 +249,47 @@
 		</dict>
 		<dict>
 			<key>id</key>
+			<string>halftonedark</string>
+			<key>name</key>
+			<string>Halftone Dark</string>
+			<key>filters</key>
+			<array>
+				<dict>
+					<key>name</key>
+					<string>CIColorControls</string>
+					<key>parameters</key>
+					<array>
+						<dict>
+							<key>name</key>
+							<string>inputBrightness</string>
+							<key>value</key>
+							<real>-0.4</real>
+						</dict>
+						<dict>
+							<key>name</key>
+							<string>inputContrast</string>
+							<key>value</key>
+							<real>0.2</real>
+						</dict>
+					</array>
+				</dict>
+				<dict>
+					<key>name</key>
+					<string>CIDotScreen</string>
+					<key>parameters</key>
+					<array>
+						<dict>
+							<key>name</key>
+							<string>inputWidth</string>
+							<key>value</key>
+							<integer>2</integer>
+						</dict>
+					</array>
+				</dict>
+			</array>
+		</dict>
+		<dict>
+			<key>id</key>
 			<string>desaturate</string>
 			<key>name</key>
 			<string>Desaturate</string>
