@@ -541,19 +541,6 @@
 				INFOPLIST_FILE = "SatelliteEyes/SatelliteEyes-Info.plist";
 				INFOPLIST_PREPROCESS = NO;
 				OTHER_CODE_SIGN_FLAGS = "--deep";
-				OTHER_LDFLAGS = (
-					"-ObjC",
-					"-l\"Pods-AFNetworking\"",
-					"-l\"Pods-CocoaLumberjack\"",
-					"-l\"Pods-Reachability\"",
-					"-framework",
-					"\"CoreServices\"",
-					"-framework",
-					"\"Security\"",
-					"-framework",
-					"\"SystemConfiguration\"",
-					"-Wl,-rpath,@loader_path/../Frameworks",
-				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -607,19 +594,6 @@
 				INFOPLIST_FILE = "SatelliteEyes/SatelliteEyes-Info.plist";
 				INFOPLIST_PREPROCESS = NO;
 				OTHER_CODE_SIGN_FLAGS = "--deep";
-				OTHER_LDFLAGS = (
-					"-ObjC",
-					"-l\"Pods-AFNetworking\"",
-					"-l\"Pods-CocoaLumberjack\"",
-					"-l\"Pods-Reachability\"",
-					"-framework",
-					"\"CoreServices\"",
-					"-framework",
-					"\"Security\"",
-					"-framework",
-					"\"SystemConfiguration\"",
-					"-Wl,-rpath,@loader_path/../Frameworks",
-				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
