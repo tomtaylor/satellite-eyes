@@ -204,7 +204,7 @@
            fromLocation:(CLLocation *)oldLocation
 {
     // throw away location updates older than two minutes
-	if (newLocation && abs([newLocation.timestamp timeIntervalSinceNow]) < 120) {
+	if (newLocation && fabs([newLocation.timestamp timeIntervalSinceNow]) < 120) {
         [[NSNotificationCenter defaultCenter] postNotificationName:TTMapManagerLocationUpdated object:newLocation];
         lastSeenLocation = newLocation;
         [self updateMapToCoordinate:newLocation.coordinate force:NO];
