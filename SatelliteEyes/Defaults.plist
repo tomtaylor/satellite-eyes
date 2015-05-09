@@ -136,6 +136,34 @@
 		</dict>
 		<dict>
 			<key>id</key>
+			<string>mapbox-run-bike-hike</string>
+			<key>source</key>
+			<string>https://api.tiles.mapbox.com/v4/tomtaylor.751a3708/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoidG9tdGF5bG9yIiwiYSI6InJvYVktQ28ifQ.ra6A1XqlDa0B6yreKI2VYg</string>
+			<key>source2x</key>
+			<string>https://api.tiles.mapbox.com/v4/tomtaylor.751a3708/{z}/{x}/{y}@2x.png?access_token=pk.eyJ1IjoidG9tdGF5bG9yIiwiYSI6InJvYVktQ28ifQ.ra6A1XqlDa0B6yreKI2VYg</string>
+			<key>name</key>
+			<string>MapBox Run, Bike, Hike</string>
+			<key>maxZoom</key>
+			<integer>22</integer>
+			<key>browserURL</key>
+			<string>https://tiles.mapbox.com/tomtaylor/map/751a3708#{zoom}/{latitude}/{longitude}</string>
+		</dict>
+		<dict>
+			<key>id</key>
+			<string>mapbox-run-bike-hike-no-labels</string>
+			<key>source</key>
+			<string>https://api.tiles.mapbox.com/v4/tomtaylorb33de4c7/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoidG9tdGF5bG9yIiwiYSI6InJvYVktQ28ifQ.ra6A1XqlDa0B6yreKI2VYg</string>
+			<key>source2x</key>
+			<string>https://api.tiles.mapbox.com/v4/tomtaylor.b33de4c7/{z}/{x}/{y}@2x.png?access_token=pk.eyJ1IjoidG9tdGF5bG9yIiwiYSI6InJvYVktQ28ifQ.ra6A1XqlDa0B6yreKI2VYg</string>
+			<key>name</key>
+			<string>MapBox Run, Bike, Hike (without labels)</string>
+			<key>maxZoom</key>
+			<integer>22</integer>
+			<key>browserURL</key>
+			<string>https://tiles.mapbox.com/tomtaylor/map/b33de4c7#{zoom}/{latitude}/{longitude}</string>
+		</dict>
+		<dict>
+			<key>id</key>
 			<string>mapbox-satellite</string>
 			<key>source</key>
 			<string>https://api.tiles.mapbox.com/v4/tomtaylor.map-vjvxqzcd/{z}/{x}/{y}.jpg80?access_token=pk.eyJ1IjoidG9tdGF5bG9yIiwiYSI6InJvYVktQ28ifQ.ra6A1XqlDa0B6yreKI2VYg</string>
