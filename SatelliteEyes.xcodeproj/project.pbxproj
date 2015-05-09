@@ -381,7 +381,12 @@
 		7999993EC22657DCF9F9FCC566D50840 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0610;
+				LastUpgradeCheck = 0630;
+				TargetAttributes = {
+					F0A509CCCBD50F0A3647B6633BE0F1C7 = {
+						DevelopmentTeam = UY2GK6B69X;
+					};
+				};
 			};
 			buildConfigurationList = D54BBD44033465AFB8C5B7FA840E0FCC /* Build configuration list for PBXProject "SatelliteEyes" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -525,6 +530,7 @@
 			baseConfigurationReference = CF985C2CD6EEAC2AA46A94E2 /* Pods.debug.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = SatelliteEyes/SatelliteEyes.entitlements;
+				CODE_SIGN_IDENTITY = "Developer ID Application";
 				COMBINE_HIDPI_IMAGES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -570,6 +576,7 @@
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
@@ -589,6 +596,7 @@
 			baseConfigurationReference = 9400712E26F82AC932AD4BCB /* Pods.release.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = SatelliteEyes/SatelliteEyes.entitlements;
+				CODE_SIGN_IDENTITY = "Developer ID Application";
 				COMBINE_HIDPI_IMAGES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -634,6 +642,7 @@
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
