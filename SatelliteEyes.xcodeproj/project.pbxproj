@@ -18,7 +18,6 @@
 		42AAFFC44F7442D5DD0B75DFFFBD2DBB /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2B228E2AF542BCCC889815E95205213F /* SystemConfiguration.framework */; };
 		45C65CDBFC65BC77C83BE7FED3D84A5D /* NSFileManager+StandardPaths.m in Sources */ = {isa = PBXBuildFile; fileRef = DF73ABBD839524A7E808CEB88BCBB8D5 /* NSFileManager+StandardPaths.m */; };
 		4B295289382D99D49EFFD429E752AE4E /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6A40ABB41F26D8EA6E44086547D8FEFE /* QuartzCore.framework */; };
-		4E73C2B90FA2E693E90381D6 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 709D440127774885E659B32E /* libPods.a */; };
 		538E1DA79C5467491FF6B7AAACDB7834 /* TTAboutWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2E633A53F81A1CEBCD52752E45431B95 /* TTAboutWindow.xib */; };
 		5D90A01B0DCF1A7155664AF94167587E /* NSDate+Formatting.m in Sources */ = {isa = PBXBuildFile; fileRef = 6848FD4F2433B69B3C18629D4D2B29BB /* NSDate+Formatting.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		5F71313F15681DC3BEDFFBCC05383F82 /* TTPreferencesWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6721B29FCA2C63FD7FED50B252BBD729 /* TTPreferencesWindowController.m */; };
@@ -26,6 +25,7 @@
 		69F2C3611EE092986B1525A064996E47 /* TTMapTile.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B043BF601327A03BC32686468330F72 /* TTMapTile.m */; };
 		7BFB2574C28396D4F941CB71FAF526FB /* bing-logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 23F0F5ADE6F952464C80215F219E819C /* bing-logo.png */; };
 		7DE4BFECE0779D2316597701338E9CD0 /* TTMapTypesArrayController.m in Sources */ = {isa = PBXBuildFile; fileRef = FD0589350C076B8B0F73A105ADC7D225 /* TTMapTypesArrayController.m */; };
+		8DB310099E49B48A2E1E6502 /* libPods-SatelliteEyes.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 38D9AE12EF08C4C394FE93A6 /* libPods-SatelliteEyes.a */; };
 		984DEA9FA73332622AB3EB7F0BA2BD58 /* ServiceManagement.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B01A9B73C4CAA0FE6D446EF25495A3C1 /* ServiceManagement.framework */; };
 		B23D0C1B0C594FCA940D5264A9D11DCB /* TTStatusItemController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3919B1BC1AC8DDE342A62D30FC3FAE05 /* TTStatusItemController.m */; };
 		B532B8D446B04DCFFC38637A3CC9D206 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 8465CBE1C2C3E8BFE5B0BE3037EF5D3D /* main.m */; };
@@ -94,11 +94,13 @@
 		11045DCF6985908E23B5A441F2E159F3 /* TTMapImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTMapImage.m; sourceTree = "<group>"; };
 		17855E355BB7E50A29F3A9E1B8936BB3 /* TTManageMapStylesWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTManageMapStylesWindowController.m; sourceTree = "<group>"; };
 		1A24E56CEFA971ACC35A8D4E94824467 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
+		1E5F40EC494A7329E5875F8C /* Pods-SatelliteEyes.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SatelliteEyes.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SatelliteEyes/Pods-SatelliteEyes.debug.xcconfig"; sourceTree = "<group>"; };
 		23F0F5ADE6F952464C80215F219E819C /* bing-logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bing-logo.png"; sourceTree = "<group>"; };
 		2A959991FBB569201437B74805D167D7 /* TTPreferencesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTPreferencesViewController.m; sourceTree = "<group>"; };
 		2B043BF601327A03BC32686468330F72 /* TTMapTile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTMapTile.m; sourceTree = "<group>"; };
 		2B228E2AF542BCCC889815E95205213F /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		2E633A53F81A1CEBCD52752E45431B95 /* TTAboutWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TTAboutWindow.xib; sourceTree = "<group>"; };
+		38D9AE12EF08C4C394FE93A6 /* libPods-SatelliteEyes.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SatelliteEyes.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3919B1BC1AC8DDE342A62D30FC3FAE05 /* TTStatusItemController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTStatusItemController.m; sourceTree = "<group>"; };
 		3C0702F5F6A99AB37068393F9D2EA336 /* TTPreferencesWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TTPreferencesWindow.xib; sourceTree = "<group>"; };
 		44BADE6101B5F6B8A99E1BD4B9EBF3C0 /* TTAboutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTAboutViewController.m; sourceTree = "<group>"; };
@@ -116,12 +118,11 @@
 		69153A4155AB94E51D4182A3C35312F6 /* SatelliteEyes-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "SatelliteEyes-Info.plist"; sourceTree = "<group>"; };
 		6A40ABB41F26D8EA6E44086547D8FEFE /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		6B40139D1D111B91DA0BC3BA60984AC1 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
-		709D440127774885E659B32E /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		703449CF903EAEF227AEF74A /* Pods-SatelliteEyes.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SatelliteEyes.release.xcconfig"; path = "Pods/Target Support Files/Pods-SatelliteEyes/Pods-SatelliteEyes.release.xcconfig"; sourceTree = "<group>"; };
 		732703003D485F4F84B3D4E5470F1D96 /* TTPreferencesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTPreferencesViewController.h; sourceTree = "<group>"; };
 		7641EF6FCA1697628C2F07097B688134 /* TTManageMapStylesWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTManageMapStylesWindowController.h; sourceTree = "<group>"; };
 		76601CA0F07E22E62347CF605C882D62 /* TTMapManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTMapManager.h; path = SatelliteEyes/TTMapManager.h; sourceTree = SOURCE_ROOT; };
 		7D92C58B1614BD1551063E1ADECF9987 /* TTAboutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTAboutViewController.h; sourceTree = "<group>"; };
-		7F1DB51F9C9D3C558CA06512 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		816A97185C78CB064CD25CD97E37C100 /* TTMapManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TTMapManager.m; path = SatelliteEyes/TTMapManager.m; sourceTree = SOURCE_ROOT; };
 		8465CBE1C2C3E8BFE5B0BE3037EF5D3D /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		857D35A23641C9C72A1B47CA8793D93B /* SatelliteEyes.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = SatelliteEyes.entitlements; sourceTree = "<group>"; };
@@ -136,13 +137,12 @@
 		CA09F6494F02A7DB1919B004B5636BF3 /* TTMapTypesArrayController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTMapTypesArrayController.h; sourceTree = "<group>"; };
 		CF2947CC3A221752A4A59C14595A9489 /* loading.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = loading.png; sourceTree = "<group>"; };
 		D03E4E153247ACBB1629D0EBE6E82B87 /* MD5Digest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MD5Digest.m; path = SatelliteEyes/MD5Digest.m; sourceTree = "<group>"; };
-		D0BD2B70A96FD464192C94B2 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		D463EFD95CBA286EB082BDB24D79A26E /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		D602B1D28746EC3E76668F8769FF63C2 /* MD5Digest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MD5Digest.h; path = SatelliteEyes/MD5Digest.h; sourceTree = "<group>"; };
 		D91E37E8DFDA52C112A1E550DBF2E48F /* Credits.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; path = Credits.rtf; sourceTree = "<group>"; };
 		DF73ABBD839524A7E808CEB88BCBB8D5 /* NSFileManager+StandardPaths.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSFileManager+StandardPaths.m"; path = "SatelliteEyes/NSFileManager+StandardPaths.m"; sourceTree = "<group>"; };
 		E1810FEC9ABC5957805DBF93F7AC07C9 /* NSDate+Formatting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSDate+Formatting.h"; path = "SatelliteEyes/NSDate+Formatting.h"; sourceTree = "<group>"; };
-		E1AEB4FF42F09FC9228E2D87F4D88973 /* Satellite Eyes.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Satellite Eyes.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		E1AEB4FF42F09FC9228E2D87F4D88973 /* SatelliteEyes.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SatelliteEyes.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E261EA3019F9735B00F5341B /* status-icon-activity-0@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "status-icon-activity-0@2x.png"; sourceTree = "<group>"; };
 		E261EA3119F9735B00F5341B /* status-icon-activity-1@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "status-icon-activity-1@2x.png"; sourceTree = "<group>"; };
 		E261EA3219F9735B00F5341B /* status-icon-activity-2@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "status-icon-activity-2@2x.png"; sourceTree = "<group>"; };
@@ -172,7 +172,7 @@
 				4B295289382D99D49EFFD429E752AE4E /* QuartzCore.framework in Frameworks */,
 				984DEA9FA73332622AB3EB7F0BA2BD58 /* ServiceManagement.framework in Frameworks */,
 				42AAFFC44F7442D5DD0B75DFFFBD2DBB /* SystemConfiguration.framework in Frameworks */,
-				4E73C2B90FA2E693E90381D6 /* libPods.a in Frameworks */,
+				8DB310099E49B48A2E1E6502 /* libPods-SatelliteEyes.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -190,21 +190,12 @@
 			name = NIBs;
 			sourceTree = "<group>";
 		};
-		0216789078C5E18E73EAE95D /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				7F1DB51F9C9D3C558CA06512 /* Pods.debug.xcconfig */,
-				D0BD2B70A96FD464192C94B2 /* Pods.release.xcconfig */,
-			);
-			name = Pods;
-			sourceTree = "<group>";
-		};
 		0E14D71311A0CDE79CD75225214B1D4C /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
 				0E75555BDA62D4CB5067685541E7E4E3 /* Other Frameworks */,
 				D463EFD95CBA286EB082BDB24D79A26E /* Cocoa.framework */,
-				709D440127774885E659B32E /* libPods.a */,
+				38D9AE12EF08C4C394FE93A6 /* libPods-SatelliteEyes.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -279,14 +270,14 @@
 				39E334E0B0491A2C2A07A1B9705B047A /* Products */,
 				2092BE5B4DCE1D0798106CFC5FD15194 /* SatelliteEyes */,
 				14C7D0D96EABCE2A1F91EFD3636B64AD /* Third Party */,
-				0216789078C5E18E73EAE95D /* Pods */,
+				4C5A8F967144B3329FCD2D7D /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
 		39E334E0B0491A2C2A07A1B9705B047A /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				E1AEB4FF42F09FC9228E2D87F4D88973 /* Satellite Eyes.app */,
+				E1AEB4FF42F09FC9228E2D87F4D88973 /* SatelliteEyes.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -303,6 +294,15 @@
 				8465CBE1C2C3E8BFE5B0BE3037EF5D3D /* main.m */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		4C5A8F967144B3329FCD2D7D /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				1E5F40EC494A7329E5875F8C /* Pods-SatelliteEyes.debug.xcconfig */,
+				703449CF903EAEF227AEF74A /* Pods-SatelliteEyes.release.xcconfig */,
+			);
+			name = Pods;
 			sourceTree = "<group>";
 		};
 		6B82C1F0425BF476D4B377C387C30283 /* Assets */ = {
@@ -340,27 +340,28 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		F0A509CCCBD50F0A3647B6633BE0F1C7 /* Satellite Eyes */ = {
+		F0A509CCCBD50F0A3647B6633BE0F1C7 /* SatelliteEyes */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 32E4CB75628C9D551998866DE380F5F5 /* Build configuration list for PBXNativeTarget "Satellite Eyes" */;
+			buildConfigurationList = 32E4CB75628C9D551998866DE380F5F5 /* Build configuration list for PBXNativeTarget "SatelliteEyes" */;
 			buildPhases = (
-				5FE745214CA094D6A53789C8 /* Check Pods Manifest.lock */,
+				AD28186CA30B4F225346C0CC /* [CP] Check Pods Manifest.lock */,
 				1BA14FD04AE46C791F4DC95096A0DE54 /* Sources */,
 				60237CDE65D0D58F1B5424CF0104AD02 /* Frameworks */,
 				42BD6E8FC2281A4AE00979FE1E7C1921 /* Resources */,
 				E261EA4C19F97AEB00F5341B /* Copy LaunchAtLogin.app */,
 				E2B80DDF199F6DFA002CD817 /* Update Build Number */,
-				1A86E07C5429AFEAA0EBA075 /* Copy Pods Resources */,
 				E26E305E1AFE3F0A00F55259 /* Sign Sparkle.framework */,
+				B2E131A12C04425BD7AEC5D6 /* [CP] Embed Pods Frameworks */,
+				D655EDF134E5B8E902B5B765 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 				05FB6900ECDE7ECBC51D5B537A05BED0 /* PBXTargetDependency */,
 			);
-			name = "Satellite Eyes";
+			name = SatelliteEyes;
 			productName = SatelliteEyes;
-			productReference = E1AEB4FF42F09FC9228E2D87F4D88973 /* Satellite Eyes.app */;
+			productReference = E1AEB4FF42F09FC9228E2D87F4D88973 /* SatelliteEyes.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -369,10 +370,10 @@
 		7999993EC22657DCF9F9FCC566D50840 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0630;
+				LastUpgradeCheck = 0820;
 				TargetAttributes = {
 					F0A509CCCBD50F0A3647B6633BE0F1C7 = {
-						DevelopmentTeam = UY2GK6B69X;
+						DevelopmentTeam = 6TK8Q4KD6G;
 					};
 				};
 			};
@@ -394,7 +395,7 @@
 			);
 			projectRoot = "";
 			targets = (
-				F0A509CCCBD50F0A3647B6633BE0F1C7 /* Satellite Eyes */,
+				F0A509CCCBD50F0A3647B6633BE0F1C7 /* SatelliteEyes */,
 			);
 		};
 /* End PBXProject section */
@@ -444,34 +445,49 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		1A86E07C5429AFEAA0EBA075 /* Copy Pods Resources */ = {
+		AD28186CA30B4F225346C0CC /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Copy Pods Resources";
+			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
-		5FE745214CA094D6A53789C8 /* Check Pods Manifest.lock */ = {
+		B2E131A12C04425BD7AEC5D6 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Check Pods Manifest.lock";
+			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SatelliteEyes/Pods-SatelliteEyes-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		D655EDF134E5B8E902B5B765 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SatelliteEyes/Pods-SatelliteEyes-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		E26E305E1AFE3F0A00F55259 /* Sign Sparkle.framework */ = {
@@ -560,12 +576,13 @@
 /* Begin XCBuildConfiguration section */
 		11359C44A2D9A46B9B49EA7D67C17D89 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 7F1DB51F9C9D3C558CA06512 /* Pods.debug.xcconfig */;
+			baseConfigurationReference = 1E5F40EC494A7329E5875F8C /* Pods-SatelliteEyes.debug.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = SatelliteEyes/SatelliteEyes.entitlements;
 				CODE_SIGN_IDENTITY = "Developer ID Application";
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
+				DEVELOPMENT_TEAM = 6TK8Q4KD6G;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -574,6 +591,7 @@
 				GCC_PREFIX_HEADER = "SatelliteEyes/SatelliteEyes-Prefix.pch";
 				INFOPLIST_FILE = "SatelliteEyes/SatelliteEyes-Info.plist";
 				INFOPLIST_PREPROCESS = NO;
+				PRODUCT_BUNDLE_IDENTIFIER = uk.co.tomtaylor.SatelliteEyes;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -587,7 +605,9 @@
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "Developer ID Application: Tom Taylor (UY2GK6B69X)";
@@ -612,12 +632,13 @@
 		};
 		A7A2EE633075524C9013CC78F9888754 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = D0BD2B70A96FD464192C94B2 /* Pods.release.xcconfig */;
+			baseConfigurationReference = 703449CF903EAEF227AEF74A /* Pods-SatelliteEyes.release.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = SatelliteEyes/SatelliteEyes.entitlements;
 				CODE_SIGN_IDENTITY = "Developer ID Application";
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
+				DEVELOPMENT_TEAM = 6TK8Q4KD6G;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -626,6 +647,7 @@
 				GCC_PREFIX_HEADER = "SatelliteEyes/SatelliteEyes-Prefix.pch";
 				INFOPLIST_FILE = "SatelliteEyes/SatelliteEyes-Info.plist";
 				INFOPLIST_PREPROCESS = NO;
+				PRODUCT_BUNDLE_IDENTIFIER = uk.co.tomtaylor.SatelliteEyes;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -639,11 +661,14 @@
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
@@ -672,7 +697,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		32E4CB75628C9D551998866DE380F5F5 /* Build configuration list for PBXNativeTarget "Satellite Eyes" */ = {
+		32E4CB75628C9D551998866DE380F5F5 /* Build configuration list for PBXNativeTarget "SatelliteEyes" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				11359C44A2D9A46B9B49EA7D67C17D89 /* Debug */,

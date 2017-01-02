@@ -1,3 +1,5 @@
+[![Reference Status](https://www.versioneye.com/objective-c/reachability/reference_badge.svg?style=flat)](https://www.versioneye.com/objective-c/reachability/references)
+
 # Reachability
 
 This is a drop-in replacement for Apple's `Reachability` class. It is ARC-compatible, and it uses the new GCD methods to notify of network interface changes.
@@ -5,6 +7,8 @@ This is a drop-in replacement for Apple's `Reachability` class. It is ARC-compat
 In addition to the standard `NSNotification`, it supports the use of blocks for when the network becomes reachable and unreachable.
 
 Finally, you can specify whether a WWAN connection is considered "reachable".
+
+*DO NOT OPEN BUGS UNTIL YOU HAVE TESTED ON DEVICE*
 
 ## Requirements
 
@@ -25,10 +29,16 @@ This sample uses blocks to notify when the interface state has changed. The bloc
 	// Allocate a reachability object
 	Reachability* reach = [Reachability reachabilityWithHostname:@"www.google.com"];
 
-	// Set the blocks 
+	// Set the blocks
 	reach.reachableBlock = ^(Reachability*reach)
 	{
-		NSLog(@"REACHABLE!");
+		// keep in mind this is called on a background thread
+		// and if you are updating the UI it needs to happen
+		// on the main thread, like this:
+
+		dispatch_async(dispatch_get_main_queue(), ^{
+		  NSLog(@"REACHABLE!");
+		});
 	};
 
 	reach.unreachableBlock = ^(Reachability*reach)
@@ -50,15 +60,15 @@ In addition, it asks the `Reachability` object to consider the WWAN (3G/EDGE/CDM
 
 	// Tell the reachability that we DON'T want to be reachable on 3G/EDGE/CDMA
 	reach.reachableOnWWAN = NO;
-	
+
 	// Here we set up a NSNotification observer. The Reachability that caused the notification
 	// is passed in the object parameter
-	[[NSNotificationCenter defaultCenter] addObserver:self 
-											 selector:@selector(reachabilityChanged:) 
-												 name:kReachabilityChangedNotification 
+	[[NSNotificationCenter defaultCenter] addObserver:self
+											 selector:@selector(reachabilityChanged:)
+												 name:kReachabilityChangedNotification
 											   object:nil];
-											
-	[reach startNotifier]
+
+	[reach startNotifier];
 
 ## Tell the world
 
