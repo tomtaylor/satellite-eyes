@@ -7,12 +7,12 @@ inhibit_all_warnings!
 workspace 'lukesolomon/desktop/Extra\ Curriculars/satellite-eyes/Workspace.xcworkspace'
 
 def shared_target_pods
-    pod 'Reachability'
-    pod 'CocoaLumberjack'
-    pod 'AFNetworking'
-    pod 'Sparkle'
+	pod 'Reachability',  '~> 3.1.0'
+	pod 'CocoaLumberjack', '~> 1.9.1'
+	pod 'AFNetworking', '~> 1.3'
+	pod 'Sparkle', '~> 1.15.1’
 end
 
-target :SatelliteEyes do
+target :’Satellite Eyes’ do
     shared_target_pods
 end

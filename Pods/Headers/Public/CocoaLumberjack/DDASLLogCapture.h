@@ -1,1 +1,1 @@
-../../../CocoaLumberjack/Classes/DDASLLogCapture.h
+../../../CocoaLumberjack/Lumberjack/DDASLLogCapture.h

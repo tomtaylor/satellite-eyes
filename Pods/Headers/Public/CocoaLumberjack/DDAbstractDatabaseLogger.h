@@ -1,1 +1,1 @@
-../../../CocoaLumberjack/Classes/DDAbstractDatabaseLogger.h
+../../../CocoaLumberjack/Lumberjack/DDAbstractDatabaseLogger.h

@@ -1,5 +1,6 @@
 // AFURLConnectionOperation.m
-// Copyright (c) 2011–2015 Alamofire Software Foundation (http://alamofire.org/)
+//
+// Copyright (c) 2011 Gowalla (http://gowalla.com/)
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -30,40 +31,26 @@
 // You can turn on ARC for only AFNetworking files by adding -fobjc-arc to the build phase for each of its files.
 #endif
 
-typedef NS_ENUM(NSInteger, AFOperationState) {
+typedef enum {
     AFOperationPausedState      = -1,
     AFOperationReadyState       = 1,
     AFOperationExecutingState   = 2,
     AFOperationFinishedState    = 3,
-};
+} _AFOperationState;
 
-#if defined(__IPHONE_OS_VERSION_MIN_REQUIRED) && !defined(AF_APP_EXTENSIONS)
+typedef signed short AFOperationState;
+
+#if defined(__IPHONE_OS_VERSION_MIN_REQUIRED)
 typedef UIBackgroundTaskIdentifier AFBackgroundTaskIdentifier;
 #else
 typedef id AFBackgroundTaskIdentifier;
 #endif
 
-static dispatch_group_t url_request_operation_completion_group() {
-    static dispatch_group_t af_url_request_operation_completion_group;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        af_url_request_operation_completion_group = dispatch_group_create();
-    });
-
-    return af_url_request_operation_completion_group;
-}
-
-static dispatch_queue_t url_request_operation_completion_queue() {
-    static dispatch_queue_t af_url_request_operation_completion_queue;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        af_url_request_operation_completion_queue = dispatch_queue_create("com.alamofire.networking.operation.queue", DISPATCH_QUEUE_CONCURRENT );
-    });
-
-    return af_url_request_operation_completion_queue;
-}
-
 static NSString * const kAFNetworkingLockName = @"com.alamofire.networking.operation.lock";
+
+NSString * const AFNetworkingErrorDomain = @"AFNetworkingErrorDomain";
+NSString * const AFNetworkingOperationFailingURLRequestErrorKey = @"AFNetworkingOperationFailingURLRequestErrorKey";
+NSString * const AFNetworkingOperationFailingURLResponseErrorKey = @"AFNetworkingOperationFailingURLResponseErrorKey";
 
 NSString * const AFNetworkingOperationDidStartNotification = @"com.alamofire.networking.operation.start";
 NSString * const AFNetworkingOperationDidFinishNotification = @"com.alamofire.networking.operation.finish";
@@ -83,12 +70,8 @@ static inline NSString * AFKeyPathFromOperationState(AFOperationState state) {
             return @"isFinished";
         case AFOperationPausedState:
             return @"isPaused";
-        default: {
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wunreachable-code"
+        default:
             return @"state";
-#pragma clang diagnostic pop
-        }
     }
 }
 
@@ -116,25 +99,39 @@ static inline BOOL AFStateTransitionIsValid(AFOperationState fromState, AFOperat
             return NO;
         case AFOperationPausedState:
             return toState == AFOperationReadyState;
-        default: {
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wunreachable-code"
-            switch (toState) {
-                case AFOperationPausedState:
-                case AFOperationReadyState:
-                case AFOperationExecutingState:
-                case AFOperationFinishedState:
-                    return YES;
-                default:
-                    return NO;
-            }
-        }
-#pragma clang diagnostic pop
+        default:
+            return YES;
     }
+}
+
+#if !defined(__IPHONE_OS_VERSION_MIN_REQUIRED)
+static NSData *AFSecKeyGetData(SecKeyRef key) {
+    CFDataRef data = NULL;
+    
+#if defined(NS_BLOCK_ASSERTIONS)
+    SecItemExport(key, kSecFormatUnknown, kSecItemPemArmour, NULL, &data);
+#else
+    OSStatus status = SecItemExport(key, kSecFormatUnknown, kSecItemPemArmour, NULL, &data);
+    NSCAssert(status == errSecSuccess, @"SecItemExport error: %ld", (long int)status);
+#endif
+
+    NSCParameterAssert(data);
+    
+    return (__bridge_transfer NSData *)data;
+}
+#endif
+
+static BOOL AFSecKeyIsEqualToKey(SecKeyRef key1, SecKeyRef key2) {
+#if defined(__IPHONE_OS_VERSION_MIN_REQUIRED)
+    return [(__bridge id)key1 isEqual:(__bridge id)key2];
+#else
+    return [AFSecKeyGetData(key1) isEqual:AFSecKeyGetData(key2)];
+#endif
 }
 
 @interface AFURLConnectionOperation ()
 @property (readwrite, nonatomic, assign) AFOperationState state;
+@property (readwrite, nonatomic, assign, getter = isCancelled) BOOL cancelled;
 @property (readwrite, nonatomic, strong) NSRecursiveLock *lock;
 @property (readwrite, nonatomic, strong) NSURLConnection *connection;
 @property (readwrite, nonatomic, strong) NSURLRequest *request;
@@ -157,9 +154,33 @@ static inline BOOL AFStateTransitionIsValid(AFOperationState fromState, AFOperat
 @end
 
 @implementation AFURLConnectionOperation
+@synthesize state = _state;
+@synthesize cancelled = _cancelled;
+@synthesize connection = _connection;
+@synthesize runLoopModes = _runLoopModes;
+@synthesize request = _request;
+@synthesize response = _response;
+@synthesize error = _error;
+@synthesize allowsInvalidSSLCertificate = _allowsInvalidSSLCertificate;
+@synthesize responseData = _responseData;
+@synthesize responseString = _responseString;
+@synthesize responseStringEncoding = _responseStringEncoding;
+@synthesize totalBytesRead = _totalBytesRead;
+@dynamic inputStream;
 @synthesize outputStream = _outputStream;
+@synthesize credential = _credential;
+@synthesize SSLPinningMode = _SSLPinningMode;
+@synthesize shouldUseCredentialStorage = _shouldUseCredentialStorage;
+@synthesize userInfo = _userInfo;
+@synthesize backgroundTaskIdentifier = _backgroundTaskIdentifier;
+@synthesize uploadProgress = _uploadProgress;
+@synthesize downloadProgress = _downloadProgress;
+@synthesize authenticationChallenge = _authenticationChallenge;
+@synthesize cacheResponse = _cacheResponse;
+@synthesize redirectResponse = _redirectResponse;
+@synthesize lock = _lock;
 
-+ (void)networkRequestThreadEntryPoint:(id)__unused object {
++ (void)networkRequestThreadEntryPoint:(id __unused)object {
     @autoreleasepool {
         [[NSThread currentThread] setName:@"AFNetworking"];
 
@@ -176,30 +197,96 @@ static inline BOOL AFStateTransitionIsValid(AFOperationState fromState, AFOperat
         _networkRequestThread = [[NSThread alloc] initWithTarget:self selector:@selector(networkRequestThreadEntryPoint:) object:nil];
         [_networkRequestThread start];
     });
-
+    
     return _networkRequestThread;
 }
 
-- (instancetype)initWithRequest:(NSURLRequest *)urlRequest {
++ (NSArray *)pinnedCertificates {
+    static NSArray *_pinnedCertificates = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        NSBundle *bundle = [NSBundle mainBundle];
+        NSArray *paths = [bundle pathsForResourcesOfType:@"cer" inDirectory:@"."];
+        
+        NSMutableArray *certificates = [NSMutableArray arrayWithCapacity:[paths count]];
+        for (NSString *path in paths) {
+            NSData *certificateData = [NSData dataWithContentsOfFile:path];
+            [certificates addObject:certificateData];
+        }
+        
+        _pinnedCertificates = [[NSArray alloc] initWithArray:certificates];
+    });
+    
+    return _pinnedCertificates;
+}
+
++ (NSArray *)pinnedPublicKeys {
+    static NSArray *_pinnedPublicKeys = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        NSArray *pinnedCertificates = [self pinnedCertificates];
+        NSMutableArray *publicKeys = [NSMutableArray arrayWithCapacity:[pinnedCertificates count]];
+        
+        for (NSData *data in pinnedCertificates) {
+            SecCertificateRef allowedCertificate = SecCertificateCreateWithData(NULL, (__bridge CFDataRef)data);
+            NSParameterAssert(allowedCertificate);
+            
+            SecCertificateRef allowedCertificates[] = {allowedCertificate};
+            CFArrayRef certificates = CFArrayCreate(NULL, (const void **)allowedCertificates, 1, NULL);
+            
+            SecPolicyRef policy = SecPolicyCreateBasicX509();
+            SecTrustRef allowedTrust = NULL;
+            OSStatus status = SecTrustCreateWithCertificates(certificates, policy, &allowedTrust);
+            NSAssert(status == errSecSuccess, @"SecTrustCreateWithCertificates error: %ld", (long int)status);
+            if (status == errSecSuccess && allowedTrust) {
+                SecTrustResultType result = 0;
+                status = SecTrustEvaluate(allowedTrust, &result);
+                NSAssert(status == errSecSuccess, @"SecTrustEvaluate error: %ld", (long int)status);
+                if (status == errSecSuccess) {
+                    SecKeyRef allowedPublicKey = SecTrustCopyPublicKey(allowedTrust);
+                    NSParameterAssert(allowedPublicKey);
+                    if (allowedPublicKey) {
+                        [publicKeys addObject:(__bridge_transfer id)allowedPublicKey];
+                    }
+                }
+                
+                CFRelease(allowedTrust);
+            }          
+            
+            CFRelease(policy);
+            CFRelease(certificates);
+            CFRelease(allowedCertificate);
+        }
+        
+        _pinnedPublicKeys = [[NSArray alloc] initWithArray:publicKeys];
+    });
+    
+    return _pinnedPublicKeys;
+}
+
+- (id)initWithRequest:(NSURLRequest *)urlRequest {
     NSParameterAssert(urlRequest);
 
     self = [super init];
     if (!self) {
 		return nil;
     }
-
-    _state = AFOperationReadyState;
-
+    
     self.lock = [[NSRecursiveLock alloc] init];
     self.lock.name = kAFNetworkingLockName;
-
+    
     self.runLoopModes = [NSSet setWithObject:NSRunLoopCommonModes];
-
+    
     self.request = urlRequest;
-
+    
     self.shouldUseCredentialStorage = YES;
 
-    self.securityPolicy = [AFSecurityPolicy defaultPolicy];
+    // #ifdef included for backwards-compatibility 
+#ifdef _AFNETWORKING_ALLOW_INVALID_SSL_CERTIFICATES_
+    self.allowsInvalidSSLCertificate = YES;
+#endif
+
+    self.state = AFOperationReadyState;
 
     return self;
 }
@@ -209,8 +296,8 @@ static inline BOOL AFStateTransitionIsValid(AFOperationState fromState, AFOperat
         [_outputStream close];
         _outputStream = nil;
     }
-
-#if defined(__IPHONE_OS_VERSION_MIN_REQUIRED) && !defined(AF_APP_EXTENSIONS)
+    
+#if defined(__IPHONE_OS_VERSION_MIN_REQUIRED)
     if (_backgroundTaskIdentifier) {
         [[UIApplication sharedApplication] endBackgroundTask:_backgroundTaskIdentifier];
         _backgroundTaskIdentifier = UIBackgroundTaskInvalid;
@@ -218,44 +305,24 @@ static inline BOOL AFStateTransitionIsValid(AFOperationState fromState, AFOperat
 #endif
 }
 
-#pragma mark -
+- (NSString *)description {
+    return [NSString stringWithFormat:@"<%@: %p, state: %@, cancelled: %@ request: %@, response: %@>", NSStringFromClass([self class]), self, AFKeyPathFromOperationState(self.state), ([self isCancelled] ? @"YES" : @"NO"), self.request, self.response];
+}
 
-- (void)setResponseData:(NSData *)responseData {
+- (void)setCompletionBlock:(void (^)(void))block {
     [self.lock lock];
-    if (!responseData) {
-        _responseData = nil;
+    if (!block) {
+        [super setCompletionBlock:nil];
     } else {
-        _responseData = [NSData dataWithBytes:responseData.bytes length:responseData.length];
+        __weak __typeof(&*self)weakSelf = self;
+        [super setCompletionBlock:^ {
+            __strong __typeof(&*weakSelf)strongSelf = weakSelf;
+            
+            block();
+            [strongSelf setCompletionBlock:nil];
+        }];
     }
     [self.lock unlock];
-}
-
-- (NSString *)responseString {
-    [self.lock lock];
-    if (!_responseString && self.response && self.responseData) {
-        self.responseString = [[NSString alloc] initWithData:self.responseData encoding:self.responseStringEncoding];
-    }
-    [self.lock unlock];
-
-    return _responseString;
-}
-
-- (NSStringEncoding)responseStringEncoding {
-    [self.lock lock];
-    if (!_responseStringEncoding && self.response) {
-        NSStringEncoding stringEncoding = NSUTF8StringEncoding;
-        if (self.response.textEncodingName) {
-            CFStringEncoding IANAEncoding = CFStringConvertIANACharSetNameToEncoding((__bridge CFStringRef)self.response.textEncodingName);
-            if (IANAEncoding != kCFStringEncodingInvalidId) {
-                stringEncoding = CFStringConvertEncodingToNSStringEncoding(IANAEncoding);
-            }
-        }
-
-        self.responseStringEncoding = stringEncoding;
-    }
-    [self.lock unlock];
-
-    return _responseStringEncoding;
 }
 
 - (NSInputStream *)inputStream {
@@ -263,9 +330,11 @@ static inline BOOL AFStateTransitionIsValid(AFOperationState fromState, AFOperat
 }
 
 - (void)setInputStream:(NSInputStream *)inputStream {
+    [self willChangeValueForKey:@"inputStream"];
     NSMutableURLRequest *mutableRequest = [self.request mutableCopy];
     mutableRequest.HTTPBodyStream = inputStream;
     self.request = mutableRequest;
+    [self didChangeValueForKey:@"inputStream"];
 }
 
 - (NSOutputStream *)outputStream {
@@ -279,31 +348,32 @@ static inline BOOL AFStateTransitionIsValid(AFOperationState fromState, AFOperat
 - (void)setOutputStream:(NSOutputStream *)outputStream {
     [self.lock lock];
     if (outputStream != _outputStream) {
+        [self willChangeValueForKey:@"outputStream"];
         if (_outputStream) {
             [_outputStream close];
         }
-
         _outputStream = outputStream;
+        [self didChangeValueForKey:@"outputStream"];
     }
     [self.lock unlock];
 }
 
-#if defined(__IPHONE_OS_VERSION_MIN_REQUIRED) && !defined(AF_APP_EXTENSIONS)
+#if defined(__IPHONE_OS_VERSION_MIN_REQUIRED)
 - (void)setShouldExecuteAsBackgroundTaskWithExpirationHandler:(void (^)(void))handler {
     [self.lock lock];
     if (!self.backgroundTaskIdentifier) {
         UIApplication *application = [UIApplication sharedApplication];
-        __weak __typeof(self)weakSelf = self;
+        __weak __typeof(&*self)weakSelf = self;
         self.backgroundTaskIdentifier = [application beginBackgroundTaskWithExpirationHandler:^{
-            __strong __typeof(weakSelf)strongSelf = weakSelf;
-
+            __strong __typeof(&*weakSelf)strongSelf = weakSelf;
+            
             if (handler) {
                 handler();
             }
-
+            
             if (strongSelf) {
                 [strongSelf cancel];
-
+                
                 [application endBackgroundTask:strongSelf.backgroundTaskIdentifier];
                 strongSelf.backgroundTaskIdentifier = UIBackgroundTaskInvalid;
             }
@@ -312,68 +382,6 @@ static inline BOOL AFStateTransitionIsValid(AFOperationState fromState, AFOperat
     [self.lock unlock];
 }
 #endif
-
-#pragma mark -
-
-- (void)setState:(AFOperationState)state {
-    if (!AFStateTransitionIsValid(self.state, state, [self isCancelled])) {
-        return;
-    }
-
-    [self.lock lock];
-    NSString *oldStateKey = AFKeyPathFromOperationState(self.state);
-    NSString *newStateKey = AFKeyPathFromOperationState(state);
-
-    [self willChangeValueForKey:newStateKey];
-    [self willChangeValueForKey:oldStateKey];
-    _state = state;
-    [self didChangeValueForKey:oldStateKey];
-    [self didChangeValueForKey:newStateKey];
-    [self.lock unlock];
-}
-
-- (void)pause {
-    if ([self isPaused] || [self isFinished] || [self isCancelled]) {
-        return;
-    }
-
-    [self.lock lock];
-    if ([self isExecuting]) {
-        [self performSelector:@selector(operationDidPause) onThread:[[self class] networkRequestThread] withObject:nil waitUntilDone:NO modes:[self.runLoopModes allObjects]];
-
-        dispatch_async(dispatch_get_main_queue(), ^{
-            NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
-            [notificationCenter postNotificationName:AFNetworkingOperationDidFinishNotification object:self];
-        });
-    }
-
-    self.state = AFOperationPausedState;
-    [self.lock unlock];
-}
-
-- (void)operationDidPause {
-    [self.lock lock];
-    [self.connection cancel];
-    [self.lock unlock];
-}
-
-- (BOOL)isPaused {
-    return self.state == AFOperationPausedState;
-}
-
-- (void)resume {
-    if (![self isPaused]) {
-        return;
-    }
-
-    [self.lock lock];
-    self.state = AFOperationReadyState;
-
-    [self start];
-    [self.lock unlock];
-}
-
-#pragma mark -
 
 - (void)setUploadProgressBlock:(void (^)(NSUInteger bytesWritten, long long totalBytesWritten, long long totalBytesExpectedToWrite))block {
     self.uploadProgress = block;
@@ -395,34 +403,89 @@ static inline BOOL AFStateTransitionIsValid(AFOperationState fromState, AFOperat
     self.redirectResponse = block;
 }
 
-#pragma mark - NSOperation
-
-- (void)setCompletionBlock:(void (^)(void))block {
-    [self.lock lock];
-    if (!block) {
-        [super setCompletionBlock:nil];
-    } else {
-        __weak __typeof(self)weakSelf = self;
-        [super setCompletionBlock:^ {
-            __strong __typeof(weakSelf)strongSelf = weakSelf;
-
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wgnu"
-            dispatch_group_t group = strongSelf.completionGroup ?: url_request_operation_completion_group();
-            dispatch_queue_t queue = strongSelf.completionQueue ?: dispatch_get_main_queue();
-#pragma clang diagnostic pop
-
-            dispatch_group_async(group, queue, ^{
-                block();
-            });
-
-            dispatch_group_notify(group, url_request_operation_completion_queue(), ^{
-                [strongSelf setCompletionBlock:nil];
-            });
-        }];
+- (void)setState:(AFOperationState)state {
+    if (!AFStateTransitionIsValid(self.state, state, [self isCancelled])) {
+        return;
     }
+    
+    [self.lock lock];
+    NSString *oldStateKey = AFKeyPathFromOperationState(self.state);
+    NSString *newStateKey = AFKeyPathFromOperationState(state);
+    
+    [self willChangeValueForKey:newStateKey];
+    [self willChangeValueForKey:oldStateKey];
+    _state = state;
+    [self didChangeValueForKey:oldStateKey];
+    [self didChangeValueForKey:newStateKey];
     [self.lock unlock];
 }
+
+- (NSString *)responseString {
+    [self.lock lock];
+    if (!_responseString && self.response && self.responseData) {
+        self.responseString = [[NSString alloc] initWithData:self.responseData encoding:self.responseStringEncoding];
+    }
+    [self.lock unlock];
+    
+    return _responseString;
+}
+
+- (NSStringEncoding)responseStringEncoding {
+    [self.lock lock];
+    if (!_responseStringEncoding && self.response) {
+        NSStringEncoding stringEncoding = NSUTF8StringEncoding;
+        if (self.response.textEncodingName) {
+            CFStringEncoding IANAEncoding = CFStringConvertIANACharSetNameToEncoding((__bridge CFStringRef)self.response.textEncodingName);
+            if (IANAEncoding != kCFStringEncodingInvalidId) {
+                stringEncoding = CFStringConvertEncodingToNSStringEncoding(IANAEncoding);
+            }
+        }
+        
+        self.responseStringEncoding = stringEncoding;
+    }
+    [self.lock unlock];
+    
+    return _responseStringEncoding;
+}
+
+- (void)pause {
+    if ([self isPaused] || [self isFinished] || [self isCancelled]) {
+        return;
+    }
+    
+    [self.lock lock];
+    
+    if ([self isExecuting]) {
+        [self.connection performSelector:@selector(cancel) onThread:[[self class] networkRequestThread] withObject:nil waitUntilDone:NO modes:[self.runLoopModes allObjects]];
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
+            [notificationCenter postNotificationName:AFNetworkingOperationDidFinishNotification object:self];
+        });
+    }
+    
+    self.state = AFOperationPausedState;
+    
+    [self.lock unlock];
+}
+
+- (BOOL)isPaused {
+    return self.state == AFOperationPausedState;
+}
+
+- (void)resume {
+    if (![self isPaused]) {
+        return;
+    }
+    
+    [self.lock lock];
+    self.state = AFOperationReadyState;
+    
+    [self start];
+    [self.lock unlock];
+}
+
+#pragma mark - NSOperation
 
 - (BOOL)isReady {
     return self.state == AFOperationReadyState && [super isReady];
@@ -442,11 +505,9 @@ static inline BOOL AFStateTransitionIsValid(AFOperationState fromState, AFOperat
 
 - (void)start {
     [self.lock lock];
-    if ([self isCancelled]) {
-        [self performSelector:@selector(cancelConnection) onThread:[[self class] networkRequestThread] withObject:nil waitUntilDone:NO modes:[self.runLoopModes allObjects]];
-    } else if ([self isReady]) {
+    if ([self isReady]) {
         self.state = AFOperationExecutingState;
-
+        
         [self performSelector:@selector(operationDidStart) onThread:[[self class] networkRequestThread] withObject:nil waitUntilDone:NO modes:[self.runLoopModes allObjects]];
     }
     [self.lock unlock];
@@ -456,28 +517,35 @@ static inline BOOL AFStateTransitionIsValid(AFOperationState fromState, AFOperat
     [self.lock lock];
     if (![self isCancelled]) {
         self.connection = [[NSURLConnection alloc] initWithRequest:self.request delegate:self startImmediately:NO];
-
+        
         NSRunLoop *runLoop = [NSRunLoop currentRunLoop];
         for (NSString *runLoopMode in self.runLoopModes) {
             [self.connection scheduleInRunLoop:runLoop forMode:runLoopMode];
             [self.outputStream scheduleInRunLoop:runLoop forMode:runLoopMode];
         }
-
-        [self.outputStream open];
+        
         [self.connection start];
     }
     [self.lock unlock];
-
+    
     dispatch_async(dispatch_get_main_queue(), ^{
         [[NSNotificationCenter defaultCenter] postNotificationName:AFNetworkingOperationDidStartNotification object:self];
     });
+    
+    if ([self isCancelled]) {
+        NSDictionary *userInfo = nil;
+        if ([self.request URL]) {
+            userInfo = [NSDictionary dictionaryWithObject:[self.request URL] forKey:NSURLErrorFailingURLErrorKey];
+        }
+        self.error = [NSError errorWithDomain:NSURLErrorDomain code:NSURLErrorCancelled userInfo:userInfo];
+
+        [self finish];
+    }
 }
 
 - (void)finish {
-    [self.lock lock];
     self.state = AFOperationFinishedState;
-    [self.lock unlock];
-
+    
     dispatch_async(dispatch_get_main_queue(), ^{
         [[NSNotificationCenter defaultCenter] postNotificationName:AFNetworkingOperationDidFinishNotification object:self];
     });
@@ -486,11 +554,13 @@ static inline BOOL AFStateTransitionIsValid(AFOperationState fromState, AFOperat
 - (void)cancel {
     [self.lock lock];
     if (![self isFinished] && ![self isCancelled]) {
+        [self willChangeValueForKey:@"isCancelled"];
+        _cancelled = YES;
         [super cancel];
-
-        if ([self isExecuting]) {
-            [self performSelector:@selector(cancelConnection) onThread:[[self class] networkRequestThread] withObject:nil waitUntilDone:NO modes:[self.runLoopModes allObjects]];
-        }
+        [self didChangeValueForKey:@"isCancelled"];
+        
+        // Cancel the connection on the thread it runs on to prevent race conditions
+        [self performSelector:@selector(cancelConnection) onThread:[[self class] networkRequestThread] withObject:nil waitUntilDone:NO modes:[self.runLoopModes allObjects]];
     }
     [self.lock unlock];
 }
@@ -501,85 +571,11 @@ static inline BOOL AFStateTransitionIsValid(AFOperationState fromState, AFOperat
         userInfo = [NSDictionary dictionaryWithObject:[self.request URL] forKey:NSURLErrorFailingURLErrorKey];
     }
     NSError *error = [NSError errorWithDomain:NSURLErrorDomain code:NSURLErrorCancelled userInfo:userInfo];
-
-    if (![self isFinished]) {
-        if (self.connection) {
-            [self.connection cancel];
-            [self performSelector:@selector(connection:didFailWithError:) withObject:self.connection withObject:error];
-        } else {
-            // Accomodate race condition where `self.connection` has not yet been set before cancellation
-            self.error = error;
-            [self finish];
-        }
+    
+    if (![self isFinished] && self.connection) {
+        [self.connection cancel];
+        [self performSelector:@selector(connection:didFailWithError:) withObject:self.connection withObject:error];
     }
-}
-
-#pragma mark -
-
-+ (NSArray *)batchOfRequestOperations:(NSArray *)operations
-                        progressBlock:(void (^)(NSUInteger numberOfFinishedOperations, NSUInteger totalNumberOfOperations))progressBlock
-                      completionBlock:(void (^)(NSArray *operations))completionBlock
-{
-    if (!operations || [operations count] == 0) {
-        return @[[NSBlockOperation blockOperationWithBlock:^{
-            dispatch_async(dispatch_get_main_queue(), ^{
-                if (completionBlock) {
-                    completionBlock(@[]);
-                }
-            });
-        }]];
-    }
-
-    __block dispatch_group_t group = dispatch_group_create();
-    NSBlockOperation *batchedOperation = [NSBlockOperation blockOperationWithBlock:^{
-        dispatch_group_notify(group, dispatch_get_main_queue(), ^{
-            if (completionBlock) {
-                completionBlock(operations);
-            }
-        });
-    }];
-
-    for (AFURLConnectionOperation *operation in operations) {
-        operation.completionGroup = group;
-        void (^originalCompletionBlock)(void) = [operation.completionBlock copy];
-        __weak __typeof(operation)weakOperation = operation;
-        operation.completionBlock = ^{
-            __strong __typeof(weakOperation)strongOperation = weakOperation;
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wgnu"
-            dispatch_queue_t queue = strongOperation.completionQueue ?: dispatch_get_main_queue();
-#pragma clang diagnostic pop
-            dispatch_group_async(group, queue, ^{
-                if (originalCompletionBlock) {
-                    originalCompletionBlock();
-                }
-
-                NSUInteger numberOfFinishedOperations = [[operations indexesOfObjectsPassingTest:^BOOL(id op, NSUInteger __unused idx,  BOOL __unused *stop) {
-                    return [op isFinished];
-                }] count];
-
-                if (progressBlock) {
-                    progressBlock(numberOfFinishedOperations, [operations count]);
-                }
-
-                dispatch_group_leave(group);
-            });
-        };
-
-        dispatch_group_enter(group);
-        [batchedOperation addDependency:operation];
-    }
-
-    return [operations arrayByAddingObject:batchedOperation];
-}
-
-#pragma mark - NSObject
-
-- (NSString *)description {
-    [self.lock lock];
-    NSString *description = [NSString stringWithFormat:@"<%@: %p, state: %@, cancelled: %@ request: %@, response: %@>", NSStringFromClass([self class]), self, AFKeyPathFromOperationState(self.state), ([self isCancelled] ? @"YES" : @"NO"), self.request, self.response];
-    [self.lock unlock];
-    return description;
 }
 
 #pragma mark - NSURLConnectionDelegate
@@ -591,13 +587,96 @@ willSendRequestForAuthenticationChallenge:(NSURLAuthenticationChallenge *)challe
         self.authenticationChallenge(connection, challenge);
         return;
     }
-
+    
     if ([challenge.protectionSpace.authenticationMethod isEqualToString:NSURLAuthenticationMethodServerTrust]) {
-        if ([self.securityPolicy evaluateServerTrust:challenge.protectionSpace.serverTrust forDomain:challenge.protectionSpace.host]) {
-            NSURLCredential *credential = [NSURLCredential credentialForTrust:challenge.protectionSpace.serverTrust];
-            [[challenge sender] useCredential:credential forAuthenticationChallenge:challenge];
-        } else {
-            [[challenge sender] cancelAuthenticationChallenge:challenge];
+        SecTrustRef serverTrust = challenge.protectionSpace.serverTrust;
+        
+        SecPolicyRef policy = SecPolicyCreateBasicX509();
+        SecTrustEvaluate(serverTrust, NULL);
+        CFIndex certificateCount = SecTrustGetCertificateCount(serverTrust);
+        NSMutableArray *trustChain = [NSMutableArray arrayWithCapacity:certificateCount];
+        
+        for (CFIndex i = 0; i < certificateCount; i++) {
+            SecCertificateRef certificate = SecTrustGetCertificateAtIndex(serverTrust, i);
+            
+            if (self.SSLPinningMode == AFSSLPinningModeCertificate) {
+                [trustChain addObject:(__bridge_transfer NSData *)SecCertificateCopyData(certificate)];
+            } else if (self.SSLPinningMode == AFSSLPinningModePublicKey) {
+                SecCertificateRef someCertificates[] = {certificate};
+                CFArrayRef certificates = CFArrayCreate(NULL, (const void **)someCertificates, 1, NULL);
+                
+                SecTrustRef trust = NULL;
+                
+                OSStatus status = SecTrustCreateWithCertificates(certificates, policy, &trust);
+                NSAssert(status == errSecSuccess, @"SecTrustCreateWithCertificates error: %ld", (long int)status);
+                if (status == errSecSuccess && trust) {
+                    SecTrustResultType result;
+                    status = SecTrustEvaluate(trust, &result);
+                    NSAssert(status == errSecSuccess, @"SecTrustEvaluate error: %ld", (long int)status);
+                    if (status == errSecSuccess) {
+                        [trustChain addObject:(__bridge_transfer id)SecTrustCopyPublicKey(trust)];
+                    }
+
+                    CFRelease(trust);
+                }
+              
+                CFRelease(certificates);
+            }
+        }
+        
+        CFRelease(policy);
+        
+        switch (self.SSLPinningMode) {
+            case AFSSLPinningModePublicKey: {
+                NSArray *pinnedPublicKeys = [self.class pinnedPublicKeys];
+                NSAssert([pinnedPublicKeys count] > 0, @"AFSSLPinningModePublicKey needs at least one key file in the application bundle");
+
+                for (id publicKey in trustChain) {
+                    for (id pinnedPublicKey in pinnedPublicKeys) {
+                        if (AFSecKeyIsEqualToKey((__bridge SecKeyRef)publicKey, (__bridge SecKeyRef)pinnedPublicKey)) {
+                            NSURLCredential *credential = [NSURLCredential credentialForTrust:serverTrust];
+                            [[challenge sender] useCredential:credential forAuthenticationChallenge:challenge];
+                            return;
+                        }
+                    }
+                }
+                
+                NSLog(@"Error: Unknown Public Key during Pinning operation");
+                [[challenge sender] cancelAuthenticationChallenge:challenge];
+                break;
+            }
+            case AFSSLPinningModeCertificate: {
+                NSAssert([[self.class pinnedCertificates] count] > 0, @"AFSSLPinningModeCertificate needs at least one certificate file in the application bundle");
+                for (id serverCertificateData in trustChain) {
+                    if ([[self.class pinnedCertificates] containsObject:serverCertificateData]) {
+                        NSURLCredential *credential = [NSURLCredential credentialForTrust:serverTrust];
+                        [[challenge sender] useCredential:credential forAuthenticationChallenge:challenge];
+                        return;
+                    }
+                }
+                
+                NSLog(@"Error: Unknown Certificate during Pinning operation");
+                [[challenge sender] cancelAuthenticationChallenge:challenge];
+                break;
+            }
+            case AFSSLPinningModeNone: {
+                if (self.allowsInvalidSSLCertificate){
+                    NSURLCredential *credential = [NSURLCredential credentialForTrust:serverTrust];
+                    [[challenge sender] useCredential:credential forAuthenticationChallenge:challenge];
+                } else {
+                    SecTrustResultType result = 0;
+                    OSStatus status = SecTrustEvaluate(serverTrust, &result);
+                    NSAssert(status == errSecSuccess, @"SecTrustEvaluate error: %ld", (long int)status);
+                    
+                    if (status == errSecSuccess && (result == kSecTrustResultUnspecified || result == kSecTrustResultProceed)) {
+                        NSURLCredential *credential = [NSURLCredential credentialForTrust:serverTrust];
+                        [[challenge sender] useCredential:credential forAuthenticationChallenge:challenge];
+                    } else {
+                        [[challenge sender] cancelAuthenticationChallenge:challenge];
+                    }
+                }
+                break;
+            }
         }
     } else {
         if ([challenge previousFailureCount] == 0) {
@@ -632,17 +711,19 @@ willSendRequestForAuthenticationChallenge:(NSURLAuthenticationChallenge *)challe
  totalBytesWritten:(NSInteger)totalBytesWritten
 totalBytesExpectedToWrite:(NSInteger)totalBytesExpectedToWrite
 {
-    dispatch_async(dispatch_get_main_queue(), ^{
-        if (self.uploadProgress) {
+    if (self.uploadProgress) {
+        dispatch_async(dispatch_get_main_queue(), ^{
             self.uploadProgress((NSUInteger)bytesWritten, totalBytesWritten, totalBytesExpectedToWrite);
-        }
-    });
+        });
+    }
 }
 
 - (void)connection:(NSURLConnection __unused *)connection
 didReceiveResponse:(NSURLResponse *)response
 {
     self.response = response;
+    
+    [self.outputStream open];
 }
 
 - (void)connection:(NSURLConnection __unused *)connection
@@ -650,13 +731,13 @@ didReceiveResponse:(NSURLResponse *)response
 {
     NSUInteger length = [data length];
     while (YES) {
-        NSInteger totalNumberOfBytesWritten = 0;
+        NSUInteger totalNumberOfBytesWritten = 0;
         if ([self.outputStream hasSpaceAvailable]) {
             const uint8_t *dataBuffer = (uint8_t *)[data bytes];
 
             NSInteger numberOfBytesWritten = 0;
-            while (totalNumberOfBytesWritten < (NSInteger)length) {
-                numberOfBytesWritten = [self.outputStream write:&dataBuffer[(NSUInteger)totalNumberOfBytesWritten] maxLength:(length - (NSUInteger)totalNumberOfBytesWritten)];
+            while (totalNumberOfBytesWritten < length) {
+                numberOfBytesWritten = [self.outputStream write:&dataBuffer[0] maxLength:length];
                 if (numberOfBytesWritten == -1) {
                     break;
                 }
@@ -673,10 +754,10 @@ didReceiveResponse:(NSURLResponse *)response
             return;
         }
     }
-
+    
     dispatch_async(dispatch_get_main_queue(), ^{
-        self.totalBytesRead += (long long)length;
-
+        self.totalBytesRead += length;
+        
         if (self.downloadProgress) {
             self.downloadProgress(length, self.totalBytesRead, self.response.expectedContentLength);
         }
@@ -685,30 +766,24 @@ didReceiveResponse:(NSURLResponse *)response
 
 - (void)connectionDidFinishLoading:(NSURLConnection __unused *)connection {
     self.responseData = [self.outputStream propertyForKey:NSStreamDataWrittenToMemoryStreamKey];
-
+    
     [self.outputStream close];
-    if (self.responseData) {
-       self.outputStream = nil;
-    }
-
-    self.connection = nil;
-
+    
     [self finish];
+    
+    self.connection = nil;
 }
 
 - (void)connection:(NSURLConnection __unused *)connection
   didFailWithError:(NSError *)error
 {
     self.error = error;
-
+    
     [self.outputStream close];
-    if (self.responseData) {
-        self.outputStream = nil;
-    }
-
-    self.connection = nil;
-
+    
     [self finish];
+    
+    self.connection = nil;
 }
 
 - (NSCachedURLResponse *)connection:(NSURLConnection *)connection
@@ -720,68 +795,67 @@ didReceiveResponse:(NSURLResponse *)response
         if ([self isCancelled]) {
             return nil;
         }
-
+        
         return cachedResponse;
     }
 }
 
-#pragma mark - NSSecureCoding
+#pragma mark - NSCoding
 
-+ (BOOL)supportsSecureCoding {
-    return YES;
-}
-
-- (id)initWithCoder:(NSCoder *)decoder {
-    NSURLRequest *request = [decoder decodeObjectOfClass:[NSURLRequest class] forKey:NSStringFromSelector(@selector(request))];
-
+- (id)initWithCoder:(NSCoder *)aDecoder {
+    NSURLRequest *request = [aDecoder decodeObjectForKey:@"request"];
+    
     self = [self initWithRequest:request];
     if (!self) {
         return nil;
     }
-
-    self.state = [[decoder decodeObjectOfClass:[NSNumber class] forKey:NSStringFromSelector(@selector(state))] integerValue];
-    self.response = [decoder decodeObjectOfClass:[NSHTTPURLResponse class] forKey:NSStringFromSelector(@selector(response))];
-    self.error = [decoder decodeObjectOfClass:[NSError class] forKey:NSStringFromSelector(@selector(error))];
-    self.responseData = [decoder decodeObjectOfClass:[NSData class] forKey:NSStringFromSelector(@selector(responseData))];
-    self.totalBytesRead = [[decoder decodeObjectOfClass:[NSNumber class] forKey:NSStringFromSelector(@selector(totalBytesRead))] longLongValue];
+    
+    self.state = (AFOperationState)[aDecoder decodeIntegerForKey:@"state"];
+    self.cancelled = [aDecoder decodeBoolForKey:@"isCancelled"];
+    self.response = [aDecoder decodeObjectForKey:@"response"];
+    self.error = [aDecoder decodeObjectForKey:@"error"];
+    self.responseData = [aDecoder decodeObjectForKey:@"responseData"];
+    self.totalBytesRead = [[aDecoder decodeObjectForKey:@"totalBytesRead"] longLongValue];
+    self.allowsInvalidSSLCertificate = [[aDecoder decodeObjectForKey:@"allowsInvalidSSLCertificate"] boolValue];
 
     return self;
 }
 
-- (void)encodeWithCoder:(NSCoder *)coder {
+- (void)encodeWithCoder:(NSCoder *)aCoder {
     [self pause];
-
-    [coder encodeObject:self.request forKey:NSStringFromSelector(@selector(request))];
-
+    
+    [aCoder encodeObject:self.request forKey:@"request"];
+    
     switch (self.state) {
         case AFOperationExecutingState:
         case AFOperationPausedState:
-            [coder encodeInteger:AFOperationReadyState forKey:NSStringFromSelector(@selector(state))];
+            [aCoder encodeInteger:AFOperationReadyState forKey:@"state"];
             break;
         default:
-            [coder encodeInteger:self.state forKey:NSStringFromSelector(@selector(state))];
+            [aCoder encodeInteger:self.state forKey:@"state"];
             break;
     }
-
-    [coder encodeObject:self.response forKey:NSStringFromSelector(@selector(response))];
-    [coder encodeObject:self.error forKey:NSStringFromSelector(@selector(error))];
-    [coder encodeObject:self.responseData forKey:NSStringFromSelector(@selector(responseData))];
-    [coder encodeInt64:self.totalBytesRead forKey:NSStringFromSelector(@selector(totalBytesRead))];
+    
+    [aCoder encodeBool:[self isCancelled] forKey:@"isCancelled"];
+    [aCoder encodeObject:self.response forKey:@"response"];
+    [aCoder encodeObject:self.error forKey:@"error"];
+    [aCoder encodeObject:self.responseData forKey:@"responseData"];
+    [aCoder encodeObject:[NSNumber numberWithLongLong:self.totalBytesRead] forKey:@"totalBytesRead"];
+    [aCoder encodeObject:[NSNumber numberWithBool:self.allowsInvalidSSLCertificate] forKey:@"allowsInvalidSSLCertificate"];
 }
 
 #pragma mark - NSCopying
 
 - (id)copyWithZone:(NSZone *)zone {
     AFURLConnectionOperation *operation = [(AFURLConnectionOperation *)[[self class] allocWithZone:zone] initWithRequest:self.request];
-
+    
     operation.uploadProgress = self.uploadProgress;
     operation.downloadProgress = self.downloadProgress;
     operation.authenticationChallenge = self.authenticationChallenge;
     operation.cacheResponse = self.cacheResponse;
     operation.redirectResponse = self.redirectResponse;
-    operation.completionQueue = self.completionQueue;
-    operation.completionGroup = self.completionGroup;
-
+    operation.allowsInvalidSSLCertificate = self.allowsInvalidSSLCertificate;
+    
     return operation;
 }
 

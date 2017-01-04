@@ -1,1 +1,1 @@
-../../../CocoaLumberjack/Classes/DDASLLogger.h
+../../../CocoaLumberjack/Lumberjack/DDASLLogger.h
