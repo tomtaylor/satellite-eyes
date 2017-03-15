@@ -173,16 +173,17 @@
     __block CIImage *coreImageOutput = coreImageInput;
     
     // use an affine clamp so "gloom" and "gaussian blur" type filters work
-    CGAffineTransform transform = CGAffineTransformIdentity;
-    CIFilter *clampFilter = [CIFilter filterWithName:@"CIAffineClamp"];
-    [clampFilter setDefaults];
-    [clampFilter setValue:coreImageInput forKey:@"inputImage"];
-    [clampFilter setValue:[NSValue valueWithBytes:&transform
-                                         objCType:@encode(CGAffineTransform)]
-                   forKey:@"inputTransform"];
+    if (! [[imageEffect objectForKey:@"disableAffineClamp"] boolValue]) {
+        CGAffineTransform transform = CGAffineTransformIdentity;
+        CIFilter *clampFilter = [CIFilter filterWithName:@"CIAffineClamp"];
+        [clampFilter setDefaults];
+        [clampFilter setValue:coreImageInput forKey:@"inputImage"];
+        [clampFilter setValue:[NSValue valueWithBytes:&transform
+                                             objCType:@encode(CGAffineTransform)]
+                       forKey:@"inputTransform"];
+        coreImageOutput = [clampFilter valueForKey:@"outputImage"];
+    }
     
-    coreImageOutput = [clampFilter valueForKey:@"outputImage"];
-
     // iterate through filters, applying each...
     NSArray *filters = [imageEffect valueForKey:@"filters"];
     [filters enumerateObjectsUsingBlock:^(NSDictionary *filter, NSUInteger filterIndex, BOOL *stop) {
@@ -264,6 +265,13 @@
     if ([@[kCIInputRadiusKey, kCIInputScaleKey, kCIInputWidthKey] containsObject:key]) {
         NSNumber *number = value;
         return @(number.floatValue * tileScale);
+    } else if ([value isKindOfClass:[NSDictionary class]] && [@[kCIInputColorKey, @"inputColor0", @"inputColor1"] containsObject:key]) {
+        NSDictionary *dictionary = value;
+        CGFloat alpha = (nil != dictionary[@"alpha"]) ? [dictionary[@"alpha"] doubleValue] : 1.0;
+        return [CIColor colorWithRed:[dictionary[@"red"] doubleValue]
+                               green:[dictionary[@"green"] doubleValue]
+                                blue:[dictionary[@"blue"] doubleValue]
+                               alpha:alpha];
     } else {
         return value;
     }
