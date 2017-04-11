@@ -9,10 +9,16 @@
 #ifndef SUUPDATER_H
 #define SUUPDATER_H
 
+#if __has_feature(modules)
+@import Foundation;
+#else
+#import <Foundation/Foundation.h>
+#endif
+#import "SUExport.h"
 #import "SUVersionComparisonProtocol.h"
 #import "SUVersionDisplayProtocol.h"
 
-@class SUUpdateDriver, SUAppcastItem, SUHost, SUAppcast;
+@class SUAppcastItem, SUAppcast;
 
 @protocol SUUpdaterDelegate;
 
@@ -22,55 +28,164 @@
     This class is used to configure the update paramters as well as manually
     and automatically schedule and control checks for updates.
  */
-@interface SUUpdater : NSObject
+SU_EXPORT @interface SUUpdater : NSObject
 
-@property (weak) IBOutlet id<SUUpdaterDelegate> delegate;
+@property (unsafe_unretained) IBOutlet id<SUUpdaterDelegate> delegate;
 
+/*!
+ The shared updater for the main bundle.
+ 
+ This is equivalent to passing [NSBundle mainBundle] to SUUpdater::updaterForBundle:
+ */
 + (SUUpdater *)sharedUpdater;
+
+/*!
+ The shared updater for a specified bundle.
+
+ If an updater has already been initialized for the provided bundle, that shared instance will be returned.
+ */
 + (SUUpdater *)updaterForBundle:(NSBundle *)bundle;
+
+/*!
+ Designated initializer for SUUpdater.
+ 
+ If an updater has already been initialized for the provided bundle, that shared instance will be returned.
+ */
 - (instancetype)initForBundle:(NSBundle *)bundle;
 
-@property (readonly, strong) NSBundle *hostBundle;
-
-@property BOOL automaticallyChecksForUpdates;
-
-@property NSTimeInterval updateCheckInterval;
-
 /*!
- * The URL of the appcast used to download update information.
- *
- * This property must be called on the main thread.
- */
-@property (copy) NSURL *feedURL;
+ Explicitly checks for updates and displays a progress dialog while doing so.
 
-@property (nonatomic, copy) NSString *userAgentString;
+ This method is meant for a main menu item.
+ Connect any menu item to this action in Interface Builder,
+ and Sparkle will check for updates and report back its findings verbosely
+ when it is invoked.
 
-@property BOOL sendsSystemProfile;
-
-@property BOOL automaticallyDownloadsUpdates;
-
-/*!
-    Explicitly checks for updates and displays a progress dialog while doing so.
-
-    This method is meant for a main menu item.
-    Connect any menu item to this action in Interface Builder,
-    and Sparkle will check for updates and report back its findings verbosely
-    when it is invoked.
+ This will find updates that the user has opted into skipping.
  */
 - (IBAction)checkForUpdates:(id)sender;
 
 /*!
-    Checks for updates, but does not display any UI unless an update is found.
+ The menu item validation used for the -checkForUpdates: action
+ */
+- (BOOL)validateMenuItem:(NSMenuItem *)menuItem;
 
-    This is meant for programmatically initating a check for updates. That is,
-    it will display no UI unless it actually finds an update, in which case it
-    proceeds as usual.
+/*!
+ Checks for updates, but does not display any UI unless an update is found.
 
-    If the fully automated updating is turned on, however, this will invoke that
-    behavior, and if an update is found, it will be downloaded and prepped for
-    installation.
+ This is meant for programmatically initating a check for updates. That is,
+ it will display no UI unless it actually finds an update, in which case it
+ proceeds as usual.
+
+ If automatic downloading of updates it turned on and allowed, however,
+ this will invoke that behavior, and if an update is found, it will be downloaded
+ in the background silently and will be prepped for installation.
+
+ This will not find updates that the user has opted into skipping.
  */
 - (void)checkForUpdatesInBackground;
+
+/*!
+ A property indicating whether or not to check for updates automatically.
+
+ Setting this property will persist in the host bundle's user defaults.
+ The update schedule cycle will be reset in a short delay after the property's new value is set.
+ This is to allow reverting this property without kicking off a schedule change immediately
+ */
+@property BOOL automaticallyChecksForUpdates;
+
+/*!
+ A property indicating whether or not updates can be automatically downloaded in the background.
+
+ Note that automatic downloading of updates can be disallowed by the developer
+ or by the user's system if silent updates cannot be done (eg: if they require authentication).
+ In this case, -automaticallyDownloadsUpdates will return NO regardless of how this property is set.
+
+ Setting this property will persist in the host bundle's user defaults.
+ */
+@property BOOL automaticallyDownloadsUpdates;
+
+/*!
+ A property indicating the current automatic update check interval.
+
+ Setting this property will persist in the host bundle's user defaults.
+ The update schedule cycle will be reset in a short delay after the property's new value is set.
+ This is to allow reverting this property without kicking off a schedule change immediately
+ */
+@property NSTimeInterval updateCheckInterval;
+
+/*!
+ Begins a "probing" check for updates which will not actually offer to
+ update to that version.
+
+ However, the delegate methods
+ SUUpdaterDelegate::updater:didFindValidUpdate: and
+ SUUpdaterDelegate::updaterDidNotFindUpdate: will be called,
+ so you can use that information in your UI.
+
+ Updates that have been skipped by the user will not be found.
+ */
+- (void)checkForUpdateInformation;
+
+/*!
+ The URL of the appcast used to download update information.
+
+ Setting this property will persist in the host bundle's user defaults.
+ If you don't want persistence, you may want to consider instead implementing
+ SUUpdaterDelegate::feedURLStringForUpdater: or SUUpdaterDelegate::feedParametersForUpdater:sendingSystemProfile:
+
+ This property must be called on the main thread.
+ */
+@property (copy) NSURL *feedURL;
+
+/*!
+ The host bundle that is being updated.
+ */
+@property (readonly, strong) NSBundle *hostBundle;
+
+/*!
+ The bundle this class (SUUpdater) is loaded into.
+ */
+@property (strong, readonly) NSBundle *sparkleBundle;
+
+/*!
+ The user agent used when checking for updates.
+
+ The default implementation can be overrided.
+ */
+@property (nonatomic, copy) NSString *userAgentString;
+
+/*!
+ The HTTP headers used when checking for updates.
+
+ The keys of this dictionary are HTTP header fields (NSString) and values are corresponding values (NSString)
+ */
+@property (copy) NSDictionary *httpHeaders;
+
+/*!
+ A property indicating whether or not the user's system profile information is sent when checking for updates.
+
+ Setting this property will persist in the host bundle's user defaults.
+ */
+@property BOOL sendsSystemProfile;
+
+/*!
+ A property indicating the decryption password used for extracting updates shipped as Apple Disk Images (dmg)
+ */
+@property (nonatomic, copy) NSString *decryptionPassword;
+
+/*!
+    Checks for updates and, if available, immediately downloads and installs them.
+    A progress dialog is shown but the user will never be prompted to read the
+    release notes.
+
+    You may want to respond to the userDidCancelDownload delegate method in case
+    the user clicks the "Cancel" button while the update is downloading.
+
+    If you are writing a UI-less background application, you probably want to instead use
+    SUUpdaterDelegate::updater:willInstallUpdateOnQuit:immediateInstallationInvocation:
+ */
+- (void)installUpdatesIfAvailable;
 
 /*!
     Returns the date of last update check.
@@ -78,17 +193,6 @@
     \returns \c nil if no check has been performed.
  */
 @property (readonly, copy) NSDate *lastUpdateCheckDate;
-
-/*!
-    Begins a "probing" check for updates which will not actually offer to
-    update to that version.
-
-    However, the delegate methods
-    SUUpdaterDelegate::updater:didFindValidUpdate: and
-    SUUpdaterDelegate::updaterDidNotFindUpdate: will be called,
-    so you can use that information in your UI.
- */
-- (void)checkForUpdateInformation;
 
 /*!
     Appropriately schedules or cancels the update checking timer according to
@@ -99,6 +203,12 @@
  */
 - (void)resetUpdateCycle;
 
+/*!
+   A property indicating whether or not an update is in progress.
+
+   Note this property is not indicative of whether or not user initiated updates can be performed.
+   Use SUUpdater::validateMenuItem: for that instead.
+ */
 @property (readonly) BOOL updateInProgress;
 
 @end
@@ -107,17 +217,17 @@
 // SUUpdater Notifications for events that might be interesting to more than just the delegate
 // The updater will be the notification object
 // -----------------------------------------------------------------------------
-extern NSString *const SUUpdaterDidFinishLoadingAppCastNotification;
-extern NSString *const SUUpdaterDidFindValidUpdateNotification;
-extern NSString *const SUUpdaterDidNotFindUpdateNotification;
-extern NSString *const SUUpdaterWillRestartNotification;
+SU_EXPORT extern NSString *const SUUpdaterDidFinishLoadingAppCastNotification;
+SU_EXPORT extern NSString *const SUUpdaterDidFindValidUpdateNotification;
+SU_EXPORT extern NSString *const SUUpdaterDidNotFindUpdateNotification;
+SU_EXPORT extern NSString *const SUUpdaterWillRestartNotification;
 #define SUUpdaterWillRelaunchApplicationNotification SUUpdaterWillRestartNotification;
 #define SUUpdaterWillInstallUpdateNotification SUUpdaterWillRestartNotification;
 
 // Key for the SUAppcastItem object in the SUUpdaterDidFindValidUpdateNotification userInfo
-extern NSString *const SUUpdaterAppcastItemNotificationKey;
+SU_EXPORT extern NSString *const SUUpdaterAppcastItemNotificationKey;
 // Key for the SUAppcast object in the SUUpdaterDidFinishLoadingAppCastNotification userInfo
-extern NSString *const SUUpdaterAppcastNotificationKey;
+SU_EXPORT extern NSString *const SUUpdaterAppcastNotificationKey;
 
 // -----------------------------------------------------------------------------
 //	SUUpdater Delegate:
@@ -154,6 +264,9 @@ extern NSString *const SUUpdaterAppcastNotificationKey;
     Returns a custom appcast URL.
 
     Override this to dynamically specify the entire URL.
+
+    An alternative may be to use SUUpdaterDelegate::feedParametersForUpdater:sendingSystemProfile:
+    and let the server handle what kind of feed to provide.
 
     \param updater The SUUpdater instance.
  */
@@ -206,6 +319,31 @@ extern NSString *const SUUpdaterAppcastNotificationKey;
 - (void)updaterDidNotFindUpdate:(SUUpdater *)updater;
 
 /*!
+    Called immediately before downloading the specified update.
+
+    \param updater The SUUpdater instance.
+    \param item The appcast item corresponding to the update that is proposed to be downloaded.
+    \param request The mutable URL request that will be used to download the update.
+ */
+- (void)updater:(SUUpdater *)updater willDownloadUpdate:(SUAppcastItem *)item withRequest:(NSMutableURLRequest *)request;
+
+/*!
+    Called after the specified update failed to download.
+
+    \param updater The SUUpdater instance.
+    \param item The appcast item corresponding to the update that failed to download.
+    \param error The error generated by the failed download.
+ */
+- (void)updater:(SUUpdater *)updater failedToDownloadUpdate:(SUAppcastItem *)item error:(NSError *)error;
+
+/*!
+    Called when the user clicks the cancel button while and update is being downloaded.
+
+    \param updater The SUUpdater instance.
+ */
+- (void)userDidCancelDownload:(SUUpdater *)updater;
+
+/*!
     Called immediately before installing the specified update.
 
     \param updater The SUUpdater instance.
@@ -221,7 +359,7 @@ extern NSString *const SUUpdaterAppcastNotificationKey;
 
     \param updater The SUUpdater instance.
     \param item The appcast item corresponding to the update that is proposed to be installed.
-    \param invocation The invocation that must be completed before continuing with the relaunch.
+    \param invocation The invocation that must be completed with `[invocation invoke]` before continuing with the relaunch.
 
     \return \c YES to delay the relaunch until \p invocation is invoked.
  */
@@ -296,6 +434,8 @@ extern NSString *const SUUpdaterAppcastNotificationKey;
 
 /*!
     Called when an update is scheduled to be silently installed on quit.
+    This is after an update has been automatically downloaded in the background.
+    (i.e. SUUpdater::automaticallyDownloadsUpdates is YES)
 
     \param updater The SUUpdater instance.
     \param item The appcast item corresponding to the update that is proposed to be installed.
@@ -311,24 +451,14 @@ extern NSString *const SUUpdaterAppcastNotificationKey;
  */
 - (void)updater:(SUUpdater *)updater didCancelInstallUpdateOnQuit:(SUAppcastItem *)item;
 
+/*!
+    Called after an update is aborted due to an error.
+
+    \param updater The SUUpdater instance.
+    \param error The error that caused the abort
+ */
+- (void)updater:(SUUpdater *)updater didAbortWithError:(NSError *)error;
+
 @end
-
-
-// -----------------------------------------------------------------------------
-//	Constants:
-// -----------------------------------------------------------------------------
-
-// Define some minimum intervals to avoid DOS-like checking attacks. These are in seconds.
-#if defined(DEBUG) && DEBUG && 0
-#define SU_MIN_CHECK_INTERVAL 60
-#else
-#define SU_MIN_CHECK_INTERVAL 60 * 60
-#endif
-
-#if defined(DEBUG) && DEBUG && 0
-#define SU_DEFAULT_CHECK_INTERVAL 60
-#else
-#define SU_DEFAULT_CHECK_INTERVAL 60 * 60 * 24
-#endif
 
 #endif

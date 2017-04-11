@@ -18,7 +18,6 @@
 		42AAFFC44F7442D5DD0B75DFFFBD2DBB /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2B228E2AF542BCCC889815E95205213F /* SystemConfiguration.framework */; };
 		45C65CDBFC65BC77C83BE7FED3D84A5D /* NSFileManager+StandardPaths.m in Sources */ = {isa = PBXBuildFile; fileRef = DF73ABBD839524A7E808CEB88BCBB8D5 /* NSFileManager+StandardPaths.m */; };
 		4B295289382D99D49EFFD429E752AE4E /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6A40ABB41F26D8EA6E44086547D8FEFE /* QuartzCore.framework */; };
-		4E73C2B90FA2E693E90381D6 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 709D440127774885E659B32E /* libPods.a */; };
 		538E1DA79C5467491FF6B7AAACDB7834 /* TTAboutWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2E633A53F81A1CEBCD52752E45431B95 /* TTAboutWindow.xib */; };
 		5D90A01B0DCF1A7155664AF94167587E /* NSDate+Formatting.m in Sources */ = {isa = PBXBuildFile; fileRef = 6848FD4F2433B69B3C18629D4D2B29BB /* NSDate+Formatting.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		5F71313F15681DC3BEDFFBCC05383F82 /* TTPreferencesWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6721B29FCA2C63FD7FED50B252BBD729 /* TTPreferencesWindowController.m */; };
@@ -26,12 +25,17 @@
 		69F2C3611EE092986B1525A064996E47 /* TTMapTile.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B043BF601327A03BC32686468330F72 /* TTMapTile.m */; };
 		7BFB2574C28396D4F941CB71FAF526FB /* bing-logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 23F0F5ADE6F952464C80215F219E819C /* bing-logo.png */; };
 		7DE4BFECE0779D2316597701338E9CD0 /* TTMapTypesArrayController.m in Sources */ = {isa = PBXBuildFile; fileRef = FD0589350C076B8B0F73A105ADC7D225 /* TTMapTypesArrayController.m */; };
+		88DF72F51E766EEAF6240302 /* libPods-Satellite Eyes.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DFDCF13DBD22B6CEB91E847 /* libPods-Satellite Eyes.a */; };
 		984DEA9FA73332622AB3EB7F0BA2BD58 /* ServiceManagement.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B01A9B73C4CAA0FE6D446EF25495A3C1 /* ServiceManagement.framework */; };
 		B23D0C1B0C594FCA940D5264A9D11DCB /* TTStatusItemController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3919B1BC1AC8DDE342A62D30FC3FAE05 /* TTStatusItemController.m */; };
 		B532B8D446B04DCFFC38637A3CC9D206 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 8465CBE1C2C3E8BFE5B0BE3037EF5D3D /* main.m */; };
 		BB855133C3EB8D3DFC9DEBCEC9D1A2DC /* TTMapImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 11045DCF6985908E23B5A441F2E159F3 /* TTMapImage.m */; };
 		CF56B60A90B705666B1E519C99D1F284 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = D91E37E8DFDA52C112A1E550DBF2E48F /* Credits.rtf */; };
 		D1D57FB916F19D1FD35C7322AEFA106B /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = BCC81082431CED7773B9D7A015AF9691 /* MainMenu.xib */; };
+		D50930241E1D796A006F63DE /* libAFNetworking.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D50930211E1D796A006F63DE /* libAFNetworking.a */; };
+		D50930251E1D796A006F63DE /* libCocoaLumberjack.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D50930221E1D796A006F63DE /* libCocoaLumberjack.a */; };
+		D50930261E1D796A006F63DE /* libReachability.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D50930231E1D796A006F63DE /* libReachability.a */; };
+		D56771061E1D7B7A007B2235 /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D50930281E1D7A05006F63DE /* Sparkle.framework */; };
 		D7569B7412ADF6DEEB9CAC8C1908D4A0 /* Defaults.plist in Resources */ = {isa = PBXBuildFile; fileRef = 459ED31A223FC63BAB241C074B5E7CFA /* Defaults.plist */; };
 		DD34200C9683B62B64B7C53F0A1205AD /* TTManageMapStylesWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 17855E355BB7E50A29F3A9E1B8936BB3 /* TTManageMapStylesWindowController.m */; };
 		DF563156051108AA7E68D6E8114EB6FB /* TTPreferencesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A959991FBB569201437B74805D167D7 /* TTPreferencesViewController.m */; };
@@ -94,6 +98,7 @@
 		11045DCF6985908E23B5A441F2E159F3 /* TTMapImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTMapImage.m; sourceTree = "<group>"; };
 		17855E355BB7E50A29F3A9E1B8936BB3 /* TTManageMapStylesWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTManageMapStylesWindowController.m; sourceTree = "<group>"; };
 		1A24E56CEFA971ACC35A8D4E94824467 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
+		1DFDCF13DBD22B6CEB91E847 /* libPods-Satellite Eyes.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Satellite Eyes.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		23F0F5ADE6F952464C80215F219E819C /* bing-logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bing-logo.png"; sourceTree = "<group>"; };
 		2A959991FBB569201437B74805D167D7 /* TTPreferencesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTPreferencesViewController.m; sourceTree = "<group>"; };
 		2B043BF601327A03BC32686468330F72 /* TTMapTile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTMapTile.m; sourceTree = "<group>"; };
@@ -133,11 +138,17 @@
 		AE98124AF04EA3266A03814F2B61ECD8 /* LLStrings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LLStrings.h; path = LaunchAtLoginHelper/LLStrings.h; sourceTree = "<group>"; };
 		B01A9B73C4CAA0FE6D446EF25495A3C1 /* ServiceManagement.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ServiceManagement.framework; path = System/Library/Frameworks/ServiceManagement.framework; sourceTree = SDKROOT; };
 		B28CC4035D61927A461F7BA5C87CC144 /* LaunchAtLoginHelper.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = LaunchAtLoginHelper.xcodeproj; path = LaunchAtLoginHelper/LaunchAtLoginHelper.xcodeproj; sourceTree = "<group>"; };
+		C4A1C08B36EA98D692EB6D28 /* Pods-Satellite Eyes.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Satellite Eyes.release.xcconfig"; path = "Pods/Target Support Files/Pods-Satellite Eyes/Pods-Satellite Eyes.release.xcconfig"; sourceTree = "<group>"; };
 		CA09F6494F02A7DB1919B004B5636BF3 /* TTMapTypesArrayController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTMapTypesArrayController.h; sourceTree = "<group>"; };
+		CCFEF2D41E873B100C2FC67D /* Pods-Satellite Eyes.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Satellite Eyes.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Satellite Eyes/Pods-Satellite Eyes.debug.xcconfig"; sourceTree = "<group>"; };
 		CF2947CC3A221752A4A59C14595A9489 /* loading.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = loading.png; sourceTree = "<group>"; };
 		D03E4E153247ACBB1629D0EBE6E82B87 /* MD5Digest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MD5Digest.m; path = SatelliteEyes/MD5Digest.m; sourceTree = "<group>"; };
 		D0BD2B70A96FD464192C94B2 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		D463EFD95CBA286EB082BDB24D79A26E /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
+		D50930211E1D796A006F63DE /* libAFNetworking.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libAFNetworking.a; path = "../../../Library/Developer/Xcode/DerivedData/Workspace-dhebpueigzeowefqhoriogrlkgjs/Build/Products/Debug/AFNetworking/libAFNetworking.a"; sourceTree = "<group>"; };
+		D50930221E1D796A006F63DE /* libCocoaLumberjack.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libCocoaLumberjack.a; path = "../../../Library/Developer/Xcode/DerivedData/Workspace-dhebpueigzeowefqhoriogrlkgjs/Build/Products/Debug/CocoaLumberjack/libCocoaLumberjack.a"; sourceTree = "<group>"; };
+		D50930231E1D796A006F63DE /* libReachability.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libReachability.a; path = "../../../Library/Developer/Xcode/DerivedData/Workspace-dhebpueigzeowefqhoriogrlkgjs/Build/Products/Debug/Reachability/libReachability.a"; sourceTree = "<group>"; };
+		D50930281E1D7A05006F63DE /* Sparkle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Sparkle.framework; path = Pods/Sparkle/Sparkle.framework; sourceTree = "<group>"; };
 		D602B1D28746EC3E76668F8769FF63C2 /* MD5Digest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MD5Digest.h; path = SatelliteEyes/MD5Digest.h; sourceTree = "<group>"; };
 		D91E37E8DFDA52C112A1E550DBF2E48F /* Credits.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; path = Credits.rtf; sourceTree = "<group>"; };
 		DF73ABBD839524A7E808CEB88BCBB8D5 /* NSFileManager+StandardPaths.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSFileManager+StandardPaths.m"; path = "SatelliteEyes/NSFileManager+StandardPaths.m"; sourceTree = "<group>"; };
@@ -167,12 +178,16 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D56771061E1D7B7A007B2235 /* Sparkle.framework in Frameworks */,
+				D50930241E1D796A006F63DE /* libAFNetworking.a in Frameworks */,
+				D50930251E1D796A006F63DE /* libCocoaLumberjack.a in Frameworks */,
+				D50930261E1D796A006F63DE /* libReachability.a in Frameworks */,
 				22CE893F85191FDE937CDAAC746CBAF1 /* Cocoa.framework in Frameworks */,
 				EDB6435098CC69208BC70C0DE4B2BC86 /* CoreLocation.framework in Frameworks */,
 				4B295289382D99D49EFFD429E752AE4E /* QuartzCore.framework in Frameworks */,
 				984DEA9FA73332622AB3EB7F0BA2BD58 /* ServiceManagement.framework in Frameworks */,
 				42AAFFC44F7442D5DD0B75DFFFBD2DBB /* SystemConfiguration.framework in Frameworks */,
-				4E73C2B90FA2E693E90381D6 /* libPods.a in Frameworks */,
+				88DF72F51E766EEAF6240302 /* libPods-Satellite Eyes.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -195,6 +210,8 @@
 			children = (
 				7F1DB51F9C9D3C558CA06512 /* Pods.debug.xcconfig */,
 				D0BD2B70A96FD464192C94B2 /* Pods.release.xcconfig */,
+				CCFEF2D41E873B100C2FC67D /* Pods-Satellite Eyes.debug.xcconfig */,
+				C4A1C08B36EA98D692EB6D28 /* Pods-Satellite Eyes.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -202,9 +219,14 @@
 		0E14D71311A0CDE79CD75225214B1D4C /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				D50930281E1D7A05006F63DE /* Sparkle.framework */,
+				D50930211E1D796A006F63DE /* libAFNetworking.a */,
+				D50930221E1D796A006F63DE /* libCocoaLumberjack.a */,
+				D50930231E1D796A006F63DE /* libReachability.a */,
 				0E75555BDA62D4CB5067685541E7E4E3 /* Other Frameworks */,
 				D463EFD95CBA286EB082BDB24D79A26E /* Cocoa.framework */,
 				709D440127774885E659B32E /* libPods.a */,
+				1DFDCF13DBD22B6CEB91E847 /* libPods-Satellite Eyes.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -344,14 +366,14 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 32E4CB75628C9D551998866DE380F5F5 /* Build configuration list for PBXNativeTarget "Satellite Eyes" */;
 			buildPhases = (
-				5FE745214CA094D6A53789C8 /* Check Pods Manifest.lock */,
+				5FE745214CA094D6A53789C8 /* [CP] Check Pods Manifest.lock */,
 				1BA14FD04AE46C791F4DC95096A0DE54 /* Sources */,
 				60237CDE65D0D58F1B5424CF0104AD02 /* Frameworks */,
 				42BD6E8FC2281A4AE00979FE1E7C1921 /* Resources */,
 				E261EA4C19F97AEB00F5341B /* Copy LaunchAtLogin.app */,
 				E2B80DDF199F6DFA002CD817 /* Update Build Number */,
-				1A86E07C5429AFEAA0EBA075 /* Copy Pods Resources */,
-				E26E305E1AFE3F0A00F55259 /* Sign Sparkle.framework */,
+				1A86E07C5429AFEAA0EBA075 /* [CP] Copy Pods Resources */,
+				5B15B33C8225CFE46E9C46EB /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -372,7 +394,8 @@
 				LastUpgradeCheck = 0630;
 				TargetAttributes = {
 					F0A509CCCBD50F0A3647B6633BE0F1C7 = {
-						DevelopmentTeam = UY2GK6B69X;
+						DevelopmentTeam = 6TK8Q4KD6G;
+						ProvisioningStyle = Automatic;
 					};
 				};
 			};
@@ -444,49 +467,50 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		1A86E07C5429AFEAA0EBA075 /* Copy Pods Resources */ = {
+		1A86E07C5429AFEAA0EBA075 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Copy Pods Resources";
+			name = "[CP] Copy Pods Resources";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Satellite Eyes/Pods-Satellite Eyes-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		5FE745214CA094D6A53789C8 /* Check Pods Manifest.lock */ = {
+		5B15B33C8225CFE46E9C46EB /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Check Pods Manifest.lock";
+			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Satellite Eyes/Pods-Satellite Eyes-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		E26E305E1AFE3F0A00F55259 /* Sign Sparkle.framework */ = {
+		5FE745214CA094D6A53789C8 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Sign Sparkle.framework";
+			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "LOCATION=\"${BUILT_PRODUCTS_DIR}\"/\"${FRAMEWORKS_FOLDER_PATH}\"\n\ncodesign --verbose --force --sign \"$CODE_SIGN_IDENTITY\" \"$LOCATION/Sparkle.framework/Versions/A\"";
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
 		};
 		E2B80DDF199F6DFA002CD817 /* Update Build Number */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -560,20 +584,48 @@
 /* Begin XCBuildConfiguration section */
 		11359C44A2D9A46B9B49EA7D67C17D89 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 7F1DB51F9C9D3C558CA06512 /* Pods.debug.xcconfig */;
+			baseConfigurationReference = CCFEF2D41E873B100C2FC67D /* Pods-Satellite Eyes.debug.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = SatelliteEyes/SatelliteEyes.entitlements;
-				CODE_SIGN_IDENTITY = "Developer ID Application";
+				CODE_SIGN_IDENTITY = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
+				DEVELOPMENT_TEAM = 6TK8Q4KD6G;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SatelliteEyes/SatelliteEyes-Prefix.pch";
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"${PODS_ROOT}/Headers/Public\"",
+					"\"${PODS_ROOT}/Headers/Public/AFNetworking\"",
+					"\"${PODS_ROOT}/Headers/Public/CocoaLumberjack\"",
+					"\"${PODS_ROOT}/Headers/Public/Reachability\"",
+				);
 				INFOPLIST_FILE = "SatelliteEyes/SatelliteEyes-Info.plist";
 				INFOPLIST_PREPROCESS = NO;
+				OTHER_CFLAGS = (
+					"$(inherited)",
+					"-isystem",
+					"\"${PODS_ROOT}/Headers/Public\"",
+					"-isystem",
+					"\"${PODS_ROOT}/Headers/Public/AFNetworking\"",
+					"-isystem",
+					"\"${PODS_ROOT}/Headers/Public/CocoaLumberjack\"",
+					"-isystem",
+					"\"${PODS_ROOT}/Headers/Public/Reachability\"",
+				);
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+					"-l\"AFNetworking\"",
+					"-l\"CocoaLumberjack\"",
+					"-l\"Reachability\"",
+					"-framework",
+					"\"CoreServices\"",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -612,20 +664,48 @@
 		};
 		A7A2EE633075524C9013CC78F9888754 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = D0BD2B70A96FD464192C94B2 /* Pods.release.xcconfig */;
+			baseConfigurationReference = C4A1C08B36EA98D692EB6D28 /* Pods-Satellite Eyes.release.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = SatelliteEyes/SatelliteEyes.entitlements;
-				CODE_SIGN_IDENTITY = "Developer ID Application";
+				CODE_SIGN_IDENTITY = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
+				DEVELOPMENT_TEAM = 6TK8Q4KD6G;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SatelliteEyes/SatelliteEyes-Prefix.pch";
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"${PODS_ROOT}/Headers/Public\"",
+					"\"${PODS_ROOT}/Headers/Public/AFNetworking\"",
+					"\"${PODS_ROOT}/Headers/Public/CocoaLumberjack\"",
+					"\"${PODS_ROOT}/Headers/Public/Reachability\"",
+				);
 				INFOPLIST_FILE = "SatelliteEyes/SatelliteEyes-Info.plist";
 				INFOPLIST_PREPROCESS = NO;
+				OTHER_CFLAGS = (
+					"$(inherited)",
+					"-isystem",
+					"\"${PODS_ROOT}/Headers/Public\"",
+					"-isystem",
+					"\"${PODS_ROOT}/Headers/Public/AFNetworking\"",
+					"-isystem",
+					"\"${PODS_ROOT}/Headers/Public/CocoaLumberjack\"",
+					"-isystem",
+					"\"${PODS_ROOT}/Headers/Public/Reachability\"",
+				);
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+					"-l\"AFNetworking\"",
+					"-l\"CocoaLumberjack\"",
+					"-l\"Reachability\"",
+					"-framework",
+					"\"CoreServices\"",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};

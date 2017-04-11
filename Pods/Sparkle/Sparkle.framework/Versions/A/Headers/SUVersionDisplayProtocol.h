@@ -6,8 +6,12 @@
 //  Copyright 2009 Elgato Systems GmbH. All rights reserved.
 //
 
+#if __has_feature(modules)
+@import Cocoa;
+#else
 #import <Cocoa/Cocoa.h>
-
+#endif
+#import "SUExport.h"
 
 /*!
     Applies special display formatting to version numbers.
