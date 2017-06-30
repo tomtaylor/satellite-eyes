@@ -170,21 +170,21 @@
                     // We set a temp image
                     [[NSWorkspace sharedWorkspace] setDesktopImageURL:tempImage
                                                             forScreen:screen
-                                                              options:nil
+                                                              options:@{}
                                                                 error:nil];
                     
                     // 1 second later, update with the main image - if we do immediately after, it never seems to set it
                     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 1 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
                         [[NSWorkspace sharedWorkspace] setDesktopImageURL:filePath
                                                                 forScreen:screen
-                                                                  options:nil
+                                                                  options:@{}
                                                                     error:nil];
                     });
                     
                 } else {
                     [[NSWorkspace sharedWorkspace] setDesktopImageURL:filePath
                                                             forScreen:screen
-                                                              options:nil
+                                                              options:@{}
                                                                 error:nil];
                 }
                 

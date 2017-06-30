@@ -9,22 +9,32 @@
 #ifndef SUAPPCAST_H
 #define SUAPPCAST_H
 
-@protocol SUAppcastDelegate;
+#if __has_feature(modules)
+@import Foundation;
+#else
+#import <Foundation/Foundation.h>
+#endif
+#import "SUExport.h"
+
+NS_ASSUME_NONNULL_BEGIN
 
 @class SUAppcastItem;
-@interface SUAppcast : NSObject <NSURLDownloadDelegate>
+SU_EXPORT @interface SUAppcast : NSObject<NSURLDownloadDelegate>
 
-@property (weak) id<SUAppcastDelegate> delegate;
-@property (copy) NSString *userAgentString;
+@property (copy, nullable) NSString *userAgentString;
 
-- (void)fetchAppcastFromURL:(NSURL *)url;
+#if __has_feature(objc_generics)
+@property (copy, nullable) NSDictionary<NSString *, NSString *> *httpHeaders;
+#else
+@property (copy, nullable) NSDictionary *httpHeaders;
+#endif
 
-@property (readonly, copy) NSArray *items;
+- (void)fetchAppcastFromURL:(NSURL *)url inBackground:(BOOL)bg completionBlock:(void (^)(NSError *_Nullable))err;
+- (SUAppcast *)copyWithoutDeltaUpdates;
+
+@property (readonly, copy, nullable) NSArray *items;
 @end
 
-@protocol SUAppcastDelegate <NSObject>
-- (void)appcastDidFinishLoading:(SUAppcast *)appcast;
-- (void)appcast:(SUAppcast *)appcast failedToLoadWithError:(NSError *)error;
-@end
+NS_ASSUME_NONNULL_END
 
 #endif
