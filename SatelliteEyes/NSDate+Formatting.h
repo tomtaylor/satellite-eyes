@@ -20,6 +20,15 @@
 
 #import <Foundation/Foundation.h>
 
+//
+// Distance of time in words to string components.
+typedef enum DistanceOfTimeInWordsStringComponents {
+    kDOTIWStringComponentModifier       = 1,            // 00001 in binary.
+    kDOTIWStringComponentNumber         = 2,            // 00010 in binary.
+    kDOTIWStringComponentMeasure        = 4,            // 00100 in binary.
+    kDOTIWStringComponentDirection      = 8,            // 01000 in binary.
+    kDOTIWStringComponentJustNow        = 16,           // 10000 in binary (Disabled by default.)
+} DistanceOfTimeInWordsStringComponents;
 
 @interface NSDate (formatting)
 
@@ -28,4 +37,7 @@
 - (NSString *)distanceOfTimeInWords;
 - (NSString *)distanceOfTimeInWords:(NSDate *)date;
 
+- (NSString *)distanceOfTimeInWordsWithOptions:(NSUInteger)options;
+- (NSString *)distanceOfTimeInWords:(NSDate *)date withOptions:(NSUInteger)options;
+    
 @end
