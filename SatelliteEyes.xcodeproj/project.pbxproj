@@ -373,6 +373,7 @@
 				TargetAttributes = {
 					F0A509CCCBD50F0A3647B6633BE0F1C7 = {
 						DevelopmentTeam = UY2GK6B69X;
+						ProvisioningStyle = Manual;
 					};
 				};
 			};
@@ -578,6 +579,7 @@
 				INFOPLIST_PREPROCESS = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = uk.co.tomtaylor.SatelliteEyes;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -634,6 +636,7 @@
 				INFOPLIST_PREPROCESS = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = uk.co.tomtaylor.SatelliteEyes;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
