@@ -180,7 +180,7 @@
 			<key>id</key>
 			<string>thunderforest-opencyclemap</string>
 			<key>source</key>
-			<string>http://a.tile.opencyclemap.org/cycle/{z}/{x}/{y}.png</string>
+			<string>https://a.tile.thunderforest.com/cycle/{z}/{x}/{y}.png?apikey=02b345fa22f74b4a839a38d0a74939da</string>
 			<key>name</key>
 			<string>Thunderforest OpenCycleMap</string>
 			<key>browserURL</key>
@@ -190,7 +190,7 @@
 			<key>id</key>
 			<string>thunderforest-transport</string>
 			<key>source</key>
-			<string>http://a.tile2.opencyclemap.org/transport/{z}/{x}/{y}.png</string>
+			<string>https://a.tile.thunderforest.com/transport/{z}/{x}/{y}.png?apikey=02b345fa22f74b4a839a38d0a74939da</string>
 			<key>name</key>
 			<string>Thunderforest Transport</string>
 			<key>browserURL</key>
@@ -200,7 +200,7 @@
 			<key>id</key>
 			<string>thunderforest-landscape</string>
 			<key>source</key>
-			<string>http://a.tile3.opencyclemap.org/landscape/{z}/{x}/{y}.png</string>
+			<string>https://a.tile.thunderforest.com/landscape/{z}/{x}/{y}.png?apikey=02b345fa22f74b4a839a38d0a74939da</string>
 			<key>name</key>
 			<string>Thunderforest Landscape</string>
 		</dict>
@@ -208,7 +208,7 @@
 			<key>id</key>
 			<string>thunderforest-outdoors</string>
 			<key>source</key>
-			<string>http://a.tile.thunderforest.com/outdoors/{z}/{x}/{y}.png</string>
+			<string>https://a.tile.thunderforest.com/outdoors/{z}/{x}/{y}.png?apikey=02b345fa22f74b4a839a38d0a74939da</string>
 			<key>name</key>
 			<string>Thunderforest Outdoors</string>
 		</dict>
