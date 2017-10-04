@@ -1,5 +1,7 @@
 # Satellite Eyes
 
+![Satellite Eyes](https://pbs.twimg.com/media/DLUKueHUQAA6lo6.jpg:large)
+
 Satellite Eyes is a small OS X application that sits in your system tray (next to the clock) and automatically updates your desktop wallpaper to the satellite or map view overhead.
 
 It's available for download at [http://satelliteeyes.tomtaylor.co.uk](http://satelliteeyes.tomtaylor.co.uk).
