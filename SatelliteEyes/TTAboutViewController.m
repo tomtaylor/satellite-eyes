@@ -17,7 +17,7 @@
     NSAttributedString *attributedString = [[NSAttributedString alloc] initWithPath:path documentAttributes:nil];
     [aboutTextView.textStorage setAttributedString:attributedString];
     [aboutTextView setEditable:NO];
-    [aboutTextView setBackgroundColor:[NSColor clearColor]];
+    aboutTextView.backgroundColor = [NSColor clearColor];
     
     // Set the height of the credits view to maximum size that will contain it all,
     // so there's no trailing space at the end
@@ -27,11 +27,11 @@
     NSRect rect = [layoutManager usedRectForTextContainer:textContainer];
     [aboutTextView setFrameSize:rect.size];
     
-    NSString *version = [[NSBundle mainBundle] infoDictionary][@"CFBundleShortVersionString"];
-    NSString *gitRevision = [[NSBundle mainBundle] infoDictionary][@"CFBundleVersion"];
+    NSString *version = [NSBundle mainBundle].infoDictionary[@"CFBundleShortVersionString"];
+    NSString *gitRevision = [NSBundle mainBundle].infoDictionary[@"CFBundleVersion"];
     NSString *longVersion = [NSString stringWithFormat:@"Version %@\nBuild %@", version, gitRevision];
     
-    [versionTextField setStringValue:longVersion];
+    versionTextField.stringValue = longVersion;
 }
 
 - (IBAction)clickVisitHomepage:(id)sender {

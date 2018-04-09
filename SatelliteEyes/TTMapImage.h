@@ -22,17 +22,17 @@
     NSUInteger tileSize;
 }
 
-- (id)initWithTileRect:(CGRect)_tileRect
+- (instancetype)initWithTileRect:(CGRect)_tileRect
              tileScale:(float)_tileScale
              zoomLevel:(unsigned short)_zoomLevel
                 source:(NSString *)_provider
                 effect:(NSDictionary *)_effect
-                  logo:(NSImage *)_logoImage;
+                  logo:(NSImage *)_logoImage NS_DESIGNATED_INITIALIZER;
 
 - (void)fetchTilesWithSuccess:(void (^)(NSURL *filePath))success
                       failure:(void (^)(NSError *error))failure
                     skipCache:(BOOL)skipCache;
 
-- (NSURL *)fileURL;
+@property (NS_NONATOMIC_IOSONLY, readonly, copy) NSURL *fileURL;
 
 @end

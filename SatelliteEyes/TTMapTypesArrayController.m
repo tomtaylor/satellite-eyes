@@ -11,7 +11,7 @@
 @implementation TTMapTypesArrayController
 
 - (id)newObject {
-    return @{@"id": [[NSUUID UUID] UUIDString], @"mapZoom": @17, @"name": @"New Map Style"};
+    return @{@"id": [NSUUID UUID].UUIDString, @"mapZoom": @17, @"name": @"New Map Style"};
 }
 
 @end

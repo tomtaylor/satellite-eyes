@@ -29,7 +29,7 @@
     [self setUserDefaults];
     
     // 100MB disk cache for tile images
-    [[NSURLCache sharedURLCache] setDiskCapacity:100*1024^2];
+    [NSURLCache sharedURLCache].diskCapacity = 100*1024^2;
     
     statusItemController = [[TTStatusItemController alloc] init];
     mapManager = [[TTMapManager alloc] init];
@@ -78,7 +78,7 @@
     NSDictionary *appDefaults = [NSDictionary dictionaryWithContentsOfFile:
                                 [[NSBundle mainBundle] pathForResource:@"Defaults" ofType:@"plist"]];
     [[NSUserDefaults standardUserDefaults] registerDefaults:appDefaults];
-    [[NSUserDefaultsController sharedUserDefaultsController] setInitialValues:appDefaults];
+    [NSUserDefaultsController sharedUserDefaultsController].initialValues = appDefaults;
 }
 
 - (void)doFirstRun {
@@ -95,8 +95,8 @@
 - (void)doHelloAlert {
     NSAlert *alert = [[NSAlert alloc] init];
     [alert addButtonWithTitle:@"OK"];
-    [alert setMessageText:@"Welcome to Satellite Eyes"];
-    [alert setInformativeText:@"Satellite Eyes is now running in the status bar at the top right of your screen.\n\nIt will automatically change your desktop wallpaper to your current location.\n\nYou can adjust the preferences by clicking on the icon."];
+    alert.messageText = @"Welcome to Satellite Eyes";
+    alert.informativeText = @"Satellite Eyes is now running in the status bar at the top right of your screen.\n\nIt will automatically change your desktop wallpaper to your current location.\n\nYou can adjust the preferences by clicking on the icon.";
     [alert runModal];
 }
 
@@ -104,8 +104,8 @@
     NSAlert *startupAlert = [[NSAlert alloc] init];
     [startupAlert addButtonWithTitle:@"Yes"];
     [startupAlert addButtonWithTitle:@"No"];
-    [startupAlert setMessageText:@"Run Satellite Eyes at Startup?"];
-    [startupAlert setInformativeText:@"Satellite Eyes works best when it's run in the background all the time. Do you want it to run automatically at startup?"];
+    startupAlert.messageText = @"Run Satellite Eyes at Startup?";
+    startupAlert.informativeText = @"Satellite Eyes works best when it's run in the background all the time. Do you want it to run automatically at startup?";
     
     NSInteger result = [startupAlert runModal];
     if (result == NSAlertFirstButtonReturn) {
@@ -119,8 +119,8 @@
 - (void)shutdownWithLocationError {
     NSAlert *alert = [[NSAlert alloc] init];
     [alert addButtonWithTitle:@"OK"];
-    [alert setMessageText:@"Satellite Eyes Will Quit"];
-    [alert setInformativeText:@"Satellite Eyes needs permission to access your location, or it can't load the correct map.\n\nYou can enable Location Services from the Security & Privacy pane in System Preferences, and then restart the application."];
+    alert.messageText = @"Satellite Eyes Will Quit";
+    alert.informativeText = @"Satellite Eyes needs permission to access your location, or it can't load the correct map.\n\nYou can enable Location Services from the Security & Privacy pane in System Preferences, and then restart the application.";
     [alert runModal];
     [NSApp terminate:nil];
 }

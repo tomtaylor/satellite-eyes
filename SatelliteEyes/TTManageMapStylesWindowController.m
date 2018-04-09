@@ -10,7 +10,7 @@
 
 @implementation TTManageMapStylesWindowController
 
-- (id)init
+- (instancetype)init
 {
     self = [super initWithWindowNibName:@"TTManageMapStylesWindow"];
     return self;

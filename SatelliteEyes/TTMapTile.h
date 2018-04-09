@@ -23,14 +23,14 @@
 @property (readonly) unsigned short z;
 @property (atomic, retain) NSData *imageData;
 
-- (id)initWithSource:(NSString *)source 
+- (instancetype)initWithSource:(NSString *)source 
                    x:(NSUInteger)_x 
                    y:(NSUInteger)_y 
-                   z:(unsigned short)_z;
-- (CLLocationCoordinate2D)topLeftCoordinate;
-- (CGImageRef)newImageRef;
-- (NSURL *)url;
-- (NSURLRequest *)urlRequest;
+                   z:(unsigned short)_z NS_DESIGNATED_INITIALIZER;
+@property (NS_NONATOMIC_IOSONLY, readonly) CLLocationCoordinate2D topLeftCoordinate;
+@property (NS_NONATOMIC_IOSONLY, readonly) CGImageRef newImageRef CF_RETURNS_RETAINED;
+@property (NS_NONATOMIC_IOSONLY, readonly, copy) NSURL *url;
+@property (NS_NONATOMIC_IOSONLY, readonly, copy) NSURLRequest *urlRequest;
 
 + (CLLocationCoordinate2D)coordinateForX:(NSUInteger)x y:(NSUInteger)y z:(unsigned short)z;
 + (CGPoint)coordinateToPoint:(CLLocationCoordinate2D)coordinate zoomLevel:(unsigned short)zoomLevel;

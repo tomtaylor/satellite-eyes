@@ -16,7 +16,7 @@
 @synthesize z;
 @synthesize imageData;
 
-- (id)initWithSource:(NSString *)_source x:(NSUInteger)_x y:(NSUInteger)_y z:(unsigned short)_z
+- (instancetype)initWithSource:(NSString *)_source x:(NSUInteger)_x y:(NSUInteger)_y z:(unsigned short)_z
 {
     self = [super init];
     if (self) {
@@ -38,7 +38,7 @@
                                  cachePolicy:NSURLRequestUseProtocolCachePolicy 
                              timeoutInterval:60.0];
     
-    NSString *version = [[NSBundle mainBundle] infoDictionary][(NSString*)kCFBundleVersionKey];
+    NSString *version = [NSBundle mainBundle].infoDictionary[(NSString*)kCFBundleVersionKey];
     NSString *userAgent = [NSString stringWithFormat:@"Satellite Eyes/%@ (http://satelliteeyes.tomtaylor.co.uk)", version];
     NSString *referrer = @"http://satelliteeyes.tomtaylor.co.uk";
     
@@ -84,20 +84,20 @@
 
 - (NSString *)quadKey {
     NSMutableString *quadKey = [NSMutableString string];
-	for (int i = z; i > 0; i--)
-	{
-		int mask = 1 << (i - 1);
-		int cell = 0;
-		if ((x & mask) != 0)
-		{
-			cell++;
-		}
-		if ((y & mask) != 0)
-		{
-			cell += 2;
-		}
-		[quadKey appendString:[NSString stringWithFormat:@"%d", cell]];
-	}
+    for (int i = z; i > 0; i--)
+    {
+        int mask = 1 << (i - 1);
+        int cell = 0;
+        if ((x & mask) != 0)
+        {
+            cell++;
+        }
+        if ((y & mask) != 0)
+        {
+            cell += 2;
+        }
+        [quadKey appendString:[NSString stringWithFormat:@"%d", cell]];
+    }
     return quadKey;
 }
 
@@ -108,7 +108,7 @@
     CLLocationDegrees longitude = x / pow(2.0, z) * 360.0 - 180;
     
     double n = M_PI - 2.0 * M_PI * y / pow(2.0, z);
-	CLLocationDegrees latitude = 180.0 / M_PI * atan(0.5 * (exp(n) - exp(-n)));
+    CLLocationDegrees latitude = 180.0 / M_PI * atan(0.5 * (exp(n) - exp(-n)));
     
     return CLLocationCoordinate2DMake(latitude, longitude);
 }

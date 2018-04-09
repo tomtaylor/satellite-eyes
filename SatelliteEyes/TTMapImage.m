@@ -16,9 +16,9 @@
 
 @interface TTMapImage (Private)
 
-- (NSURL *)writeImageData;
-- (NSArray *)tilesArray;
-- (NSString *)uniqueHash;
+@property (NS_NONATOMIC_IOSONLY, readonly, copy) NSURL *writeImageData;
+@property (NS_NONATOMIC_IOSONLY, readonly, copy) NSArray *tilesArray;
+@property (NS_NONATOMIC_IOSONLY, readonly, copy) NSString *uniqueHash;
 
 @end
 
@@ -28,7 +28,7 @@
     [AFHTTPRequestOperation addAcceptableContentTypes:[NSSet setWithObjects:@"image/jpeg", @"image/png", @"image/jpg", nil]];
 }
 
-- (id)initWithTileRect:(CGRect)_tileRect
+- (instancetype)initWithTileRect:(CGRect)_tileRect
              tileScale:(float)_tileScale
              zoomLevel:(unsigned short)_zoomLevel
                 source:(NSString *)_source
@@ -55,7 +55,7 @@
         tiles = [self tilesArray];
         
         tileQueue = [[NSOperationQueue alloc] init];
-        [tileQueue setMaxConcurrentOperationCount:4];
+        tileQueue.maxConcurrentOperationCount = 4;
     }
     return self;
 }
@@ -97,7 +97,7 @@
         if (!skipCache) {
             // callback instantly if the image already exists
             DDLogInfo(@"Looking up file at: %@", [fileURL path]);
-            if ([[NSFileManager defaultManager] fileExistsAtPath:[fileURL path]]) {
+            if ([[NSFileManager defaultManager] fileExistsAtPath:fileURL.path]) {
                 DDLogInfo(@"Map image already cached: %@", [fileURL path]);
                 success(fileURL);
                 return;
@@ -208,7 +208,7 @@
     CGImageRelease(tiledImageRef);
     
     if (logoImage) {
-        CGImageSourceRef logoImageSourceRef = CGImageSourceCreateWithData((__bridge CFDataRef)[logoImage TIFFRepresentation], NULL);
+        CGImageSourceRef logoImageSourceRef = CGImageSourceCreateWithData((__bridge CFDataRef)logoImage.TIFFRepresentation, NULL);
         CGImageRef logoImageRef =  CGImageSourceCreateImageAtIndex(logoImageSourceRef, 0, NULL);
         CFRelease(logoImageSourceRef);
         

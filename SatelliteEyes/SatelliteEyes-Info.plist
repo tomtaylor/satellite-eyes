@@ -26,7 +26,7 @@
 			<key>CFBundleTypeRole</key>
 			<string>Viewer</string>
 			<key>CFBundleURLName</key>
-			<string>uk.co.tomtaylor.SatelliteEyes.App</string>
+			<string>uk.co.tomtaylor.SatelliteEyes</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
 				<string>satelliteeyes</string>

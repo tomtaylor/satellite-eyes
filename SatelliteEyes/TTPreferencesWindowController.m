@@ -13,7 +13,7 @@
 
 @synthesize updater;
 
-- (id)init
+- (instancetype)init
 {
     self = [super initWithWindowNibName:@"TTPreferencesWindow"];
     return self;

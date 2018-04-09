@@ -24,7 +24,7 @@
 
 @implementation TTMapManager
 
-- (id)init
+- (instancetype)init
 {
     self = [super init];
     if (self) {
@@ -65,12 +65,12 @@
                                                    options:NSKeyValueObservingOptionNew
                                                    context:nil];
 
-        [[[NSWorkspace sharedWorkspace] notificationCenter] addObserver:self 
+        [[NSWorkspace sharedWorkspace].notificationCenter addObserver:self 
                                                                selector:@selector(spaceChanged:) 
                                                                    name:NSWorkspaceActiveSpaceDidChangeNotification 
                                                                  object:nil];
         
-        [[[NSWorkspace sharedWorkspace] notificationCenter] addObserver:self 
+        [[NSWorkspace sharedWorkspace].notificationCenter addObserver:self 
                                                                selector:@selector(receiveWakeNote:) 
                                                                    name:NSWorkspaceDidWakeNotification 
                                                                  object:nil];
@@ -204,7 +204,7 @@
            fromLocation:(CLLocation *)oldLocation
 {
     // throw away location updates older than two minutes
-	if (newLocation && fabs([newLocation.timestamp timeIntervalSinceNow]) < 120) {
+    if (newLocation && fabs((newLocation.timestamp).timeIntervalSinceNow) < 120) {
         [[NSNotificationCenter defaultCenter] postNotificationName:TTMapManagerLocationUpdated object:newLocation];
         lastSeenLocation = newLocation;
         [self updateMapToCoordinate:newLocation.coordinate force:NO];
@@ -212,7 +212,7 @@
 }
 
 - (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error {
-    if ([error code] == kCLErrorDenied) {
+    if (error.code == kCLErrorDenied) {
         [locationManager stopUpdatingLocation];
         [[NSNotificationCenter defaultCenter] postNotificationName:TTMapManagerLocationPermissionDenied object:nil];
     }
@@ -226,7 +226,7 @@
     // Find the centre tile
     CGPoint centerTile = [TTMapTile coordinateToPoint:coordinate zoomLevel:z];
 
-    CGRect mainScreenFrame = [[NSScreen mainScreen] frame];
+    CGRect mainScreenFrame = [NSScreen mainScreen].frame;
     CGRect targetScreenFrame = screen.frame;
 
     // Get the size and origin of the main screen in tiles
@@ -302,12 +302,12 @@
     NSNumber *maxZoom = (self.selectedMapType)[@"maxZoom"];
     NSNumber *minZoom = (self.selectedMapType)[@"minZoom"];
     NSNumber *desiredZoom = [[NSUserDefaults standardUserDefaults] objectForKey:@"zoomLevel"];
-    int desiredZoomInt = [desiredZoom intValue];
+    int desiredZoomInt = desiredZoom.intValue;
     
-    if (maxZoom && desiredZoomInt > [maxZoom intValue]) {
-        desiredZoomInt = [maxZoom intValue];
-    } else if (minZoom && desiredZoomInt < [minZoom intValue]) {
-        desiredZoomInt = [minZoom intValue];
+    if (maxZoom && desiredZoomInt > maxZoom.intValue) {
+        desiredZoomInt = maxZoom.intValue;
+    } else if (minZoom && desiredZoomInt < minZoom.intValue) {
+        desiredZoomInt = minZoom.intValue;
     }
     
     return desiredZoomInt;
@@ -347,7 +347,7 @@
     NSMutableArray *safeFiles = [NSMutableArray array];
     [[NSScreen screens] enumerateObjectsUsingBlock:^(NSScreen *screen, NSUInteger idx, BOOL *stop) {
         NSURL *desktopImageURL = [[NSWorkspace sharedWorkspace] desktopImageURLForScreen:screen];
-        [safeFiles addObject:[desktopImageURL lastPathComponent]];
+        [safeFiles addObject:desktopImageURL.lastPathComponent];
     }];
     
     // Find all the files which begin with map and aren't currently on the desktop
@@ -355,7 +355,7 @@
     NSArray *filesToRemove = [files filteredArrayUsingPredicate:predicate];
     
     // Make an array of dictionaries with the modification date for each file
-    NSMutableArray *filesAndProperties = [NSMutableArray arrayWithCapacity:[filesToRemove count]];
+    NSMutableArray *filesAndProperties = [NSMutableArray arrayWithCapacity:filesToRemove.count];
     [filesToRemove enumerateObjectsUsingBlock:^(NSString *file, NSUInteger idx, BOOL *stop) {
         NSString *filePath = [NSString pathWithComponents:@[cacheDirectoryPath, file]];
         NSError *error;
@@ -409,8 +409,8 @@
     }
     
     NSNumberFormatter *coordinateFormatter = [[NSNumberFormatter alloc] init];
-    [coordinateFormatter setNumberStyle:NSNumberFormatterDecimalStyle];
-    [coordinateFormatter setMaximumFractionDigits:8];
+    coordinateFormatter.numberStyle = NSNumberFormatterDecimalStyle;
+    coordinateFormatter.maximumFractionDigits = 8;
     
     NSNumber *latitudeNumber = @(lastSeenLocation.coordinate.latitude);
     NSNumber *longitudeNumber = @(lastSeenLocation.coordinate.longitude);
@@ -437,7 +437,7 @@
     [[NSUserDefaults standardUserDefaults] removeObserver:self forKeyPath:@"selectedMapTypeIndex"];
     [[NSUserDefaults standardUserDefaults] removeObserver:self forKeyPath:@"zoomLevel"];
     [[NSUserDefaults standardUserDefaults] removeObserver:self forKeyPath:@"selectedImageEffectId"];
-    [[[NSWorkspace sharedWorkspace] notificationCenter] removeObserver:self];
+    [[NSWorkspace sharedWorkspace].notificationCenter removeObserver:self];
 }
 
 @end

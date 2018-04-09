@@ -14,7 +14,7 @@
 
 @implementation TTAboutWindowController
 
-- (id)init
+- (instancetype)init
 {
     self = [super initWithWindowNibName:@"TTAboutWindow"];
     return self;

@@ -14,12 +14,12 @@
 
 @implementation TTStatusItemController
 
-- (id)init
+- (instancetype)init
 {
     self = [super init];
     if (self) {
         NSMenu *menu = [[NSMenu alloc] initWithTitle:@"Menu"];
-        [menu setDelegate:self];
+        menu.delegate = self;
         [menu setAutoenablesItems:NO];
         
         statusMenuItem = [[NSMenuItem alloc] initWithTitle:@"" action:nil keyEquivalent:@""];
@@ -50,7 +50,7 @@
         
         statusItem = [[NSStatusBar systemStatusBar] statusItemWithLength:22];
         [statusItem setHighlightMode:YES];
-        [statusItem setMenu:menu];
+        statusItem.menu = menu;
         
         [self updateStatus];
         
@@ -142,7 +142,7 @@
     [forceMapUpdateMenuItem setHidden:NO];
     
     if (mapLastUpdated) {
-        statusMenuItem.title = [NSString stringWithFormat:@"Map updated %@", [[mapLastUpdated distanceOfTimeInWords] lowercaseString]];
+        statusMenuItem.title = [NSString stringWithFormat:@"Map updated %@", [mapLastUpdated distanceOfTimeInWords].lowercaseString];
         
     } else {
         statusMenuItem.title = @"Waiting for map update";
@@ -194,7 +194,7 @@
 
 - (void)enableOpenInBrowser {
     // It's a bit hacky to reach up into the App Delegate for this, but hey.
-    TTAppDelegate *appDelegate = (TTAppDelegate *)[[NSApplication sharedApplication] delegate];
+    TTAppDelegate *appDelegate = (TTAppDelegate *)[NSApplication sharedApplication].delegate;
     
     if ([appDelegate visibleMapBrowserURL]) {
         [openInBrowserMenuItem setEnabled:YES];

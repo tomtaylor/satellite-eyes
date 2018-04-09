@@ -29,6 +29,6 @@
 - (void)showPreferences:(id)sender;
 - (void)showAbout:(id)sender;
 - (void)setUserDefaults;
-- (NSURL *)visibleMapBrowserURL;
+@property (NS_NONATOMIC_IOSONLY, readonly, copy) NSURL *visibleMapBrowserURL;
 
 @end
