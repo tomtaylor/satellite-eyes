@@ -6,12 +6,12 @@
     #import <Cocoa/Cocoa.h>
     #import <SystemConfiguration/SystemConfiguration.h>
     #import <CoreServices/CoreServices.h>
-    #import "DDLog.h"
+    #import <CocoaLumberjack/CocoaLumberjack.h>
 
     #if DEBUG
-        static const int ddLogLevel = LOG_LEVEL_VERBOSE;
+        static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
     #else
-        static const int ddLogLevel = LOG_LEVEL_INFO;
+        static const DDLogLevel ddLogLevel = DDLogLevelInfo;
     #endif
 #endif
 
