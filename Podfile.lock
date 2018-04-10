@@ -15,6 +15,13 @@ DEPENDENCIES:
   - Reachability (~> 3.2.0)
   - Sparkle (~> 1.18)
 
+SPEC REPOS:
+  https://github.com/CocoaPods/Specs.git:
+    - AFNetworking
+    - CocoaLumberjack
+    - Reachability
+    - Sparkle
+
 SPEC CHECKSUMS:
   AFNetworking: cf8e418e16f0c9c7e5c3150d019a3c679d015018
   CocoaLumberjack: 2e258a064cacc8eb9a2aca318e24d02a0a7fd56d
@@ -23,4 +30,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: 382419e6f96e085dbadcdf835ea95b064de5076b
 
-COCOAPODS: 1.4.0
+COCOAPODS: 1.5.0

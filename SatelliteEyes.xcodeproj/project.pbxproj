@@ -351,7 +351,6 @@
 				E261EA4C19F97AEB00F5341B /* Copy LaunchAtLogin.app */,
 				E2B80DDF199F6DFA002CD817 /* Update Build Number */,
 				ADD0894F7ADD7EA6F86B4E1D /* [CP] Embed Pods Frameworks */,
-				D723B357E3A252910CEB3D25 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -487,21 +486,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Satellite Eyes/Pods-Satellite Eyes-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		D723B357E3A252910CEB3D25 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Satellite Eyes/Pods-Satellite Eyes-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		E2B80DDF199F6DFA002CD817 /* Update Build Number */ = {
