@@ -7,7 +7,7 @@ PODS:
   - CocoaLumberjack/Extensions (3.4.2):
     - CocoaLumberjack/Default
   - Reachability (3.2)
-  - Sparkle (1.18.1)
+  - Sparkle (1.21.0)
 
 DEPENDENCIES:
   - AFNetworking (~> 1.3)
@@ -26,7 +26,7 @@ SPEC CHECKSUMS:
   AFNetworking: cf8e418e16f0c9c7e5c3150d019a3c679d015018
   CocoaLumberjack: db7cc9e464771f12054c22ff6947c5a58d43a0fd
   Reachability: 33e18b67625424e47b6cde6d202dce689ad7af96
-  Sparkle: 06ea33170007c5937ee54da481b4481af98fac79
+  Sparkle: 24f10673813bf7c32d73ffa8a775590adefc40df
 
 PODFILE CHECKSUM: 382419e6f96e085dbadcdf835ea95b064de5076b
 
