@@ -58,8 +58,8 @@
                                                           object:nil 
                                                            queue:nil 
                                                       usingBlock:^(NSNotification *note) {
-                                                          mapManagerdidError = NO;
-                                                          mapManagerisActive = YES;
+                                                          self->mapManagerdidError = NO;
+                                                          self->mapManagerisActive = YES;
                                                           [self performSelectorOnMainThread:@selector(updateStatus) withObject:nil waitUntilDone:YES];
                                                       }];
         
@@ -67,9 +67,9 @@
                                                           object:nil 
                                                            queue:nil 
                                                       usingBlock:^(NSNotification *note) {
-                                                          mapManagerdidError = NO;
-                                                          mapManagerisActive = NO;
-                                                          mapLastUpdated = [NSDate date];
+                                                          self->mapManagerdidError = NO;
+                                                          self->mapManagerisActive = NO;
+                                                          self->mapLastUpdated = [NSDate date];
                                                           [self performSelectorOnMainThread:@selector(updateStatus) withObject:nil waitUntilDone:YES];
 
                                                       }];
@@ -78,8 +78,8 @@
                                                           object:nil 
                                                            queue:nil 
                                                       usingBlock:^(NSNotification *note) {
-                                                          mapManagerdidError = YES;
-                                                          mapManagerisActive = NO;
+                                                          self->mapManagerdidError = YES;
+                                                          self->mapManagerisActive = NO;
                                                           [self performSelectorOnMainThread:@selector(updateStatus) withObject:nil waitUntilDone:YES];
                                                       }];
         
@@ -87,7 +87,7 @@
                                                           object:nil 
                                                            queue:nil 
                                                       usingBlock:^(NSNotification *note) {
-                                                          mapManagerhasLocation = YES;
+                                                          self->mapManagerhasLocation = YES;
                                                           [self performSelectorOnMainThread:@selector(updateStatus) withObject:nil waitUntilDone:YES];
                                                       }];
         
@@ -95,7 +95,7 @@
                                                           object:nil 
                                                            queue:nil 
                                                       usingBlock:^(NSNotification *note) {
-                                                          mapManagerhasLocation = NO;
+                                                          self->mapManagerhasLocation = NO;
                                                           [self performSelectorOnMainThread:@selector(updateStatus) withObject:nil waitUntilDone:YES];
                                                       }];
     }

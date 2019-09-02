@@ -107,7 +107,7 @@
         DDLogInfo(@"Not found, or skipping cache, so fetching file at: %@", [fileURL path]);
         
         __block NSError *error;
-        [tiles enumerateObjectsUsingBlock:^(NSArray *rowArray, NSUInteger idx, BOOL *stop) {
+        [self->tiles enumerateObjectsUsingBlock:^(NSArray *rowArray, NSUInteger idx, BOOL *stop) {
             [rowArray enumerateObjectsUsingBlock:^(TTMapTile *mapTile, NSUInteger rowIndex, BOOL *rowStop) {
                 AFHTTPRequestOperation *httpOperation = [[AFHTTPRequestOperation alloc] initWithRequest:[mapTile urlRequest]];
                 
@@ -117,10 +117,10 @@
                     error = _error;
                     DDLogError(@"Fetching tile error: %@", error);
                 }];
-                [tileQueue addOperation:httpOperation];
+                [self->tileQueue addOperation:httpOperation];
             }];
         }];
-        [tileQueue waitUntilAllOperationsAreFinished];
+        [self->tileQueue waitUntilAllOperationsAreFinished];
         
         if (error) {
             failure(error);
@@ -153,9 +153,9 @@
         [rowArray enumerateObjectsUsingBlock:^(TTMapTile *tile, NSUInteger tileIndex, BOOL *tileStop) {
             CGImageRef tileImageRef = [tile newImageRef];
             
-            float drawX = (tileIndex * tileSize) - pixelShift.x;
-            float drawY = (rowIndex * tileSize) - pixelShift.y;
-            CGRect rect = CGRectMake(drawX, drawY, tileSize, tileSize);
+            float drawX = (tileIndex * self->tileSize) - self->pixelShift.x;
+            float drawY = (rowIndex * self->tileSize) - self->pixelShift.y;
+            CGRect rect = CGRectMake(drawX, drawY, self->tileSize, self->tileSize);
             CGContextDrawImage(context, rect, tileImageRef);
             CGImageRelease(tileImageRef);
         }];

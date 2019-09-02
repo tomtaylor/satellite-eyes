@@ -139,7 +139,7 @@
     [[NSScreen screens] enumerateObjectsUsingBlock:^(NSScreen *screen, NSUInteger idx, BOOL *stop) {
         // put everything through the serial dispatch queue to ensure we're 
         // not requesting the same tile multiple times concurrently
-        dispatch_async(updateQueue, ^{
+        dispatch_async(self->updateQueue, ^{
             
             [[NSNotificationCenter defaultCenter] postNotificationName:TTMapManagerStartedLoad object:nil];
             
