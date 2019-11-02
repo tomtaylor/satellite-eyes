@@ -233,6 +233,34 @@
 		</dict>
 		<dict>
 			<key>id</key>
+			<string>darken</string>
+			<key>name</key>
+			<string>Darken</string>
+			<key>filters</key>
+			<array>
+				<dict>
+					<key>name</key>
+					<string>CIColorControls</string>
+					<key>parameters</key>
+					<array>
+						<dict>
+							<key>name</key>
+							<string>inputBrightness</string>
+							<key>value</key>
+							<real>-0.4</real>
+						</dict>
+						<dict>
+							<key>name</key>
+							<string>inputContrast</string>
+							<key>value</key>
+							<real>0.2</real>
+						</dict>
+					</array>
+				</dict>
+			</array>
+		</dict>
+		<dict>
+			<key>id</key>
 			<string>pixellate</string>
 			<key>name</key>
 			<string>Pixellate</string>
@@ -470,34 +498,6 @@
 							<string>inputAmount</string>
 							<key>value</key>
 							<real>0.3</real>
-						</dict>
-					</array>
-				</dict>
-			</array>
-		</dict>
-		<dict>
-			<key>id</key>
-			<string>darken</string>
-			<key>name</key>
-			<string>Darken</string>
-			<key>filters</key>
-			<array>
-				<dict>
-					<key>name</key>
-					<string>CIColorControls</string>
-					<key>parameters</key>
-					<array>
-						<dict>
-							<key>name</key>
-							<string>inputBrightness</string>
-							<key>value</key>
-							<real>-0.4</real>
-						</dict>
-						<dict>
-							<key>name</key>
-							<string>inputContrast</string>
-							<key>value</key>
-							<real>0.2</real>
 						</dict>
 					</array>
 				</dict>
