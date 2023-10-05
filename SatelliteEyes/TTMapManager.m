@@ -269,12 +269,21 @@
 }
 
 - (NSString *)sourceForScreen:(NSScreen *)screen {
-    NSString *source2x = self.selectedMapType[@"source2x"];
-    if (source2x && [self screenIsRetina:screen]) {
-        return source2x;
-    } else {
-        return self.selectedMapType[@"source"];
+    NSString *source = self.selectedMapType[@"source2x"];
+    if (!source || ![self screenIsRetina:screen]) {
+        source = self.selectedMapType[@"source"];
     }
+
+    if ([self mapRequiresUserApiKeyQueryParameter]) {
+        NSString* parameterName = [self apiKeyQueryParameterName];
+        NSString* apiKey = [[NSUserDefaults standardUserDefaults] stringForKey: [self apiKeyDefaultsKey]];
+
+        // Only add API key to URL if one was set.
+        if ([apiKey length] > 0) {
+            source = [source stringByAppendingFormat:@"?%@=%@", parameterName, apiKey];
+        }
+    }
+    return source;
 }
 
 - (float)tileScaleForScren:(NSScreen *)screen {
@@ -287,6 +296,18 @@
 
 - (BOOL)selectedMapTypeSupportsRetina {
     return !!self.selectedMapType[@"source2x"];
+}
+
+- (BOOL)mapRequiresUserApiKeyQueryParameter {
+    return !!self.selectedMapType[@"apiKeyQueryName"];
+}
+
+- (NSString *)apiKeyQueryParameterName {
+    return self.selectedMapType[@"apiKeyQueryName"];
+}
+
+- (NSString *)apiKeyDefaultsKey {
+    return self.selectedMapType[@"apiKeyDefaultsKey"];
 }
 
 - (NSImage *)logoImage {

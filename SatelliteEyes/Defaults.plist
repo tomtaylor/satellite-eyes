@@ -15,6 +15,10 @@
 			<integer>17</integer>
 			<key>browserURL</key>
 			<string>http://maps.stamen.com/watercolor/#{zoom}/{latitude}/{longitude}</string>
+			<key>apiKeyQueryName</key>
+			<string>api_key</string>
+			<key>apiKeyDefaultsKey</key>
+			<string>stadiaToken</string>
 		</dict>
 		<dict>
 			<key>id</key>
@@ -27,6 +31,10 @@
 			<string>Stamen Toner</string>
 			<key>browserURL</key>
 			<string>http://maps.stamen.com/toner/#{zoom}/{latitude}/{longitude}</string>
+			<key>apiKeyQueryName</key>
+			<string>api_key</string>
+			<key>apiKeyDefaultsKey</key>
+			<string>stadiaToken</string>
 		</dict>
 		<dict>
 			<key>id</key>
@@ -39,6 +47,10 @@
 			<string>Stamen Toner Background</string>
 			<key>browserURL</key>
 			<string>http://maps.stamen.com/toner-background/#{zoom}/{latitude}/{longitude}</string>
+			<key>apiKeyQueryName</key>
+			<string>api_key</string>
+			<key>apiKeyDefaultsKey</key>
+			<string>stadiaToken</string>
 		</dict>
 		<dict>
 			<key>id</key>
@@ -51,6 +63,10 @@
 			<string>Stamen Toner Lite</string>
 			<key>browserURL</key>
 			<string>http://maps.stamen.com/toner-lite/#{zoom}/{latitude}/{longitude}</string>
+			<key>apiKeyQueryName</key>
+			<string>api_key</string>
+			<key>apiKeyDefaultsKey</key>
+			<string>stadiaToken</string>
 		</dict>
 		<dict>
 			<key>id</key>
@@ -65,6 +81,10 @@
 			<integer>18</integer>
 			<key>browserURL</key>
 			<string>http://maps.stamen.com/terrain/#{zoom}/{latitude}/{longitude}</string>
+			<key>apiKeyQueryName</key>
+			<string>api_key</string>
+			<key>apiKeyDefaultsKey</key>
+			<string>stadiaToken</string>
 		</dict>
 		<dict>
 			<key>id</key>
