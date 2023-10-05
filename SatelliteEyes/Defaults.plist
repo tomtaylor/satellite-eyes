@@ -8,7 +8,7 @@
 			<key>id</key>
 			<string>stamen-watercolor</string>
 			<key>source</key>
-			<string>https://stamen-tiles.a.ssl.fastly.net/watercolor/{z}/{x}/{y}.jpg</string>
+			<string>https://tiles.stadiamaps.com/tiles/stamen_watercolor/{z}/{x}/{y}.jpg</string>
 			<key>name</key>
 			<string>Stamen Watercolor</string>
 			<key>maxZoom</key>
@@ -20,9 +20,9 @@
 			<key>id</key>
 			<string>stamen-toner</string>
 			<key>source</key>
-			<string>https://stamen-tiles.a.ssl.fastly.net/toner/{z}/{x}/{y}.png</string>
+			<string>https://tiles.stadiamaps.com/tiles/stamen_toner_lite/{z}/{x}/{y}.png</string>
 			<key>source2x</key>
-			<string>https://stamen-tiles.a.ssl.fastly.net/toner/{z}/{x}/{y}@2x.png</string>
+			<string>https://tiles.stadiamaps.com/tiles/stamen_toner_lite/{z}/{x}/{y}@2x.png</string>
 			<key>name</key>
 			<string>Stamen Toner</string>
 			<key>browserURL</key>
@@ -32,9 +32,9 @@
 			<key>id</key>
 			<string>stamen-toner-background</string>
 			<key>source</key>
-			<string>https://stamen-tiles.a.ssl.fastly.net/toner-background/{z}/{x}/{y}.png</string>
+			<string>https://tiles.stadiamaps.com/tiles/stamen_toner_background/{z}/{x}/{y}.png</string>
 			<key>source2x</key>
-			<string>https://stamen-tiles.a.ssl.fastly.net/toner-background/{z}/{x}/{y}@2x.png</string>
+			<string>https://tiles.stadiamaps.com/tiles/stamen_toner_background/{z}/{x}/{y}@2x.png</string>
 			<key>name</key>
 			<string>Stamen Toner Background</string>
 			<key>browserURL</key>
@@ -44,9 +44,9 @@
 			<key>id</key>
 			<string>stamen-toner-lite</string>
 			<key>source</key>
-			<string>https://stamen-tiles.a.ssl.fastly.net/toner-lite/{z}/{x}/{y}.png</string>
+			<string>https://tiles.stadiamaps.com/tiles/stamen_toner_lite/{z}/{x}/{y}.png</string>
 			<key>source2x</key>
-			<string>https://stamen-tiles.a.ssl.fastly.net/toner-lite/{z}/{x}/{y}@2x.png</string>
+			<string>https://tiles.stadiamaps.com/tiles/stamen_toner_lite/{z}/{x}/{y}@2x.png</string>
 			<key>name</key>
 			<string>Stamen Toner Lite</string>
 			<key>browserURL</key>
@@ -56,7 +56,9 @@
 			<key>id</key>
 			<string>stamen-terrain</string>
 			<key>source</key>
-			<string>https://stamen-tiles.a.ssl.fastly.net/terrain/{z}/{x}/{y}.png</string>
+			<string>https://tiles.stadiamaps.com/tiles/stamen_terrain/{z}/{x}/{y}.jpg</string>
+			<key>source2x</key>
+			<string>https://tiles.stadiamaps.com/tiles/stamen_terrain/{z}/{x}/{y}@2x.jpg</string>
 			<key>name</key>
 			<string>Stamen Terrain (US only)</string>
 			<key>maxZoom</key>
