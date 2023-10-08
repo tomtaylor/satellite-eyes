@@ -25,6 +25,10 @@
 		69F2C3611EE092986B1525A064996E47 /* TTMapTile.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B043BF601327A03BC32686468330F72 /* TTMapTile.m */; };
 		7BFB2574C28396D4F941CB71FAF526FB /* bing-logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 23F0F5ADE6F952464C80215F219E819C /* bing-logo.png */; };
 		7DE4BFECE0779D2316597701338E9CD0 /* TTMapTypesArrayController.m in Sources */ = {isa = PBXBuildFile; fileRef = FD0589350C076B8B0F73A105ADC7D225 /* TTMapTypesArrayController.m */; };
+		870C83292AD1E44B0048EE4B /* TTPreferencesHelpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 870C83272AD1E44B0048EE4B /* TTPreferencesHelpViewController.m */; };
+		870C832E2AD1E5E60048EE4B /* TTPreferencesHelpWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 870C832C2AD1E5E60048EE4B /* TTPreferencesHelpWindowController.m */; };
+		870C832F2AD1E5E60048EE4B /* TTPreferencesHelpWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 870C832D2AD1E5E60048EE4B /* TTPreferencesHelpWindow.xib */; };
+		870C83312AD1ECAC0048EE4B /* PreferencesHelp.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 870C83302AD1ECAC0048EE4B /* PreferencesHelp.rtf */; };
 		984DEA9FA73332622AB3EB7F0BA2BD58 /* ServiceManagement.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B01A9B73C4CAA0FE6D446EF25495A3C1 /* ServiceManagement.framework */; };
 		B23D0C1B0C594FCA940D5264A9D11DCB /* TTStatusItemController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3919B1BC1AC8DDE342A62D30FC3FAE05 /* TTStatusItemController.m */; };
 		B532B8D446B04DCFFC38637A3CC9D206 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 8465CBE1C2C3E8BFE5B0BE3037EF5D3D /* main.m */; };
@@ -125,6 +129,12 @@
 		8465CBE1C2C3E8BFE5B0BE3037EF5D3D /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		852F35DBFD82DA3C7A4C02B6 /* Pods-Satellite Eyes.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Satellite Eyes.release.xcconfig"; path = "Pods/Target Support Files/Pods-Satellite Eyes/Pods-Satellite Eyes.release.xcconfig"; sourceTree = "<group>"; };
 		857D35A23641C9C72A1B47CA8793D93B /* SatelliteEyes.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = SatelliteEyes.entitlements; sourceTree = "<group>"; };
+		870C83262AD1E44B0048EE4B /* TTPreferencesHelpViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TTPreferencesHelpViewController.h; sourceTree = "<group>"; };
+		870C83272AD1E44B0048EE4B /* TTPreferencesHelpViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TTPreferencesHelpViewController.m; sourceTree = "<group>"; };
+		870C832B2AD1E5E60048EE4B /* TTPreferencesHelpWindowController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TTPreferencesHelpWindowController.h; sourceTree = "<group>"; };
+		870C832C2AD1E5E60048EE4B /* TTPreferencesHelpWindowController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TTPreferencesHelpWindowController.m; sourceTree = "<group>"; };
+		870C832D2AD1E5E60048EE4B /* TTPreferencesHelpWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TTPreferencesHelpWindow.xib; sourceTree = "<group>"; };
+		870C83302AD1ECAC0048EE4B /* PreferencesHelp.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; path = PreferencesHelp.rtf; sourceTree = "<group>"; };
 		891D2C95746DCB56EB0EEB4FB429F577 /* NSFileManager+StandardPaths.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSFileManager+StandardPaths.h"; path = "SatelliteEyes/NSFileManager+StandardPaths.h"; sourceTree = "<group>"; };
 		8F84D47619D5D62527666ADD3327234C /* SatelliteEyes-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SatelliteEyes-Prefix.pch"; sourceTree = "<group>"; };
 		93E2637ACC97732164693334BDE3606F /* TTAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TTAppDelegate.m; sourceTree = "<group>"; };
@@ -186,6 +196,7 @@
 				2E633A53F81A1CEBCD52752E45431B95 /* TTAboutWindow.xib */,
 				48836974E1E73C9CE857DD03B56BA22A /* TTManageMapStylesWindow.xib */,
 				3C0702F5F6A99AB37068393F9D2EA336 /* TTPreferencesWindow.xib */,
+				870C832D2AD1E5E60048EE4B /* TTPreferencesHelpWindow.xib */,
 			);
 			name = NIBs;
 			sourceTree = "<group>";
@@ -245,7 +256,11 @@
 				93E2637ACC97732164693334BDE3606F /* TTAppDelegate.m */,
 				7641EF6FCA1697628C2F07097B688134 /* TTManageMapStylesWindowController.h */,
 				17855E355BB7E50A29F3A9E1B8936BB3 /* TTManageMapStylesWindowController.m */,
+				870C83262AD1E44B0048EE4B /* TTPreferencesHelpViewController.h */,
+				870C83272AD1E44B0048EE4B /* TTPreferencesHelpViewController.m */,
 				501982ADD2B9E26DF830495BEF2D7538 /* TTMapImage.h */,
+				870C832B2AD1E5E60048EE4B /* TTPreferencesHelpWindowController.h */,
+				870C832C2AD1E5E60048EE4B /* TTPreferencesHelpWindowController.m */,
 				11045DCF6985908E23B5A441F2E159F3 /* TTMapImage.m */,
 				76601CA0F07E22E62347CF605C882D62 /* TTMapManager.h */,
 				816A97185C78CB064CD25CD97E37C100 /* TTMapManager.m */,
@@ -292,6 +307,7 @@
 				8F84D47619D5D62527666ADD3327234C /* SatelliteEyes-Prefix.pch */,
 				857D35A23641C9C72A1B47CA8793D93B /* SatelliteEyes.entitlements */,
 				8465CBE1C2C3E8BFE5B0BE3037EF5D3D /* main.m */,
+				870C83302AD1ECAC0048EE4B /* PreferencesHelp.rtf */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -426,12 +442,14 @@
 				E261EA3919F9735B00F5341B /* status-icon-activity-2@2x.png in Resources */,
 				D7569B7412ADF6DEEB9CAC8C1908D4A0 /* Defaults.plist in Resources */,
 				EEE215AA71E67D5803115D53E13DAB0D /* InfoPlist.strings in Resources */,
+				870C83312AD1ECAC0048EE4B /* PreferencesHelp.rtf in Resources */,
 				D1D57FB916F19D1FD35C7322AEFA106B /* MainMenu.xib in Resources */,
 				E261EA3A19F9735B00F5341B /* status-icon-activity-3@2x.png in Resources */,
 				538E1DA79C5467491FF6B7AAACDB7834 /* TTAboutWindow.xib in Resources */,
 				F319EC89A1B4604AC2AD20D630F9A266 /* TTManageMapStylesWindow.xib in Resources */,
 				3AD63CEDB346FE256DAC33A436645C56 /* TTPreferencesWindow.xib in Resources */,
 				7BFB2574C28396D4F941CB71FAF526FB /* bing-logo.png in Resources */,
+				870C832F2AD1E5E60048EE4B /* TTPreferencesHelpWindow.xib in Resources */,
 				01F1DFE4B43F4BCBBCF33346C60DC0D7 /* icon.icns in Resources */,
 				E261EA3819F9735B00F5341B /* status-icon-activity-1@2x.png in Resources */,
 				E261EA4B19F9767D00F5341B /* status-icon-online.png in Resources */,
@@ -533,7 +551,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				251CD58B9996D6930C80424D531D49E8 /* LLManager.m in Sources */,
+				870C83292AD1E44B0048EE4B /* TTPreferencesHelpViewController.m in Sources */,
 				320D20C3BC319BCC8E33AFEA575CCF44 /* MD5Digest.m in Sources */,
+				870C832E2AD1E5E60048EE4B /* TTPreferencesHelpWindowController.m in Sources */,
 				5D90A01B0DCF1A7155664AF94167587E /* NSDate+Formatting.m in Sources */,
 				45C65CDBFC65BC77C83BE7FED3D84A5D /* NSFileManager+StandardPaths.m in Sources */,
 				631B08D4CC38FE79DD4635644785C3BF /* TTAboutViewController.m in Sources */,

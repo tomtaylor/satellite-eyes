@@ -13,6 +13,9 @@
 
 @synthesize startAtLogin;
 @synthesize manageMapStylesWindowController;
+@synthesize helpWindowController;
+@synthesize selectableMapTypes;
+@synthesize stadiaTokenTextField;
 
 - (void)awakeFromNib {
     self.startAtLogin = [LLManager launchAtLogin];
@@ -33,6 +36,13 @@
     [manageMapStylesWindowController showWindow:self];
     [manageMapStylesWindowController.window makeKeyAndOrderFront:self];
     [manageMapStylesWindowController.window makeFirstResponder:nil];
+}
+
+- (IBAction)showPreferencesHelp:(id)sender {
+    self.helpWindowController = [[TTPreferencesHelpWindowController alloc] init];
+    [helpWindowController showWindow:self];
+    [helpWindowController.window makeKeyAndOrderFront:self];
+    [helpWindowController.window makeFirstResponder:nil];
 }
 
 @end

@@ -16,6 +16,8 @@
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <viewController id="4" customClass="TTPreferencesViewController">
             <connections>
+                <outlet property="selectableMapTypes" destination="6" id="jS1-1t-pyR"/>
+                <outlet property="stadiaTokenTextField" destination="LIX-Hk-0js" id="tKN-DF-2lS"/>
                 <outlet property="view" destination="2" id="5"/>
             </connections>
         </viewController>
@@ -133,7 +135,7 @@
                         </connections>
                     </button>
                     <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="376">
-                        <rect key="frame" x="134" y="6" width="173" height="32"/>
+                        <rect key="frame" x="100" y="6" width="173" height="32"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <buttonCell key="cell" type="push" title="Manage Map Styles..." bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="377">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -164,6 +166,17 @@
                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
+                    <button horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="MPo-G3-E3s">
+                        <rect key="frame" x="272" y="9" width="25" height="25"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <buttonCell key="cell" type="help" bezelStyle="helpButton" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Chm-eO-WiJ">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="system"/>
+                        </buttonCell>
+                        <connections>
+                            <action selector="showPreferencesHelp:" target="4" id="CXa-CR-vZX"/>
+                        </connections>
+                    </button>
                 </subviews>
             </view>
             <point key="canvasLocation" x="127" y="148"/>
