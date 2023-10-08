@@ -131,6 +131,7 @@
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
+    DDLogDebug(@"Change: %@", change);
     [self updateMap];
 }
 
