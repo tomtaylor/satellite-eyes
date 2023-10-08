@@ -30,7 +30,7 @@
                   logo:(NSImage *)_logoImage NS_DESIGNATED_INITIALIZER;
 
 - (void)fetchTilesWithSuccess:(void (^)(NSURL *filePath))success
-                      failure:(void (^)(NSError *error))failure
+                      failure:(void (^)(NSError *error, NSInteger statusCode))failure
                     skipCache:(BOOL)skipCache;
 
 @property (NS_NONATOMIC_IOSONLY, readonly, copy) NSURL *fileURL;

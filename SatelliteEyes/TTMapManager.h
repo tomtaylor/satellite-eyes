@@ -14,6 +14,7 @@
 
 static NSString *const TTMapManagerStartedLoad = @"TTMapManagerStartedLoad";
 static NSString *const TTMapManagerFailedLoad = @"TTMapManagerFailedLoad";
+static NSString *const TTMapManagerFailedUnauthorized = @"TTMapManagerFailedUnauthorized";
 static NSString *const TTMapManagerFinishedLoad = @"TTMapManagerFinishedLoad";
 static NSString *const TTMapManagerLocationUpdated = @"TTMapManagerLocationUpdated";
 static NSString *const TTMapManagerLocationLost = @"TTMapManagerLocationLost";

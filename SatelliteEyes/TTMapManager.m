@@ -190,8 +190,14 @@
                 }
                 
                 
-            } failure:^(NSError *error) {
-                [[NSNotificationCenter defaultCenter] postNotificationName:TTMapManagerFailedLoad object:nil];
+            } failure:^(NSError *error, NSInteger statusCode) {
+                // Stadia maps will return 401 in case of invalid or missing API key.
+                // https://docs.stadiamaps.com/authentication/#authentication
+                if (statusCode == 401) {
+                    [[NSNotificationCenter defaultCenter] postNotificationName:TTMapManagerFailedUnauthorized object:nil];
+                } else {
+                    [[NSNotificationCenter defaultCenter] postNotificationName:TTMapManagerFailedLoad object:nil];
+                }
                 DDLogError(@"Error fetching image: %@", error);
             } skipCache:force];
         });

@@ -18,6 +18,7 @@
     BOOL mapManagerhasLocation;
     BOOL mapManagerisActive;
     BOOL mapManagerdidError;
+    BOOL mapManagerUnauthorized;
     NSDate *mapLastUpdated;
     NSUInteger activityAnimationFrameIndex;
     NSTimer *activityAnimationTimer;
