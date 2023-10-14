@@ -16,7 +16,7 @@
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <viewController id="4" customClass="TTPreferencesViewController">
             <connections>
-                <outlet property="selectableMapTypes" destination="6" id="jS1-1t-pyR"/>
+                <outlet property="mapTypesMenu" destination="8" id="I9y-Sj-4BR"/>
                 <outlet property="stadiaTokenTextField" destination="LIX-Hk-0js" id="tKN-DF-2lS"/>
                 <outlet property="view" destination="2" id="5"/>
             </connections>
@@ -45,15 +45,7 @@
                             </menu>
                         </popUpButtonCell>
                         <connections>
-                            <binding destination="15" name="content" keyPath="values.mapTypes" id="59"/>
-                            <binding destination="15" name="contentObjects" keyPath="values.mapTypes.id" previousBinding="59" id="347"/>
-                            <binding destination="15" name="contentValues" keyPath="values.mapTypes.name" previousBinding="347" id="348">
-                                <dictionary key="options">
-                                    <string key="NSNotApplicablePlaceholder">Custom</string>
-                                    <integer key="NSRaisesForNotApplicableKeys" value="0"/>
-                                </dictionary>
-                            </binding>
-                            <binding destination="15" name="selectedObject" keyPath="values.selectedMapTypeId" previousBinding="348" id="349"/>
+                            <action selector="mapTypeSelected:" target="4" id="i5g-3R-mPV"/>
                         </connections>
                     </popUpButton>
                     <textField focusRingType="none" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="70">

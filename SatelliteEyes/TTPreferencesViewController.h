@@ -17,7 +17,8 @@
 @property (strong) TTPreferencesHelpWindowController *helpWindowController;
 
 - (IBAction)showManageMapStyles:(id)sender;
-@property (weak) IBOutlet NSPopUpButton *selectableMapTypes;
+- (IBAction)mapTypeSelected:(NSPopUpButton *)sender;
 @property (weak) IBOutlet NSTextField *stadiaTokenTextField;
+@property (weak) IBOutlet NSMenu *mapTypesMenu;
 
 @end
