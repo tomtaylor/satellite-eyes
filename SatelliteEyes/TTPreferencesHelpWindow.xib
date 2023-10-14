@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="22154" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+    <dependencies>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="22154"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <customObject id="-2" userLabel="File's Owner" customClass="TTPreferencesHelpWindowController">
+            <connections>
+                <outlet property="window" destination="F0z-JX-Cv5" id="gIp-Ho-8D9"/>
+            </connections>
+        </customObject>
+        <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
+        <window title="Preferences Help" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" animationBehavior="default" id="F0z-JX-Cv5">
+            <windowStyleMask key="styleMask" titled="YES" closable="YES"/>
+            <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
+            <rect key="contentRect" x="196" y="240" width="480" height="270"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="3840" height="1575"/>
+            <view key="contentView" id="se5-gp-TjO">
+                <rect key="frame" x="0.0" y="0.0" width="480" height="270"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <customView translatesAutoresizingMaskIntoConstraints="NO" id="DXA-1a-Nqs" customClass="NSTextView">
+                        <rect key="frame" x="20" y="8" width="440" height="254"/>
+                        <connections>
+                            <outlet property="delegate" destination="Suz-DJ-Pwe" id="q9m-sL-wSa"/>
+                        </connections>
+                    </customView>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="DXA-1a-Nqs" firstAttribute="leading" secondItem="se5-gp-TjO" secondAttribute="leading" constant="20" id="3Rz-ZX-abD"/>
+                    <constraint firstItem="DXA-1a-Nqs" firstAttribute="top" secondItem="se5-gp-TjO" secondAttribute="top" constant="8" id="C7d-mG-HUE"/>
+                    <constraint firstAttribute="trailing" secondItem="DXA-1a-Nqs" secondAttribute="trailing" constant="20" id="I0G-lQ-mhp"/>
+                    <constraint firstAttribute="bottom" secondItem="DXA-1a-Nqs" secondAttribute="bottom" constant="8" id="ihy-jD-gY2"/>
+                </constraints>
+            </view>
+            <connections>
+                <outlet property="delegate" destination="-2" id="0bl-1N-AYu"/>
+            </connections>
+            <point key="canvasLocation" x="27" y="-46"/>
+        </window>
+        <viewController id="Suz-DJ-Pwe" customClass="TTPreferencesHelpViewController">
+            <connections>
+                <outlet property="helpTextView" destination="DXA-1a-Nqs" id="YD8-kB-96j"/>
+            </connections>
+        </viewController>
+    </objects>
+</document>

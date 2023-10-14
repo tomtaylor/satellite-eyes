@@ -87,7 +87,7 @@
 }
 
 - (void)fetchTilesWithSuccess:(void (^)(NSURL *filePath))success
-                      failure:(void (^)(NSError *error))failure
+                      failure:(void (^)(NSError *error, NSInteger statusCode))failure
                     skipCache:(BOOL)skipCache
 {
     dispatch_async(dispatch_get_global_queue(0, 0), ^(void) {
@@ -107,6 +107,7 @@
         DDLogInfo(@"Not found, or skipping cache, so fetching file at: %@", [fileURL path]);
         
         __block NSError *error;
+        __block NSInteger statusCode;
         [self->tiles enumerateObjectsUsingBlock:^(NSArray *rowArray, NSUInteger idx, BOOL *stop) {
             [rowArray enumerateObjectsUsingBlock:^(TTMapTile *mapTile, NSUInteger rowIndex, BOOL *rowStop) {
                 AFHTTPRequestOperation *httpOperation = [[AFHTTPRequestOperation alloc] initWithRequest:[mapTile urlRequest]];
@@ -115,6 +116,7 @@
                     mapTile.imageData = responseData;
                 } failure:^(AFHTTPRequestOperation *operation, NSError *_error) {
                     error = _error;
+                    statusCode = operation.response.statusCode;
                     DDLogError(@"Fetching tile error: %@", error);
                 }];
                 [self->tileQueue addOperation:httpOperation];
@@ -123,7 +125,7 @@
         [self->tileQueue waitUntilAllOperationsAreFinished];
         
         if (error) {
-            failure(error);
+            failure(error, statusCode);
         } else {
             NSURL *fileURL = [self writeImageData];
             success(fileURL);

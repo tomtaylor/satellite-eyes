@@ -21,83 +21,96 @@
         NSMenu *menu = [[NSMenu alloc] initWithTitle:@"Menu"];
         menu.delegate = self;
         [menu setAutoenablesItems:NO];
-        
+
         statusMenuItem = [[NSMenuItem alloc] initWithTitle:@"" action:nil keyEquivalent:@""];
         [statusMenuItem setEnabled:NO];
         [menu addItem:statusMenuItem];
-        
+
         forceMapUpdateMenuItem = [[NSMenuItem alloc] initWithTitle:@"Refresh the map now" action:@selector(forceMapUpdate:) keyEquivalent:@""];
         [forceMapUpdateMenuItem setEnabled:NO];
         [menu addItem:forceMapUpdateMenuItem];
-        
+
         openInBrowserMenuItem = [[NSMenuItem alloc] initWithTitle:@"Open in browser" action:@selector(openMapInBrowser:) keyEquivalent:@""];
         [openInBrowserMenuItem setEnabled:NO];
         [menu addItem:openInBrowserMenuItem];
-        
+
         [menu addItem:[NSMenuItem separatorItem]];
-        
+
         NSMenuItem *aboutMenuItem = [[NSMenuItem alloc] initWithTitle:@"About" action:@selector(showAbout:) keyEquivalent:@""];
         [menu addItem:aboutMenuItem];
-        
+
         NSMenuItem *preferencesMenuItem = [[NSMenuItem alloc] initWithTitle:@"Open preferences..." action:@selector(showPreferences:) keyEquivalent:@""];
         [menu addItem:preferencesMenuItem];
-        
+
         NSMenuItem *updatesMenuItem = [[NSMenuItem alloc] initWithTitle:@"Check for updates..." action:@selector(checkForUpdates:) keyEquivalent:@""];
         [menu addItem:updatesMenuItem];
-        
+
         NSMenuItem *itemExit = [[NSMenuItem alloc] initWithTitle:@"Exit" action:@selector(menuActionExit:) keyEquivalent:@""];
         [menu addItem:itemExit];
-        
+
         statusItem = [[NSStatusBar systemStatusBar] statusItemWithLength:22];
         [statusItem setHighlightMode:YES];
         statusItem.menu = menu;
-        
-        [self updateStatus];
-        
-        [[NSNotificationCenter defaultCenter] addObserverForName:TTMapManagerStartedLoad 
-                                                          object:nil 
-                                                           queue:nil 
-                                                      usingBlock:^(NSNotification *note) {
-                                                          self->mapManagerdidError = NO;
-                                                          self->mapManagerisActive = YES;
-                                                          [self performSelectorOnMainThread:@selector(updateStatus) withObject:nil waitUntilDone:YES];
-                                                      }];
-        
-        [[NSNotificationCenter defaultCenter] addObserverForName:TTMapManagerFinishedLoad 
-                                                          object:nil 
-                                                           queue:nil 
-                                                      usingBlock:^(NSNotification *note) {
-                                                          self->mapManagerdidError = NO;
-                                                          self->mapManagerisActive = NO;
-                                                          self->mapLastUpdated = [NSDate date];
-                                                          [self performSelectorOnMainThread:@selector(updateStatus) withObject:nil waitUntilDone:YES];
 
-                                                      }];
-        
-        [[NSNotificationCenter defaultCenter] addObserverForName:TTMapManagerFailedLoad 
-                                                          object:nil 
-                                                           queue:nil 
+        [self updateStatus];
+
+        [[NSNotificationCenter defaultCenter] addObserverForName:TTMapManagerStartedLoad
+                                                          object:nil
+                                                           queue:nil
                                                       usingBlock:^(NSNotification *note) {
-                                                          self->mapManagerdidError = YES;
-                                                          self->mapManagerisActive = NO;
-                                                          [self performSelectorOnMainThread:@selector(updateStatus) withObject:nil waitUntilDone:YES];
-                                                      }];
-        
-        [[NSNotificationCenter defaultCenter] addObserverForName:TTMapManagerLocationUpdated 
-                                                          object:nil 
-                                                           queue:nil 
+            self->mapManagerdidError = NO;
+            self->mapManagerUnauthorized = NO;
+            self->mapManagerisActive = YES;
+            [self performSelectorOnMainThread:@selector(updateStatus) withObject:nil waitUntilDone:YES];
+        }];
+
+        [[NSNotificationCenter defaultCenter] addObserverForName:TTMapManagerFinishedLoad
+                                                          object:nil
+                                                           queue:nil
                                                       usingBlock:^(NSNotification *note) {
-                                                          self->mapManagerhasLocation = YES;
-                                                          [self performSelectorOnMainThread:@selector(updateStatus) withObject:nil waitUntilDone:YES];
-                                                      }];
-        
+            self->mapManagerdidError = NO;
+            self->mapManagerUnauthorized = NO;
+            self->mapManagerisActive = NO;
+            self->mapLastUpdated = [NSDate date];
+            [self performSelectorOnMainThread:@selector(updateStatus) withObject:nil waitUntilDone:YES];
+
+        }];
+
+        [[NSNotificationCenter defaultCenter] addObserverForName:TTMapManagerFailedLoad
+                                                          object:nil
+                                                           queue:nil
+                                                      usingBlock:^(NSNotification *note) {
+            self->mapManagerdidError = YES;
+            self->mapManagerUnauthorized = NO;
+            self->mapManagerisActive = NO;
+            [self performSelectorOnMainThread:@selector(updateStatus) withObject:nil waitUntilDone:YES];
+        }];
+
+        [[NSNotificationCenter defaultCenter] addObserverForName:TTMapManagerFailedUnauthorized
+                                                          object:nil
+                                                           queue:nil
+                                                      usingBlock:^(NSNotification *note) {
+            self->mapManagerdidError = YES;
+            self->mapManagerUnauthorized = YES;
+            self->mapManagerisActive = NO;
+            [self performSelectorOnMainThread:@selector(updateStatus) withObject:nil waitUntilDone:YES];
+        }];
+
+        [[NSNotificationCenter defaultCenter] addObserverForName:TTMapManagerLocationUpdated
+                                                          object:nil
+                                                           queue:nil
+                                                      usingBlock:^(NSNotification *note) {
+            self->mapManagerhasLocation = YES;
+            [self performSelectorOnMainThread:@selector(updateStatus) withObject:nil waitUntilDone:YES];
+        }];
+
         [[NSNotificationCenter defaultCenter] addObserverForName:TTMapManagerLocationLost
-                                                          object:nil 
-                                                           queue:nil 
+                                                          object:nil
+                                                           queue:nil
                                                       usingBlock:^(NSNotification *note) {
-                                                          self->mapManagerhasLocation = NO;
-                                                          [self performSelectorOnMainThread:@selector(updateStatus) withObject:nil waitUntilDone:YES];
-                                                      }];
+            self->mapManagerhasLocation = NO;
+            [self performSelectorOnMainThread:@selector(updateStatus) withObject:nil waitUntilDone:YES];
+        }];
     }
     return self;
 }
@@ -106,19 +119,23 @@
     if (mapManagerhasLocation) {
         [forceMapUpdateMenuItem setEnabled:YES];
         [self enableOpenInBrowser];
-        
+
         if (mapManagerisActive) {
             [self startActivityAnimation];
-            
+
         } else if (mapManagerdidError) {
             [self stopActivityAnimation];
-            [self showError];
-            
+            if (mapManagerUnauthorized) {
+                [self showUnauthorizedError];
+            } else {
+                [self showGenericError];
+            }
+
         } else { // is idle
             [self stopActivityAnimation];
             [self showNormal];
         }
-        
+
     } else {
         [self stopActivityAnimation];
         [self showOffline];
@@ -126,7 +143,7 @@
         [self disableOpenInBrowser];
     }
 }
-    
+
 - (void)showOffline {
     NSImage *image = [NSImage imageNamed:@"status-icon-offline"];
     image.template = YES;
@@ -140,10 +157,10 @@
     statusItem.image = image;
 
     [forceMapUpdateMenuItem setHidden:NO];
-    
+
     if (mapLastUpdated) {
         statusMenuItem.title = [NSString stringWithFormat:@"Map updated %@", [mapLastUpdated distanceOfTimeInWords].lowercaseString];
-        
+
     } else {
         statusMenuItem.title = @"Waiting for map update";
     }
@@ -185,17 +202,24 @@
     activityAnimationTimer = nil;
 }
 
-- (void)showError {
+- (void)showGenericError {
     NSImage *image = [NSImage imageNamed:@"status-icon-error"];
     image.template = YES;
     statusItem.image = image;
     statusMenuItem.title = @"Problem updating the map";
 }
 
+- (void)showUnauthorizedError {
+    NSImage *image = [NSImage imageNamed:@"status-icon-error"];
+    image.template = YES;
+    statusItem.image = image;
+    statusMenuItem.title = @"Please provide a valid API key for the selected map type.";
+}
+
 - (void)enableOpenInBrowser {
     // It's a bit hacky to reach up into the App Delegate for this, but hey.
     TTAppDelegate *appDelegate = (TTAppDelegate *)[NSApplication sharedApplication].delegate;
-    
+
     if ([appDelegate visibleMapBrowserURL]) {
         [openInBrowserMenuItem setEnabled:YES];
     } else {
