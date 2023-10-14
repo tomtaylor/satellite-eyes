@@ -24,14 +24,14 @@
         <window title="Satellite Eyes Preferences" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" animationBehavior="default" id="1">
             <windowStyleMask key="styleMask" titled="YES" closable="YES"/>
             <windowPositionMask key="initialPositionMask" rightStrut="YES" topStrut="YES"/>
-            <rect key="contentRect" x="1077" y="405" width="318" height="246"/>
+            <rect key="contentRect" x="1077" y="405" width="441" height="243"/>
             <rect key="screenRect" x="0.0" y="0.0" width="3840" height="1575"/>
             <view key="contentView" autoresizesSubviews="NO" id="2">
-                <rect key="frame" x="0.0" y="0.0" width="318" height="246"/>
+                <rect key="frame" x="0.0" y="0.0" width="441" height="243"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6">
-                        <rect key="frame" x="99" y="169" width="200" height="26"/>
+                        <rect key="frame" x="99" y="169" width="326" height="26"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <popUpButtonCell key="cell" type="push" title="Item 3" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="11" id="7">
                             <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
@@ -76,7 +76,7 @@
                         </textFieldCell>
                     </textField>
                     <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="110">
-                        <rect key="frame" x="99" y="133" width="200" height="26"/>
+                        <rect key="frame" x="99" y="133" width="326" height="26"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <popUpButtonCell key="cell" type="push" title="Street" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" tag="17" imageScaling="proportionallyDown" inset="2" selectedItem="169" id="111">
                             <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
@@ -95,7 +95,7 @@
                         </connections>
                     </popUpButton>
                     <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="120">
-                        <rect key="frame" x="99" y="98" width="200" height="26"/>
+                        <rect key="frame" x="99" y="98" width="326" height="26"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" id="121">
                             <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
@@ -126,19 +126,8 @@
                             <binding destination="4" name="value" keyPath="self.startAtLogin" id="200"/>
                         </connections>
                     </button>
-                    <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="376">
-                        <rect key="frame" x="100" y="6" width="173" height="32"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <buttonCell key="cell" type="push" title="Manage Map Styles..." bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="377">
-                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                            <font key="font" metaFont="system"/>
-                        </buttonCell>
-                        <connections>
-                            <action selector="showManageMapStyles:" target="4" id="378"/>
-                        </connections>
-                    </button>
                     <textField focusRingType="none" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="LIX-Hk-0js">
-                        <rect key="frame" x="102" y="66" width="193" height="21"/>
+                        <rect key="frame" x="102" y="66" width="319" height="21"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" placeholderString="Required for all Stamen maps" bezelStyle="round" id="I0G-wN-O4G">
                             <font key="font" metaFont="system"/>
@@ -159,7 +148,7 @@
                         </textFieldCell>
                     </textField>
                     <button horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="MPo-G3-E3s">
-                        <rect key="frame" x="272" y="9" width="25" height="25"/>
+                        <rect key="frame" x="398" y="9" width="25" height="25"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <buttonCell key="cell" type="help" bezelStyle="helpButton" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Chm-eO-WiJ">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -169,9 +158,20 @@
                             <action selector="showPreferencesHelp:" target="4" id="CXa-CR-vZX"/>
                         </connections>
                     </button>
+                    <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="376">
+                        <rect key="frame" x="223" y="6" width="173" height="32"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <buttonCell key="cell" type="push" title="Manage Map Styles..." bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="377">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="system"/>
+                        </buttonCell>
+                        <connections>
+                            <action selector="showManageMapStyles:" target="4" id="378"/>
+                        </connections>
+                    </button>
                 </subviews>
             </view>
-            <point key="canvasLocation" x="127" y="148"/>
+            <point key="canvasLocation" x="188.5" y="146.5"/>
         </window>
         <userDefaultsController representsSharedInstance="YES" id="15"/>
         <customObject id="324" customClass="SUUpdater"/>
