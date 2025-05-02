@@ -8,13 +8,13 @@
 			<key>id</key>
 			<string>stamen-watercolor</string>
 			<key>source</key>
-			<string>https://stamen-tiles.a.ssl.fastly.net/watercolor/{z}/{x}/{y}.jpg</string>
+			<string>https://watercolormaps.collection.cooperhewitt.org/tile/watercolor/{z}/{x}/{y}.jpg</string>
 			<key>name</key>
 			<string>Stamen Watercolor</string>
 			<key>maxZoom</key>
 			<integer>17</integer>
 			<key>browserURL</key>
-			<string>http://maps.stamen.com/watercolor/#{zoom}/{latitude}/{longitude}</string>
+			<string>https://watercolormaps.collection.cooperhewitt.org/#{zoom}/{latitude}/{longitude}</string>
 		</dict>
 		<dict>
 			<key>id</key>
