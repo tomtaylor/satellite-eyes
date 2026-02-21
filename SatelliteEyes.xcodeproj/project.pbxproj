@@ -50,43 +50,13 @@
 		E261EA4919F9767D00F5341B /* status-icon-error.png in Resources */ = {isa = PBXBuildFile; fileRef = E261EA4219F9767D00F5341B /* status-icon-error.png */; };
 		E261EA4A19F9767D00F5341B /* status-icon-offline.png in Resources */ = {isa = PBXBuildFile; fileRef = E261EA4319F9767D00F5341B /* status-icon-offline.png */; };
 		E261EA4B19F9767D00F5341B /* status-icon-online.png in Resources */ = {isa = PBXBuildFile; fileRef = E261EA4419F9767D00F5341B /* status-icon-online.png */; };
-		E261EA4D19F97B0A00F5341B /* LaunchAtLoginHelper.app in Copy LaunchAtLogin.app */ = {isa = PBXBuildFile; fileRef = 2522F43EF38407A66475D92E76D87440 /* LaunchAtLoginHelper.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		EBEC8E775AD3AD614851DB3DD705DDCD /* TTMapManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 816A97185C78CB064CD25CD97E37C100 /* TTMapManager.m */; };
 		EDB6435098CC69208BC70C0DE4B2BC86 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FD9117BBE6B9ECE93973993CD69E03AA /* CoreLocation.framework */; };
 		EEE215AA71E67D5803115D53E13DAB0D /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 825ED7BA9FBAF7CA9EF82E2C21992A9C /* InfoPlist.strings */; };
 		F319EC89A1B4604AC2AD20D630F9A266 /* TTManageMapStylesWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 48836974E1E73C9CE857DD03B56BA22A /* TTManageMapStylesWindow.xib */; };
 /* End PBXBuildFile section */
 
-/* Begin PBXContainerItemProxy section */
-		AE39F1D91668DE76319C44083EF66C1C /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = B28CC4035D61927A461F7BA5C87CC144 /* LaunchAtLoginHelper.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 7096BDD9264D190AE0A9A87D23DD73AC;
-			remoteInfo = LaunchAtLoginHelper;
-		};
-		B5DC74FB5D852CF69061C47FD0D016CC /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = B28CC4035D61927A461F7BA5C87CC144 /* LaunchAtLoginHelper.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = 734C379315414CE200994189;
-			remoteInfo = LaunchAtLoginHelper;
-		};
-/* End PBXContainerItemProxy section */
 
-/* Begin PBXCopyFilesBuildPhase section */
-		E261EA4C19F97AEB00F5341B /* Copy LaunchAtLogin.app */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = Contents/Library/LoginItems;
-			dstSubfolderSpec = 1;
-			files = (
-				E261EA4D19F97B0A00F5341B /* LaunchAtLoginHelper.app in Copy LaunchAtLogin.app */,
-			);
-			name = "Copy LaunchAtLogin.app";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		0029C68501DE05301897D5F082624579 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -130,9 +100,7 @@
 		AABB001122334455NETWORK02 /* Network.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Network.framework; path = System/Library/Frameworks/Network.framework; sourceTree = SDKROOT; };
 		ABD8B6FECAD494FFE25906401A06C11D /* TTPreferencesWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTPreferencesWindowController.h; sourceTree = "<group>"; };
 		ABFCA6D5ED74F5F133B5E59675D404AD /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
-		AE98124AF04EA3266A03814F2B61ECD8 /* LLStrings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LLStrings.h; path = LaunchAtLoginHelper/LLStrings.h; sourceTree = "<group>"; };
 		B01A9B73C4CAA0FE6D446EF25495A3C1 /* ServiceManagement.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ServiceManagement.framework; path = System/Library/Frameworks/ServiceManagement.framework; sourceTree = SDKROOT; };
-		B28CC4035D61927A461F7BA5C87CC144 /* LaunchAtLoginHelper.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = LaunchAtLoginHelper.xcodeproj; path = LaunchAtLoginHelper/LaunchAtLoginHelper.xcodeproj; sourceTree = "<group>"; };
 		CA09F6494F02A7DB1919B004B5636BF3 /* TTMapTypesArrayController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTMapTypesArrayController.h; sourceTree = "<group>"; };
 		CF2947CC3A221752A4A59C14595A9489 /* loading.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = loading.png; sourceTree = "<group>"; };
 		D03E4E153247ACBB1629D0EBE6E82B87 /* MD5Digest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MD5Digest.m; path = SatelliteEyes/MD5Digest.m; sourceTree = "<group>"; };
@@ -219,8 +187,6 @@
 			children = (
 				44CB5D18529A37F54788C7874EEC184E /* LLManager.h */,
 				63C34E4F73FCFDD8D291162E987A3A16 /* LLManager.m */,
-				AE98124AF04EA3266A03814F2B61ECD8 /* LLStrings.h */,
-				B28CC4035D61927A461F7BA5C87CC144 /* LaunchAtLoginHelper.xcodeproj */,
 				D602B1D28746EC3E76668F8769FF63C2 /* MD5Digest.h */,
 				D03E4E153247ACBB1629D0EBE6E82B87 /* MD5Digest.m */,
 				E1810FEC9ABC5957805DBF93F7AC07C9 /* NSDate+Formatting.h */,
@@ -319,14 +285,6 @@
 			name = Assets;
 			sourceTree = "<group>";
 		};
-		7B372EFCD6BE20714674D0847110415E /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				2522F43EF38407A66475D92E76D87440 /* LaunchAtLoginHelper.app */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -337,13 +295,11 @@
 				1BA14FD04AE46C791F4DC95096A0DE54 /* Sources */,
 				60237CDE65D0D58F1B5424CF0104AD02 /* Frameworks */,
 				42BD6E8FC2281A4AE00979FE1E7C1921 /* Resources */,
-				E261EA4C19F97AEB00F5341B /* Copy LaunchAtLogin.app */,
 				E2B80DDF199F6DFA002CD817 /* Update Build Number */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				05FB6900ECDE7ECBC51D5B537A05BED0 /* PBXTargetDependency */,
 			);
 			packageProductDependencies = (
 				AABB001122334455SPK002 /* Sparkle */,
@@ -383,12 +339,6 @@
 			mainGroup = 3042328FB5DA64A87C574DAB6001726C;
 			productRefGroup = 39E334E0B0491A2C2A07A1B9705B047A /* Products */;
 			projectDirPath = "";
-			projectReferences = (
-				{
-					ProductGroup = 7B372EFCD6BE20714674D0847110415E /* Products */;
-					ProjectRef = B28CC4035D61927A461F7BA5C87CC144 /* LaunchAtLoginHelper.xcodeproj */;
-				},
-			);
 			projectRoot = "";
 			packageReferences = (
 				AABB001122334455SPK003 /* XCRemoteSwiftPackageReference "Sparkle" */,
@@ -399,15 +349,6 @@
 		};
 /* End PBXProject section */
 
-/* Begin PBXReferenceProxy section */
-		2522F43EF38407A66475D92E76D87440 /* LaunchAtLoginHelper.app */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.application;
-			path = LaunchAtLoginHelper.app;
-			remoteRef = AE39F1D91668DE76319C44083EF66C1C /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		42BD6E8FC2281A4AE00979FE1E7C1921 /* Resources */ = {
@@ -486,13 +427,6 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
-/* Begin PBXTargetDependency section */
-		05FB6900ECDE7ECBC51D5B537A05BED0 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = LaunchAtLoginHelper;
-			targetProxy = B5DC74FB5D852CF69061C47FD0D016CC /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		825ED7BA9FBAF7CA9EF82E2C21992A9C /* InfoPlist.strings */ = {

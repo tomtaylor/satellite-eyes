@@ -4,60 +4,44 @@
 //
 //  Created by David Keegan on 4/20/12.
 //  Copyright (c) 2012 David Keegan.
-//  Copyright (c) 2014 Jan Weiß.
 //  Some rights reserved: <http://opensource.org/licenses/mit-license.php>
 //
 
 #import "LLManager.h"
-#import "LLStrings.h"
 #import <ServiceManagement/ServiceManagement.h>
 
 
-NSString * const    LLManagerSetLaunchAtLoginFailedNotification        = @"LLManagerSetLaunchAtLoginFailedNotification";
+NSString * const LLManagerSetLaunchAtLoginFailedNotification = @"LLManagerSetLaunchAtLoginFailedNotification";
 
 
 @implementation LLManager
 
-+ (BOOL)launchAtLogin{
-    BOOL launch = NO;
-    CFArrayRef cfJobs = SMCopyAllJobDictionaries(kSMDomainUserLaunchd);
-    if(cfJobs == NULL)  return NO;
-#if __has_feature(objc_arc)
-    NSArray *jobs = CFBridgingRelease(cfJobs);
-#else    
-    NSArray *jobs = [NSArray arrayWithArray:(NSArray *)cfJobs];
-    CFRelease(cfJobs);
-#endif
-    if([jobs count]){
-        for(NSDictionary *job in jobs){
-            if([job[@"Label"] isEqualToString:LLHelperBundleIdentifier]){
-                launch = [job[@"OnDemand"] boolValue];
-                break;
-            }
-        }
-    }   
-    return launch;  
++ (BOOL)launchAtLogin {
+    if (@available(macOS 13.0, *)) {
+        return SMAppService.mainAppService.status == SMAppServiceStatusEnabled;
+    }
+    return NO;
 }
 
 + (void)setLaunchAtLogin:(BOOL)value {
-    [self setLaunchAtLogin:value
-           notifyOnFailure:NO];
+    [self setLaunchAtLogin:value notifyOnFailure:NO];
 }
 
 + (void)setLaunchAtLogin:(BOOL)value
          notifyOnFailure:(BOOL)wantFailureNotification {
-#if __has_feature(objc_arc)
-    CFStringRef LLHelperBundleIdentifierCF = (__bridge CFStringRef)LLHelperBundleIdentifier;
-#else
-    CFStringRef LLHelperBundleIdentifierCF = (CFStringRef)LLHelperBundleIdentifier;
-#endif
-    
-    if(!SMLoginItemSetEnabled(LLHelperBundleIdentifierCF, value)){
-        if(wantFailureNotification){
-            [[NSNotificationCenter defaultCenter] postNotificationName:LLManagerSetLaunchAtLoginFailedNotification object:self];
+    if (@available(macOS 13.0, *)) {
+        NSError *error = nil;
+        if (value) {
+            [SMAppService.mainAppService registerAndReturnError:&error];
+        } else {
+            [SMAppService.mainAppService unregisterAndReturnError:&error];
         }
-        else {
-            NSLog(@"SMLoginItemSetEnabled failed!");
+        if (error) {
+            if (wantFailureNotification) {
+                [[NSNotificationCenter defaultCenter] postNotificationName:LLManagerSetLaunchAtLoginFailedNotification object:self];
+            } else {
+                NSLog(@"SMAppService register/unregister failed: %@", error);
+            }
         }
     }
 }
