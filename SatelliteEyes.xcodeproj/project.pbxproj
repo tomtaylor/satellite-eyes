@@ -16,6 +16,18 @@
 		984DEA9FA73332622AB3EB7F0BA2BD58 /* ServiceManagement.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B01A9B73C4CAA0FE6D446EF25495A3C1 /* ServiceManagement.framework */; };
 		AABB001122334455NETWORK01 /* Network.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AABB001122334455NETWORK02 /* Network.framework */; };
 		AABB001122334455SPK001 /* Sparkle in Frameworks */ = {isa = PBXBuildFile; productRef = AABB001122334455SPK002 /* Sparkle */; };
+		AABB00112233APD002 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AABB00112233APD001 /* AppDelegate.swift */; };
+		AABB00112233AWC002 /* AboutWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AABB00112233AWC001 /* AboutWindowController.swift */; };
+		AABB00112233DTF001 /* DateFormatting.swift in Sources */ = {isa = PBXBuildFile; fileRef = AABB00112233DTF002 /* DateFormatting.swift */; };
+		AABB00112233FMP001 /* FileManagerPaths.swift in Sources */ = {isa = PBXBuildFile; fileRef = AABB00112233FMP002 /* FileManagerPaths.swift */; };
+		AABB00112233LIM002 /* LoginItemManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AABB00112233LIM001 /* LoginItemManager.swift */; };
+		AABB00112233MD5001 /* MD5Digest.swift in Sources */ = {isa = PBXBuildFile; fileRef = AABB00112233MD5002 /* MD5Digest.swift */; };
+		AABB00112233MMG002 /* MapManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AABB00112233MMG001 /* MapManager.swift */; };
+		AABB00112233MPI001 /* MapImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = AABB00112233MPI002 /* MapImage.swift */; };
+		AABB00112233MPT001 /* MapTile.swift in Sources */ = {isa = PBXBuildFile; fileRef = AABB00112233MPT002 /* MapTile.swift */; };
+		AABB00112233MWC002 /* ManageMapStylesWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AABB00112233MWC001 /* ManageMapStylesWindowController.swift */; };
+		AABB00112233PWC002 /* PreferencesWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AABB00112233PWC001 /* PreferencesWindowController.swift */; };
+		AABB00112233SIC002 /* StatusItemController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AABB00112233SIC001 /* StatusItemController.swift */; };
 		CF56B60A90B705666B1E519C99D1F284 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = D91E37E8DFDA52C112A1E550DBF2E48F /* Credits.rtf */; };
 		D7569B7412ADF6DEEB9CAC8C1908D4A0 /* Defaults.plist in Resources */ = {isa = PBXBuildFile; fileRef = 459ED31A223FC63BAB241C074B5E7CFA /* Defaults.plist */; };
 		E261EA3719F9735B00F5341B /* status-icon-activity-0@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E261EA3019F9735B00F5341B /* status-icon-activity-0@2x.png */; };
@@ -32,23 +44,9 @@
 		E261EA4919F9767D00F5341B /* status-icon-error.png in Resources */ = {isa = PBXBuildFile; fileRef = E261EA4219F9767D00F5341B /* status-icon-error.png */; };
 		E261EA4A19F9767D00F5341B /* status-icon-offline.png in Resources */ = {isa = PBXBuildFile; fileRef = E261EA4319F9767D00F5341B /* status-icon-offline.png */; };
 		E261EA4B19F9767D00F5341B /* status-icon-online.png in Resources */ = {isa = PBXBuildFile; fileRef = E261EA4419F9767D00F5341B /* status-icon-online.png */; };
-		AABB00112233LIM002 /* LoginItemManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AABB00112233LIM001 /* LoginItemManager.swift */; };
-		AABB00112233MD5001 /* MD5Digest.swift in Sources */ = {isa = PBXBuildFile; fileRef = AABB00112233MD5002 /* MD5Digest.swift */; };
-		AABB00112233FMP001 /* FileManagerPaths.swift in Sources */ = {isa = PBXBuildFile; fileRef = AABB00112233FMP002 /* FileManagerPaths.swift */; };
-		AABB00112233DTF001 /* DateFormatting.swift in Sources */ = {isa = PBXBuildFile; fileRef = AABB00112233DTF002 /* DateFormatting.swift */; };
-		AABB00112233MPT001 /* MapTile.swift in Sources */ = {isa = PBXBuildFile; fileRef = AABB00112233MPT002 /* MapTile.swift */; };
-		AABB00112233MPI001 /* MapImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = AABB00112233MPI002 /* MapImage.swift */; };
-		AABB00112233MMG002 /* MapManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AABB00112233MMG001 /* MapManager.swift */; };
-		AABB00112233SIC002 /* StatusItemController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AABB00112233SIC001 /* StatusItemController.swift */; };
-		AABB00112233AWC002 /* AboutWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AABB00112233AWC001 /* AboutWindowController.swift */; };
-		AABB00112233PWC002 /* PreferencesWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AABB00112233PWC001 /* PreferencesWindowController.swift */; };
-		AABB00112233MWC002 /* ManageMapStylesWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AABB00112233MWC001 /* ManageMapStylesWindowController.swift */; };
-		AABB00112233APD002 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AABB00112233APD001 /* AppDelegate.swift */; };
 		EDB6435098CC69208BC70C0DE4B2BC86 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FD9117BBE6B9ECE93973993CD69E03AA /* CoreLocation.framework */; };
 		EEE215AA71E67D5803115D53E13DAB0D /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 825ED7BA9FBAF7CA9EF82E2C21992A9C /* InfoPlist.strings */; };
 /* End PBXBuildFile section */
-
-
 
 /* Begin PBXFileReference section */
 		0029C68501DE05301897D5F082624579 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -60,19 +58,19 @@
 		6A40ABB41F26D8EA6E44086547D8FEFE /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		6B40139D1D111B91DA0BC3BA60984AC1 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
 		857D35A23641C9C72A1B47CA8793D93B /* SatelliteEyes.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = SatelliteEyes.entitlements; sourceTree = "<group>"; };
+		AABB001122334455NETWORK02 /* Network.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Network.framework; path = System/Library/Frameworks/Network.framework; sourceTree = SDKROOT; };
+		AABB00112233APD001 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		AABB00112233AWC001 /* AboutWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutWindowController.swift; sourceTree = "<group>"; };
+		AABB00112233DTF002 /* DateFormatting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatting.swift; sourceTree = "<group>"; };
+		AABB00112233FMP002 /* FileManagerPaths.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileManagerPaths.swift; sourceTree = "<group>"; };
 		AABB00112233LIM001 /* LoginItemManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginItemManager.swift; sourceTree = "<group>"; };
 		AABB00112233MD5002 /* MD5Digest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MD5Digest.swift; sourceTree = "<group>"; };
-		AABB00112233FMP002 /* FileManagerPaths.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileManagerPaths.swift; sourceTree = "<group>"; };
-		AABB00112233DTF002 /* DateFormatting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatting.swift; sourceTree = "<group>"; };
-		AABB00112233MPT002 /* MapTile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapTile.swift; sourceTree = "<group>"; };
-		AABB00112233MPI002 /* MapImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapImage.swift; sourceTree = "<group>"; };
 		AABB00112233MMG001 /* MapManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapManager.swift; sourceTree = "<group>"; };
-		AABB00112233SIC001 /* StatusItemController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusItemController.swift; sourceTree = "<group>"; };
-		AABB00112233AWC001 /* AboutWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutWindowController.swift; sourceTree = "<group>"; };
-		AABB00112233PWC001 /* PreferencesWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesWindowController.swift; sourceTree = "<group>"; };
+		AABB00112233MPI002 /* MapImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapImage.swift; sourceTree = "<group>"; };
+		AABB00112233MPT002 /* MapTile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapTile.swift; sourceTree = "<group>"; };
 		AABB00112233MWC001 /* ManageMapStylesWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageMapStylesWindowController.swift; sourceTree = "<group>"; };
-		AABB00112233APD001 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		AABB001122334455NETWORK02 /* Network.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Network.framework; path = System/Library/Frameworks/Network.framework; sourceTree = SDKROOT; };
+		AABB00112233PWC001 /* PreferencesWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesWindowController.swift; sourceTree = "<group>"; };
+		AABB00112233SIC001 /* StatusItemController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusItemController.swift; sourceTree = "<group>"; };
 		ABFCA6D5ED74F5F133B5E59675D404AD /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		B01A9B73C4CAA0FE6D446EF25495A3C1 /* ServiceManagement.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ServiceManagement.framework; path = System/Library/Frameworks/ServiceManagement.framework; sourceTree = SDKROOT; };
 		CF2947CC3A221752A4A59C14595A9489 /* loading.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = loading.png; sourceTree = "<group>"; };
@@ -114,9 +112,8 @@
 		};
 /* End PBXFrameworksBuildPhase section */
 
-
 /* Begin PBXGroup section */
-			0E14D71311A0CDE79CD75225214B1D4C /* Frameworks */ = {
+		0E14D71311A0CDE79CD75225214B1D4C /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
 				0E75555BDA62D4CB5067685541E7E4E3 /* Other Frameworks */,
@@ -230,10 +227,10 @@
 			);
 			dependencies = (
 			);
+			name = "Satellite Eyes";
 			packageProductDependencies = (
 				AABB001122334455SPK002 /* Sparkle */,
 			);
-			name = "Satellite Eyes";
 			productName = SatelliteEyes;
 			productReference = E1AEB4FF42F09FC9228E2D87F4D88973 /* Satellite Eyes.app */;
 			productType = "com.apple.product-type.application";
@@ -244,7 +241,8 @@
 		7999993EC22657DCF9F9FCC566D50840 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 1220;
+				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 2620;
 				TargetAttributes = {
 					F0A509CCCBD50F0A3647B6633BE0F1C7 = {
 						DevelopmentTeam = UY2GK6B69X;
@@ -266,18 +264,17 @@
 				en,
 			);
 			mainGroup = 3042328FB5DA64A87C574DAB6001726C;
-			productRefGroup = 39E334E0B0491A2C2A07A1B9705B047A /* Products */;
-			projectDirPath = "";
-			projectRoot = "";
 			packageReferences = (
 				AABB001122334455SPK003 /* XCRemoteSwiftPackageReference "Sparkle" */,
 			);
+			productRefGroup = 39E334E0B0491A2C2A07A1B9705B047A /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
 			targets = (
 				F0A509CCCBD50F0A3647B6633BE0F1C7 /* Satellite Eyes */,
 			);
 		};
 /* End PBXProject section */
-
 
 /* Begin PBXResourcesBuildPhase section */
 		42BD6E8FC2281A4AE00979FE1E7C1921 /* Resources */ = {
@@ -322,7 +319,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "# From: http://zargony.com/2014/08/10/automatic-versioning-in-xcode-with-git-describe\nset -e\nset -x\nBUILD_NUMBER=`git rev-list HEAD | wc -l | tr -d ' '`\n# We increment this by 1000 because I did something stupid with an old release, and if the build number isn't higher than 438 then Sparkle won't prompt for an upgrade.\n((BUILD_NUMBER+=1000))\necho \"Updating Info.plist CFBundleVersion to: ${BUILD_NUMBER}\"\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion \\\"${BUILD_NUMBER}\\\"\" \"${TARGET_BUILD_DIR}/${INFOPLIST_PATH}\"\n/usr/bin/plutil -convert binary1 \"${TARGET_BUILD_DIR}/${INFOPLIST_PATH}\"";
+			shellScript = "# From: http://zargony.com/2014/08/10/automatic-versioning-in-xcode-with-git-describe\nset -e\nset -x\nBUILD_NUMBER=`git rev-list HEAD | wc -l | tr -d ' '`\n# We increment this by 1000 because I did something stupid with an old release, and if the build number isn't higher than 438 then Sparkle won't prompt for an upgrade.\n((BUILD_NUMBER+=1000))\necho \"Updating Info.plist CFBundleVersion to: ${BUILD_NUMBER}\"\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion \\\"${BUILD_NUMBER}\\\"\" \"${TARGET_BUILD_DIR}/${INFOPLIST_PATH}\"\n/usr/bin/plutil -convert binary1 \"${TARGET_BUILD_DIR}/${INFOPLIST_PATH}\"\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -348,7 +345,6 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
-
 /* Begin PBXVariantGroup section */
 		825ED7BA9FBAF7CA9EF82E2C21992A9C /* InfoPlist.strings */ = {
 			isa = PBXVariantGroup;
@@ -358,7 +354,7 @@
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
 		};
-	/* End PBXVariantGroup section */
+/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		11359C44A2D9A46B9B49EA7D67C17D89 /* Debug */ = {
@@ -369,8 +365,11 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
-				DEVELOPMENT_TEAM = UY2GK6B69X;
+				DEAD_CODE_STRIPPING = YES;
+				ENABLE_APP_SANDBOX = YES;
 				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_OUTGOING_NETWORK_CONNECTIONS = YES;
+				ENABLE_RESOURCE_ACCESS_LOCATION = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -414,8 +413,11 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "3rd Party Mac Developer Application";
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = UY2GK6B69X;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -430,6 +432,8 @@
 				MACOSX_DEPLOYMENT_TARGET = 13.0;
 				PROVISIONING_PROFILE = "";
 				SDKROOT = macosx;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_COMPILATION_MODE = wholemodule;
 			};
 			name = Release;
 		};
@@ -441,8 +445,11 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
-				DEVELOPMENT_TEAM = UY2GK6B69X;
+				DEAD_CODE_STRIPPING = YES;
+				ENABLE_APP_SANDBOX = YES;
 				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_OUTGOING_NETWORK_CONNECTIONS = YES;
+				ENABLE_RESOURCE_ACCESS_LOCATION = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -486,8 +493,11 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "Mac Developer";
+				DEAD_CODE_STRIPPING = YES;
+				DEVELOPMENT_TEAM = UY2GK6B69X;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
@@ -510,6 +520,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				PROVISIONING_PROFILE = "";
 				SDKROOT = macosx;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 			};
 			name = Debug;
 		};
