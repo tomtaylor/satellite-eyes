@@ -429,10 +429,6 @@
 - (void)dealloc
 {
     [reachability stopNotifier];
-  
-#if NEEDS_DISPATCH_RETAIN_RELEASE
-    dispatch_release(updateQueue);
-#endif
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     [[NSUserDefaults standardUserDefaults] removeObserver:self forKeyPath:@"selectedMapTypeIndex"];
     [[NSUserDefaults standardUserDefaults] removeObserver:self forKeyPath:@"zoomLevel"];
