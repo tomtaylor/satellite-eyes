@@ -4,6 +4,22 @@ import os
 
 private let log = Logger(subsystem: Bundle.main.bundleIdentifier ?? "SatelliteEyes", category: "MapImage")
 
+private let validTileContentTypes: Set<String> = ["image/jpeg", "image/png"]
+
+enum TileFetchError: LocalizedError {
+    case invalidContentType(url: URL, contentType: String?)
+    case undecodableImage(url: URL)
+
+    var errorDescription: String? {
+        switch self {
+        case .invalidContentType(let url, let contentType):
+            return "Tile at \(url) returned unexpected content type: \(contentType ?? "unknown")"
+        case .undecodableImage(let url):
+            return "Tile at \(url) could not be decoded as an image"
+        }
+    }
+}
+
 class MapImage {
     private let tileRect: CGRect
     private let tileScale: Float
@@ -90,18 +106,24 @@ class MapImage {
 
         log.debug("Not found or skipping cache, fetching: \(fileURL.path, privacy: .public)")
 
-        try await withThrowingTaskGroup(of: (MapTile, Data).self) { group in
+        try await withThrowingTaskGroup(of: Void.self) { group in
             for row in tiles {
                 for tile in row {
                     group.addTask {
-                        let (data, _) = try await Self.sharedTileSession.data(for: tile.urlRequest)
-                        return (tile, data)
+                        let (data, response) = try await Self.sharedTileSession.data(for: tile.urlRequest)
+                        let contentType = (response as? HTTPURLResponse)?.value(forHTTPHeaderField: "Content-Type")
+                        let mimeType = contentType.flatMap { $0.split(separator: ";").first.map(String.init) }
+                        if let mimeType, !validTileContentTypes.contains(mimeType) {
+                            throw TileFetchError.invalidContentType(url: tile.url, contentType: contentType)
+                        }
+                        tile.imageData = data
+                        guard tile.newImageRef() != nil else {
+                            throw TileFetchError.undecodableImage(url: tile.url)
+                        }
                     }
                 }
             }
-            for try await (tile, data) in group {
-                tile.imageData = data
-            }
+            try await group.waitForAll()
         }
 
         return writeImageData()
