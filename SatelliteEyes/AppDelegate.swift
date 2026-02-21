@@ -145,7 +145,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         alert.informativeText = "Satellite Eyes works best when it's run in the background all the time. Do you want it to run automatically at startup?"
 
         if alert.runModal() == .alertFirstButtonReturn {
-            LLManager.setLaunchAtLogin(true)
+            LoginItemManager.setLaunchAtLogin(true)
         }
     }
 

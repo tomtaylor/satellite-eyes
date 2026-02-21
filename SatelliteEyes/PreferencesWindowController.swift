@@ -7,7 +7,7 @@ struct PreferencesView: View {
     @AppStorage("selectedMapTypeId") private var selectedMapTypeId = "stamen-watercolor"
     @AppStorage("zoomLevel") private var zoomLevel = 15
     @AppStorage("selectedImageEffectId") private var selectedImageEffectId = "none"
-    @State private var startAtLogin = LLManager.launchAtLogin()
+    @State private var startAtLogin = LoginItemManager.launchAtLogin
     @State private var manageStylesController: ManageMapStylesWindowController?
 
     private var mapTypes: [[String: Any]] {
@@ -42,8 +42,8 @@ struct PreferencesView: View {
 
             Toggle("Run Satellite Eyes at Startup", isOn: $startAtLogin)
                 .onChange(of: startAtLogin) { newValue in
-                    LLManager.setLaunchAtLogin(newValue)
-                    startAtLogin = LLManager.launchAtLogin()
+                    LoginItemManager.setLaunchAtLogin(newValue)
+                    startAtLogin = LoginItemManager.launchAtLogin
                 }
 
             Button("Manage Map Styles...") {

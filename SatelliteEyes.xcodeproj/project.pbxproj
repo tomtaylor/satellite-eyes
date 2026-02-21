@@ -10,7 +10,6 @@
 		01F1DFE4B43F4BCBBCF33346C60DC0D7 /* icon.icns in Resources */ = {isa = PBXBuildFile; fileRef = 587E133F99CB13C340AD7810C27A1BFE /* icon.icns */; };
 		0BB90D5B4B314123AAB1D3D29CB74CD3 /* loading.png in Resources */ = {isa = PBXBuildFile; fileRef = CF2947CC3A221752A4A59C14595A9489 /* loading.png */; };
 		22CE893F85191FDE937CDAAC746CBAF1 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D463EFD95CBA286EB082BDB24D79A26E /* Cocoa.framework */; };
-		251CD58B9996D6930C80424D531D49E8 /* LLManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 63C34E4F73FCFDD8D291162E987A3A16 /* LLManager.m */; };
 		42AAFFC44F7442D5DD0B75DFFFBD2DBB /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2B228E2AF542BCCC889815E95205213F /* SystemConfiguration.framework */; };
 		4B295289382D99D49EFFD429E752AE4E /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6A40ABB41F26D8EA6E44086547D8FEFE /* QuartzCore.framework */; };
 		7BFB2574C28396D4F941CB71FAF526FB /* bing-logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 23F0F5ADE6F952464C80215F219E819C /* bing-logo.png */; };
@@ -34,6 +33,7 @@
 		E261EA4A19F9767D00F5341B /* status-icon-offline.png in Resources */ = {isa = PBXBuildFile; fileRef = E261EA4319F9767D00F5341B /* status-icon-offline.png */; };
 		E261EA4B19F9767D00F5341B /* status-icon-online.png in Resources */ = {isa = PBXBuildFile; fileRef = E261EA4419F9767D00F5341B /* status-icon-online.png */; };
 		AABB00112233SWBR02 /* SwiftBridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = AABB00112233SWBR01 /* SwiftBridge.swift */; };
+		AABB00112233LIM002 /* LoginItemManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AABB00112233LIM001 /* LoginItemManager.swift */; };
 		AABB00112233MD5001 /* MD5Digest.swift in Sources */ = {isa = PBXBuildFile; fileRef = AABB00112233MD5002 /* MD5Digest.swift */; };
 		AABB00112233FMP001 /* FileManagerPaths.swift in Sources */ = {isa = PBXBuildFile; fileRef = AABB00112233FMP002 /* FileManagerPaths.swift */; };
 		AABB00112233DTF001 /* DateFormatting.swift in Sources */ = {isa = PBXBuildFile; fileRef = AABB00112233DTF002 /* DateFormatting.swift */; };
@@ -55,16 +55,15 @@
 		0029C68501DE05301897D5F082624579 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		23F0F5ADE6F952464C80215F219E819C /* bing-logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bing-logo.png"; sourceTree = "<group>"; };
 		2B228E2AF542BCCC889815E95205213F /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
-		44CB5D18529A37F54788C7874EEC184E /* LLManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LLManager.h; path = LaunchAtLoginHelper/LLManager.h; sourceTree = "<group>"; };
 		459ED31A223FC63BAB241C074B5E7CFA /* Defaults.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Defaults.plist; sourceTree = "<group>"; };
 		587E133F99CB13C340AD7810C27A1BFE /* icon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = icon.icns; sourceTree = "<group>"; };
-		63C34E4F73FCFDD8D291162E987A3A16 /* LLManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LLManager.m; path = LaunchAtLoginHelper/LLManager.m; sourceTree = "<group>"; };
 		69153A4155AB94E51D4182A3C35312F6 /* SatelliteEyes-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "SatelliteEyes-Info.plist"; sourceTree = "<group>"; };
 		6A40ABB41F26D8EA6E44086547D8FEFE /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		6B40139D1D111B91DA0BC3BA60984AC1 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
 		857D35A23641C9C72A1B47CA8793D93B /* SatelliteEyes.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = SatelliteEyes.entitlements; sourceTree = "<group>"; };
 		8F84D47619D5D62527666ADD3327234C /* SatelliteEyes-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SatelliteEyes-Prefix.pch"; sourceTree = "<group>"; };
 		AABB00112233SWBR01 /* SwiftBridge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftBridge.swift; sourceTree = "<group>"; };
+		AABB00112233LIM001 /* LoginItemManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginItemManager.swift; sourceTree = "<group>"; };
 		AABB00112233BRHD01 /* SatelliteEyes-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SatelliteEyes-Bridging-Header.h"; sourceTree = "<group>"; };
 		AABB00112233MD5002 /* MD5Digest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MD5Digest.swift; sourceTree = "<group>"; };
 		AABB00112233FMP002 /* FileManagerPaths.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileManagerPaths.swift; sourceTree = "<group>"; };
@@ -147,8 +146,6 @@
 		14C7D0D96EABCE2A1F91EFD3636B64AD /* Third Party */ = {
 			isa = PBXGroup;
 			children = (
-				44CB5D18529A37F54788C7874EEC184E /* LLManager.h */,
-				63C34E4F73FCFDD8D291162E987A3A16 /* LLManager.m */,
 			);
 			name = "Third Party";
 			sourceTree = "<group>";
@@ -159,6 +156,7 @@
 				6B82C1F0425BF476D4B377C387C30283 /* Assets */,
 				4C4FB06924323AD48ACE142A23D13E5B /* Supporting Files */,
 				AABB00112233SWBR01 /* SwiftBridge.swift */,
+				AABB00112233LIM001 /* LoginItemManager.swift */,
 				AABB00112233MD5002 /* MD5Digest.swift */,
 				AABB00112233FMP002 /* FileManagerPaths.swift */,
 				AABB00112233DTF002 /* DateFormatting.swift */,
@@ -347,8 +345,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				251CD58B9996D6930C80424D531D49E8 /* LLManager.m in Sources */,
 				AABB00112233SWBR02 /* SwiftBridge.swift in Sources */,
+				AABB00112233LIM002 /* LoginItemManager.swift in Sources */,
 				AABB00112233MD5001 /* MD5Digest.swift in Sources */,
 				AABB00112233FMP001 /* FileManagerPaths.swift in Sources */,
 				AABB00112233DTF001 /* DateFormatting.swift in Sources */,
