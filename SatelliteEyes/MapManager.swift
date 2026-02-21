@@ -24,6 +24,7 @@ class MapManager: NSObject, CLLocationManagerDelegate {
     private let updateQueue = DispatchQueue(label: "uk.co.tomtaylor.satelliteeyes.mapupdate")
     private let pathMonitor = NWPathMonitor()
     private var networkSatisfied = false
+    private var hasStarted = false
 
     // MARK: - Init
 
@@ -77,11 +78,14 @@ class MapManager: NSObject, CLLocationManagerDelegate {
     // MARK: - Public API
 
     func start() {
-        if CLLocationManager.locationServicesEnabled() {
-            locationManager.startUpdatingLocation()
-        } else {
+        hasStarted = true
+
+        guard CLLocationManager.locationServicesEnabled() else {
             NotificationCenter.default.post(name: Self.locationPermissionDeniedNotification, object: nil)
+            return
         }
+
+        locationManager.startUpdatingLocation()
     }
 
     func updateMap() {
@@ -192,8 +196,26 @@ class MapManager: NSObject, CLLocationManagerDelegate {
 
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         if (error as NSError).code == CLError.denied.rawValue {
+            // If status is still undetermined, the system prompt is showing — don't treat as denied yet
+            guard locationManager.authorizationStatus != .notDetermined else { return }
             locationManager.stopUpdatingLocation()
             NotificationCenter.default.post(name: Self.locationPermissionDeniedNotification, object: nil)
+        }
+    }
+
+    func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
+        guard hasStarted else { return }
+
+        switch manager.authorizationStatus {
+        case .authorizedAlways:
+            manager.startUpdatingLocation()
+        case .denied, .restricted:
+            manager.stopUpdatingLocation()
+            NotificationCenter.default.post(name: Self.locationPermissionDeniedNotification, object: nil)
+        case .notDetermined:
+            break
+        @unknown default:
+            break
         }
     }
 
