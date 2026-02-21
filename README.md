@@ -2,17 +2,15 @@
 
 ![Satellite Eyes](https://user-images.githubusercontent.com/836375/31194770-0950b980-a8fd-11e7-8108-9a08555a0832.png)
 
-Satellite Eyes is a small OS X application that sits in your system tray (next to the clock) and automatically updates your desktop wallpaper to the satellite or map view overhead.
+Satellite Eyes is a macOS application that sits in your system tray (next to the clock) and automatically updates your desktop wallpaper to the satellite or map view overhead.
 
 It's available for download at [http://satelliteeyes.tomtaylor.co.uk](http://satelliteeyes.tomtaylor.co.uk).
 
 ## Building
 
-Satellite Eyes (SE) is an Xcode 8.1 compatible project, targeting 10.8 upwards.
+Satellite Eyes is a Swift project targeting macOS 13.0. Open `SatelliteEyes.xcworkspace` in Xcode to build. Dependencies are managed via SwiftPM and will resolve automatically.
 
-It's not very well documented, sorry, but it's not a big codebase, so I'm sure you'll work it out.
-
-To build for Debug, make sure you’ve got a working Cocoapods installation. The version we use is locked using Ruby’s Bundler. You might need to fiddle the project (and the LaunchAtLogin subproject) to use your own team and certificates, but please don’t commit these changes.
+You might need to update the project to use your own team and certificates, but please don’t commit these changes.
 
 Many thanks to the following folks for their contributions to Satellite Eyes:
 
@@ -26,8 +24,7 @@ Many thanks to the following folks for their contributions to Satellite Eyes:
 If you want to contribute a feature or a bug fix to SE, that'd be great. I'll do my best to review them and include them where possible. Contributions would be especially appreciated for:
 
 * Ability to display imagery from interesting places around the world.
-* Controls for configuring each Space independently (the official APIs to do
-  this are deprecated in 10.8).
+* Controls for configuring each Space independently.
 * Improving the visual appearance of the preferences pane
 * More map styles
 
