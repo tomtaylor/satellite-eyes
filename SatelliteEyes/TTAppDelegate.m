@@ -7,7 +7,6 @@
 //
 
 #import "TTAppDelegate.h"
-#import "TTStatusItemController.h"
 #import "TTPreferencesWindowController.h"
 #import "TTAboutWindowController.h"
 #import "LLManager.h"
