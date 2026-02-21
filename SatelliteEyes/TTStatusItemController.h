@@ -7,14 +7,12 @@
 //
 
 #import <Foundation/Foundation.h>
-@class Reachability;
 
 @interface TTStatusItemController : NSObject <NSMenuDelegate> {
     NSStatusItem *statusItem;
     NSMenuItem *statusMenuItem;
     NSMenuItem *forceMapUpdateMenuItem;
     NSMenuItem *openInBrowserMenuItem;
-    Reachability *reachability;
     BOOL mapManagerhasLocation;
     BOOL mapManagerisActive;
     BOOL mapManagerdidError;

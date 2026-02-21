@@ -1,20 +1,16 @@
 PODS:
-  - Reachability (3.2)
   - Sparkle (1.24.0)
 
 DEPENDENCIES:
-  - Reachability (~> 3.2.0)
   - Sparkle (~> 1.18)
 
 SPEC REPOS:
   https://github.com/CocoaPods/Specs.git:
-    - Reachability
     - Sparkle
 
 SPEC CHECKSUMS:
-  Reachability: 33e18b67625424e47b6cde6d202dce689ad7af96
   Sparkle: 270cd27377bf04e9c128af06e3a22d0f572d6ee3
 
-PODFILE CHECKSUM: 862a2446957a571866d4742e34a180c6e33cc02a
+PODFILE CHECKSUM: dbf71e58ade83a63f5908b67fbd680d4758c6897
 
 COCOAPODS: 1.10.0

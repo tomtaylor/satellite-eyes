@@ -26,6 +26,7 @@
 		7BFB2574C28396D4F941CB71FAF526FB /* bing-logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 23F0F5ADE6F952464C80215F219E819C /* bing-logo.png */; };
 		7DE4BFECE0779D2316597701338E9CD0 /* TTMapTypesArrayController.m in Sources */ = {isa = PBXBuildFile; fileRef = FD0589350C076B8B0F73A105ADC7D225 /* TTMapTypesArrayController.m */; };
 		984DEA9FA73332622AB3EB7F0BA2BD58 /* ServiceManagement.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B01A9B73C4CAA0FE6D446EF25495A3C1 /* ServiceManagement.framework */; };
+		AABB001122334455NETWORK01 /* Network.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AABB001122334455NETWORK02 /* Network.framework */; };
 		B23D0C1B0C594FCA940D5264A9D11DCB /* TTStatusItemController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3919B1BC1AC8DDE342A62D30FC3FAE05 /* TTStatusItemController.m */; };
 		B532B8D446B04DCFFC38637A3CC9D206 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 8465CBE1C2C3E8BFE5B0BE3037EF5D3D /* main.m */; };
 		BB855133C3EB8D3DFC9DEBCEC9D1A2DC /* TTMapImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 11045DCF6985908E23B5A441F2E159F3 /* TTMapImage.m */; };
@@ -128,6 +129,7 @@
 		891D2C95746DCB56EB0EEB4FB429F577 /* NSFileManager+StandardPaths.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSFileManager+StandardPaths.h"; path = "SatelliteEyes/NSFileManager+StandardPaths.h"; sourceTree = "<group>"; };
 		8F84D47619D5D62527666ADD3327234C /* SatelliteEyes-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SatelliteEyes-Prefix.pch"; sourceTree = "<group>"; };
 		93E2637ACC97732164693334BDE3606F /* TTAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TTAppDelegate.m; sourceTree = "<group>"; };
+		AABB001122334455NETWORK02 /* Network.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Network.framework; path = System/Library/Frameworks/Network.framework; sourceTree = SDKROOT; };
 		ABD8B6FECAD494FFE25906401A06C11D /* TTPreferencesWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTPreferencesWindowController.h; sourceTree = "<group>"; };
 		ABFCA6D5ED74F5F133B5E59675D404AD /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		AE98124AF04EA3266A03814F2B61ECD8 /* LLStrings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LLStrings.h; path = LaunchAtLoginHelper/LLStrings.h; sourceTree = "<group>"; };
@@ -172,6 +174,7 @@
 				4B295289382D99D49EFFD429E752AE4E /* QuartzCore.framework in Frameworks */,
 				984DEA9FA73332622AB3EB7F0BA2BD58 /* ServiceManagement.framework in Frameworks */,
 				42AAFFC44F7442D5DD0B75DFFFBD2DBB /* SystemConfiguration.framework in Frameworks */,
+				AABB001122334455NETWORK01 /* Network.framework in Frameworks */,
 				FA366727934E5DD8A290E5FF /* Pods_Satellite_Eyes.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -209,6 +212,7 @@
 				6A40ABB41F26D8EA6E44086547D8FEFE /* QuartzCore.framework */,
 				B01A9B73C4CAA0FE6D446EF25495A3C1 /* ServiceManagement.framework */,
 				2B228E2AF542BCCC889815E95205213F /* SystemConfiguration.framework */,
+				AABB001122334455NETWORK02 /* Network.framework */,
 				ABFCA6D5ED74F5F133B5E59675D404AD /* WebKit.framework */,
 			);
 			name = "Other Frameworks";
@@ -476,16 +480,10 @@
 			);
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-Satellite Eyes/Pods-Satellite Eyes-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/AFNetworking/AFNetworking.framework",
-				"${BUILT_PRODUCTS_DIR}/CocoaLumberjack/CocoaLumberjack.framework",
-				"${BUILT_PRODUCTS_DIR}/Reachability/Reachability.framework",
 				"${PODS_ROOT}/Sparkle/Sparkle.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AFNetworking.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CocoaLumberjack.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Reachability.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Sparkle.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;

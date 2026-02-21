@@ -8,9 +8,8 @@
 
 #import <Foundation/Foundation.h>
 #import <CoreLocation/CoreLocation.h>
+#import <Network/Network.h>
 #import "TTMapImage.h"
-
-@class Reachability;
 
 static NSString *const TTMapManagerStartedLoad = @"TTMapManagerStartedLoad";
 static NSString *const TTMapManagerFailedLoad = @"TTMapManagerFailedLoad";
@@ -23,7 +22,8 @@ static NSString *const TTMapManagerLocationPermissionDenied = @"TTMapManagerLoca
     CLLocationManager *locationManager;
     CLLocation *lastSeenLocation;
     dispatch_queue_t updateQueue;
-    Reachability *reachability;
+    nw_path_monitor_t pathMonitor;
+    BOOL networkSatisfied;
 }
 
 - (void)start;

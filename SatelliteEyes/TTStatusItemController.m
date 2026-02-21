@@ -9,7 +9,6 @@
 #import "TTAppDelegate.h"
 #import "TTStatusItemController.h"
 #import "TTMapManager.h"
-#import "Reachability.h"
 #import "NSDate+Formatting.h"
 
 @implementation TTStatusItemController
