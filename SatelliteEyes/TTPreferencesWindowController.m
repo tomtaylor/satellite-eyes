@@ -11,8 +11,6 @@
 
 @implementation TTPreferencesWindowController
 
-@synthesize updater;
-
 - (instancetype)init
 {
     self = [super initWithWindowNibName:@"TTPreferencesWindow"];

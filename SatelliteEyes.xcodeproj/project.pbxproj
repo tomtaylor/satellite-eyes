@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 46;
+	objectVersion = 54;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -27,6 +27,7 @@
 		7DE4BFECE0779D2316597701338E9CD0 /* TTMapTypesArrayController.m in Sources */ = {isa = PBXBuildFile; fileRef = FD0589350C076B8B0F73A105ADC7D225 /* TTMapTypesArrayController.m */; };
 		984DEA9FA73332622AB3EB7F0BA2BD58 /* ServiceManagement.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B01A9B73C4CAA0FE6D446EF25495A3C1 /* ServiceManagement.framework */; };
 		AABB001122334455NETWORK01 /* Network.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AABB001122334455NETWORK02 /* Network.framework */; };
+		AABB001122334455SPK001 /* Sparkle in Frameworks */ = {isa = PBXBuildFile; productRef = AABB001122334455SPK002 /* Sparkle */; };
 		B23D0C1B0C594FCA940D5264A9D11DCB /* TTStatusItemController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3919B1BC1AC8DDE342A62D30FC3FAE05 /* TTStatusItemController.m */; };
 		B532B8D446B04DCFFC38637A3CC9D206 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 8465CBE1C2C3E8BFE5B0BE3037EF5D3D /* main.m */; };
 		BB855133C3EB8D3DFC9DEBCEC9D1A2DC /* TTMapImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 11045DCF6985908E23B5A441F2E159F3 /* TTMapImage.m */; };
@@ -54,7 +55,6 @@
 		EDB6435098CC69208BC70C0DE4B2BC86 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FD9117BBE6B9ECE93973993CD69E03AA /* CoreLocation.framework */; };
 		EEE215AA71E67D5803115D53E13DAB0D /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 825ED7BA9FBAF7CA9EF82E2C21992A9C /* InfoPlist.strings */; };
 		F319EC89A1B4604AC2AD20D630F9A266 /* TTManageMapStylesWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 48836974E1E73C9CE857DD03B56BA22A /* TTManageMapStylesWindow.xib */; };
-		FA366727934E5DD8A290E5FF /* Pods_Satellite_Eyes.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E929DB903B6B436785615750 /* Pods_Satellite_Eyes.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -100,7 +100,6 @@
 		2B043BF601327A03BC32686468330F72 /* TTMapTile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTMapTile.m; sourceTree = "<group>"; };
 		2B228E2AF542BCCC889815E95205213F /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		2E633A53F81A1CEBCD52752E45431B95 /* TTAboutWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TTAboutWindow.xib; sourceTree = "<group>"; };
-		34EE0F6793BB4DAD62520A55 /* Pods-Satellite Eyes.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Satellite Eyes.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Satellite Eyes/Pods-Satellite Eyes.debug.xcconfig"; sourceTree = "<group>"; };
 		3919B1BC1AC8DDE342A62D30FC3FAE05 /* TTStatusItemController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTStatusItemController.m; sourceTree = "<group>"; };
 		3C0702F5F6A99AB37068393F9D2EA336 /* TTPreferencesWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TTPreferencesWindow.xib; sourceTree = "<group>"; };
 		44BADE6101B5F6B8A99E1BD4B9EBF3C0 /* TTAboutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTAboutViewController.m; sourceTree = "<group>"; };
@@ -124,7 +123,6 @@
 		7D92C58B1614BD1551063E1ADECF9987 /* TTAboutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTAboutViewController.h; sourceTree = "<group>"; };
 		816A97185C78CB064CD25CD97E37C100 /* TTMapManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TTMapManager.m; path = SatelliteEyes/TTMapManager.m; sourceTree = SOURCE_ROOT; };
 		8465CBE1C2C3E8BFE5B0BE3037EF5D3D /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		852F35DBFD82DA3C7A4C02B6 /* Pods-Satellite Eyes.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Satellite Eyes.release.xcconfig"; path = "Pods/Target Support Files/Pods-Satellite Eyes/Pods-Satellite Eyes.release.xcconfig"; sourceTree = "<group>"; };
 		857D35A23641C9C72A1B47CA8793D93B /* SatelliteEyes.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = SatelliteEyes.entitlements; sourceTree = "<group>"; };
 		891D2C95746DCB56EB0EEB4FB429F577 /* NSFileManager+StandardPaths.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSFileManager+StandardPaths.h"; path = "SatelliteEyes/NSFileManager+StandardPaths.h"; sourceTree = "<group>"; };
 		8F84D47619D5D62527666ADD3327234C /* SatelliteEyes-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SatelliteEyes-Prefix.pch"; sourceTree = "<group>"; };
@@ -158,7 +156,6 @@
 		E261EA4219F9767D00F5341B /* status-icon-error.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "status-icon-error.png"; sourceTree = "<group>"; };
 		E261EA4319F9767D00F5341B /* status-icon-offline.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "status-icon-offline.png"; sourceTree = "<group>"; };
 		E261EA4419F9767D00F5341B /* status-icon-online.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "status-icon-online.png"; sourceTree = "<group>"; };
-		E929DB903B6B436785615750 /* Pods_Satellite_Eyes.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Satellite_Eyes.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F8BD6F1383BE75619ADDA70A0BA002D7 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		FD0589350C076B8B0F73A105ADC7D225 /* TTMapTypesArrayController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTMapTypesArrayController.m; sourceTree = "<group>"; };
 		FD9117BBE6B9ECE93973993CD69E03AA /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
@@ -175,7 +172,7 @@
 				984DEA9FA73332622AB3EB7F0BA2BD58 /* ServiceManagement.framework in Frameworks */,
 				42AAFFC44F7442D5DD0B75DFFFBD2DBB /* SystemConfiguration.framework in Frameworks */,
 				AABB001122334455NETWORK01 /* Network.framework in Frameworks */,
-				FA366727934E5DD8A290E5FF /* Pods_Satellite_Eyes.framework in Frameworks */,
+				AABB001122334455SPK001 /* Sparkle in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -198,7 +195,6 @@
 			children = (
 				0E75555BDA62D4CB5067685541E7E4E3 /* Other Frameworks */,
 				D463EFD95CBA286EB082BDB24D79A26E /* Cocoa.framework */,
-				E929DB903B6B436785615750 /* Pods_Satellite_Eyes.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -274,7 +270,6 @@
 				39E334E0B0491A2C2A07A1B9705B047A /* Products */,
 				2092BE5B4DCE1D0798106CFC5FD15194 /* SatelliteEyes */,
 				14C7D0D96EABCE2A1F91EFD3636B64AD /* Third Party */,
-				92178564E992E2EFAC1D45BA /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -332,15 +327,6 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		92178564E992E2EFAC1D45BA /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				34EE0F6793BB4DAD62520A55 /* Pods-Satellite Eyes.debug.xcconfig */,
-				852F35DBFD82DA3C7A4C02B6 /* Pods-Satellite Eyes.release.xcconfig */,
-			);
-			name = Pods;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -348,19 +334,19 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 32E4CB75628C9D551998866DE380F5F5 /* Build configuration list for PBXNativeTarget "Satellite Eyes" */;
 			buildPhases = (
-				74F02F40DC2A23D66B0793C7 /* [CP] Check Pods Manifest.lock */,
 				1BA14FD04AE46C791F4DC95096A0DE54 /* Sources */,
 				60237CDE65D0D58F1B5424CF0104AD02 /* Frameworks */,
 				42BD6E8FC2281A4AE00979FE1E7C1921 /* Resources */,
 				E261EA4C19F97AEB00F5341B /* Copy LaunchAtLogin.app */,
 				E2B80DDF199F6DFA002CD817 /* Update Build Number */,
-				ADD0894F7ADD7EA6F86B4E1D /* [CP] Embed Pods Frameworks */,
-				E292FF69231D10670057D09E /* Codesign Sparkle with Hardened Runtime */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 				05FB6900ECDE7ECBC51D5B537A05BED0 /* PBXTargetDependency */,
+			);
+			packageProductDependencies = (
+				AABB001122334455SPK002 /* Sparkle */,
 			);
 			name = "Satellite Eyes";
 			productName = SatelliteEyes;
@@ -404,6 +390,9 @@
 				},
 			);
 			projectRoot = "";
+			packageReferences = (
+				AABB001122334455SPK003 /* XCRemoteSwiftPackageReference "Sparkle" */,
+			);
 			targets = (
 				F0A509CCCBD50F0A3647B6633BE0F1C7 /* Satellite Eyes */,
 			);
@@ -455,60 +444,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		74F02F40DC2A23D66B0793C7 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-Satellite Eyes-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		ADD0894F7ADD7EA6F86B4E1D /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Satellite Eyes/Pods-Satellite Eyes-frameworks.sh",
-				"${PODS_ROOT}/Sparkle/Sparkle.framework",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Sparkle.framework",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Satellite Eyes/Pods-Satellite Eyes-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		E292FF69231D10670057D09E /* Codesign Sparkle with Hardened Runtime */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-			);
-			name = "Codesign Sparkle with Hardened Runtime";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "codesign --verbose --force --deep -o runtime \\\n--sign \"${EXPANDED_CODE_SIGN_IDENTITY_NAME}\" \\\n\"${BUILT_PRODUCTS_DIR}/${WRAPPER_NAME}/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/AutoUpdate.app\"\n";
-		};
 		E2B80DDF199F6DFA002CD817 /* Update Build Number */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -581,7 +516,6 @@
 /* Begin XCBuildConfiguration section */
 		11359C44A2D9A46B9B49EA7D67C17D89 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 34EE0F6793BB4DAD62520A55 /* Pods-Satellite Eyes.debug.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = SatelliteEyes/SatelliteEyes.entitlements;
 				CODE_SIGN_IDENTITY = "Mac Developer";
@@ -651,7 +585,6 @@
 		};
 		A7A2EE633075524C9013CC78F9888754 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 852F35DBFD82DA3C7A4C02B6 /* Pods-Satellite Eyes.release.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = SatelliteEyes/SatelliteEyes.entitlements;
 				CODE_SIGN_IDENTITY = "Mac Developer";
@@ -749,6 +682,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		AABB001122334455SPK003 /* XCRemoteSwiftPackageReference "Sparkle" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/sparkle-project/Sparkle";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		AABB001122334455SPK002 /* Sparkle */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = AABB001122334455SPK003 /* XCRemoteSwiftPackageReference "Sparkle" */;
+			productName = Sparkle;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 7999993EC22657DCF9F9FCC566D50840 /* Project object */;
 }

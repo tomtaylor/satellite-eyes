@@ -7,15 +7,11 @@
 //
 
 #import <Cocoa/Cocoa.h>
-#import <Sparkle/Sparkle.h>
 
 @class TTPreferencesViewController;
 
 @interface TTPreferencesWindowController : NSWindowController {
     TTPreferencesViewController *viewController;
-    SUUpdater *updater;
 }
-
-@property (nonatomic, retain) IBOutlet SUUpdater *updater;
 
 @end

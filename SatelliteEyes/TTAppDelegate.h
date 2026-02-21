@@ -11,12 +11,14 @@
 @class TTStatusItemController;
 @class TTPreferencesWindowController;
 @class TTAboutWindowController;
+@class SPUStandardUpdaterController;
 
 @interface TTAppDelegate : NSObject <NSApplicationDelegate> {
     TTMapManager *mapManager;
     TTStatusItemController *statusItemController;
     TTPreferencesWindowController *preferencesWindowController;
     TTAboutWindowController *aboutWindowController;
+    SPUStandardUpdaterController *updaterController;
 }
 
 @property IBOutlet TTPreferencesWindowController *preferencesWindowController;

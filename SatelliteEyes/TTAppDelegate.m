@@ -12,6 +12,7 @@
 #import "TTPreferencesWindowController.h"
 #import "TTAboutWindowController.h"
 #import "LLManager.h"
+#import <Sparkle/Sparkle.h>
 
 @implementation TTAppDelegate
 
@@ -19,8 +20,10 @@
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
+    updaterController = [[SPUStandardUpdaterController alloc] initWithStartingUpdater:YES updaterDelegate:nil userDriverDelegate:nil];
+
     preferencesWindowController = [[TTPreferencesWindowController alloc] init];
-    
+
     [self setUserDefaults];
     
     // 100MB disk cache for tile images
@@ -66,7 +69,7 @@
 }
 
 - (void)checkForUpdates:(id)sender {
-    [[SUUpdater sharedUpdater] checkForUpdates:sender];
+    [updaterController checkForUpdates:sender];
 }
 
 - (void)setUserDefaults {

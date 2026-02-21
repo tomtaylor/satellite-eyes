@@ -1,7 +1,0 @@
-source 'https://github.com/CocoaPods/Specs.git'
-platform :osx, '13.0'
-use_frameworks!
-
-target 'Satellite Eyes' do
-  pod 'Sparkle', '~> 1.18'
-end
