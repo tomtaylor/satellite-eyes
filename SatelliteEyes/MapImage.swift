@@ -81,14 +81,14 @@ class MapImage {
         let fileURL = self.fileURL
 
         if !skipCache {
-            log.info("Looking up file at: \(fileURL.path, privacy: .public)")
+            log.debug("Looking up file at: \(fileURL.path, privacy: .public)")
             if FileManager.default.fileExists(atPath: fileURL.path) {
-                log.info("Map image already cached: \(fileURL.path, privacy: .public)")
+                log.debug("Map image already cached: \(fileURL.path, privacy: .public)")
                 return fileURL
             }
         }
 
-        log.info("Not found or skipping cache, fetching: \(fileURL.path, privacy: .public)")
+        log.debug("Not found or skipping cache, fetching: \(fileURL.path, privacy: .public)")
 
         try await withThrowingTaskGroup(of: (MapTile, Data).self) { group in
             for row in tiles {
