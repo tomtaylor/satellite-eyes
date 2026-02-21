@@ -9,7 +9,6 @@
 #import <Foundation/Foundation.h>
 #import <CoreLocation/CoreLocation.h>
 #import <Network/Network.h>
-#import "TTMapImage.h"
 
 static NSString *const TTMapManagerStartedLoad = @"TTMapManagerStartedLoad";
 static NSString *const TTMapManagerFailedLoad = @"TTMapManagerFailedLoad";

@@ -19,14 +19,12 @@
 		538E1DA79C5467491FF6B7AAACDB7834 /* TTAboutWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2E633A53F81A1CEBCD52752E45431B95 /* TTAboutWindow.xib */; };
 		5F71313F15681DC3BEDFFBCC05383F82 /* TTPreferencesWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6721B29FCA2C63FD7FED50B252BBD729 /* TTPreferencesWindowController.m */; };
 		631B08D4CC38FE79DD4635644785C3BF /* TTAboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 44BADE6101B5F6B8A99E1BD4B9EBF3C0 /* TTAboutViewController.m */; };
-		69F2C3611EE092986B1525A064996E47 /* TTMapTile.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B043BF601327A03BC32686468330F72 /* TTMapTile.m */; };
 		7BFB2574C28396D4F941CB71FAF526FB /* bing-logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 23F0F5ADE6F952464C80215F219E819C /* bing-logo.png */; };
 		984DEA9FA73332622AB3EB7F0BA2BD58 /* ServiceManagement.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B01A9B73C4CAA0FE6D446EF25495A3C1 /* ServiceManagement.framework */; };
 		AABB001122334455NETWORK01 /* Network.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AABB001122334455NETWORK02 /* Network.framework */; };
 		AABB001122334455SPK001 /* Sparkle in Frameworks */ = {isa = PBXBuildFile; productRef = AABB001122334455SPK002 /* Sparkle */; };
 		B23D0C1B0C594FCA940D5264A9D11DCB /* TTStatusItemController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3919B1BC1AC8DDE342A62D30FC3FAE05 /* TTStatusItemController.m */; };
 		B532B8D446B04DCFFC38637A3CC9D206 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 8465CBE1C2C3E8BFE5B0BE3037EF5D3D /* main.m */; };
-		BB855133C3EB8D3DFC9DEBCEC9D1A2DC /* TTMapImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 11045DCF6985908E23B5A441F2E159F3 /* TTMapImage.m */; };
 		CF56B60A90B705666B1E519C99D1F284 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = D91E37E8DFDA52C112A1E550DBF2E48F /* Credits.rtf */; };
 		D1D57FB916F19D1FD35C7322AEFA106B /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = BCC81082431CED7773B9D7A015AF9691 /* MainMenu.xib */; };
 		D7569B7412ADF6DEEB9CAC8C1908D4A0 /* Defaults.plist in Resources */ = {isa = PBXBuildFile; fileRef = 459ED31A223FC63BAB241C074B5E7CFA /* Defaults.plist */; };
@@ -51,6 +49,8 @@
 		AABB00112233FMP001 /* FileManagerPaths.swift in Sources */ = {isa = PBXBuildFile; fileRef = AABB00112233FMP002 /* FileManagerPaths.swift */; };
 		AABB00112233DTF001 /* DateFormatting.swift in Sources */ = {isa = PBXBuildFile; fileRef = AABB00112233DTF002 /* DateFormatting.swift */; };
 		AABB00112233MTA001 /* MapTypesArrayController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AABB00112233MTA002 /* MapTypesArrayController.swift */; };
+		AABB00112233MPT001 /* MapTile.swift in Sources */ = {isa = PBXBuildFile; fileRef = AABB00112233MPT002 /* MapTile.swift */; };
+		AABB00112233MPI001 /* MapImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = AABB00112233MPI002 /* MapImage.swift */; };
 		EBEC8E775AD3AD614851DB3DD705DDCD /* TTMapManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 816A97185C78CB064CD25CD97E37C100 /* TTMapManager.m */; };
 		EDB6435098CC69208BC70C0DE4B2BC86 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FD9117BBE6B9ECE93973993CD69E03AA /* CoreLocation.framework */; };
 		EEE215AA71E67D5803115D53E13DAB0D /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 825ED7BA9FBAF7CA9EF82E2C21992A9C /* InfoPlist.strings */; };
@@ -63,12 +63,10 @@
 		0029C68501DE05301897D5F082624579 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		0C4ED8B68F107A698D3A204D15DC324F /* TTAboutWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTAboutWindowController.m; sourceTree = "<group>"; };
 		108AB02FE70CE8AB4D15CB07145EFAAF /* TTAboutWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTAboutWindowController.h; sourceTree = "<group>"; };
-		11045DCF6985908E23B5A441F2E159F3 /* TTMapImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTMapImage.m; sourceTree = "<group>"; };
 		17855E355BB7E50A29F3A9E1B8936BB3 /* TTManageMapStylesWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTManageMapStylesWindowController.m; sourceTree = "<group>"; };
 		1A24E56CEFA971ACC35A8D4E94824467 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		23F0F5ADE6F952464C80215F219E819C /* bing-logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bing-logo.png"; sourceTree = "<group>"; };
 		2A959991FBB569201437B74805D167D7 /* TTPreferencesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTPreferencesViewController.m; sourceTree = "<group>"; };
-		2B043BF601327A03BC32686468330F72 /* TTMapTile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTMapTile.m; sourceTree = "<group>"; };
 		2B228E2AF542BCCC889815E95205213F /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		2E633A53F81A1CEBCD52752E45431B95 /* TTAboutWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TTAboutWindow.xib; sourceTree = "<group>"; };
 		3919B1BC1AC8DDE342A62D30FC3FAE05 /* TTStatusItemController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTStatusItemController.m; sourceTree = "<group>"; };
@@ -78,10 +76,8 @@
 		459ED31A223FC63BAB241C074B5E7CFA /* Defaults.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Defaults.plist; sourceTree = "<group>"; };
 		48836974E1E73C9CE857DD03B56BA22A /* TTManageMapStylesWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TTManageMapStylesWindow.xib; sourceTree = "<group>"; };
 		4C8431E352CEDA3A2961C4E8017C0B66 /* TTAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TTAppDelegate.h; sourceTree = "<group>"; };
-		501982ADD2B9E26DF830495BEF2D7538 /* TTMapImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTMapImage.h; sourceTree = "<group>"; };
 		587E133F99CB13C340AD7810C27A1BFE /* icon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = icon.icns; sourceTree = "<group>"; };
 		5C95CBF3BB9E688ECDD0D3B4ADC2025A /* TTStatusItemController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTStatusItemController.h; sourceTree = "<group>"; };
-		6273600D53D77A6447695AC5C607880F /* TTMapTile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTMapTile.h; sourceTree = "<group>"; };
 		63C34E4F73FCFDD8D291162E987A3A16 /* LLManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LLManager.m; path = LaunchAtLoginHelper/LLManager.m; sourceTree = "<group>"; };
 		6721B29FCA2C63FD7FED50B252BBD729 /* TTPreferencesWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTPreferencesWindowController.m; sourceTree = "<group>"; };
 		69153A4155AB94E51D4182A3C35312F6 /* SatelliteEyes-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "SatelliteEyes-Info.plist"; sourceTree = "<group>"; };
@@ -102,6 +98,8 @@
 		AABB00112233FMP002 /* FileManagerPaths.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileManagerPaths.swift; sourceTree = "<group>"; };
 		AABB00112233DTF002 /* DateFormatting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatting.swift; sourceTree = "<group>"; };
 		AABB00112233MTA002 /* MapTypesArrayController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapTypesArrayController.swift; sourceTree = "<group>"; };
+		AABB00112233MPT002 /* MapTile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapTile.swift; sourceTree = "<group>"; };
+		AABB00112233MPI002 /* MapImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapImage.swift; sourceTree = "<group>"; };
 		AABB001122334455NETWORK02 /* Network.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Network.framework; path = System/Library/Frameworks/Network.framework; sourceTree = SDKROOT; };
 		ABD8B6FECAD494FFE25906401A06C11D /* TTPreferencesWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTPreferencesWindowController.h; sourceTree = "<group>"; };
 		ABFCA6D5ED74F5F133B5E59675D404AD /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
@@ -204,12 +202,8 @@
 				93E2637ACC97732164693334BDE3606F /* TTAppDelegate.m */,
 				7641EF6FCA1697628C2F07097B688134 /* TTManageMapStylesWindowController.h */,
 				17855E355BB7E50A29F3A9E1B8936BB3 /* TTManageMapStylesWindowController.m */,
-				501982ADD2B9E26DF830495BEF2D7538 /* TTMapImage.h */,
-				11045DCF6985908E23B5A441F2E159F3 /* TTMapImage.m */,
 				76601CA0F07E22E62347CF605C882D62 /* TTMapManager.h */,
 				816A97185C78CB064CD25CD97E37C100 /* TTMapManager.m */,
-				6273600D53D77A6447695AC5C607880F /* TTMapTile.h */,
-				2B043BF601327A03BC32686468330F72 /* TTMapTile.m */,
 				732703003D485F4F84B3D4E5470F1D96 /* TTPreferencesViewController.h */,
 				2A959991FBB569201437B74805D167D7 /* TTPreferencesViewController.m */,
 				ABD8B6FECAD494FFE25906401A06C11D /* TTPreferencesWindowController.h */,
@@ -219,6 +213,8 @@
 				AABB00112233FMP002 /* FileManagerPaths.swift */,
 				AABB00112233DTF002 /* DateFormatting.swift */,
 				AABB00112233MTA002 /* MapTypesArrayController.swift */,
+				AABB00112233MPT002 /* MapTile.swift */,
+				AABB00112233MPI002 /* MapImage.swift */,
 				5C95CBF3BB9E688ECDD0D3B4ADC2025A /* TTStatusItemController.h */,
 				3919B1BC1AC8DDE342A62D30FC3FAE05 /* TTStatusItemController.m */,
 			);
@@ -408,9 +404,7 @@
 				117AC055BB854F96F3E1DCF98D5300DC /* TTAboutWindowController.m in Sources */,
 				3020A4ED341BA54F3D8BE8F4864945FA /* TTAppDelegate.m in Sources */,
 				DD34200C9683B62B64B7C53F0A1205AD /* TTManageMapStylesWindowController.m in Sources */,
-				BB855133C3EB8D3DFC9DEBCEC9D1A2DC /* TTMapImage.m in Sources */,
 				EBEC8E775AD3AD614851DB3DD705DDCD /* TTMapManager.m in Sources */,
-				69F2C3611EE092986B1525A064996E47 /* TTMapTile.m in Sources */,
 				DF563156051108AA7E68D6E8114EB6FB /* TTPreferencesViewController.m in Sources */,
 				5F71313F15681DC3BEDFFBCC05383F82 /* TTPreferencesWindowController.m in Sources */,
 				B23D0C1B0C594FCA940D5264A9D11DCB /* TTStatusItemController.m in Sources */,
@@ -419,6 +413,8 @@
 				AABB00112233FMP001 /* FileManagerPaths.swift in Sources */,
 				AABB00112233DTF001 /* DateFormatting.swift in Sources */,
 				AABB00112233MTA001 /* MapTypesArrayController.swift in Sources */,
+				AABB00112233MPT001 /* MapTile.swift in Sources */,
+				AABB00112233MPI001 /* MapImage.swift in Sources */,
 				B532B8D446B04DCFFC38637A3CC9D206 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
