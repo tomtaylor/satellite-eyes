@@ -74,16 +74,16 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
 
     @objc func showPreferences(_ sender: Any?) {
-        NSApplication.shared.activate(ignoringOtherApps: true)
+        activateApp()
         preferencesWindowController.showWindow(self)
-        preferencesWindowController.window?.makeKeyAndOrderFront(self)
+        preferencesWindowController.window?.orderFrontRegardless()
         preferencesWindowController.window?.makeFirstResponder(nil)
     }
 
     @objc func showAbout(_ sender: Any?) {
-        NSApplication.shared.activate(ignoringOtherApps: true)
+        activateApp()
         aboutWindowController.showWindow(self)
-        aboutWindowController.window?.makeKeyAndOrderFront(self)
+        aboutWindowController.window?.orderFrontRegardless()
         aboutWindowController.window?.makeFirstResponder(nil)
     }
 
@@ -106,6 +106,14 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
 
     // MARK: - Private
+
+    private func activateApp() {
+        if #available(macOS 14.0, *) {
+            NSApplication.shared.activate()
+        } else {
+            NSApplication.shared.activate(ignoringOtherApps: true)
+        }
+    }
 
     private func registerDefaults() {
         guard let path = Bundle.main.path(forResource: "Defaults", ofType: "plist"),
