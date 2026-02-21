@@ -1,6 +1,5 @@
 import Cocoa
 
-@objc(TTStatusItemController)
 class StatusItemController: NSObject, NSMenuDelegate {
 
     // MARK: - Private state
@@ -146,7 +145,7 @@ class StatusItemController: NSObject, NSMenuDelegate {
         forceMapUpdateMenuItem.isHidden = false
 
         if let updated = mapLastUpdated {
-            statusMenuItem.title = "Map updated \((updated as NSDate).distanceOfTimeInWords().lowercased())"
+            statusMenuItem.title = "Map updated \(updated.distanceOfTimeInWords().lowercased())"
         } else {
             statusMenuItem.title = "Waiting for map update"
         }

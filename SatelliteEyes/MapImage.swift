@@ -4,8 +4,7 @@ import os
 
 private let log = Logger(subsystem: Bundle.main.bundleIdentifier ?? "SatelliteEyes", category: "MapImage")
 
-@objc(TTMapImage)
-class MapImage: NSObject {
+class MapImage {
     private let tileRect: CGRect
     private let tileScale: Float
     private let zoomLevel: UInt16
@@ -22,7 +21,7 @@ class MapImage: NSObject {
         return URLSession(configuration: config)
     }()
 
-    @objc init(tileRect: CGRect, tileScale: Float, zoomLevel: UInt16,
+    init(tileRect: CGRect, tileScale: Float, zoomLevel: UInt16,
                source: String, effect: NSDictionary, logo: NSImage?) {
         self.tileRect = tileRect
         self.tileScale = tileScale
@@ -55,18 +54,17 @@ class MapImage: NSObject {
             currentY -= 1
         }
         self.tiles = tilesArray
-        super.init()
     }
 
     // MARK: - Public API
 
-    @objc var fileURL: URL {
+    var fileURL: URL {
         let fileName = "map-\(uniqueHash).png"
         let path = FileManager.default.pathForPrivateFile(fileName)
         return URL(fileURLWithPath: path)
     }
 
-    @objc func fetchTilesWithSuccess(_ success: @escaping (URL) -> Void,
+    func fetchTilesWithSuccess(_ success: @escaping (URL) -> Void,
                                      failure: @escaping (Error) -> Void,
                                      skipCache: Bool) {
         Task.detached { [self] in
@@ -119,7 +117,7 @@ class MapImage: NSObject {
                          tileScale,
                          imageEffect.description,
                          zoomLevel)
-        return (key as NSString).md5Digest()
+        return key.md5Digest()
     }
 
     private func writeImageData() -> URL {

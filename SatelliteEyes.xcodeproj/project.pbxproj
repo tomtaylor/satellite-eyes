@@ -32,7 +32,6 @@
 		E261EA4919F9767D00F5341B /* status-icon-error.png in Resources */ = {isa = PBXBuildFile; fileRef = E261EA4219F9767D00F5341B /* status-icon-error.png */; };
 		E261EA4A19F9767D00F5341B /* status-icon-offline.png in Resources */ = {isa = PBXBuildFile; fileRef = E261EA4319F9767D00F5341B /* status-icon-offline.png */; };
 		E261EA4B19F9767D00F5341B /* status-icon-online.png in Resources */ = {isa = PBXBuildFile; fileRef = E261EA4419F9767D00F5341B /* status-icon-online.png */; };
-		AABB00112233SWBR02 /* SwiftBridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = AABB00112233SWBR01 /* SwiftBridge.swift */; };
 		AABB00112233LIM002 /* LoginItemManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AABB00112233LIM001 /* LoginItemManager.swift */; };
 		AABB00112233MD5001 /* MD5Digest.swift in Sources */ = {isa = PBXBuildFile; fileRef = AABB00112233MD5002 /* MD5Digest.swift */; };
 		AABB00112233FMP001 /* FileManagerPaths.swift in Sources */ = {isa = PBXBuildFile; fileRef = AABB00112233FMP002 /* FileManagerPaths.swift */; };
@@ -61,10 +60,7 @@
 		6A40ABB41F26D8EA6E44086547D8FEFE /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		6B40139D1D111B91DA0BC3BA60984AC1 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
 		857D35A23641C9C72A1B47CA8793D93B /* SatelliteEyes.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = SatelliteEyes.entitlements; sourceTree = "<group>"; };
-		8F84D47619D5D62527666ADD3327234C /* SatelliteEyes-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SatelliteEyes-Prefix.pch"; sourceTree = "<group>"; };
-		AABB00112233SWBR01 /* SwiftBridge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftBridge.swift; sourceTree = "<group>"; };
 		AABB00112233LIM001 /* LoginItemManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginItemManager.swift; sourceTree = "<group>"; };
-		AABB00112233BRHD01 /* SatelliteEyes-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SatelliteEyes-Bridging-Header.h"; sourceTree = "<group>"; };
 		AABB00112233MD5002 /* MD5Digest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MD5Digest.swift; sourceTree = "<group>"; };
 		AABB00112233FMP002 /* FileManagerPaths.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileManagerPaths.swift; sourceTree = "<group>"; };
 		AABB00112233DTF002 /* DateFormatting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatting.swift; sourceTree = "<group>"; };
@@ -143,19 +139,11 @@
 			name = "Other Frameworks";
 			sourceTree = "<group>";
 		};
-		14C7D0D96EABCE2A1F91EFD3636B64AD /* Third Party */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = "Third Party";
-			sourceTree = "<group>";
-		};
 		2092BE5B4DCE1D0798106CFC5FD15194 /* SatelliteEyes */ = {
 			isa = PBXGroup;
 			children = (
 				6B82C1F0425BF476D4B377C387C30283 /* Assets */,
 				4C4FB06924323AD48ACE142A23D13E5B /* Supporting Files */,
-				AABB00112233SWBR01 /* SwiftBridge.swift */,
 				AABB00112233LIM001 /* LoginItemManager.swift */,
 				AABB00112233MD5002 /* MD5Digest.swift */,
 				AABB00112233FMP002 /* FileManagerPaths.swift */,
@@ -178,7 +166,6 @@
 				0E14D71311A0CDE79CD75225214B1D4C /* Frameworks */,
 				39E334E0B0491A2C2A07A1B9705B047A /* Products */,
 				2092BE5B4DCE1D0798106CFC5FD15194 /* SatelliteEyes */,
-				14C7D0D96EABCE2A1F91EFD3636B64AD /* Third Party */,
 			);
 			sourceTree = "<group>";
 		};
@@ -197,8 +184,6 @@
 				459ED31A223FC63BAB241C074B5E7CFA /* Defaults.plist */,
 				825ED7BA9FBAF7CA9EF82E2C21992A9C /* InfoPlist.strings */,
 				69153A4155AB94E51D4182A3C35312F6 /* SatelliteEyes-Info.plist */,
-				AABB00112233BRHD01 /* SatelliteEyes-Bridging-Header.h */,
-				8F84D47619D5D62527666ADD3327234C /* SatelliteEyes-Prefix.pch */,
 				857D35A23641C9C72A1B47CA8793D93B /* SatelliteEyes.entitlements */,
 			);
 			name = "Supporting Files";
@@ -345,7 +330,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AABB00112233SWBR02 /* SwiftBridge.swift in Sources */,
 				AABB00112233LIM002 /* LoginItemManager.swift in Sources */,
 				AABB00112233MD5001 /* MD5Digest.swift in Sources */,
 				AABB00112233FMP001 /* FileManagerPaths.swift in Sources */,
@@ -390,15 +374,12 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)",
 				);
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "SatelliteEyes/SatelliteEyes-Prefix.pch";
 				INFOPLIST_FILE = "SatelliteEyes/SatelliteEyes-Info.plist";
 				INFOPLIST_PREPROCESS = NO;
 				MARKETING_VERSION = 1.5.0;
 				PRODUCT_BUNDLE_IDENTIFIER = uk.co.tomtaylor.SatelliteEyes;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				SWIFT_OBJC_BRIDGING_HEADER = "SatelliteEyes/SatelliteEyes-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				WRAPPER_EXTENSION = app;
 			};
@@ -461,15 +442,12 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)",
 				);
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "SatelliteEyes/SatelliteEyes-Prefix.pch";
 				INFOPLIST_FILE = "SatelliteEyes/SatelliteEyes-Info.plist";
 				INFOPLIST_PREPROCESS = NO;
 				MARKETING_VERSION = 1.5.0;
 				PRODUCT_BUNDLE_IDENTIFIER = uk.co.tomtaylor.SatelliteEyes;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				SWIFT_OBJC_BRIDGING_HEADER = "SatelliteEyes/SatelliteEyes-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				WRAPPER_EXTENSION = app;
 			};

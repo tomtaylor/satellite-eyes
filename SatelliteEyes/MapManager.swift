@@ -6,17 +6,16 @@ import os
 private let log = Logger(subsystem: Bundle.main.bundleIdentifier ?? "SatelliteEyes", category: "MapManager")
 private let baseTileSize: CGFloat = 256
 
-@objc(TTMapManager)
 class MapManager: NSObject, CLLocationManagerDelegate {
 
     // MARK: - Notification names
 
-    @objc static let startedLoadNotification = NSNotification.Name("TTMapManagerStartedLoad")
-    @objc static let failedLoadNotification = NSNotification.Name("TTMapManagerFailedLoad")
-    @objc static let finishedLoadNotification = NSNotification.Name("TTMapManagerFinishedLoad")
-    @objc static let locationUpdatedNotification = NSNotification.Name("TTMapManagerLocationUpdated")
-    @objc static let locationLostNotification = NSNotification.Name("TTMapManagerLocationLost")
-    @objc static let locationPermissionDeniedNotification = NSNotification.Name("TTMapManagerLocationPermissionDenied")
+    static let startedLoadNotification = NSNotification.Name("TTMapManagerStartedLoad")
+    static let failedLoadNotification = NSNotification.Name("TTMapManagerFailedLoad")
+    static let finishedLoadNotification = NSNotification.Name("TTMapManagerFinishedLoad")
+    static let locationUpdatedNotification = NSNotification.Name("TTMapManagerLocationUpdated")
+    static let locationLostNotification = NSNotification.Name("TTMapManagerLocationLost")
+    static let locationPermissionDeniedNotification = NSNotification.Name("TTMapManagerLocationPermissionDenied")
 
     // MARK: - Private state
 
@@ -77,7 +76,7 @@ class MapManager: NSObject, CLLocationManagerDelegate {
 
     // MARK: - Public API
 
-    @objc func start() {
+    func start() {
         if CLLocationManager.locationServicesEnabled() {
             locationManager.startUpdatingLocation()
         } else {
@@ -85,17 +84,16 @@ class MapManager: NSObject, CLLocationManagerDelegate {
         }
     }
 
-    @objc func updateMap() {
+    func updateMap() {
         guard let location = lastSeenLocation else { return }
         updateMap(to: location.coordinate, force: false)
     }
 
-    @objc func forceUpdateMap() {
+    func forceUpdateMap() {
         guard let location = lastSeenLocation else { return }
         updateMap(to: location.coordinate, force: true)
     }
 
-    @objc(updateMapToCoordinate:force:)
     func updateMap(to coordinate: CLLocationCoordinate2D, force: Bool) {
         for screen in NSScreen.screens {
             updateQueue.async { [self] in
@@ -133,7 +131,7 @@ class MapManager: NSObject, CLLocationManagerDelegate {
         }
     }
 
-    @objc func cleanCache() {
+    func cleanCache() {
         let cachePath = FileManager.default.privateDataPath
         guard let files = try? FileManager.default.contentsOfDirectory(atPath: cachePath) else { return }
 
@@ -161,7 +159,7 @@ class MapManager: NSObject, CLLocationManagerDelegate {
         }
     }
 
-    @objc var browserURL: URL? {
+    var browserURL: URL? {
         guard let location = lastSeenLocation,
               let template = selectedMapType["browserURL"] as? String else { return nil }
 

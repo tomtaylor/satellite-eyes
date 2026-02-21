@@ -3,7 +3,7 @@ import Foundation
 extension FileManager {
     private static var _privateDataPath: String?
 
-    @objc var privateDataPath: String {
+    var privateDataPath: String {
         if let cached = FileManager._privateDataPath { return cached }
         let appSupport = urls(for: .applicationSupportDirectory, in: .userDomainMask).first!
         let identifier = Bundle.main.object(forInfoDictionaryKey: kCFBundleNameKey as String) as! String
@@ -15,7 +15,7 @@ extension FileManager {
         return path
     }
 
-    @objc func pathForPrivateFile(_ file: String) -> String {
+    func pathForPrivateFile(_ file: String) -> String {
         (privateDataPath as NSString).appendingPathComponent(file)
     }
 }

@@ -67,7 +67,6 @@ private struct CreditsView: NSViewRepresentable {
 
 // MARK: - Window Controller
 
-@objc(TTAboutWindowController)
 class AboutWindowController: NSWindowController {
 
     private static func makeWindow() -> NSWindow {

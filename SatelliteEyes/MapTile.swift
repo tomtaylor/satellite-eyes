@@ -2,27 +2,25 @@ import Foundation
 import CoreLocation
 import CoreGraphics
 
-@objc(TTMapTile)
-class MapTile: NSObject {
-    @objc let source: String
-    @objc let x: UInt
-    @objc let y: UInt
-    @objc let z: UInt16
-    @objc var imageData: Data?
+class MapTile {
+    let source: String
+    let x: UInt
+    let y: UInt
+    let z: UInt16
+    var imageData: Data?
 
-    @objc init(source: String, x: UInt, y: UInt, z: UInt16) {
+    init(source: String, x: UInt, y: UInt, z: UInt16) {
         self.source = source
         self.x = x
         self.y = y
         self.z = z
-        super.init()
     }
 
-    @objc var topLeftCoordinate: CLLocationCoordinate2D {
+    var topLeftCoordinate: CLLocationCoordinate2D {
         MapTile.coordinate(forX: x, y: y, z: z)
     }
 
-    @objc var url: URL {
+    var url: URL {
         var urlString = source
         urlString = urlString.replacingOccurrences(of: "{x}", with: "\(x)")
         urlString = urlString.replacingOccurrences(of: "{y}", with: "\(y)")
@@ -31,7 +29,7 @@ class MapTile: NSObject {
         return URL(string: urlString)!
     }
 
-    @objc var urlRequest: URLRequest {
+    var urlRequest: URLRequest {
         var request = URLRequest(url: url, cachePolicy: .useProtocolCachePolicy, timeoutInterval: 60.0)
         let version = Bundle.main.infoDictionary?[kCFBundleVersionKey as String] as? String ?? "Unknown"
         request.addValue(
@@ -42,7 +40,7 @@ class MapTile: NSObject {
         return request
     }
 
-    @objc func newImageRef() -> CGImage? {
+    func newImageRef() -> CGImage? {
         guard let data = imageData else { return nil }
         let cfData = data as CFData
         guard let provider = CGDataProvider(data: cfData) else { return nil }
@@ -69,7 +67,6 @@ class MapTile: NSObject {
 
     // MARK: - Class methods
 
-    @objc(coordinateForX:y:z:)
     static func coordinate(forX x: UInt, y: UInt, z: UInt16) -> CLLocationCoordinate2D {
         let longitude = Double(x) / pow(2.0, Double(z)) * 360.0 - 180.0
         let n = Double.pi - 2.0 * Double.pi * Double(y) / pow(2.0, Double(z))
@@ -77,27 +74,23 @@ class MapTile: NSObject {
         return CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
     }
 
-    @objc(tileForCoordinate:source:zoomLevel:)
     static func tile(for coordinate: CLLocationCoordinate2D, source: String, zoomLevel: UInt16) -> MapTile {
         let tileY = UInt(floor(latitudeToY(coordinate.latitude, zoomLevel: zoomLevel)))
         let tileX = UInt(floor(longitudeToX(coordinate.longitude, zoomLevel: zoomLevel)))
         return MapTile(source: source, x: tileX, y: tileY, z: zoomLevel)
     }
 
-    @objc(coordinateToPoint:zoomLevel:)
     static func coordinateToPoint(_ coordinate: CLLocationCoordinate2D, zoomLevel: UInt16) -> CGPoint {
         let pointY = latitudeToY(coordinate.latitude, zoomLevel: zoomLevel)
         let pointX = longitudeToX(coordinate.longitude, zoomLevel: zoomLevel)
         return CGPoint(x: pointX, y: pointY)
     }
 
-    @objc(latitudeToY:zoomLevel:)
     static func latitudeToY(_ latitude: CLLocationDegrees, zoomLevel: UInt16) -> Double {
         (1.0 - log(tan(latitude * .pi / 180.0) + 1.0 / cos(latitude * .pi / 180.0)) / .pi)
             / 2.0 * pow(2.0, Double(zoomLevel))
     }
 
-    @objc(longitudeToX:zoomLevel:)
     static func longitudeToX(_ longitude: CLLocationDegrees, zoomLevel: UInt16) -> Double {
         (longitude + 180.0) / 360.0 * pow(2.0, Double(zoomLevel))
     }

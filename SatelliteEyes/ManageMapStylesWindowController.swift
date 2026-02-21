@@ -93,7 +93,6 @@ private extension Dictionary where Key == String, Value == Any {
 
 // MARK: - Window Controller
 
-@objc(TTManageMapStylesWindowController)
 class ManageMapStylesWindowController: NSWindowController {
 
     private static func makeWindow() -> NSWindow {

@@ -1,33 +1,26 @@
 import Foundation
 
-@objc enum DistanceOfTimeInWordsStringComponents: UInt {
-    case modifier  = 1
-    case number    = 2
-    case measure   = 4
-    case direction = 8
-    case justNow   = 16
+struct DistanceOfTimeInWordsOptions: OptionSet {
+    let rawValue: UInt
+    static let modifier  = DistanceOfTimeInWordsOptions(rawValue: 1)
+    static let number    = DistanceOfTimeInWordsOptions(rawValue: 2)
+    static let measure   = DistanceOfTimeInWordsOptions(rawValue: 4)
+    static let direction = DistanceOfTimeInWordsOptions(rawValue: 8)
+    static let justNow   = DistanceOfTimeInWordsOptions(rawValue: 16)
 }
 
-extension NSDate {
-    @objc func distanceOfTimeInWords() -> String {
-        distanceOfTimeInWords(NSDate())
+extension Date {
+    func distanceOfTimeInWords() -> String {
+        distanceOfTimeInWords(from: Date())
     }
 
-    @objc func distanceOfTimeInWords(_ date: NSDate) -> String {
-        let options: UInt =
-            DistanceOfTimeInWordsStringComponents.modifier.rawValue |
-            DistanceOfTimeInWordsStringComponents.number.rawValue |
-            DistanceOfTimeInWordsStringComponents.measure.rawValue |
-            DistanceOfTimeInWordsStringComponents.direction.rawValue
-        return distanceOfTimeInWords(date, withOptions: options)
-    }
-
-    @objc func distanceOfTimeInWordsWithOptions(_ options: UInt) -> String {
-        distanceOfTimeInWords(NSDate(), withOptions: options)
+    func distanceOfTimeInWords(from date: Date) -> String {
+        let options: DistanceOfTimeInWordsOptions = [.modifier, .number, .measure, .direction]
+        return distanceOfTimeInWords(from: date, options: options)
     }
 
     // swiftlint:disable:next cyclomatic_complexity function_body_length
-    @objc func distanceOfTimeInWords(_ date: NSDate, withOptions options: UInt) -> String {
+    func distanceOfTimeInWords(from date: Date, options: DistanceOfTimeInWordsOptions) -> String {
         let secondsJustNowLimit = 5.0
         let secondsPerMinute    = 60.0
         let secondsPerHour      = 3600.0
@@ -35,8 +28,8 @@ extension NSDate {
         let secondsPerMonth     = 2_592_000.0
         let secondsPerYear      = 31_536_000.0
 
-        if options & DistanceOfTimeInWordsStringComponents.justNow.rawValue != 0 {
-            if abs(timeIntervalSince(date as Date)) < secondsJustNowLimit {
+        if options.contains(.justNow) {
+            if abs(timeIntervalSince(date)) < secondsJustNowLimit {
                 return "Just now"
             }
         }
@@ -59,7 +52,7 @@ extension NSDate {
         let yearWord    = "year"
         let yearsWord   = "years"
 
-        var since = timeIntervalSince(date as Date)
+        var since = timeIntervalSince(date)
         let direction = since <= 0.0 ? ago : fromNow
         since = abs(since)
 
@@ -127,16 +120,16 @@ extension NSDate {
         }
 
         var result = ""
-        if options & DistanceOfTimeInWordsStringComponents.modifier.rawValue != 0 {
+        if options.contains(.modifier) {
             result += modifier
         }
-        if options & DistanceOfTimeInWordsStringComponents.number.rawValue != 0 {
+        if options.contains(.number) {
             result += "\(number)"
         }
-        if options & DistanceOfTimeInWordsStringComponents.measure.rawValue != 0 {
+        if options.contains(.measure) {
             result += " \(measure)"
         }
-        if options & DistanceOfTimeInWordsStringComponents.direction.rawValue != 0 {
+        if options.contains(.direction) {
             result += " \(direction)"
         }
         return result
