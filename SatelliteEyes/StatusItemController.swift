@@ -29,13 +29,13 @@ class StatusItemController: NSObject, NSMenuDelegate {
         menu.addItem(statusMenuItem)
 
         forceMapUpdateMenuItem = NSMenuItem(title: "Refresh the map now",
-                                           action: #selector(TTAppDelegate.forceMapUpdate(_:)),
+                                           action: #selector(AppDelegate.forceMapUpdate(_:)),
                                            keyEquivalent: "")
         forceMapUpdateMenuItem.isEnabled = false
         menu.addItem(forceMapUpdateMenuItem)
 
         openInBrowserMenuItem = NSMenuItem(title: "Open in browser",
-                                          action: #selector(TTAppDelegate.openMapInBrowser(_:)),
+                                          action: #selector(AppDelegate.openMapInBrowser(_:)),
                                           keyEquivalent: "")
         openInBrowserMenuItem.isEnabled = false
         menu.addItem(openInBrowserMenuItem)
@@ -43,16 +43,16 @@ class StatusItemController: NSObject, NSMenuDelegate {
         menu.addItem(.separator())
 
         menu.addItem(NSMenuItem(title: "About",
-                                action: #selector(TTAppDelegate.showAbout(_:)),
+                                action: #selector(AppDelegate.showAbout(_:)),
                                 keyEquivalent: ""))
         menu.addItem(NSMenuItem(title: "Open preferences...",
-                                action: #selector(TTAppDelegate.showPreferences(_:)),
+                                action: #selector(AppDelegate.showPreferences(_:)),
                                 keyEquivalent: ""))
         menu.addItem(NSMenuItem(title: "Check for updates...",
-                                action: #selector(TTAppDelegate.checkForUpdates(_:)),
+                                action: #selector(AppDelegate.checkForUpdates(_:)),
                                 keyEquivalent: ""))
         menu.addItem(NSMenuItem(title: "Exit",
-                                action: #selector(TTAppDelegate.menuActionExit(_:)),
+                                action: #selector(AppDelegate.menuActionExit(_:)),
                                 keyEquivalent: ""))
 
         statusItem = NSStatusBar.system.statusItem(withLength: 22)
@@ -190,7 +190,7 @@ class StatusItemController: NSObject, NSMenuDelegate {
     // MARK: - Open in browser
 
     private func enableOpenInBrowser() {
-        let appDelegate = NSApplication.shared.delegate as? TTAppDelegate
+        let appDelegate = NSApplication.shared.delegate as? AppDelegate
         openInBrowserMenuItem.isEnabled = appDelegate?.visibleMapBrowserURL != nil
     }
 
