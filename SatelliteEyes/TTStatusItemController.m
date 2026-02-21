@@ -9,7 +9,7 @@
 #import "TTAppDelegate.h"
 #import "TTStatusItemController.h"
 #import "TTMapManager.h"
-#import "NSDate+Formatting.h"
+#import "Satellite_Eyes-Swift.h"
 
 @implementation TTStatusItemController
 

@@ -7,8 +7,7 @@
 
 #import "TTMapImage.h"
 #import "TTMapTile.h"
-#import "MD5Digest.h"
-#import "NSFileManager+StandardPaths.h"
+#import "Satellite_Eyes-Swift.h"
 #import <QuartzCore/QuartzCore.h>
 
 #define BASE_TILE_SIZE 256

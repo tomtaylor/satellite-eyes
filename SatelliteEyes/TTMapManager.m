@@ -9,7 +9,7 @@
 #import "TTMapManager.h"
 #import "TTMapImage.h"
 #import "TTMapTile.h"
-#import "NSFileManager+StandardPaths.h"
+#import "Satellite_Eyes-Swift.h"
 
 @interface TTMapManager (Private)
 
