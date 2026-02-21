@@ -2,7 +2,7 @@
 
 This project is a MacOS app called Satellite Eyes, which sets the user's desktop wallpaper to a map or satellite view for their current location.
 
-It is a menu bar utility, targeting MacOS 13.0.
+It is a menu bar utility, targeting MacOS 13.0. This is a **macOS-only** app — do not use iOS Simulator tools to build or run it. Use `xcodebuild` directly.
 
 ## Build
 

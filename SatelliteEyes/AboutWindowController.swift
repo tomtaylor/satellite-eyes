@@ -22,7 +22,6 @@ struct AboutView: View {
                 .foregroundStyle(.secondary)
 
             CreditsView()
-                .frame(height: 120)
 
             Button("Visit Homepage") {
                 if let url = URL(string: "http://satelliteeyes.tomtaylor.co.uk/") {
@@ -31,38 +30,47 @@ struct AboutView: View {
             }
         }
         .padding()
-        .frame(width: 300)
+        .frame(width: 340)
+        .fixedSize(horizontal: false, vertical: true)
     }
 }
 
 // MARK: - Credits RTF wrapper
 
 private struct CreditsView: NSViewRepresentable {
-    func makeNSView(context: Context) -> NSScrollView {
+    func makeNSView(context: Context) -> NSTextView {
         let textView = NSTextView()
         textView.isEditable = false
+        textView.isSelectable = true
         textView.drawsBackground = false
+        textView.textContainer?.lineFragmentPadding = 0
+        textView.isVerticallyResizable = false
 
         if let url = Bundle.main.url(forResource: "Credits", withExtension: "rtf"),
            let attrString = try? NSAttributedString(url: url, options: [:], documentAttributes: nil) {
-            textView.textStorage?.setAttributedString(attrString)
-
-            // Size text view to fit content
-            if let container = textView.layoutManager?.textContainers.first {
-                textView.layoutManager?.glyphRange(for: container)
-                let rect = textView.layoutManager?.usedRect(for: container) ?? .zero
-                textView.setFrameSize(rect.size)
+            let mutable = NSMutableAttributedString(attributedString: attrString)
+            mutable.enumerateAttribute(.paragraphStyle, in: NSRange(location: 0, length: mutable.length)) { value, range, _ in
+                guard let style = value as? NSParagraphStyle else { return }
+                let updated = style.mutableCopy() as! NSMutableParagraphStyle
+                updated.headIndent = 0
+                updated.firstLineHeadIndent = 0
+                mutable.addAttribute(.paragraphStyle, value: updated, range: range)
             }
+            textView.textStorage?.setAttributedString(mutable)
         }
 
-        let scrollView = NSScrollView()
-        scrollView.documentView = textView
-        scrollView.hasVerticalScroller = true
-        scrollView.drawsBackground = false
-        return scrollView
+        return textView
     }
 
-    func updateNSView(_ nsView: NSScrollView, context: Context) {}
+    func updateNSView(_ nsView: NSTextView, context: Context) {}
+
+    func sizeThatFits(_ proposal: ProposedViewSize, nsView: NSTextView, context: Context) -> CGSize? {
+        let width = proposal.width ?? 300
+        nsView.textContainer?.containerSize = NSSize(width: width, height: .greatestFiniteMagnitude)
+        nsView.layoutManager?.ensureLayout(for: nsView.textContainer!)
+        let rect = nsView.layoutManager?.usedRect(for: nsView.textContainer!) ?? .zero
+        return CGSize(width: width, height: rect.height)
+    }
 }
 
 // MARK: - Window Controller

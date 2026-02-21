@@ -25,6 +25,12 @@ struct PreferencesView: View {
 
     var body: some View {
         Form {
+            Toggle("Run Satellite Eyes at Startup", isOn: $startAtLogin)
+                .onChange(of: startAtLogin) { newValue in
+                    LoginItemManager.setLaunchAtLogin(newValue)
+                    startAtLogin = LoginItemManager.launchAtLogin
+                }.padding(.bottom, 8)
+
             Picker("Map Style:", selection: $selectedMapTypeId) {
                 ForEach(mapTypes, id: \.mapTypeId) { mapType in
                     Text(mapType["name"] as? String ?? "Unknown")
@@ -50,18 +56,13 @@ struct PreferencesView: View {
                 }
             }
 
-            Toggle("Run Satellite Eyes at Startup", isOn: $startAtLogin)
-                .onChange(of: startAtLogin) { newValue in
-                    LoginItemManager.setLaunchAtLogin(newValue)
-                    startAtLogin = LoginItemManager.launchAtLogin
-                }
-
             Button("Manage Map Styles...") {
                 let controller = ManageMapStylesWindowController()
                 controller.showWindow(nil)
                 controller.window?.makeKeyAndOrderFront(nil)
                 manageStylesController = controller
             }
+            .padding(.top, 8)
         }
         .padding()
         .frame(width: 400)
