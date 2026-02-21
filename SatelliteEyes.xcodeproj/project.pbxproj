@@ -114,6 +114,7 @@
 		};
 /* End PBXFrameworksBuildPhase section */
 
+
 /* Begin PBXGroup section */
 			0E14D71311A0CDE79CD75225214B1D4C /* Frameworks */ = {
 			isa = PBXGroup;
@@ -376,6 +377,10 @@
 				);
 				INFOPLIST_FILE = "SatelliteEyes/SatelliteEyes-Info.plist";
 				INFOPLIST_PREPROCESS = NO;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
 				MARKETING_VERSION = 1.5.0;
 				PRODUCT_BUNDLE_IDENTIFIER = uk.co.tomtaylor.SatelliteEyes;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -444,6 +449,10 @@
 				);
 				INFOPLIST_FILE = "SatelliteEyes/SatelliteEyes-Info.plist";
 				INFOPLIST_PREPROCESS = NO;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
 				MARKETING_VERSION = 1.5.0;
 				PRODUCT_BUNDLE_IDENTIFIER = uk.co.tomtaylor.SatelliteEyes;
 				PRODUCT_NAME = "$(TARGET_NAME)";
