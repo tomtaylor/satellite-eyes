@@ -50,6 +50,7 @@
 		E261EA4919F9767D00F5341B /* status-icon-error.png in Resources */ = {isa = PBXBuildFile; fileRef = E261EA4219F9767D00F5341B /* status-icon-error.png */; };
 		E261EA4A19F9767D00F5341B /* status-icon-offline.png in Resources */ = {isa = PBXBuildFile; fileRef = E261EA4319F9767D00F5341B /* status-icon-offline.png */; };
 		E261EA4B19F9767D00F5341B /* status-icon-online.png in Resources */ = {isa = PBXBuildFile; fileRef = E261EA4419F9767D00F5341B /* status-icon-online.png */; };
+		AABB00112233SWBR02 /* SwiftBridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = AABB00112233SWBR01 /* SwiftBridge.swift */; };
 		EBEC8E775AD3AD614851DB3DD705DDCD /* TTMapManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 816A97185C78CB064CD25CD97E37C100 /* TTMapManager.m */; };
 		EDB6435098CC69208BC70C0DE4B2BC86 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FD9117BBE6B9ECE93973993CD69E03AA /* CoreLocation.framework */; };
 		EEE215AA71E67D5803115D53E13DAB0D /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 825ED7BA9FBAF7CA9EF82E2C21992A9C /* InfoPlist.strings */; };
@@ -97,6 +98,8 @@
 		891D2C95746DCB56EB0EEB4FB429F577 /* NSFileManager+StandardPaths.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSFileManager+StandardPaths.h"; path = "SatelliteEyes/NSFileManager+StandardPaths.h"; sourceTree = "<group>"; };
 		8F84D47619D5D62527666ADD3327234C /* SatelliteEyes-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SatelliteEyes-Prefix.pch"; sourceTree = "<group>"; };
 		93E2637ACC97732164693334BDE3606F /* TTAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TTAppDelegate.m; sourceTree = "<group>"; };
+		AABB00112233SWBR01 /* SwiftBridge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftBridge.swift; sourceTree = "<group>"; };
+		AABB00112233BRHD01 /* SatelliteEyes-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SatelliteEyes-Bridging-Header.h"; sourceTree = "<group>"; };
 		AABB001122334455NETWORK02 /* Network.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Network.framework; path = System/Library/Frameworks/Network.framework; sourceTree = SDKROOT; };
 		ABD8B6FECAD494FFE25906401A06C11D /* TTPreferencesWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTPreferencesWindowController.h; sourceTree = "<group>"; };
 		ABFCA6D5ED74F5F133B5E59675D404AD /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
@@ -223,6 +226,7 @@
 				2A959991FBB569201437B74805D167D7 /* TTPreferencesViewController.m */,
 				ABD8B6FECAD494FFE25906401A06C11D /* TTPreferencesWindowController.h */,
 				6721B29FCA2C63FD7FED50B252BBD729 /* TTPreferencesWindowController.m */,
+				AABB00112233SWBR01 /* SwiftBridge.swift */,
 				5C95CBF3BB9E688ECDD0D3B4ADC2025A /* TTStatusItemController.h */,
 				3919B1BC1AC8DDE342A62D30FC3FAE05 /* TTStatusItemController.m */,
 			);
@@ -254,6 +258,7 @@
 				459ED31A223FC63BAB241C074B5E7CFA /* Defaults.plist */,
 				825ED7BA9FBAF7CA9EF82E2C21992A9C /* InfoPlist.strings */,
 				69153A4155AB94E51D4182A3C35312F6 /* SatelliteEyes-Info.plist */,
+				AABB00112233BRHD01 /* SatelliteEyes-Bridging-Header.h */,
 				8F84D47619D5D62527666ADD3327234C /* SatelliteEyes-Prefix.pch */,
 				857D35A23641C9C72A1B47CA8793D93B /* SatelliteEyes.entitlements */,
 				8465CBE1C2C3E8BFE5B0BE3037EF5D3D /* main.m */,
@@ -421,6 +426,7 @@
 				DF563156051108AA7E68D6E8114EB6FB /* TTPreferencesViewController.m in Sources */,
 				5F71313F15681DC3BEDFFBCC05383F82 /* TTPreferencesWindowController.m in Sources */,
 				B23D0C1B0C594FCA940D5264A9D11DCB /* TTStatusItemController.m in Sources */,
+				AABB00112233SWBR02 /* SwiftBridge.swift in Sources */,
 				B532B8D446B04DCFFC38637A3CC9D206 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -470,6 +476,8 @@
 				PRODUCT_BUNDLE_IDENTIFIER = uk.co.tomtaylor.SatelliteEyes;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "SatelliteEyes/SatelliteEyes-Bridging-Header.h";
+				SWIFT_VERSION = 5.0;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -539,6 +547,8 @@
 				PRODUCT_BUNDLE_IDENTIFIER = uk.co.tomtaylor.SatelliteEyes;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "SatelliteEyes/SatelliteEyes-Bridging-Header.h";
+				SWIFT_VERSION = 5.0;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
