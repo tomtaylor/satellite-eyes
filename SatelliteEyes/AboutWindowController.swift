@@ -49,7 +49,9 @@ private struct CreditsView: NSViewRepresentable {
         if let url = Bundle.main.url(forResource: "Credits", withExtension: "rtf"),
            let attrString = try? NSAttributedString(url: url, options: [:], documentAttributes: nil) {
             let mutable = NSMutableAttributedString(attributedString: attrString)
-            mutable.enumerateAttribute(.paragraphStyle, in: NSRange(location: 0, length: mutable.length)) { value, range, _ in
+            let fullRange = NSRange(location: 0, length: mutable.length)
+            mutable.addAttribute(.foregroundColor, value: NSColor.labelColor, range: fullRange)
+            mutable.enumerateAttribute(.paragraphStyle, in: fullRange) { value, range, _ in
                 guard let style = value as? NSParagraphStyle else { return }
                 let updated = style.mutableCopy() as! NSMutableParagraphStyle
                 updated.headIndent = 0
