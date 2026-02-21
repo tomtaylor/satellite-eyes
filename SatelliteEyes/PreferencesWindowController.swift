@@ -18,6 +18,11 @@ struct PreferencesView: View {
         UserDefaults.standard.array(forKey: "imageEffectTypes") as? [[String: Any]] ?? []
     }
 
+    private var maxZoomForSelectedMap: Int {
+        let mapType = mapTypes.first { ($0["id"] as? String) == selectedMapTypeId }
+        return (mapType?["maxZoom"] as? Int) ?? 20
+    }
+
     var body: some View {
         Form {
             Picker("Map Style:", selection: $selectedMapTypeId) {
@@ -26,9 +31,14 @@ struct PreferencesView: View {
                         .tag(mapType["id"] as? String ?? "")
                 }
             }
+            .onChange(of: selectedMapTypeId) { _ in
+                if zoomLevel > maxZoomForSelectedMap {
+                    zoomLevel = maxZoomForSelectedMap
+                }
+            }
 
             Picker("Zoom Level:", selection: $zoomLevel) {
-                ForEach(10...20, id: \.self) { level in
+                ForEach(10...maxZoomForSelectedMap, id: \.self) { level in
                     Text("\(level)").tag(level)
                 }
             }
