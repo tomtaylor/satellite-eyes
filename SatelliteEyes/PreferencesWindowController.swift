@@ -9,10 +9,7 @@ struct PreferencesView: View {
     @AppStorage("selectedImageEffectId") private var selectedImageEffectId = "none"
     @State private var startAtLogin = LoginItemManager.launchAtLogin
     @State private var manageStylesController: ManageMapStylesWindowController?
-
-    private var mapTypes: [[String: Any]] {
-        UserDefaults.standard.array(forKey: "mapTypes") as? [[String: Any]] ?? []
-    }
+    @State private var mapTypes: [[String: Any]] = []
 
     private var imageEffects: [[String: Any]] {
         UserDefaults.standard.array(forKey: "imageEffectTypes") as? [[String: Any]] ?? []
@@ -67,6 +64,14 @@ struct PreferencesView: View {
         .padding()
         .frame(width: 400)
         .fixedSize(horizontal: false, vertical: true)
+        .onAppear { loadMapTypes() }
+        .onReceive(NotificationCenter.default.publisher(for: .mapStylesDidChange)) { _ in
+            loadMapTypes()
+        }
+    }
+
+    private func loadMapTypes() {
+        mapTypes = UserDefaults.standard.array(forKey: "mapTypes") as? [[String: Any]] ?? []
     }
 }
 
