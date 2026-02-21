@@ -260,9 +260,11 @@ class MapManager: NSObject, CLLocationManagerDelegate {
     }
 
     private var selectedMapType: NSDictionary {
-        let mapTypes = UserDefaults.standard.array(forKey: "mapTypes") as? [NSDictionary] ?? []
+        let builtIn = MapStyle.builtInMapTypes() as [NSDictionary]
+        let custom = (UserDefaults.standard.array(forKey: "customMapTypes") as? [NSDictionary]) ?? []
+        let allMapTypes = builtIn + custom
         let selectedId = UserDefaults.standard.string(forKey: "selectedMapTypeId")
-        return mapTypes.first { ($0["id"] as? String) == selectedId } ?? mapTypes.first ?? [:]
+        return allMapTypes.first { ($0["id"] as? String) == selectedId } ?? builtIn.first ?? [:]
     }
 
     private var selectedImageEffect: NSDictionary {

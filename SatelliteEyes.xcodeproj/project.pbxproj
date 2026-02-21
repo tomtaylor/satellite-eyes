@@ -30,6 +30,7 @@
 		AABB00112233SIC002 /* StatusItemController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AABB00112233SIC001 /* StatusItemController.swift */; };
 		CF56B60A90B705666B1E519C99D1F284 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = D91E37E8DFDA52C112A1E550DBF2E48F /* Credits.rtf */; };
 		D7569B7412ADF6DEEB9CAC8C1908D4A0 /* Defaults.plist in Resources */ = {isa = PBXBuildFile; fileRef = 459ED31A223FC63BAB241C074B5E7CFA /* Defaults.plist */; };
+		AABB00112233BMS001 /* BuiltInMapStyles.plist in Resources */ = {isa = PBXBuildFile; fileRef = AABB00112233BMS002 /* BuiltInMapStyles.plist */; };
 		E261EA3719F9735B00F5341B /* status-icon-activity-0@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E261EA3019F9735B00F5341B /* status-icon-activity-0@2x.png */; };
 		E261EA3819F9735B00F5341B /* status-icon-activity-1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E261EA3119F9735B00F5341B /* status-icon-activity-1@2x.png */; };
 		E261EA3919F9735B00F5341B /* status-icon-activity-2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E261EA3219F9735B00F5341B /* status-icon-activity-2@2x.png */; };
@@ -53,6 +54,7 @@
 		23F0F5ADE6F952464C80215F219E819C /* bing-logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bing-logo.png"; sourceTree = "<group>"; };
 		2B228E2AF542BCCC889815E95205213F /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		459ED31A223FC63BAB241C074B5E7CFA /* Defaults.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Defaults.plist; sourceTree = "<group>"; };
+		AABB00112233BMS002 /* BuiltInMapStyles.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = BuiltInMapStyles.plist; sourceTree = "<group>"; };
 		587E133F99CB13C340AD7810C27A1BFE /* icon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = icon.icns; sourceTree = "<group>"; };
 		69153A4155AB94E51D4182A3C35312F6 /* SatelliteEyes-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "SatelliteEyes-Info.plist"; sourceTree = "<group>"; };
 		6A40ABB41F26D8EA6E44086547D8FEFE /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
@@ -179,6 +181,7 @@
 			isa = PBXGroup;
 			children = (
 				D91E37E8DFDA52C112A1E550DBF2E48F /* Credits.rtf */,
+				AABB00112233BMS002 /* BuiltInMapStyles.plist */,
 				459ED31A223FC63BAB241C074B5E7CFA /* Defaults.plist */,
 				825ED7BA9FBAF7CA9EF82E2C21992A9C /* InfoPlist.strings */,
 				69153A4155AB94E51D4182A3C35312F6 /* SatelliteEyes-Info.plist */,
@@ -285,6 +288,7 @@
 				CF56B60A90B705666B1E519C99D1F284 /* Credits.rtf in Resources */,
 				E261EA3919F9735B00F5341B /* status-icon-activity-2@2x.png in Resources */,
 				D7569B7412ADF6DEEB9CAC8C1908D4A0 /* Defaults.plist in Resources */,
+				AABB00112233BMS001 /* BuiltInMapStyles.plist in Resources */,
 				EEE215AA71E67D5803115D53E13DAB0D /* InfoPlist.strings in Resources */,
 				E261EA3A19F9735B00F5341B /* status-icon-activity-3@2x.png in Resources */,
 				7BFB2574C28396D4F941CB71FAF526FB /* bing-logo.png in Resources */,

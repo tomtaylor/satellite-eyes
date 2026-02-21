@@ -43,6 +43,13 @@ struct MapStyle: Identifiable, Equatable {
     static func == (lhs: MapStyle, rhs: MapStyle) -> Bool {
         lhs.id == rhs.id && lhs.name == rhs.name && lhs.source == rhs.source && lhs.maxZoom == rhs.maxZoom
     }
+
+    /// Load built-in map types from the bundle's BuiltInMapStyles.plist.
+    static func builtInMapTypes() -> [[String: Any]] {
+        guard let path = Bundle.main.path(forResource: "BuiltInMapStyles", ofType: "plist"),
+              let mapTypes = NSArray(contentsOfFile: path) as? [[String: Any]] else { return [] }
+        return mapTypes
+    }
 }
 
 // MARK: - Notifications
@@ -72,7 +79,10 @@ struct ManageMapStylesView: View {
                     if let index = selectedIndex {
                         Form {
                             TextField("Name:", text: $mapStyles[index].name)
-                            TextField("Source URL:", text: $mapStyles[index].source)
+                            LabeledContent("Source URL:") {
+                                TextField("", text: $mapStyles[index].source, axis: .vertical)
+                                    .lineLimit(1...5)
+                            }
                             Picker("Max Zoom:", selection: $mapStyles[index].maxZoom) {
                                 ForEach(10...22, id: \.self) { zoom in
                                     Text("\(zoom)").tag(zoom)
@@ -82,7 +92,7 @@ struct ManageMapStylesView: View {
                         .padding()
                     } else {
                         Spacer()
-                        Text("Select a map style to edit")
+                        Text(mapStyles.isEmpty ? "No custom map styles" : "Select a map style to edit")
                             .foregroundStyle(.secondary)
                     }
                     Spacer()
@@ -105,10 +115,6 @@ struct ManageMapStylesView: View {
                 .disabled(selection == nil)
 
                 Spacer()
-
-                Button("Reset to Defaults") {
-                    resetToDefaults()
-                }
             }
             .padding(8)
         }
@@ -124,12 +130,12 @@ struct ManageMapStylesView: View {
     }
 
     private func loadMapStyles() {
-        guard let array = UserDefaults.standard.array(forKey: "mapTypes") as? [[String: Any]] else { return }
+        guard let array = UserDefaults.standard.array(forKey: "customMapTypes") as? [[String: Any]] else { return }
         mapStyles = array.map { MapStyle(dictionary: $0) }
     }
 
     private func save() {
-        UserDefaults.standard.set(mapStyles.map(\.dictionary), forKey: "mapTypes")
+        UserDefaults.standard.set(mapStyles.map(\.dictionary), forKey: "customMapTypes")
         NotificationCenter.default.post(name: .mapStylesDidChange, object: nil)
     }
 
@@ -144,14 +150,6 @@ struct ManageMapStylesView: View {
         mapStyles.removeAll { $0.id == sel }
         selection = nil
     }
-
-    private func resetToDefaults() {
-        guard let path = Bundle.main.path(forResource: "Defaults", ofType: "plist"),
-              let defaults = NSDictionary(contentsOfFile: path),
-              let defaultMapTypes = defaults["mapTypes"] as? [[String: Any]] else { return }
-        mapStyles = defaultMapTypes.map { MapStyle(dictionary: $0) }
-        selection = nil
-    }
 }
 
 // MARK: - Window Controller
@@ -161,7 +159,7 @@ class ManageMapStylesWindowController: NSWindowController {
     private static func makeWindow() -> NSWindow {
         let hostingController = NSHostingController(rootView: ManageMapStylesView())
         let window = NSWindow(contentViewController: hostingController)
-        window.title = "Manage Map Styles"
+        window.title = "Manage Custom Map Styles"
         window.styleMask = [.titled, .closable, .resizable]
         return window
     }

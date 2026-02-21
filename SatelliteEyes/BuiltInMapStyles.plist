@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<array>
+	<dict>
+		<key>id</key>
+		<string>stamen-watercolor</string>
+		<key>source</key>
+		<string>https://watercolormaps.collection.cooperhewitt.org/tile/watercolor/{z}/{x}/{y}.jpg</string>
+		<key>name</key>
+		<string>Stamen Watercolor</string>
+		<key>maxZoom</key>
+		<integer>17</integer>
+		<key>browserURL</key>
+		<string>https://watercolormaps.collection.cooperhewitt.org/#{zoom}/{latitude}/{longitude}</string>
+	</dict>
+	<dict>
+		<key>id</key>
+		<string>bing-aerial</string>
+		<key>logoImage</key>
+		<string>bing-logo.png</string>
+		<key>source</key>
+		<string>https://ecn.t3.tiles.virtualearth.net/tiles/a{q}.jpeg?g=915</string>
+		<key>name</key>
+		<string>Bing Aerial</string>
+		<key>maxZoom</key>
+		<integer>17</integer>
+		<key>browserURL</key>
+		<string>http://bing.com/maps/default.aspx?v=2&amp;cp={latitude}~{longitude}&amp;lvl={zoom}&amp;style=a</string>
+	</dict>
+	<dict>
+		<key>id</key>
+		<string>mapbox-light</string>
+		<key>source</key>
+		<string>https://api.mapbox.com/styles/v1/tomtaylor/ckhp93jhk022m1alnyx7qwwz2/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoidG9tdGF5bG9yIiwiYSI6ImNraHA5bW9yYzE4cjczMm14NXM0MnBjdXIifQ.dPekC0w0xgDnqvaVDcbUYA</string>
+		<key>source2x</key>
+		<string>https://api.mapbox.com/styles/v1/tomtaylor/ckhp93jhk022m1alnyx7qwwz2/tiles/256/{z}/{x}/{y}@2x?access_token=pk.eyJ1IjoidG9tdGF5bG9yIiwiYSI6ImNraHA5bW9yYzE4cjczMm14NXM0MnBjdXIifQ.dPekC0w0xgDnqvaVDcbUYA</string>
+		<key>name</key>
+		<string>Mapbox Light</string>
+		<key>maxZoom</key>
+		<integer>17</integer>
+		<key>browserURL</key>
+		<string>https://api.mapbox.com/styles/v1/tomtaylor/ckhp93jhk022m1alnyx7qwwz2.html?fresh=true&amp;title=view&amp;access_token=pk.eyJ1IjoidG9tdGF5bG9yIiwiYSI6InJvYVktQ28ifQ.ra6A1XqlDa0B6yreKI2VYg#{zoom}/{latitude}/{longitude}</string>
+	</dict>
+	<dict>
+		<key>id</key>
+		<string>mapbox-terrain</string>
+		<key>source</key>
+		<string>https://api.mapbox.com/styles/v1/tomtaylor/ckhp954ud024819p1bf3k3vv6/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoidG9tdGF5bG9yIiwiYSI6ImNraHA5bW9yYzE4cjczMm14NXM0MnBjdXIifQ.dPekC0w0xgDnqvaVDcbUYA</string>
+		<key>source2x</key>
+		<string>https://api.mapbox.com/styles/v1/tomtaylor/ckhp954ud024819p1bf3k3vv6/tiles/256/{z}/{x}/{y}@2x?access_token=pk.eyJ1IjoidG9tdGF5bG9yIiwiYSI6ImNraHA5bW9yYzE4cjczMm14NXM0MnBjdXIifQ.dPekC0w0xgDnqvaVDcbUYA</string>
+		<key>name</key>
+		<string>Mapbox Terrain</string>
+		<key>maxZoom</key>
+		<integer>17</integer>
+		<key>browserURL</key>
+		<string>https://api.mapbox.com/styles/v1/tomtaylor/ckhp954ud024819p1bf3k3vv6.html?fresh=true&amp;title=view&amp;access_token=pk.eyJ1IjoidG9tdGF5bG9yIiwiYSI6InJvYVktQ28ifQ.ra6A1XqlDa0B6yreKI2VYg#{zoom}/{latitude}/{longitude}</string>
+	</dict>
+	<dict>
+		<key>id</key>
+		<string>mapbox-streets</string>
+		<key>source</key>
+		<string>https://api.mapbox.com/styles/v1/tomtaylor/ckhp99qwz027719qifpmdar3h/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoidG9tdGF5bG9yIiwiYSI6ImNraHA5bW9yYzE4cjczMm14NXM0MnBjdXIifQ.dPekC0w0xgDnqvaVDcbUYA</string>
+		<key>source2x</key>
+		<string>https://api.mapbox.com/styles/v1/tomtaylor/ckhp99qwz027719qifpmdar3h/tiles/256/{z}/{x}/{y}@2x?access_token=pk.eyJ1IjoidG9tdGF5bG9yIiwiYSI6ImNraHA5bW9yYzE4cjczMm14NXM0MnBjdXIifQ.dPekC0w0xgDnqvaVDcbUYA</string>
+		<key>name</key>
+		<string>Mapbox Streets</string>
+		<key>maxZoom</key>
+		<integer>17</integer>
+		<key>browserURL</key>
+		<string>https://api.mapbox.com/styles/v1/tomtaylor/ckhp99qwz027719qifpmdar3h.html?fresh=true&amp;title=view&amp;access_token=pk.eyJ1IjoidG9tdGF5bG9yIiwiYSI6InJvYVktQ28ifQ.ra6A1XqlDa0B6yreKI2VYg#{zoom}/{latitude}/{longitude}</string>
+	</dict>
+	<dict>
+		<key>id</key>
+		<string>mapbox-run-bike-hike</string>
+		<key>source</key>
+		<string>https://api.mapbox.com/styles/v1/tomtaylor/ckhp9ao2r02bs19n39ayq4agd/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoidG9tdGF5bG9yIiwiYSI6ImNraHA5bW9yYzE4cjczMm14NXM0MnBjdXIifQ.dPekC0w0xgDnqvaVDcbUYA</string>
+		<key>source2x</key>
+		<string>https://api.mapbox.com/styles/v1/tomtaylor/ckhp9ao2r02bs19n39ayq4agd/tiles/256/{z}/{x}/{y}@2x?access_token=pk.eyJ1IjoidG9tdGF5bG9yIiwiYSI6ImNraHA5bW9yYzE4cjczMm14NXM0MnBjdXIifQ.dPekC0w0xgDnqvaVDcbUYA</string>
+		<key>name</key>
+		<string>Mapbox Run, Bike, Hike</string>
+		<key>maxZoom</key>
+		<integer>22</integer>
+		<key>browserURL</key>
+		<string>https://api.mapbox.com/styles/v1/tomtaylor/ckhp9ao2r02bs19n39ayq4agd.html?fresh=true&amp;title=view&amp;access_token=pk.eyJ1IjoidG9tdGF5bG9yIiwiYSI6InJvYVktQ28ifQ.ra6A1XqlDa0B6yreKI2VYg#{zoom}/{latitude}/{longitude}</string>
+	</dict>
+	<dict>
+		<key>id</key>
+		<string>mapbox-run-bike-hike-no-labels</string>
+		<key>source</key>
+		<string>https://api.mapbox.com/styles/v1/tomtaylor/ckhp9b81w02af19lbbrb3xsvz/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoidG9tdGF5bG9yIiwiYSI6ImNraHA5bW9yYzE4cjczMm14NXM0MnBjdXIifQ.dPekC0w0xgDnqvaVDcbUYA</string>
+		<key>source2x</key>
+		<string>https://api.mapbox.com/styles/v1/tomtaylor/ckhp9b81w02af19lbbrb3xsvz/tiles/256/{z}/{x}/{y}@2x?access_token=pk.eyJ1IjoidG9tdGF5bG9yIiwiYSI6ImNraHA5bW9yYzE4cjczMm14NXM0MnBjdXIifQ.dPekC0w0xgDnqvaVDcbUYA</string>
+		<key>name</key>
+		<string>Mapbox Run, Bike, Hike (without labels)</string>
+		<key>maxZoom</key>
+		<integer>22</integer>
+		<key>browserURL</key>
+		<string>https://api.mapbox.com/styles/v1/tomtaylor/ckhp9b81w02af19lbbrb3xsvz.html?fresh=true&amp;title=view&amp;access_token=pk.eyJ1IjoidG9tdGF5bG9yIiwiYSI6InJvYVktQ28ifQ.ra6A1XqlDa0B6yreKI2VYg#{zoom}/{latitude}/{longitude}</string>
+	</dict>
+	<dict>
+		<key>id</key>
+		<string>mapbox-satellite</string>
+		<key>source</key>
+		<string>https://api.mapbox.com/styles/v1/tomtaylor/ckhp9j9tg02hw19lbs427dq5l/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoidG9tdGF5bG9yIiwiYSI6ImNraHA5bW9yYzE4cjczMm14NXM0MnBjdXIifQ.dPekC0w0xgDnqvaVDcbUYA</string>
+		<key>source2x</key>
+		<string>https://api.mapbox.com/styles/v1/tomtaylor/ckhp9j9tg02hw19lbs427dq5l/tiles/256/{z}/{x}/{y}@2x?access_token=pk.eyJ1IjoidG9tdGF5bG9yIiwiYSI6ImNraHA5bW9yYzE4cjczMm14NXM0MnBjdXIifQ.dPekC0w0xgDnqvaVDcbUYA</string>
+		<key>name</key>
+		<string>Mapbox Satellite</string>
+		<key>maxZoom</key>
+		<integer>17</integer>
+		<key>browserURL</key>
+		<string>https://api.mapbox.com/styles/v1/tomtaylor/ckhp9j9tg02hw19lbs427dq5l.html?fresh=true&amp;title=view&amp;access_token=pk.eyJ1IjoidG9tdGF5bG9yIiwiYSI6InJvYVktQ28ifQ.ra6A1XqlDa0B6yreKI2VYg#{zoom}/{latitude}/{longitude}</string>
+	</dict>
+	<dict>
+		<key>id</key>
+		<string>thunderforest-opencyclemap</string>
+		<key>source</key>
+		<string>https://a.tile.thunderforest.com/cycle/{z}/{x}/{y}.png?apikey=02b345fa22f74b4a839a38d0a74939da</string>
+		<key>name</key>
+		<string>Thunderforest OpenCycleMap</string>
+		<key>browserURL</key>
+		<string>http://www.opencyclemap.org/?zoom={zoom}&amp;lat={latitude}&amp;lon={longitude}&amp;layers=B000</string>
+	</dict>
+	<dict>
+		<key>id</key>
+		<string>thunderforest-transport</string>
+		<key>source</key>
+		<string>https://a.tile.thunderforest.com/transport/{z}/{x}/{y}.png?apikey=02b345fa22f74b4a839a38d0a74939da</string>
+		<key>name</key>
+		<string>Thunderforest Transport</string>
+		<key>browserURL</key>
+		<string>http://www.openstreetmap.org/?zoom={zoom}&amp;lat={latitude}&amp;lon={longitude}&amp;layers=T</string>
+	</dict>
+	<dict>
+		<key>id</key>
+		<string>thunderforest-landscape</string>
+		<key>source</key>
+		<string>https://a.tile.thunderforest.com/landscape/{z}/{x}/{y}.png?apikey=02b345fa22f74b4a839a38d0a74939da</string>
+		<key>name</key>
+		<string>Thunderforest Landscape</string>
+	</dict>
+	<dict>
+		<key>id</key>
+		<string>thunderforest-outdoors</string>
+		<key>source</key>
+		<string>https://a.tile.thunderforest.com/outdoors/{z}/{x}/{y}.png?apikey=02b345fa22f74b4a839a38d0a74939da</string>
+		<key>name</key>
+		<string>Thunderforest Outdoors</string>
+	</dict>
+	<dict>
+		<key>id</key>
+		<string>amigocloud-streets</string>
+		<key>source</key>
+		<string>https://www.amigocloud.com/api/v1/base_layers/2/tiles/{z}/{x}/{y}.png</string>
+		<key>name</key>
+		<string>AmigoCloud Streets</string>
+	</dict>
+</array>
+</plist>

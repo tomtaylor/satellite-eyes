@@ -9,14 +9,19 @@ struct PreferencesView: View {
     @AppStorage("selectedImageEffectId") private var selectedImageEffectId = "none"
     @State private var startAtLogin = LoginItemManager.launchAtLogin
     @State private var manageStylesController: ManageMapStylesWindowController?
-    @State private var mapTypes: [[String: Any]] = []
+    @State private var builtInMapTypes: [[String: Any]] = []
+    @State private var customMapTypes: [[String: Any]] = []
+
+    private var allMapTypes: [[String: Any]] {
+        builtInMapTypes + customMapTypes
+    }
 
     private var imageEffects: [[String: Any]] {
         UserDefaults.standard.array(forKey: "imageEffectTypes") as? [[String: Any]] ?? []
     }
 
     private var maxZoomForSelectedMap: Int {
-        let mapType = mapTypes.first { ($0["id"] as? String) == selectedMapTypeId }
+        let mapType = allMapTypes.first { ($0["id"] as? String) == selectedMapTypeId }
         return (mapType?["maxZoom"] as? Int) ?? 20
     }
 
@@ -29,9 +34,19 @@ struct PreferencesView: View {
                 }.padding(.bottom, 8)
 
             Picker("Map Style:", selection: $selectedMapTypeId) {
-                ForEach(mapTypes, id: \.mapTypeId) { mapType in
-                    Text(mapType["name"] as? String ?? "Unknown")
-                        .tag(mapType["id"] as? String ?? "")
+                Section("Built-in") {
+                    ForEach(builtInMapTypes, id: \.mapTypeId) { mapType in
+                        Text(mapType["name"] as? String ?? "Unknown")
+                            .tag(mapType["id"] as? String ?? "")
+                    }
+                }
+                if !customMapTypes.isEmpty {
+                    Section("Custom") {
+                        ForEach(customMapTypes, id: \.mapTypeId) { mapType in
+                            Text(mapType["name"] as? String ?? "Unknown")
+                                .tag(mapType["id"] as? String ?? "")
+                        }
+                    }
                 }
             }
             .onChange(of: selectedMapTypeId) { _ in
@@ -53,11 +68,15 @@ struct PreferencesView: View {
                 }
             }
 
-            Button("Manage Map Styles...") {
-                let controller = ManageMapStylesWindowController()
-                controller.showWindow(nil)
-                controller.window?.makeKeyAndOrderFront(nil)
-                manageStylesController = controller
+            Button("Manage Custom Map Styles...") {
+                if let existing = manageStylesController, existing.window?.isVisible == true {
+                    existing.window?.makeKeyAndOrderFront(nil)
+                } else {
+                    let controller = ManageMapStylesWindowController()
+                    controller.showWindow(nil)
+                    controller.window?.makeKeyAndOrderFront(nil)
+                    manageStylesController = controller
+                }
             }
             .padding(.top, 8)
         }
@@ -71,7 +90,8 @@ struct PreferencesView: View {
     }
 
     private func loadMapTypes() {
-        mapTypes = UserDefaults.standard.array(forKey: "mapTypes") as? [[String: Any]] ?? []
+        builtInMapTypes = MapStyle.builtInMapTypes()
+        customMapTypes = UserDefaults.standard.array(forKey: "customMapTypes") as? [[String: Any]] ?? []
     }
 }
 

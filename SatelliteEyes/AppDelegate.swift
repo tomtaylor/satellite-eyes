@@ -112,6 +112,28 @@ class AppDelegate: NSObject, NSApplicationDelegate {
               let defaults = NSDictionary(contentsOfFile: path) as? [String: Any] else { return }
         UserDefaults.standard.register(defaults: defaults)
         NSUserDefaultsController.shared.initialValues = defaults
+
+        migrateCustomMapTypes()
+    }
+
+    /// Migrate any user-added map types from the old `mapTypes` key to `customMapTypes`.
+    private func migrateCustomMapTypes() {
+        // Only migrate if customMapTypes hasn't been created yet and mapTypes was explicitly set
+        guard UserDefaults.standard.array(forKey: "customMapTypes") == nil,
+              let savedMapTypes = UserDefaults.standard.array(forKey: "mapTypes") as? [[String: Any]] else { return }
+
+        let builtInIds = Set(MapStyle.builtInMapTypes().compactMap { $0["id"] as? String })
+        let customEntries = savedMapTypes.filter { entry in
+            guard let id = entry["id"] as? String else { return true }
+            return !builtInIds.contains(id)
+        }
+
+        if !customEntries.isEmpty {
+            UserDefaults.standard.set(customEntries, forKey: "customMapTypes")
+        }
+
+        // Remove the explicit mapTypes key so registration defaults take over
+        UserDefaults.standard.removeObject(forKey: "mapTypes")
     }
 
     private func doFirstRun() {
