@@ -7,8 +7,6 @@
 //
 
 #import "TTAppDelegate.h"
-#import "TTPreferencesWindowController.h"
-#import "TTAboutWindowController.h"
 #import "LLManager.h"
 #import "Satellite_Eyes-Swift.h"
 #import <Sparkle/Sparkle.h>
@@ -22,6 +20,7 @@
     updaterController = [[SPUStandardUpdaterController alloc] initWithStartingUpdater:YES updaterDelegate:nil userDriverDelegate:nil];
 
     preferencesWindowController = [[TTPreferencesWindowController alloc] init];
+    aboutWindowController = [[TTAboutWindowController alloc] init];
 
     [self setUserDefaults];
     
