@@ -6,11 +6,8 @@
     #import <Cocoa/Cocoa.h>
     #import <SystemConfiguration/SystemConfiguration.h>
     #import <CoreServices/CoreServices.h>
-    #import <CocoaLumberjack/CocoaLumberjack.h>
+    #import <os/log.h>
 
-    #if DEBUG
-        static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
-    #else
-        static const DDLogLevel ddLogLevel = DDLogLevelInfo;
-    #endif
+    #define DDLogInfo(frmt, ...) os_log_info(OS_LOG_DEFAULT, "%{public}s", [[NSString stringWithFormat:frmt, ##__VA_ARGS__] UTF8String])
+    #define DDLogError(frmt, ...) os_log_error(OS_LOG_DEFAULT, "%{public}s", [[NSString stringWithFormat:frmt, ##__VA_ARGS__] UTF8String])
 #endif

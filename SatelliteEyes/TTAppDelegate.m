@@ -12,8 +12,6 @@
 #import "TTPreferencesWindowController.h"
 #import "TTAboutWindowController.h"
 #import "LLManager.h"
-#import "DDASLLogger.h"
-#import "DDTTYLogger.h"
 
 @implementation TTAppDelegate
 
@@ -21,9 +19,6 @@
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
-    [DDLog addLogger:[DDASLLogger sharedInstance]];
-    [DDLog addLogger:[DDTTYLogger sharedInstance]];
-    
     preferencesWindowController = [[TTPreferencesWindowController alloc] init];
     
     [self setUserDefaults];
