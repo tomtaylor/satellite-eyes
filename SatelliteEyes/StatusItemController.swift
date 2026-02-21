@@ -5,6 +5,8 @@ class StatusItemController: NSObject, NSMenuDelegate {
     // MARK: - Private state
 
     private let statusItem: NSStatusItem
+    private let upgradeMenuItem: NSMenuItem
+    private let upgradeSeparator: NSMenuItem
     private let statusMenuItem: NSMenuItem
     private let forceMapUpdateMenuItem: NSMenuItem
     private let openInBrowserMenuItem: NSMenuItem
@@ -13,6 +15,7 @@ class StatusItemController: NSObject, NSMenuDelegate {
     private var isActive = false
     private var didError = false
     private var mapLastUpdated: Date?
+    private var availableUpdateVersion: String?
 
     private var animationFrameIndex: UInt = 0
     private var animationTimer: Timer?
@@ -22,6 +25,14 @@ class StatusItemController: NSObject, NSMenuDelegate {
     override init() {
         let menu = NSMenu(title: "Menu")
         menu.autoenablesItems = false
+
+        upgradeMenuItem = NSMenuItem(title: "", action: #selector(AppDelegate.checkForUpdates(_:)), keyEquivalent: "")
+        upgradeMenuItem.isHidden = true
+        menu.addItem(upgradeMenuItem)
+
+        upgradeSeparator = NSMenuItem.separator()
+        upgradeSeparator.isHidden = true
+        menu.addItem(upgradeSeparator)
 
         statusMenuItem = NSMenuItem(title: "", action: nil, keyEquivalent: "")
         statusMenuItem.isEnabled = false
@@ -128,6 +139,21 @@ class StatusItemController: NSObject, NSMenuDelegate {
         }
     }
 
+    // MARK: - Update availability
+
+    func setAvailableUpdate(version: String?) {
+        availableUpdateVersion = version
+        if let version {
+            upgradeMenuItem.title = "Upgrade to \(version)"
+            upgradeMenuItem.isHidden = false
+            upgradeSeparator.isHidden = false
+        } else {
+            upgradeMenuItem.isHidden = true
+            upgradeSeparator.isHidden = true
+        }
+        updateStatus()
+    }
+
     // MARK: - Display states
 
     private func showOffline() {
@@ -138,7 +164,8 @@ class StatusItemController: NSObject, NSMenuDelegate {
     }
 
     private func showNormal() {
-        let image = NSImage(named: "status-icon-online")
+        let iconName = availableUpdateVersion != nil ? "status-icon-error" : "status-icon-online"
+        let image = NSImage(named: iconName)
         image?.isTemplate = true
         statusItem.button?.image = image
 

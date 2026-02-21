@@ -57,7 +57,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
     func applicationDidFinishLaunching(_ notification: Notification) {
         updaterController = SPUStandardUpdaterController(
-            startingUpdater: true, updaterDelegate: nil, userDriverDelegate: nil)
+            startingUpdater: true, updaterDelegate: nil, userDriverDelegate: self)
 
         preferencesWindowController = PreferencesWindowController()
         aboutWindowController = AboutWindowController()
@@ -207,5 +207,34 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             """
         alert.runModal()
         NSApp.terminate(nil)
+    }
+}
+
+// MARK: - SPUStandardUserDriverDelegate
+
+extension AppDelegate: SPUStandardUserDriverDelegate {
+
+    var supportsGentleScheduledUpdateReminders: Bool { true }
+
+    func standardUserDriverWillHandleShowingUpdate(
+        _ handleShowingUpdate: Bool,
+        forUpdate update: SUAppcastItem,
+        state: SPUUserUpdateState
+    ) {
+        if !handleShowingUpdate {
+            DispatchQueue.main.async { [weak self] in
+                self?.statusItemController.setAvailableUpdate(version: update.displayVersionString)
+            }
+        }
+    }
+
+    func standardUserDriverDidReceiveUserAttention(forUpdate update: SUAppcastItem) {
+        // No-op — the badge clears when the update session ends.
+    }
+
+    func standardUserDriverWillFinishUpdateSession() {
+        DispatchQueue.main.async { [weak self] in
+            self?.statusItemController.setAvailableUpdate(version: nil)
+        }
     }
 }
