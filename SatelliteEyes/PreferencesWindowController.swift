@@ -53,9 +53,9 @@ struct PreferencesView: View {
                 manageStylesController = controller
             }
         }
-        .formStyle(.grouped)
         .padding()
         .frame(width: 400)
+        .fixedSize(horizontal: false, vertical: true)
     }
 }
 
