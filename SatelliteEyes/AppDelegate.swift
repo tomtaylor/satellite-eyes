@@ -27,6 +27,22 @@ struct SatelliteEyesApp {
                                    action: #selector(NSApplication.terminate(_:)), keyEquivalent: "q"))
         appMenuItem.submenu = appMenu
 
+        // An Edit menu is required for keyboard shortcuts (Cmd+C/V/X/A/Z) to
+        // work in the text fields in the Manage Custom Map Styles window. AppKit
+        // routes these keys through the menu's key equivalents and responder chain.
+        let editMenuItem = NSMenuItem()
+        mainMenu.addItem(editMenuItem)
+
+        let editMenu = NSMenu(title: "Edit")
+        editMenu.addItem(NSMenuItem(title: "Undo", action: Selector(("undo:")), keyEquivalent: "z"))
+        editMenu.addItem(NSMenuItem(title: "Redo", action: Selector(("redo:")), keyEquivalent: "Z"))
+        editMenu.addItem(.separator())
+        editMenu.addItem(NSMenuItem(title: "Cut", action: #selector(NSText.cut(_:)), keyEquivalent: "x"))
+        editMenu.addItem(NSMenuItem(title: "Copy", action: #selector(NSText.copy(_:)), keyEquivalent: "c"))
+        editMenu.addItem(NSMenuItem(title: "Paste", action: #selector(NSText.paste(_:)), keyEquivalent: "v"))
+        editMenu.addItem(NSMenuItem(title: "Select All", action: #selector(NSText.selectAll(_:)), keyEquivalent: "a"))
+        editMenuItem.submenu = editMenu
+
         NSApplication.shared.mainMenu = mainMenu
     }
 }
