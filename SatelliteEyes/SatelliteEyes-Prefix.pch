@@ -4,6 +4,7 @@
 
 #ifdef __OBJC__
     #import <Cocoa/Cocoa.h>
+    #import <CoreLocation/CoreLocation.h>
     #import <SystemConfiguration/SystemConfiguration.h>
     #import <CoreServices/CoreServices.h>
     #import <os/log.h>

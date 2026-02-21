@@ -51,7 +51,7 @@
 		AABB00112233MTA001 /* MapTypesArrayController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AABB00112233MTA002 /* MapTypesArrayController.swift */; };
 		AABB00112233MPT001 /* MapTile.swift in Sources */ = {isa = PBXBuildFile; fileRef = AABB00112233MPT002 /* MapTile.swift */; };
 		AABB00112233MPI001 /* MapImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = AABB00112233MPI002 /* MapImage.swift */; };
-		EBEC8E775AD3AD614851DB3DD705DDCD /* TTMapManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 816A97185C78CB064CD25CD97E37C100 /* TTMapManager.m */; };
+		AABB00112233MMG002 /* MapManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AABB00112233MMG001 /* MapManager.swift */; };
 		EDB6435098CC69208BC70C0DE4B2BC86 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FD9117BBE6B9ECE93973993CD69E03AA /* CoreLocation.framework */; };
 		EEE215AA71E67D5803115D53E13DAB0D /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 825ED7BA9FBAF7CA9EF82E2C21992A9C /* InfoPlist.strings */; };
 		F319EC89A1B4604AC2AD20D630F9A266 /* TTManageMapStylesWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 48836974E1E73C9CE857DD03B56BA22A /* TTManageMapStylesWindow.xib */; };
@@ -85,9 +85,7 @@
 		6B40139D1D111B91DA0BC3BA60984AC1 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
 		732703003D485F4F84B3D4E5470F1D96 /* TTPreferencesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTPreferencesViewController.h; sourceTree = "<group>"; };
 		7641EF6FCA1697628C2F07097B688134 /* TTManageMapStylesWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTManageMapStylesWindowController.h; sourceTree = "<group>"; };
-		76601CA0F07E22E62347CF605C882D62 /* TTMapManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTMapManager.h; path = SatelliteEyes/TTMapManager.h; sourceTree = SOURCE_ROOT; };
 		7D92C58B1614BD1551063E1ADECF9987 /* TTAboutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTAboutViewController.h; sourceTree = "<group>"; };
-		816A97185C78CB064CD25CD97E37C100 /* TTMapManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TTMapManager.m; path = SatelliteEyes/TTMapManager.m; sourceTree = SOURCE_ROOT; };
 		8465CBE1C2C3E8BFE5B0BE3037EF5D3D /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		857D35A23641C9C72A1B47CA8793D93B /* SatelliteEyes.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = SatelliteEyes.entitlements; sourceTree = "<group>"; };
 		8F84D47619D5D62527666ADD3327234C /* SatelliteEyes-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SatelliteEyes-Prefix.pch"; sourceTree = "<group>"; };
@@ -100,6 +98,7 @@
 		AABB00112233MTA002 /* MapTypesArrayController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapTypesArrayController.swift; sourceTree = "<group>"; };
 		AABB00112233MPT002 /* MapTile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapTile.swift; sourceTree = "<group>"; };
 		AABB00112233MPI002 /* MapImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapImage.swift; sourceTree = "<group>"; };
+		AABB00112233MMG001 /* MapManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapManager.swift; sourceTree = "<group>"; };
 		AABB001122334455NETWORK02 /* Network.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Network.framework; path = System/Library/Frameworks/Network.framework; sourceTree = SDKROOT; };
 		ABD8B6FECAD494FFE25906401A06C11D /* TTPreferencesWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTPreferencesWindowController.h; sourceTree = "<group>"; };
 		ABFCA6D5ED74F5F133B5E59675D404AD /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
@@ -202,8 +201,6 @@
 				93E2637ACC97732164693334BDE3606F /* TTAppDelegate.m */,
 				7641EF6FCA1697628C2F07097B688134 /* TTManageMapStylesWindowController.h */,
 				17855E355BB7E50A29F3A9E1B8936BB3 /* TTManageMapStylesWindowController.m */,
-				76601CA0F07E22E62347CF605C882D62 /* TTMapManager.h */,
-				816A97185C78CB064CD25CD97E37C100 /* TTMapManager.m */,
 				732703003D485F4F84B3D4E5470F1D96 /* TTPreferencesViewController.h */,
 				2A959991FBB569201437B74805D167D7 /* TTPreferencesViewController.m */,
 				ABD8B6FECAD494FFE25906401A06C11D /* TTPreferencesWindowController.h */,
@@ -215,6 +212,7 @@
 				AABB00112233MTA002 /* MapTypesArrayController.swift */,
 				AABB00112233MPT002 /* MapTile.swift */,
 				AABB00112233MPI002 /* MapImage.swift */,
+				AABB00112233MMG001 /* MapManager.swift */,
 				5C95CBF3BB9E688ECDD0D3B4ADC2025A /* TTStatusItemController.h */,
 				3919B1BC1AC8DDE342A62D30FC3FAE05 /* TTStatusItemController.m */,
 			);
@@ -404,7 +402,6 @@
 				117AC055BB854F96F3E1DCF98D5300DC /* TTAboutWindowController.m in Sources */,
 				3020A4ED341BA54F3D8BE8F4864945FA /* TTAppDelegate.m in Sources */,
 				DD34200C9683B62B64B7C53F0A1205AD /* TTManageMapStylesWindowController.m in Sources */,
-				EBEC8E775AD3AD614851DB3DD705DDCD /* TTMapManager.m in Sources */,
 				DF563156051108AA7E68D6E8114EB6FB /* TTPreferencesViewController.m in Sources */,
 				5F71313F15681DC3BEDFFBCC05383F82 /* TTPreferencesWindowController.m in Sources */,
 				B23D0C1B0C594FCA940D5264A9D11DCB /* TTStatusItemController.m in Sources */,
@@ -415,6 +412,7 @@
 				AABB00112233MTA001 /* MapTypesArrayController.swift in Sources */,
 				AABB00112233MPT001 /* MapTile.swift in Sources */,
 				AABB00112233MPI001 /* MapImage.swift in Sources */,
+				AABB00112233MMG002 /* MapManager.swift in Sources */,
 				B532B8D446B04DCFFC38637A3CC9D206 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

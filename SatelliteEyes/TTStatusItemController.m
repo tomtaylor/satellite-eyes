@@ -8,7 +8,6 @@
 
 #import "TTAppDelegate.h"
 #import "TTStatusItemController.h"
-#import "TTMapManager.h"
 #import "Satellite_Eyes-Swift.h"
 
 @implementation TTStatusItemController
@@ -53,18 +52,18 @@
         
         [self updateStatus];
         
-        [[NSNotificationCenter defaultCenter] addObserverForName:TTMapManagerStartedLoad 
-                                                          object:nil 
-                                                           queue:nil 
+        [[NSNotificationCenter defaultCenter] addObserverForName:TTMapManager.startedLoadNotification
+                                                          object:nil
+                                                           queue:nil
                                                       usingBlock:^(NSNotification *note) {
                                                           self->mapManagerdidError = NO;
                                                           self->mapManagerisActive = YES;
                                                           [self performSelectorOnMainThread:@selector(updateStatus) withObject:nil waitUntilDone:YES];
                                                       }];
         
-        [[NSNotificationCenter defaultCenter] addObserverForName:TTMapManagerFinishedLoad 
-                                                          object:nil 
-                                                           queue:nil 
+        [[NSNotificationCenter defaultCenter] addObserverForName:TTMapManager.finishedLoadNotification
+                                                          object:nil
+                                                           queue:nil
                                                       usingBlock:^(NSNotification *note) {
                                                           self->mapManagerdidError = NO;
                                                           self->mapManagerisActive = NO;
@@ -73,26 +72,26 @@
 
                                                       }];
         
-        [[NSNotificationCenter defaultCenter] addObserverForName:TTMapManagerFailedLoad 
-                                                          object:nil 
-                                                           queue:nil 
+        [[NSNotificationCenter defaultCenter] addObserverForName:TTMapManager.failedLoadNotification
+                                                          object:nil
+                                                           queue:nil
                                                       usingBlock:^(NSNotification *note) {
                                                           self->mapManagerdidError = YES;
                                                           self->mapManagerisActive = NO;
                                                           [self performSelectorOnMainThread:@selector(updateStatus) withObject:nil waitUntilDone:YES];
                                                       }];
         
-        [[NSNotificationCenter defaultCenter] addObserverForName:TTMapManagerLocationUpdated 
-                                                          object:nil 
-                                                           queue:nil 
+        [[NSNotificationCenter defaultCenter] addObserverForName:TTMapManager.locationUpdatedNotification
+                                                          object:nil
+                                                           queue:nil
                                                       usingBlock:^(NSNotification *note) {
                                                           self->mapManagerhasLocation = YES;
                                                           [self performSelectorOnMainThread:@selector(updateStatus) withObject:nil waitUntilDone:YES];
                                                       }];
         
-        [[NSNotificationCenter defaultCenter] addObserverForName:TTMapManagerLocationLost
-                                                          object:nil 
-                                                           queue:nil 
+        [[NSNotificationCenter defaultCenter] addObserverForName:TTMapManager.locationLostNotification
+                                                          object:nil
+                                                           queue:nil
                                                       usingBlock:^(NSNotification *note) {
                                                           self->mapManagerhasLocation = NO;
                                                           [self performSelectorOnMainThread:@selector(updateStatus) withObject:nil waitUntilDone:YES];

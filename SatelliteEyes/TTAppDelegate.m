@@ -7,11 +7,11 @@
 //
 
 #import "TTAppDelegate.h"
-#import "TTMapManager.h"
 #import "TTStatusItemController.h"
 #import "TTPreferencesWindowController.h"
 #import "TTAboutWindowController.h"
 #import "LLManager.h"
+#import "Satellite_Eyes-Swift.h"
 #import <Sparkle/Sparkle.h>
 
 @implementation TTAppDelegate
@@ -37,7 +37,7 @@
         [mapManager cleanCache];
     }
     
-    [[NSNotificationCenter defaultCenter] addObserverForName:TTMapManagerLocationPermissionDenied object:nil queue:nil usingBlock:^(NSNotification *note) {
+    [[NSNotificationCenter defaultCenter] addObserverForName:TTMapManager.locationPermissionDeniedNotification object:nil queue:nil usingBlock:^(NSNotification *note) {
         [self shutdownWithLocationError];
     }];
     
