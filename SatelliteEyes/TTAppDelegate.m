@@ -24,7 +24,7 @@
     [self setUserDefaults];
     
     // 100MB disk cache for tile images
-    [NSURLCache sharedURLCache].diskCapacity = 100*1024^2;
+    [NSURLCache sharedURLCache].diskCapacity = 100 * 1024 * 1024;
     
     statusItemController = [[TTStatusItemController alloc] init];
     mapManager = [[TTMapManager alloc] init];

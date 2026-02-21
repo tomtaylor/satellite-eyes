@@ -7,7 +7,6 @@
 
 #import "TTMapImage.h"
 #import "TTMapTile.h"
-#import "AFHTTPRequestOperation.h"
 #import "MD5Digest.h"
 #import "NSFileManager+StandardPaths.h"
 #import <QuartzCore/QuartzCore.h>
@@ -22,10 +21,16 @@
 
 @end
 
+static NSURLSession *_sharedTileSession;
+
 @implementation TTMapImage
 
-+ (void)load {
-    [AFHTTPRequestOperation addAcceptableContentTypes:[NSSet setWithObjects:@"image/jpeg", @"image/png", @"image/jpg", nil]];
++ (void)initialize {
+    if (self == [TTMapImage class]) {
+        NSURLSessionConfiguration *config = [NSURLSessionConfiguration defaultSessionConfiguration];
+        config.HTTPMaximumConnectionsPerHost = 4;
+        _sharedTileSession = [NSURLSession sessionWithConfiguration:config];
+    }
 }
 
 - (instancetype)initWithTileRect:(CGRect)_tileRect
@@ -51,11 +56,8 @@
         int shiftX = floor(modff(tileRect.origin.x, &dummy) * tileSize);
         int shiftY = tileSize - floor(modff(tileRect.origin.y, &dummy) * tileSize);
         pixelShift = CGPointMake(shiftX, shiftY);
-        
+
         tiles = [self tilesArray];
-        
-        tileQueue = [[NSOperationQueue alloc] init];
-        tileQueue.maxConcurrentOperationCount = 4;
     }
     return self;
 }
@@ -63,26 +65,26 @@
 // Returns the array of tiles for the bounds of the image
 - (NSArray *)tilesArray {
     NSMutableArray *array = [NSMutableArray array];
-    
+
     int bottomY = floor(tileRect.origin.y);
     int topY = floor(tileRect.origin.y - tileRect.size.height);
     int leftX = floor(tileRect.origin.x);
     int rightX = floor(tileRect.origin.x + tileRect.size.width);
-    
+
     int currentY = bottomY;
-    
+
     while (currentY >= topY) {
         int currentX = leftX;
         NSMutableArray *rowArray = [NSMutableArray array];
         while (currentX <= rightX) {
             TTMapTile *mapTile = [[TTMapTile alloc] initWithSource:source x:currentX y:currentY z:zoomLevel];
-            [rowArray addObject:mapTile];            
+            [rowArray addObject:mapTile];
             currentX++;
         }
         [array addObject:rowArray];
         currentY--;
     }
-    
+
     return array;
 }
 
@@ -91,7 +93,7 @@
                     skipCache:(BOOL)skipCache
 {
     dispatch_async(dispatch_get_global_queue(0, 0), ^(void) {
-        
+
         NSURL *fileURL = [self fileURL];
 
         if (!skipCache) {
@@ -103,27 +105,32 @@
                 return;
             }
         }
-        
+
         DDLogInfo(@"Not found, or skipping cache, so fetching file at: %@", [fileURL path]);
-        
-        __block NSError *error;
+
+        __block NSError *fetchError = nil;
+        dispatch_group_t group = dispatch_group_create();
+
         [self->tiles enumerateObjectsUsingBlock:^(NSArray *rowArray, NSUInteger idx, BOOL *stop) {
             [rowArray enumerateObjectsUsingBlock:^(TTMapTile *mapTile, NSUInteger rowIndex, BOOL *rowStop) {
-                AFHTTPRequestOperation *httpOperation = [[AFHTTPRequestOperation alloc] initWithRequest:[mapTile urlRequest]];
-                
-                [httpOperation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, NSData *responseData) {
-                    mapTile.imageData = responseData;
-                } failure:^(AFHTTPRequestOperation *operation, NSError *_error) {
-                    error = _error;
-                    DDLogError(@"Fetching tile error: %@", error);
+                dispatch_group_enter(group);
+                NSURLSessionDataTask *task = [_sharedTileSession dataTaskWithRequest:[mapTile urlRequest]
+                                                                   completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+                    if (error) {
+                        fetchError = error;
+                        DDLogError(@"Fetching tile error: %@", error);
+                    } else {
+                        mapTile.imageData = data;
+                    }
+                    dispatch_group_leave(group);
                 }];
-                [self->tileQueue addOperation:httpOperation];
+                [task resume];
             }];
         }];
-        [self->tileQueue waitUntilAllOperationsAreFinished];
-        
-        if (error) {
-            failure(error);
+        dispatch_group_wait(group, DISPATCH_TIME_FOREVER);
+
+        if (fetchError) {
+            failure(fetchError);
         } else {
             NSURL *fileURL = [self writeImageData];
             success(fileURL);
@@ -135,24 +142,24 @@
     CGFloat width = floor(tileRect.size.width * tileSize);
     CGFloat height = floor(tileRect.size.height * tileSize);
     CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
-    
+
     size_t bitsPerComponent = 8;
     size_t bytesPerPixel    = 4;
     size_t bytesPerRow      = (width * bitsPerComponent * bytesPerPixel + 7) / 8;
     size_t dataSize         = bytesPerRow * height;
-    
+
     unsigned char *data = malloc(dataSize);
     memset(data, 0, dataSize);
-    
-    CGContextRef context = CGBitmapContextCreate(data, width, height, 
-                                                 bitsPerComponent, 
-                                                 bytesPerRow, colorSpace, 
+
+    CGContextRef context = CGBitmapContextCreate(data, width, height,
+                                                 bitsPerComponent,
+                                                 bytesPerRow, colorSpace,
                                                  kCGImageAlphaPremultipliedLast | kCGBitmapByteOrder32Big);
-    
+
     [tiles enumerateObjectsUsingBlock:^(NSArray *rowArray, NSUInteger rowIndex, BOOL *rowStop) {
         [rowArray enumerateObjectsUsingBlock:^(TTMapTile *tile, NSUInteger tileIndex, BOOL *tileStop) {
             CGImageRef tileImageRef = [tile newImageRef];
-            
+
             float drawX = (tileIndex * self->tileSize) - self->pixelShift.x;
             float drawY = (rowIndex * self->tileSize) - self->pixelShift.y;
             CGRect rect = CGRectMake(drawX, drawY, self->tileSize, self->tileSize);
@@ -160,18 +167,18 @@
             CGImageRelease(tileImageRef);
         }];
     }];
-    
+
     CGColorSpaceRelease(colorSpace);
-    
+
     CGImageRef imageRef = CGBitmapContextCreateImage(context);
-    
+
     CIContext *coreImageContext = [CIContext contextWithCGContext:context options:nil];
-    
+
     CIImage *coreImageInput = [CIImage imageWithCGImage:imageRef];
     CGImageRelease(imageRef);
-    
+
     __block CIImage *coreImageOutput = coreImageInput;
-    
+
     // use an affine clamp so "gloom" and "gaussian blur" type filters work
     CGAffineTransform transform = CGAffineTransformIdentity;
     CIFilter *clampFilter = [CIFilter filterWithName:@"CIAffineClamp"];
@@ -180,7 +187,7 @@
     [clampFilter setValue:[NSValue valueWithBytes:&transform
                                          objCType:@encode(CGAffineTransform)]
                    forKey:@"inputTransform"];
-    
+
     coreImageOutput = [clampFilter valueForKey:@"outputImage"];
 
     // iterate through filters, applying each...
@@ -189,7 +196,7 @@
         CIFilter *imageFilter = [CIFilter filterWithName:[filter valueForKey:@"name"]];
         [imageFilter setDefaults];
         [imageFilter setValue:coreImageOutput forKey:@"inputImage"];
-        
+
         NSArray *parameters = [filter valueForKey:@"parameters"];
         [parameters enumerateObjectsUsingBlock:^(NSDictionary *parameter, NSUInteger filterIndex, BOOL *stop) {
             id value = parameter[@"value"];
@@ -199,19 +206,19 @@
             [imageFilter setValue:value
                            forKey:[parameter valueForKey:@"name"]];
         }];
-        
+
         coreImageOutput = [imageFilter valueForKey:@"outputImage"];
     }];
-    
+
     CGImageRef tiledImageRef = [coreImageContext createCGImage:coreImageOutput fromRect:coreImageInput.extent];
     CGContextDrawImage(context, CGRectMake(0, 0, width, height), tiledImageRef);
     CGImageRelease(tiledImageRef);
-    
+
     if (logoImage) {
         CGImageSourceRef logoImageSourceRef = CGImageSourceCreateWithData((__bridge CFDataRef)logoImage.TIFFRepresentation, NULL);
         CGImageRef logoImageRef =  CGImageSourceCreateImageAtIndex(logoImageSourceRef, 0, NULL);
         CFRelease(logoImageSourceRef);
-        
+
         float margin = 10;
         float drawX = width - CGImageGetWidth(logoImageRef) - margin;
         float drawY = margin;
@@ -220,7 +227,7 @@
         CGContextDrawImage(context, drawRect, logoImageRef);
         CGImageRelease(logoImageRef);
     }
-    
+
     CGImageRef finalImageRef = CGBitmapContextCreateImage(context);
     CGContextRelease(context);
 
@@ -230,12 +237,12 @@
     CGImageDestinationRef destination = CGImageDestinationCreateWithURL(url, kUTTypePNG, 1, NULL);
     CGImageDestinationAddImage(destination, finalImageRef, nil);
     CGImageRelease(finalImageRef);
-    
+
     CGImageDestinationFinalize(destination);
     CFRelease(destination);
-    
+
     free(data);
-    
+
     return fileURL;
 }
 

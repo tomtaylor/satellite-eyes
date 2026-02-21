@@ -17,7 +17,6 @@
     NSDictionary *imageEffect;
     NSArray *tiles;
     CGPoint pixelShift;
-    NSOperationQueue *tileQueue;
     NSImage *logoImage;
     NSUInteger tileSize;
 }

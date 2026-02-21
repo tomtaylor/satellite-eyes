@@ -4,6 +4,5 @@ use_frameworks!
 
 target 'Satellite Eyes' do
   pod 'Reachability',  '~> 3.2.0'
-  pod 'AFNetworking', '~> 1.3'
   pod 'Sparkle', '~> 1.18'
 end

@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <CoreLocation/CoreLocation.h>
 
-@interface TTMapTile : NSObject <NSConnectionDelegate> {
+@interface TTMapTile : NSObject {
     NSUInteger x;
     NSUInteger y;
     unsigned short z;
