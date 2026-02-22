@@ -7,6 +7,9 @@ struct PreferencesView: View {
     @AppStorage("selectedMapTypeId") private var selectedMapTypeId = "stamen-watercolor"
     @AppStorage("zoomLevel") private var zoomLevel = 15
     @AppStorage("selectedImageEffectId") private var selectedImageEffectId = "none"
+    @AppStorage("useCurrentLocation") private var useCurrentLocation = true
+    @AppStorage("randomLocationCategory") private var randomLocationCategory = ""
+    @AppStorage("rotationIntervalSeconds") private var rotationIntervalSeconds = 86400
     @State private var startAtLogin = LoginItemManager.launchAtLogin
     @State private var manageStylesController: ManageMapStylesWindowController?
     @State private var builtInMapTypes: [[String: Any]] = []
@@ -18,6 +21,25 @@ struct PreferencesView: View {
 
     private var imageEffects: [[String: Any]] {
         UserDefaults.standard.array(forKey: "imageEffectTypes") as? [[String: Any]] ?? []
+    }
+
+    private var locationSourceBinding: Binding<String> {
+        Binding(
+            get: {
+                if useCurrentLocation { return "current_location" }
+                if randomLocationCategory.isEmpty { return "random" }
+                return randomLocationCategory
+            },
+            set: { newValue in
+                if newValue == "current_location" {
+                    useCurrentLocation = true
+                    randomLocationCategory = ""
+                } else {
+                    useCurrentLocation = false
+                    randomLocationCategory = newValue == "random" ? "" : newValue
+                }
+            }
+        )
     }
 
     private var maxZoomForSelectedMap: Int {
@@ -32,6 +54,23 @@ struct PreferencesView: View {
                     LoginItemManager.setLaunchAtLogin(newValue)
                     startAtLogin = LoginItemManager.launchAtLogin
                 }.padding(.bottom, 8)
+
+            Picker("Location:", selection: locationSourceBinding) {
+                Text("Your Location").tag("current_location")
+                Text("Random Places").tag("random")
+                Section {
+                    Text("Only Airports").tag("airport")
+                    Text("Only World Heritage Sites").tag("world_heritage_site")
+                }
+            }
+
+            Picker("Change Every:", selection: $rotationIntervalSeconds) {
+                Text("1 hour").tag(3600)
+                Text("6 hours").tag(21600)
+                Text("24 hours").tag(86400)
+            }
+            .disabled(useCurrentLocation)
+            .padding(.bottom, 8)
 
             Picker("Map Style:", selection: $selectedMapTypeId) {
                 Section("Built-in") {

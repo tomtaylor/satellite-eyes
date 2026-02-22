@@ -23,9 +23,7 @@ Many thanks to the following folks for their contributions to Satellite Eyes:
 
 If you want to contribute a feature or a bug fix to SE, that'd be great. I'll do my best to review them and include them where possible. Contributions would be especially appreciated for:
 
-* Ability to display imagery from interesting places around the world.
-* Controls for configuring each Space independently.
-* Improving the visual appearance of the preferences pane
+* Controls for configuring each Space independently
 * More map styles
 
 If you are planning to land a major feature, please raise an issue to discuss it first.

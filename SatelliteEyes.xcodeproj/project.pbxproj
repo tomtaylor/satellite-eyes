@@ -47,6 +47,8 @@
 		E261EA4B19F9767D00F5341B /* status-icon-online.png in Resources */ = {isa = PBXBuildFile; fileRef = E261EA4419F9767D00F5341B /* status-icon-online.png */; };
 		EDB6435098CC69208BC70C0DE4B2BC86 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FD9117BBE6B9ECE93973993CD69E03AA /* CoreLocation.framework */; };
 		EEE215AA71E67D5803115D53E13DAB0D /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 825ED7BA9FBAF7CA9EF82E2C21992A9C /* InfoPlist.strings */; };
+		AABB00112233LOC001 /* Locations.plist in Resources */ = {isa = PBXBuildFile; fileRef = AABB00112233LOC002 /* Locations.plist */; };
+		AABB00112233LST001 /* LocationStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = AABB00112233LST002 /* LocationStore.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -66,6 +68,8 @@
 		AABB00112233DTF002 /* DateFormatting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatting.swift; sourceTree = "<group>"; };
 		AABB00112233FMP002 /* FileManagerPaths.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileManagerPaths.swift; sourceTree = "<group>"; };
 		AABB00112233LIM001 /* LoginItemManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginItemManager.swift; sourceTree = "<group>"; };
+		AABB00112233LOC002 /* Locations.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Locations.plist; sourceTree = "<group>"; };
+		AABB00112233LST002 /* LocationStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationStore.swift; sourceTree = "<group>"; };
 		AABB00112233MD5002 /* MD5Digest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MD5Digest.swift; sourceTree = "<group>"; };
 		AABB00112233MMG001 /* MapManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapManager.swift; sourceTree = "<group>"; };
 		AABB00112233MPI002 /* MapImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapImage.swift; sourceTree = "<group>"; };
@@ -145,6 +149,7 @@
 				6B82C1F0425BF476D4B377C387C30283 /* Assets */,
 				4C4FB06924323AD48ACE142A23D13E5B /* Supporting Files */,
 				AABB00112233LIM001 /* LoginItemManager.swift */,
+				AABB00112233LST002 /* LocationStore.swift */,
 				AABB00112233MD5002 /* MD5Digest.swift */,
 				AABB00112233FMP002 /* FileManagerPaths.swift */,
 				AABB00112233DTF002 /* DateFormatting.swift */,
@@ -183,6 +188,7 @@
 				D91E37E8DFDA52C112A1E550DBF2E48F /* Credits.rtf */,
 				AABB00112233BMS002 /* BuiltInMapStyles.plist */,
 				459ED31A223FC63BAB241C074B5E7CFA /* Defaults.plist */,
+				AABB00112233LOC002 /* Locations.plist */,
 				825ED7BA9FBAF7CA9EF82E2C21992A9C /* InfoPlist.strings */,
 				69153A4155AB94E51D4182A3C35312F6 /* SatelliteEyes-Info.plist */,
 				857D35A23641C9C72A1B47CA8793D93B /* SatelliteEyes.entitlements */,
@@ -248,7 +254,6 @@
 				LastUpgradeCheck = 2620;
 				TargetAttributes = {
 					F0A509CCCBD50F0A3647B6633BE0F1C7 = {
-						DevelopmentTeam = UY2GK6B69X;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.HardenedRuntime = {
@@ -305,6 +310,7 @@
 				E261EA4A19F9767D00F5341B /* status-icon-offline.png in Resources */,
 				E261EA4819F9767D00F5341B /* status-icon-activity-3.png in Resources */,
 				E261EA3719F9735B00F5341B /* status-icon-activity-0@2x.png in Resources */,
+				AABB00112233LOC001 /* Locations.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -345,6 +351,7 @@
 				AABB00112233PWC002 /* PreferencesWindowController.swift in Sources */,
 				AABB00112233MWC002 /* ManageMapStylesWindowController.swift in Sources */,
 				AABB00112233APD002 /* AppDelegate.swift in Sources */,
+				AABB00112233LST001 /* LocationStore.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -367,10 +374,12 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = SatelliteEyes/SatelliteEyes.entitlements;
 				CODE_SIGN_IDENTITY = "Mac Developer";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
 				DEAD_CODE_STRIPPING = YES;
+				DEVELOPMENT_TEAM = UY2GK6B69X;
 				ENABLE_APP_SANDBOX = YES;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_OUTGOING_NETWORK_CONNECTIONS = YES;
@@ -449,10 +458,12 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = SatelliteEyes/SatelliteEyes.entitlements;
 				CODE_SIGN_IDENTITY = "Mac Developer";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
 				DEAD_CODE_STRIPPING = YES;
+				DEVELOPMENT_TEAM = UY2GK6B69X;
 				ENABLE_APP_SANDBOX = YES;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_OUTGOING_NETWORK_CONNECTIONS = YES;

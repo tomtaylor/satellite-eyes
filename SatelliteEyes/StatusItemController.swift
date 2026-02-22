@@ -16,6 +16,7 @@ class StatusItemController: NSObject, NSMenuDelegate {
     private var didError = false
     private var mapLastUpdated: Date?
     private var availableUpdateVersion: String?
+    private var currentLocationName: String?
 
     private var animationFrameIndex: UInt = 0
     private var animationTimer: Timer?
@@ -107,6 +108,13 @@ class StatusItemController: NSObject, NSMenuDelegate {
         nc.addObserver(forName: MapManager.locationLostNotification, object: nil, queue: nil) { [weak self] _ in
             guard let self else { return }
             self.hasLocation = false
+            self.currentLocationName = nil
+            DispatchQueue.main.async { self.updateStatus() }
+        }
+
+        nc.addObserver(forName: MapManager.randomLocationSelectedNotification, object: nil, queue: nil) { [weak self] notification in
+            guard let self else { return }
+            self.currentLocationName = notification.object as? String
             DispatchQueue.main.async { self.updateStatus() }
         }
     }
@@ -156,11 +164,15 @@ class StatusItemController: NSObject, NSMenuDelegate {
 
     // MARK: - Display states
 
+    private var isRandomMode: Bool {
+        !UserDefaults.standard.bool(forKey: "useCurrentLocation")
+    }
+
     private func showOffline() {
         let image = NSImage(named: "status-icon-offline")
         image?.isTemplate = true
         statusItem.button?.image = image
-        statusMenuItem.title = "Waiting for location fix"
+        statusMenuItem.title = isRandomMode ? "Picking a random location\u{2026}" : "Waiting for location fix"
     }
 
     private func showNormal() {
@@ -170,9 +182,15 @@ class StatusItemController: NSObject, NSMenuDelegate {
         statusItem.button?.image = image
 
         forceMapUpdateMenuItem.isHidden = false
+        forceMapUpdateMenuItem.title = isRandomMode ? "Show a new location" : "Refresh the map now"
 
         if let updated = mapLastUpdated {
-            statusMenuItem.title = "Map updated \(updated.distanceOfTimeInWords().lowercased())"
+            let timeAgo = updated.distanceOfTimeInWords().lowercased()
+            if isRandomMode, let name = currentLocationName {
+                statusMenuItem.title = name
+            } else {
+                statusMenuItem.title = "Map updated \(timeAgo)"
+            }
         } else {
             statusMenuItem.title = "Waiting for map update"
         }

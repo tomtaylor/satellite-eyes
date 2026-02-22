@@ -293,5 +293,11 @@
 	<string>stamen-watercolor</string>
 	<key>cleanCache</key>
 	<true/>
+	<key>useCurrentLocation</key>
+	<true/>
+	<key>randomLocationCategory</key>
+	<string></string>
+	<key>rotationIntervalSeconds</key>
+	<integer>86400</integer>
 </dict>
 </plist>

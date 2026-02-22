@@ -76,6 +76,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         NotificationCenter.default.addObserver(
             forName: MapManager.locationPermissionDeniedNotification,
             object: nil, queue: nil) { [weak self] _ in
+                guard UserDefaults.standard.bool(forKey: "useCurrentLocation") else { return }
                 self?.shutdownWithLocationError()
             }
 

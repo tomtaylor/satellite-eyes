@@ -16,6 +16,7 @@ class MapManager: NSObject, CLLocationManagerDelegate {
     static let locationUpdatedNotification = NSNotification.Name("TTMapManagerLocationUpdated")
     static let locationLostNotification = NSNotification.Name("TTMapManagerLocationLost")
     static let locationPermissionDeniedNotification = NSNotification.Name("TTMapManagerLocationPermissionDenied")
+    static let randomLocationSelectedNotification = NSNotification.Name("TTMapManagerRandomLocationSelected")
 
     // MARK: - Private state
 
@@ -25,6 +26,20 @@ class MapManager: NSObject, CLLocationManagerDelegate {
     private let pathMonitor = NWPathMonitor()
     private var networkSatisfied = false
     private var hasStarted = false
+    private var currentRandomLocation: LocationStore.NamedLocation?
+    private var rotationTimer: Timer?
+
+    private var useCurrentLocation: Bool {
+        UserDefaults.standard.bool(forKey: "useCurrentLocation")
+    }
+
+    private var randomLocationCategory: String {
+        UserDefaults.standard.string(forKey: "randomLocationCategory") ?? ""
+    }
+
+    private var rotationIntervalSeconds: TimeInterval {
+        max(3600, TimeInterval(UserDefaults.standard.integer(forKey: "rotationIntervalSeconds")))
+    }
 
     // MARK: - Init
 
@@ -56,6 +71,9 @@ class MapManager: NSObject, CLLocationManagerDelegate {
         UserDefaults.standard.addObserver(self, forKeyPath: "selectedMapTypeId", options: .new, context: nil)
         UserDefaults.standard.addObserver(self, forKeyPath: "zoomLevel", options: .new, context: nil)
         UserDefaults.standard.addObserver(self, forKeyPath: "selectedImageEffectId", options: .new, context: nil)
+        UserDefaults.standard.addObserver(self, forKeyPath: "useCurrentLocation", options: .new, context: nil)
+        UserDefaults.standard.addObserver(self, forKeyPath: "randomLocationCategory", options: .new, context: nil)
+        UserDefaults.standard.addObserver(self, forKeyPath: "rotationIntervalSeconds", options: .new, context: nil)
 
         NSWorkspace.shared.notificationCenter.addObserver(
             self, selector: #selector(spaceChanged),
@@ -72,6 +90,10 @@ class MapManager: NSObject, CLLocationManagerDelegate {
         UserDefaults.standard.removeObserver(self, forKeyPath: "selectedMapTypeId")
         UserDefaults.standard.removeObserver(self, forKeyPath: "zoomLevel")
         UserDefaults.standard.removeObserver(self, forKeyPath: "selectedImageEffectId")
+        UserDefaults.standard.removeObserver(self, forKeyPath: "useCurrentLocation")
+        UserDefaults.standard.removeObserver(self, forKeyPath: "randomLocationCategory")
+        UserDefaults.standard.removeObserver(self, forKeyPath: "rotationIntervalSeconds")
+        rotationTimer?.invalidate()
         NSWorkspace.shared.notificationCenter.removeObserver(self)
     }
 
@@ -80,12 +102,16 @@ class MapManager: NSObject, CLLocationManagerDelegate {
     func start() {
         hasStarted = true
 
-        guard CLLocationManager.locationServicesEnabled() else {
-            NotificationCenter.default.post(name: Self.locationPermissionDeniedNotification, object: nil)
-            return
+        if useCurrentLocation {
+            guard CLLocationManager.locationServicesEnabled() else {
+                NotificationCenter.default.post(name: Self.locationPermissionDeniedNotification, object: nil)
+                return
+            }
+            locationManager.startUpdatingLocation()
+        } else {
+            pickRandomLocationAndUpdate()
+            scheduleRotationTimer()
         }
-
-        locationManager.startUpdatingLocation()
     }
 
     func updateMap() {
@@ -94,8 +120,13 @@ class MapManager: NSObject, CLLocationManagerDelegate {
     }
 
     func forceUpdateMap() {
-        guard let location = lastSeenLocation else { return }
-        updateMap(to: location.coordinate, force: true)
+        if useCurrentLocation {
+            guard let location = lastSeenLocation else { return }
+            updateMap(to: location.coordinate, force: true)
+        } else {
+            pickRandomLocationAndUpdate(force: true)
+            scheduleRotationTimer()
+        }
     }
 
     func updateMap(to coordinate: CLLocationCoordinate2D, force: Bool) {
@@ -195,6 +226,7 @@ class MapManager: NSObject, CLLocationManagerDelegate {
     }
 
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        guard useCurrentLocation else { return }
         if (error as NSError).code == CLError.denied.rawValue {
             // If status is still undetermined, the system prompt is showing — don't treat as denied yet
             guard locationManager.authorizationStatus != .notDetermined else { return }
@@ -204,7 +236,7 @@ class MapManager: NSObject, CLLocationManagerDelegate {
     }
 
     func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
-        guard hasStarted else { return }
+        guard hasStarted, useCurrentLocation else { return }
 
         switch manager.authorizationStatus {
         case .authorizedAlways:
@@ -223,7 +255,21 @@ class MapManager: NSObject, CLLocationManagerDelegate {
 
     override func observeValue(forKeyPath keyPath: String?, of object: Any?,
                                 change: [NSKeyValueChangeKey: Any]?, context: UnsafeMutableRawPointer?) {
-        updateMap()
+        switch keyPath {
+        case "useCurrentLocation":
+            handleLocationModeChange()
+        case "randomLocationCategory":
+            if !useCurrentLocation {
+                pickRandomLocationAndUpdate()
+                scheduleRotationTimer()
+            }
+        case "rotationIntervalSeconds":
+            if !useCurrentLocation {
+                scheduleRotationTimer()
+            }
+        default:
+            updateMap()
+        }
     }
 
     // MARK: - Private
@@ -233,10 +279,61 @@ class MapManager: NSObject, CLLocationManagerDelegate {
     @objc private func receiveWakeNote(_ notification: Notification) { restartMap() }
 
     private func restartMap() {
-        locationManager.stopUpdatingLocation()
-        lastSeenLocation = nil
-        NotificationCenter.default.post(name: Self.locationLostNotification, object: nil)
-        locationManager.startUpdatingLocation()
+        if useCurrentLocation {
+            locationManager.stopUpdatingLocation()
+            lastSeenLocation = nil
+            NotificationCenter.default.post(name: Self.locationLostNotification, object: nil)
+            locationManager.startUpdatingLocation()
+        } else {
+            // In random mode, just re-render the current location (don't pick a new one on wake)
+            updateMap()
+        }
+    }
+
+    private func handleLocationModeChange() {
+        guard hasStarted else { return }
+
+        if useCurrentLocation {
+            // Switching to GPS mode
+            rotationTimer?.invalidate()
+            rotationTimer = nil
+            currentRandomLocation = nil
+            lastSeenLocation = nil
+            NotificationCenter.default.post(name: Self.locationLostNotification, object: nil)
+
+            guard CLLocationManager.locationServicesEnabled() else {
+                NotificationCenter.default.post(name: Self.locationPermissionDeniedNotification, object: nil)
+                return
+            }
+            locationManager.startUpdatingLocation()
+        } else {
+            // Switching to random mode
+            locationManager.stopUpdatingLocation()
+            pickRandomLocationAndUpdate()
+            scheduleRotationTimer()
+        }
+    }
+
+    private func pickRandomLocationAndUpdate(force: Bool = false) {
+        guard let namedLocation = LocationStore.randomLocation(forCategory: randomLocationCategory) else { return }
+        currentRandomLocation = namedLocation
+
+        let location = CLLocation(latitude: namedLocation.coordinate.latitude,
+                                  longitude: namedLocation.coordinate.longitude)
+        lastSeenLocation = location
+
+        NotificationCenter.default.post(name: Self.randomLocationSelectedNotification, object: namedLocation.name)
+        NotificationCenter.default.post(name: Self.locationUpdatedNotification, object: location)
+        updateMap(to: namedLocation.coordinate, force: force)
+    }
+
+    private func scheduleRotationTimer() {
+        rotationTimer?.invalidate()
+        let interval = rotationIntervalSeconds
+        rotationTimer = Timer.scheduledTimer(withTimeInterval: interval, repeats: true) { [weak self] _ in
+            self?.pickRandomLocationAndUpdate()
+        }
+        rotationTimer?.tolerance = 60
     }
 
     private func tileRect(for screen: NSScreen, coordinate: CLLocationCoordinate2D,
