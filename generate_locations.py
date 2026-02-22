@@ -4,6 +4,7 @@
 
 import csv
 import plistlib
+import re
 from pathlib import Path
 
 script_dir = Path(__file__).resolve().parent
@@ -33,7 +34,7 @@ with whc_csv_path.open(newline="", encoding="utf-8-sig") as f:
         lat, lon = coords.split(",", 1)
         locations.append(
             {
-                "name": row["Name EN"],
+                "name": re.sub(r"<[^>]+>", "", row["Name EN"]),
                 "category": "world_heritage_site",
                 "latitude": float(lat),
                 "longitude": float(lon),
