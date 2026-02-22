@@ -4,15 +4,15 @@
 <array>
 	<dict>
 		<key>id</key>
-		<string>stamen-watercolor</string>
+		<string>google-satellite</string>
 		<key>source</key>
-		<string>https://watercolormaps.collection.cooperhewitt.org/tile/watercolor/{z}/{x}/{y}.jpg</string>
+		<string>https://mt1.google.com/vt/lyrs=s&amp;x={x}&amp;y={y}&amp;z={z}</string>
 		<key>name</key>
-		<string>Stamen Watercolor</string>
+		<string>Google Satellite</string>
 		<key>maxZoom</key>
 		<integer>17</integer>
 		<key>browserURL</key>
-		<string>https://watercolormaps.collection.cooperhewitt.org/#{zoom}/{latitude}/{longitude}</string>
+		<string>https://maps.google.com/?q={latitude},{longitude}</string>
 	</dict>
 	<dict>
 		<key>id</key>
@@ -27,6 +27,18 @@
 		<integer>17</integer>
 		<key>browserURL</key>
 		<string>http://bing.com/maps/default.aspx?v=2&amp;cp={latitude}~{longitude}&amp;lvl={zoom}&amp;style=a</string>
+	</dict>
+	<dict>
+		<key>id</key>
+		<string>stamen-watercolor</string>
+		<key>source</key>
+		<string>https://watercolormaps.collection.cooperhewitt.org/tile/watercolor/{z}/{x}/{y}.jpg</string>
+		<key>name</key>
+		<string>Stamen Watercolor</string>
+		<key>maxZoom</key>
+		<integer>17</integer>
+		<key>browserURL</key>
+		<string>https://watercolormaps.collection.cooperhewitt.org/#{zoom}/{latitude}/{longitude}</string>
 	</dict>
 	<dict>
 		<key>id</key>
@@ -97,20 +109,6 @@
 		<integer>22</integer>
 		<key>browserURL</key>
 		<string>https://api.mapbox.com/styles/v1/tomtaylor/ckhp9b81w02af19lbbrb3xsvz.html?fresh=true&amp;title=view&amp;access_token=pk.eyJ1IjoidG9tdGF5bG9yIiwiYSI6InJvYVktQ28ifQ.ra6A1XqlDa0B6yreKI2VYg#{zoom}/{latitude}/{longitude}</string>
-	</dict>
-	<dict>
-		<key>id</key>
-		<string>mapbox-satellite</string>
-		<key>source</key>
-		<string>https://api.mapbox.com/styles/v1/tomtaylor/ckhp9j9tg02hw19lbs427dq5l/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoidG9tdGF5bG9yIiwiYSI6ImNraHA5bW9yYzE4cjczMm14NXM0MnBjdXIifQ.dPekC0w0xgDnqvaVDcbUYA</string>
-		<key>source2x</key>
-		<string>https://api.mapbox.com/styles/v1/tomtaylor/ckhp9j9tg02hw19lbs427dq5l/tiles/256/{z}/{x}/{y}@2x?access_token=pk.eyJ1IjoidG9tdGF5bG9yIiwiYSI6ImNraHA5bW9yYzE4cjczMm14NXM0MnBjdXIifQ.dPekC0w0xgDnqvaVDcbUYA</string>
-		<key>name</key>
-		<string>Mapbox Satellite</string>
-		<key>maxZoom</key>
-		<integer>17</integer>
-		<key>browserURL</key>
-		<string>https://api.mapbox.com/styles/v1/tomtaylor/ckhp9j9tg02hw19lbs427dq5l.html?fresh=true&amp;title=view&amp;access_token=pk.eyJ1IjoidG9tdGF5bG9yIiwiYSI6InJvYVktQ28ifQ.ra6A1XqlDa0B6yreKI2VYg#{zoom}/{latitude}/{longitude}</string>
 	</dict>
 	<dict>
 		<key>id</key>

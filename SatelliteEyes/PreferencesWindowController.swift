@@ -4,7 +4,7 @@ import SwiftUI
 // MARK: - SwiftUI View
 
 struct PreferencesView: View {
-    @AppStorage("selectedMapTypeId") private var selectedMapTypeId = "stamen-watercolor"
+    @AppStorage("selectedMapTypeId") private var selectedMapTypeId = "google-satellite"
     @AppStorage("zoomLevel") private var zoomLevel = 15
     @AppStorage("selectedImageEffectId") private var selectedImageEffectId = "none"
     @AppStorage("useCurrentLocation") private var useCurrentLocation = true

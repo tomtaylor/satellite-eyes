@@ -290,7 +290,7 @@
 	<key>selectedImageEffectId</key>
 	<string>none</string>
 	<key>selectedMapTypeId</key>
-	<string>stamen-watercolor</string>
+	<string>google-satellite</string>
 	<key>cleanCache</key>
 	<true/>
 	<key>useCurrentLocation</key>
