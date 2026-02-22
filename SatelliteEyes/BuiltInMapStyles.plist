@@ -12,7 +12,7 @@
 		<key>maxZoom</key>
 		<integer>17</integer>
 		<key>browserURL</key>
-		<string>https://maps.google.com/?q={latitude},{longitude}</string>
+		<string>https://www.google.com/maps/@?api=1&amp;map_action=map&amp;center={latitude},{longitude}&amp;zoom={zoom}&amp;basemap=satellite</string>
 	</dict>
 	<dict>
 		<key>id</key>
