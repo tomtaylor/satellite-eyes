@@ -8,13 +8,15 @@ struct MapStyle: Identifiable, Equatable {
     var name: String
     var source: String
     var maxZoom: Int
+    var upscaleRetina: Bool
     var extraKeys: [String: Any]
 
-    init(id: String = UUID().uuidString, name: String = "New Map Style", source: String = "", maxZoom: Int = 17, extraKeys: [String: Any] = [:]) {
+    init(id: String = UUID().uuidString, name: String = "New Map Style", source: String = "", maxZoom: Int = 17, upscaleRetina: Bool = false, extraKeys: [String: Any] = [:]) {
         self.id = id
         self.name = name
         self.source = source
         self.maxZoom = maxZoom
+        self.upscaleRetina = upscaleRetina
         self.extraKeys = extraKeys
     }
 
@@ -23,11 +25,13 @@ struct MapStyle: Identifiable, Equatable {
         self.name = dictionary["name"] as? String ?? ""
         self.source = dictionary["source"] as? String ?? ""
         self.maxZoom = dictionary["maxZoom"] as? Int ?? 17
+        self.upscaleRetina = dictionary["upscaleRetina"] as? Bool ?? false
         var extra = dictionary
         extra.removeValue(forKey: "id")
         extra.removeValue(forKey: "name")
         extra.removeValue(forKey: "source")
         extra.removeValue(forKey: "maxZoom")
+        extra.removeValue(forKey: "upscaleRetina")
         self.extraKeys = extra
     }
 
@@ -37,11 +41,12 @@ struct MapStyle: Identifiable, Equatable {
         dict["name"] = name
         dict["source"] = source
         dict["maxZoom"] = maxZoom
+        dict["upscaleRetina"] = upscaleRetina
         return dict
     }
 
     static func == (lhs: MapStyle, rhs: MapStyle) -> Bool {
-        lhs.id == rhs.id && lhs.name == rhs.name && lhs.source == rhs.source && lhs.maxZoom == rhs.maxZoom
+        lhs.id == rhs.id && lhs.name == rhs.name && lhs.source == rhs.source && lhs.maxZoom == rhs.maxZoom && lhs.upscaleRetina == rhs.upscaleRetina
     }
 
     /// Load built-in map types from the bundle's BuiltInMapStyles.plist.
@@ -88,6 +93,7 @@ struct ManageMapStylesView: View {
                                     Text("\(zoom)").tag(zoom)
                                 }
                             }
+                            Toggle("Upscale for Retina", isOn: $mapStyles[index].upscaleRetina)
                         }
                         .padding()
                     } else {

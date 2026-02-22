@@ -13,6 +13,8 @@
 		<integer>17</integer>
 		<key>browserURL</key>
 		<string>https://www.google.com/maps/@?api=1&amp;map_action=map&amp;center={latitude},{longitude}&amp;zoom={zoom}&amp;basemap=satellite</string>
+		<key>upscaleRetina</key>
+		<true/>
 	</dict>
 	<dict>
 		<key>id</key>
@@ -27,6 +29,8 @@
 		<integer>17</integer>
 		<key>browserURL</key>
 		<string>http://bing.com/maps/default.aspx?v=2&amp;cp={latitude}~{longitude}&amp;lvl={zoom}&amp;style=a</string>
+		<key>upscaleRetina</key>
+		<true/>
 	</dict>
 	<dict>
 		<key>id</key>

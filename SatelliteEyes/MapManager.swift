@@ -134,13 +134,34 @@ class MapManager: NSObject, CLLocationManagerDelegate {
             updateQueue.async { [self] in
                 NotificationCenter.default.post(name: Self.startedLoadNotification, object: nil)
 
-                let tileRect = self.tileRect(for: screen, coordinate: coordinate, zoomLevel: zoomLevel)
-                let source = self.source(for: screen)
-                let scale = self.tileScale(for: screen)
+                let effectiveZoom: UInt16
+                let tileRect: CGRect
+                let source: String
+                let scale: Float
+                let displayScale: Float?
+
+                if shouldUpscaleRetina(for: screen) {
+                    effectiveZoom = zoomLevel + 1
+                    let baseRect = self.tileRect(for: screen, coordinate: coordinate, zoomLevel: zoomLevel)
+                    tileRect = CGRect(x: baseRect.origin.x * 2,
+                                      y: baseRect.origin.y * 2,
+                                      width: baseRect.size.width * 2,
+                                      height: baseRect.size.height * 2)
+                    source = self.source(for: screen)
+                    scale = 1
+                    displayScale = Float(screen.backingScaleFactor)
+                } else {
+                    effectiveZoom = zoomLevel
+                    tileRect = self.tileRect(for: screen, coordinate: coordinate, zoomLevel: zoomLevel)
+                    source = self.source(for: screen)
+                    scale = self.tileScale(for: screen)
+                    displayScale = nil
+                }
 
                 let mapImage = MapImage(
-                    tileRect: tileRect, tileScale: scale, zoomLevel: zoomLevel,
-                    source: source, effect: selectedImageEffect, logo: logoImage)
+                    tileRect: tileRect, tileScale: scale, zoomLevel: effectiveZoom,
+                    source: source, effect: selectedImageEffect, logo: logoImage,
+                    displayScale: displayScale)
 
                 mapImage.fetchTilesWithSuccess({ filePath in
                     NotificationCenter.default.post(name: Self.finishedLoadNotification, object: nil)
@@ -402,5 +423,13 @@ class MapManager: NSObject, CLLocationManagerDelegate {
             return 2
         }
         return 1
+    }
+
+    private func shouldUpscaleRetina(for screen: NSScreen) -> Bool {
+        guard selectedMapType["upscaleRetina"] as? Bool == true,
+              selectedMapType["source2x"] == nil,
+              screenIsRetina(screen) else { return false }
+        let maxZoom = (selectedMapType["maxZoom"] as? NSNumber)?.intValue ?? Int(UInt16.max)
+        return Int(zoomLevel) + 1 <= maxZoom
     }
 }
