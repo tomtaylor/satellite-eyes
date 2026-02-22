@@ -53,7 +53,7 @@ struct PreferencesView: View {
                 .onChange(of: startAtLogin) { newValue in
                     LoginItemManager.setLaunchAtLogin(newValue)
                     startAtLogin = LoginItemManager.launchAtLogin
-                }.padding(.bottom, 8)
+                }.padding(.bottom, 16)
 
             Picker("Location:", selection: locationSourceBinding) {
                 Text("Your Location").tag("current_location")
@@ -70,7 +70,7 @@ struct PreferencesView: View {
                 Text("24 hours").tag(86400)
             }
             .disabled(useCurrentLocation)
-            .padding(.bottom, 8)
+            .padding(.bottom, 16)
 
             Picker("Map Style:", selection: $selectedMapTypeId) {
                 Section("Built-in") {
