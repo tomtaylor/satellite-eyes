@@ -193,6 +193,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
         if alert.runModal() == .alertFirstButtonReturn {
             LoginItemManager.setLaunchAtLogin(true)
+        } else {
+            LoginItemManager.setLaunchAtLogin(false)
         }
     }
 
