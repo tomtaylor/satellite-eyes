@@ -22,6 +22,8 @@
 		AABB00112233DTF001 /* DateFormatting.swift in Sources */ = {isa = PBXBuildFile; fileRef = AABB00112233DTF002 /* DateFormatting.swift */; };
 		AABB00112233FMP001 /* FileManagerPaths.swift in Sources */ = {isa = PBXBuildFile; fileRef = AABB00112233FMP002 /* FileManagerPaths.swift */; };
 		AABB00112233LIM002 /* LoginItemManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AABB00112233LIM001 /* LoginItemManager.swift */; };
+		AABB00112233LOC001 /* Locations.plist in Resources */ = {isa = PBXBuildFile; fileRef = AABB00112233LOC002 /* Locations.plist */; };
+		AABB00112233LST001 /* LocationStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = AABB00112233LST002 /* LocationStore.swift */; };
 		AABB00112233MD5001 /* MD5Digest.swift in Sources */ = {isa = PBXBuildFile; fileRef = AABB00112233MD5002 /* MD5Digest.swift */; };
 		AABB00112233MMG002 /* MapManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AABB00112233MMG001 /* MapManager.swift */; };
 		AABB00112233MPI001 /* MapImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = AABB00112233MPI002 /* MapImage.swift */; };
@@ -47,8 +49,6 @@
 		E261EA4B19F9767D00F5341B /* status-icon-online.png in Resources */ = {isa = PBXBuildFile; fileRef = E261EA4419F9767D00F5341B /* status-icon-online.png */; };
 		EDB6435098CC69208BC70C0DE4B2BC86 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FD9117BBE6B9ECE93973993CD69E03AA /* CoreLocation.framework */; };
 		EEE215AA71E67D5803115D53E13DAB0D /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 825ED7BA9FBAF7CA9EF82E2C21992A9C /* InfoPlist.strings */; };
-		AABB00112233LOC001 /* Locations.plist in Resources */ = {isa = PBXBuildFile; fileRef = AABB00112233LOC002 /* Locations.plist */; };
-		AABB00112233LST001 /* LocationStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = AABB00112233LST002 /* LocationStore.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -395,7 +395,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MARKETING_VERSION = "2.0.0-rc.1";
+				MARKETING_VERSION = "2.0.0-rc.2";
 				PRODUCT_BUNDLE_IDENTIFIER = uk.co.tomtaylor.SatelliteEyes;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -479,7 +479,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MARKETING_VERSION = "2.0.0-rc.1";
+				MARKETING_VERSION = "2.0.0-rc.2";
 				PRODUCT_BUNDLE_IDENTIFIER = uk.co.tomtaylor.SatelliteEyes;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
