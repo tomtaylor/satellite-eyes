@@ -19,9 +19,7 @@ struct PreferencesView: View {
         builtInMapTypes + customMapTypes
     }
 
-    private var imageEffects: [[String: Any]] {
-        UserDefaults.standard.array(forKey: "imageEffectTypes") as? [[String: Any]] ?? []
-    }
+    @State private var imageEffects: [[String: Any]] = []
 
     private var locationSourceBinding: Binding<String> {
         Binding(
@@ -131,6 +129,7 @@ struct PreferencesView: View {
     private func loadMapTypes() {
         builtInMapTypes = MapStyle.builtInMapTypes()
         customMapTypes = UserDefaults.standard.array(forKey: "customMapTypes") as? [[String: Any]] ?? []
+        imageEffects = UserDefaults.standard.array(forKey: "imageEffectTypes") as? [[String: Any]] ?? []
     }
 }
 
