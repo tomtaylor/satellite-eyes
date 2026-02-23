@@ -23,6 +23,7 @@ enum TileFetchError: LocalizedError {
 class MapImage {
     private let tileRect: CGRect
     private let tileScale: Float
+    private let displayScale: Float
     private let zoomLevel: UInt16
     private let source: String
     private let imageEffect: NSDictionary
@@ -38,9 +39,11 @@ class MapImage {
     }()
 
     init(tileRect: CGRect, tileScale: Float, zoomLevel: UInt16,
-               source: String, effect: NSDictionary, logo: NSImage?) {
+               source: String, effect: NSDictionary, logo: NSImage?,
+               displayScale: Float? = nil) {
         self.tileRect = tileRect
         self.tileScale = tileScale
+        self.displayScale = displayScale ?? tileScale
         self.zoomLevel = zoomLevel
         self.source = source
         self.imageEffect = effect
@@ -132,11 +135,12 @@ class MapImage {
     // MARK: - Private
 
     private var uniqueHash: String {
-        let key = String(format: "%@_%.1f_%.1f_%.2f_%.2f_%.2f_%@_%u",
+        let key = String(format: "%@_%.1f_%.1f_%.2f_%.2f_%.2f_%.2f_%@_%u",
                          source,
                          tileRect.origin.x, tileRect.origin.y,
                          tileRect.size.width, tileRect.size.height,
                          tileScale,
+                         displayScale,
                          imageEffect.description,
                          zoomLevel)
         return key.md5Digest()
@@ -250,7 +254,7 @@ class MapImage {
     private func scaledFilterValue(_ value: Any, key: String) -> Any {
         if [kCIInputRadiusKey, kCIInputScaleKey, kCIInputWidthKey].contains(key),
            let number = value as? NSNumber {
-            return NSNumber(value: number.floatValue * tileScale)
+            return NSNumber(value: number.floatValue * displayScale)
         }
         return value
     }
