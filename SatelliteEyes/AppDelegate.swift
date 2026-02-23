@@ -77,7 +77,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             forName: MapManager.locationPermissionDeniedNotification,
             object: nil, queue: nil) { [weak self] _ in
                 guard UserDefaults.standard.bool(forKey: "useCurrentLocation") else { return }
-                self?.shutdownWithLocationError()
+                self?.handleLocationPermissionDenied()
             }
 
         doFirstRun()
@@ -136,7 +136,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         guard let path = Bundle.main.path(forResource: "Defaults", ofType: "plist"),
               let defaults = NSDictionary(contentsOfFile: path) as? [String: Any] else { return }
         UserDefaults.standard.register(defaults: defaults)
-        NSUserDefaultsController.shared.initialValues = defaults
 
         migrateCustomMapTypes()
     }
@@ -164,24 +163,28 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     private func doFirstRun() {
         let key = "doneFirstRun"
         if !UserDefaults.standard.bool(forKey: key) {
-            doHelloAlert()
+            doLocationChoiceAlert()
             doStartupAlert()
         }
         UserDefaults.standard.set(true, forKey: key)
     }
 
-    private func doHelloAlert() {
+    private func doLocationChoiceAlert() {
         let alert = NSAlert()
-        alert.addButton(withTitle: "OK")
         alert.messageText = "Welcome to Satellite Eyes"
         alert.informativeText = """
-            Satellite Eyes is now running in the status bar at the top right of your screen.
+            Satellite Eyes sets your desktop wallpaper to a map of your surroundings. \
+            It runs in the status bar at the top of your screen.
 
-            It will automatically change your desktop wallpaper to your current location.
-
-            You can adjust the preferences by clicking on the icon.
+            Would you like to use your current location, or explore random \
+            interesting places around the world?
             """
-        alert.runModal()
+        alert.addButton(withTitle: "Use My Location")
+        alert.addButton(withTitle: "Random Places")
+
+        if alert.runModal() != .alertFirstButtonReturn {
+            UserDefaults.standard.set(false, forKey: "useCurrentLocation")
+        }
     }
 
     private func doStartupAlert() {
@@ -198,18 +201,20 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         }
     }
 
-    private func shutdownWithLocationError() {
+    private func handleLocationPermissionDenied() {
+        UserDefaults.standard.set(false, forKey: "useCurrentLocation")
+
         let alert = NSAlert()
         alert.addButton(withTitle: "OK")
-        alert.messageText = "Satellite Eyes Will Quit"
+        alert.messageText = "Location Access Not Available"
         alert.informativeText = """
-            Satellite Eyes needs permission to access your location, or it can't load the correct map.
+            Satellite Eyes doesn't have permission to access your location.
 
-            You can enable Location Services from the Security & Privacy pane in System Preferences, \
-            and then restart the application.
+            The app will show random interesting places instead. You can enable \
+            Location Services in System Settings > Privacy & Security > Location Services, \
+            then switch back to "Your Location" in Preferences.
             """
         alert.runModal()
-        NSApp.terminate(nil)
     }
 }
 

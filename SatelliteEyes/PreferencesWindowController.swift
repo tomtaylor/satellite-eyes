@@ -12,14 +12,13 @@ struct PreferencesView: View {
     @AppStorage("rotationIntervalSeconds") private var rotationIntervalSeconds = 86400
     @State private var startAtLogin = LoginItemManager.launchAtLogin
     @State private var manageStylesController: ManageMapStylesWindowController?
+    @State private var imageEffects: [[String: Any]] = []
     @State private var builtInMapTypes: [[String: Any]] = []
     @State private var customMapTypes: [[String: Any]] = []
 
     private var allMapTypes: [[String: Any]] {
         builtInMapTypes + customMapTypes
     }
-
-    @State private var imageEffects: [[String: Any]] = []
 
     private var locationSourceBinding: Binding<String> {
         Binding(
