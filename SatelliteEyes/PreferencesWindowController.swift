@@ -12,15 +12,12 @@ struct PreferencesView: View {
     @AppStorage("rotationIntervalSeconds") private var rotationIntervalSeconds = 86400
     @State private var startAtLogin = LoginItemManager.launchAtLogin
     @State private var manageStylesController: ManageMapStylesWindowController?
+    @State private var imageEffects: [[String: Any]] = []
     @State private var builtInMapTypes: [[String: Any]] = []
     @State private var customMapTypes: [[String: Any]] = []
 
     private var allMapTypes: [[String: Any]] {
         builtInMapTypes + customMapTypes
-    }
-
-    private var imageEffects: [[String: Any]] {
-        UserDefaults.standard.array(forKey: "imageEffectTypes") as? [[String: Any]] ?? []
     }
 
     private var locationSourceBinding: Binding<String> {
@@ -57,10 +54,10 @@ struct PreferencesView: View {
 
             Picker("Location:", selection: locationSourceBinding) {
                 Text("Your Location").tag("current_location")
-                Text("Random Places").tag("random")
-                Section {
-                    Text("Only Airports").tag("airport")
-                    Text("Only World Heritage Sites").tag("world_heritage_site")
+                Text("Interesting Sights").tag("random")
+                Section(header: Text("Interesting Sights")) {
+                    Text("Airports").tag("airport")
+                    Text("World Heritage Sites").tag("world_heritage_site")
                 }
             }
 
@@ -131,6 +128,7 @@ struct PreferencesView: View {
     private func loadMapTypes() {
         builtInMapTypes = MapStyle.builtInMapTypes()
         customMapTypes = UserDefaults.standard.array(forKey: "customMapTypes") as? [[String: Any]] ?? []
+        imageEffects = UserDefaults.standard.array(forKey: "imageEffectTypes") as? [[String: Any]] ?? []
     }
 }
 
