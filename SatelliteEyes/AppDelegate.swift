@@ -173,14 +173,14 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         let alert = NSAlert()
         alert.messageText = "Welcome to Satellite Eyes"
         alert.informativeText = """
-            Satellite Eyes sets your desktop wallpaper to a map of your surroundings. \
+            Satellite Eyes grants you a new perspective on the world. \
             It runs in the status bar at the top of your screen.
 
-            Would you like to use your current location, or explore random \
-            interesting places around the world?
+            Would you like it show your current location, or shuffle through \
+            interesting sights from around the world?
             """
         alert.addButton(withTitle: "Use My Location")
-        alert.addButton(withTitle: "Random Places")
+        alert.addButton(withTitle: "Interesting Sights")
 
         if alert.runModal() != .alertFirstButtonReturn {
             UserDefaults.standard.set(false, forKey: "useCurrentLocation")
@@ -210,7 +210,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         alert.informativeText = """
             Satellite Eyes doesn't have permission to access your location.
 
-            The app will show random interesting places instead. You can enable \
+            The app will show interesting sights instead. You can enable \
             Location Services in System Settings > Privacy & Security > Location Services, \
             then switch back to "Your Location" in Preferences.
             """

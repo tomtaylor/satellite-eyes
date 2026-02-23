@@ -54,10 +54,10 @@ struct PreferencesView: View {
 
             Picker("Location:", selection: locationSourceBinding) {
                 Text("Your Location").tag("current_location")
-                Text("Random Places").tag("random")
-                Section {
-                    Text("Only Airports").tag("airport")
-                    Text("Only World Heritage Sites").tag("world_heritage_site")
+                Text("Interesting Sights").tag("random")
+                Section(header: Text("Interesting Sights")) {
+                    Text("Airports").tag("airport")
+                    Text("World Heritage Sites").tag("world_heritage_site")
                 }
             }
 
