@@ -51,6 +51,8 @@
 	<true/>
 	<key>SUEnableSystemProfiling</key>
 	<false/>
+	<key>SUPublicEDKey</key>
+	<string>f0IOe7Ux2a+9j5Dgxyq++T0ySHBsF0gFObshVlRcBlA=</string>
 	<key>SUFeedURL</key>
 	<string>https://satellite-eyes.s3.amazonaws.com/appcast.xml</string>
 </dict>
