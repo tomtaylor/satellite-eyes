@@ -59,10 +59,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         updaterController = SPUStandardUpdaterController(
             startingUpdater: true, updaterDelegate: nil, userDriverDelegate: self)
 
+        registerDefaults()
+
         preferencesWindowController = PreferencesWindowController()
         aboutWindowController = AboutWindowController()
-
-        registerDefaults()
 
         URLCache.shared.diskCapacity = 100 * 1024 * 1024
 
