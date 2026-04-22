@@ -71,9 +71,15 @@ class MapManager: NSObject, CLLocationManagerDelegate {
         UserDefaults.standard.addObserver(self, forKeyPath: "selectedMapTypeId", options: .new, context: nil)
         UserDefaults.standard.addObserver(self, forKeyPath: "zoomLevel", options: .new, context: nil)
         UserDefaults.standard.addObserver(self, forKeyPath: "selectedImageEffectId", options: .new, context: nil)
+        UserDefaults.standard.addObserver(self, forKeyPath: "selectedImageEffectIdLight", options: .new, context: nil)
+        UserDefaults.standard.addObserver(self, forKeyPath: "selectedImageEffectIdDark", options: .new, context: nil)
         UserDefaults.standard.addObserver(self, forKeyPath: "useCurrentLocation", options: .new, context: nil)
         UserDefaults.standard.addObserver(self, forKeyPath: "randomLocationCategory", options: .new, context: nil)
         UserDefaults.standard.addObserver(self, forKeyPath: "rotationIntervalSeconds", options: .new, context: nil)
+
+        DistributedNotificationCenter.default().addObserver(
+            self, selector: #selector(appearanceChanged),
+            name: NSNotification.Name("AppleInterfaceThemeChangedNotification"), object: nil)
 
         NSWorkspace.shared.notificationCenter.addObserver(
             self, selector: #selector(spaceChanged),
@@ -87,9 +93,12 @@ class MapManager: NSObject, CLLocationManagerDelegate {
     deinit {
         pathMonitor.cancel()
         NotificationCenter.default.removeObserver(self)
+        DistributedNotificationCenter.default().removeObserver(self)
         UserDefaults.standard.removeObserver(self, forKeyPath: "selectedMapTypeId")
         UserDefaults.standard.removeObserver(self, forKeyPath: "zoomLevel")
         UserDefaults.standard.removeObserver(self, forKeyPath: "selectedImageEffectId")
+        UserDefaults.standard.removeObserver(self, forKeyPath: "selectedImageEffectIdLight")
+        UserDefaults.standard.removeObserver(self, forKeyPath: "selectedImageEffectIdDark")
         UserDefaults.standard.removeObserver(self, forKeyPath: "useCurrentLocation")
         UserDefaults.standard.removeObserver(self, forKeyPath: "randomLocationCategory")
         UserDefaults.standard.removeObserver(self, forKeyPath: "rotationIntervalSeconds")
@@ -298,6 +307,7 @@ class MapManager: NSObject, CLLocationManagerDelegate {
     @objc private func screensChanged(_ notification: Notification) { updateMap() }
     @objc private func spaceChanged(_ notification: Notification) { updateMap() }
     @objc private func receiveWakeNote(_ notification: Notification) { restartMap() }
+    @objc private func appearanceChanged(_ notification: Notification) { updateMap() }
 
     private func restartMap() {
         if useCurrentLocation {
@@ -387,7 +397,16 @@ class MapManager: NSObject, CLLocationManagerDelegate {
 
     private var selectedImageEffect: NSDictionary {
         let effects = UserDefaults.standard.array(forKey: "imageEffectTypes") as? [NSDictionary] ?? []
-        let selectedId = UserDefaults.standard.string(forKey: "selectedImageEffectId")
+
+        // Determine which effect ID to use based on system appearance
+        let selectedId: String?
+        let appearanceName = NSApp.effectiveAppearance.bestMatch(from: [.aqua, .darkAqua])
+        if appearanceName == .darkAqua {
+            selectedId = UserDefaults.standard.string(forKey: "selectedImageEffectIdDark")
+        } else {
+            selectedId = UserDefaults.standard.string(forKey: "selectedImageEffectIdLight")
+        }
+
         return effects.first { ($0["id"] as? String) == selectedId } ?? effects.first ?? [:]
     }
 

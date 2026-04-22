@@ -47,6 +47,10 @@
 	<string>NSApplication</string>
 	<key>NSSupportsAutomaticGraphicsSwitching</key>
 	<true/>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Satellite Eyes uses your location to set your desktop wallpaper to a map or satellite view of your current location.</string>
+	<key>NSLocationUsageDescription</key>
+	<string>Satellite Eyes uses your location to set your desktop wallpaper to a map or satellite view of your current location.</string>
 	<key>SUEnableAutomaticChecks</key>
 	<true/>
 	<key>SUEnableSystemProfiling</key>
