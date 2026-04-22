@@ -116,7 +116,14 @@ class MapManager: NSObject, CLLocationManagerDelegate {
                 NotificationCenter.default.post(name: Self.locationPermissionDeniedNotification, object: nil)
                 return
             }
-            locationManager.startUpdatingLocation()
+
+            // Request authorization if needed, otherwise start updating
+            let status = locationManager.authorizationStatus
+            if status == .notDetermined {
+                locationManager.requestAlwaysAuthorization()
+            } else if status == .authorizedAlways {
+                locationManager.startUpdatingLocation()
+            }
         } else {
             pickRandomLocationAndUpdate()
             scheduleRotationTimer()
