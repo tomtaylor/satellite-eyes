@@ -289,6 +289,10 @@
 	<integer>15</integer>
 	<key>selectedImageEffectId</key>
 	<string>none</string>
+	<key>selectedImageEffectIdLight</key>
+	<string>none</string>
+	<key>selectedImageEffectIdDark</key>
+	<string>darken</string>
 	<key>selectedMapTypeId</key>
 	<string>google-satellite</string>
 	<key>cleanCache</key>

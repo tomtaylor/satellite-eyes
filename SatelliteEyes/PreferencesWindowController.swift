@@ -7,6 +7,8 @@ struct PreferencesView: View {
     @AppStorage("selectedMapTypeId") private var selectedMapTypeId = "google-satellite"
     @AppStorage("zoomLevel") private var zoomLevel = 15
     @AppStorage("selectedImageEffectId") private var selectedImageEffectId = "none"
+    @AppStorage("selectedImageEffectIdLight") private var selectedImageEffectIdLight = "none"
+    @AppStorage("selectedImageEffectIdDark") private var selectedImageEffectIdDark = "darken"
     @AppStorage("useCurrentLocation") private var useCurrentLocation = true
     @AppStorage("randomLocationCategory") private var randomLocationCategory = ""
     @AppStorage("rotationIntervalSeconds") private var rotationIntervalSeconds = 86400
@@ -96,8 +98,16 @@ struct PreferencesView: View {
                     Text("\(level)").tag(level)
                 }
             }
+            .padding(.bottom, 16)
 
-            Picker("Image Effect:", selection: $selectedImageEffectId) {
+            Picker("Image Effect (Light Mode):", selection: $selectedImageEffectIdLight) {
+                ForEach(imageEffects, id: \.effectId) { effect in
+                    Text(effect["name"] as? String ?? "Unknown")
+                        .tag(effect["id"] as? String ?? "")
+                }
+            }
+
+            Picker("Image Effect (Dark Mode):", selection: $selectedImageEffectIdDark) {
                 ForEach(imageEffects, id: \.effectId) { effect in
                     Text(effect["name"] as? String ?? "Unknown")
                         .tag(effect["id"] as? String ?? "")
