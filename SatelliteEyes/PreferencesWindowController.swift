@@ -12,9 +12,12 @@ struct PreferencesView: View {
     @AppStorage("rotationIntervalSeconds") private var rotationIntervalSeconds = 86400
     @State private var startAtLogin = LoginItemManager.launchAtLogin
     @State private var manageStylesController: ManageMapStylesWindowController?
-    @State private var imageEffects: [[String: Any]] = []
-    @State private var builtInMapTypes: [[String: Any]] = []
-    @State private var customMapTypes: [[String: Any]] = []
+    // Loaded eagerly, not in onAppear: this view's body is built as soon as the
+    // window controller is created at launch, and an empty picker at that point
+    // makes the stored selection look like an invalid tag.
+    @State private var imageEffects = PreferencesView.loadedImageEffects()
+    @State private var builtInMapTypes = MapStyle.builtInMapTypes()
+    @State private var customMapTypes = PreferencesView.loadedCustomMapTypes()
 
     private var allMapTypes: [[String: Any]] {
         builtInMapTypes + customMapTypes
@@ -58,6 +61,8 @@ struct PreferencesView: View {
                 Section(header: Text("Interesting Sights")) {
                     Text("Airports").tag("airport")
                     Text("World Heritage Sites").tag("world_heritage_site")
+                    Text("Solar Farms").tag("solar_farm")
+                    Text("Salt Ponds & Mines").tag("salt_pond_or_mine")
                 }
             }
 
@@ -125,10 +130,18 @@ struct PreferencesView: View {
         }
     }
 
+    private static func loadedCustomMapTypes() -> [[String: Any]] {
+        UserDefaults.standard.array(forKey: "customMapTypes") as? [[String: Any]] ?? []
+    }
+
+    private static func loadedImageEffects() -> [[String: Any]] {
+        UserDefaults.standard.array(forKey: "imageEffectTypes") as? [[String: Any]] ?? []
+    }
+
     private func loadMapTypes() {
         builtInMapTypes = MapStyle.builtInMapTypes()
-        customMapTypes = UserDefaults.standard.array(forKey: "customMapTypes") as? [[String: Any]] ?? []
-        imageEffects = UserDefaults.standard.array(forKey: "imageEffectTypes") as? [[String: Any]] ?? []
+        customMapTypes = Self.loadedCustomMapTypes()
+        imageEffects = Self.loadedImageEffects()
     }
 }
 
