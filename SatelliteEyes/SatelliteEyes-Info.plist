@@ -49,6 +49,8 @@
 	<true/>
 	<key>SUEnableAutomaticChecks</key>
 	<true/>
+	<key>SUEnableInstallerLauncherService</key>
+	<true/>
 	<key>SUEnableSystemProfiling</key>
 	<false/>
 	<key>SUPublicEDKey</key>
