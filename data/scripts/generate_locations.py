@@ -7,10 +7,12 @@ import plistlib
 import re
 from pathlib import Path
 
-script_dir = Path(__file__).resolve().parent
-airports_csv_path = script_dir / "data" / "airports.csv"
-whc_csv_path = script_dir / "data" / "whc001.csv"
-plist_path = script_dir / "SatelliteEyes" / "Locations.plist"
+data_dir = Path(__file__).resolve().parent.parent
+repo_root = data_dir.parent
+airports_csv_path = data_dir / "airports.csv"
+whc_csv_path = data_dir / "whc001.csv"
+solar_csv_path = data_dir / "solar_farms.csv"
+plist_path = repo_root / "SatelliteEyes" / "Locations.plist"
 
 locations = []
 
@@ -38,6 +40,17 @@ with whc_csv_path.open(newline="", encoding="utf-8-sig") as f:
                 "category": "world_heritage_site",
                 "latitude": float(lat),
                 "longitude": float(lon),
+            }
+        )
+
+with solar_csv_path.open(newline="") as f:
+    for row in csv.DictReader(f):
+        locations.append(
+            {
+                "name": row["name"],
+                "category": "solar_farm",
+                "latitude": float(row["latitude"]),
+                "longitude": float(row["longitude"]),
             }
         )
 

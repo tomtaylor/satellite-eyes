@@ -58,6 +58,7 @@ struct PreferencesView: View {
                 Section(header: Text("Interesting Sights")) {
                     Text("Airports").tag("airport")
                     Text("World Heritage Sites").tag("world_heritage_site")
+                    Text("Solar Farms").tag("solar_farm")
                 }
             }
 
