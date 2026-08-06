@@ -11,8 +11,13 @@ data_dir = Path(__file__).resolve().parent.parent
 repo_root = data_dir.parent
 airports_csv_path = data_dir / "airports.csv"
 whc_csv_path = data_dir / "whc001.csv"
-solar_csv_path = data_dir / "solar_farms.csv"
 plist_path = repo_root / "SatelliteEyes" / "Locations.plist"
+
+# Categories written by fetch_osm_areas.py, which share a column layout.
+osm_area_categories = {
+    "solar_farms.csv": "solar_farm",
+    "salt_ponds_and_mines.csv": "salt_pond_or_mine",
+}
 
 locations = []
 
@@ -43,16 +48,17 @@ with whc_csv_path.open(newline="", encoding="utf-8-sig") as f:
             }
         )
 
-with solar_csv_path.open(newline="") as f:
-    for row in csv.DictReader(f):
-        locations.append(
-            {
-                "name": row["name"],
-                "category": "solar_farm",
-                "latitude": float(row["latitude"]),
-                "longitude": float(row["longitude"]),
-            }
-        )
+for filename, category in osm_area_categories.items():
+    with (data_dir / filename).open(newline="") as f:
+        for row in csv.DictReader(f):
+            locations.append(
+                {
+                    "name": row["name"],
+                    "category": category,
+                    "latitude": float(row["latitude"]),
+                    "longitude": float(row["longitude"]),
+                }
+            )
 
 plist_path.parent.mkdir(parents=True, exist_ok=True)
 with plist_path.open("wb") as f:

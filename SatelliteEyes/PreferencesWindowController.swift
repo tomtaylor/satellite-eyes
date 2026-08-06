@@ -62,6 +62,7 @@ struct PreferencesView: View {
                     Text("Airports").tag("airport")
                     Text("World Heritage Sites").tag("world_heritage_site")
                     Text("Solar Farms").tag("solar_farm")
+                    Text("Salt Ponds & Mines").tag("salt_pond_or_mine")
                 }
             }
 
