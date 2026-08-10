@@ -34,6 +34,9 @@ final class MapManager: NSObject, @preconcurrency CLLocationManagerDelegate {
     private var networkSatisfied = false
     private var hasStarted = false
     private var currentRandomLocation: LocationStore.NamedLocation?
+    /// The category `currentRandomLocation` was picked under, so a category
+    /// change that has already been handled can be recognised and skipped.
+    private var currentRandomLocationCategory: String?
     private var rotationTimer: Timer?
 
     private var useCurrentLocation: Bool {
@@ -145,9 +148,9 @@ final class MapManager: NSObject, @preconcurrency CLLocationManagerDelegate {
     /// `MapImage.fetchTiles` hops off it.
     private func performUpdate(to coordinate: CLLocationCoordinate2D, force: Bool) async {
         for screen in NSScreen.screens {
-            NotificationCenter.default.post(name: Self.startedLoadNotification, object: nil)
+            guard let mapImage = makeMapImage(for: screen, coordinate: coordinate) else { continue }
 
-            let mapImage = makeMapImage(for: screen, coordinate: coordinate)
+            NotificationCenter.default.post(name: Self.startedLoadNotification, object: nil)
 
             do {
                 let filePath = try await mapImage.fetchTiles(skipCache: force)
@@ -160,7 +163,12 @@ final class MapManager: NSObject, @preconcurrency CLLocationManagerDelegate {
         }
     }
 
-    private func makeMapImage(for screen: NSScreen, coordinate: CLLocationCoordinate2D) -> MapImage {
+    private func makeMapImage(for screen: NSScreen, coordinate: CLLocationCoordinate2D) -> MapImage? {
+        // The update loop suspends between screens while tiles are fetched, so
+        // a display reconfiguration can land mid-update and briefly leave no
+        // main screen. Skip this render; screensChanged queues a fresh one.
+        guard let mainFrame = NSScreen.main?.frame else { return nil }
+
         let effectiveZoom: UInt16
         let tileRect: CGRect
         let scale: Float
@@ -168,7 +176,7 @@ final class MapManager: NSObject, @preconcurrency CLLocationManagerDelegate {
 
         if shouldUpscaleRetina(for: screen) {
             effectiveZoom = zoomLevel + 1
-            let baseRect = self.tileRect(for: screen, coordinate: coordinate, zoomLevel: zoomLevel)
+            let baseRect = self.tileRect(for: screen, coordinate: coordinate, zoomLevel: zoomLevel, mainFrame: mainFrame)
             tileRect = CGRect(x: baseRect.origin.x * 2,
                               y: baseRect.origin.y * 2,
                               width: baseRect.size.width * 2,
@@ -177,7 +185,7 @@ final class MapManager: NSObject, @preconcurrency CLLocationManagerDelegate {
             displayScale = Float(screen.backingScaleFactor)
         } else {
             effectiveZoom = zoomLevel
-            tileRect = self.tileRect(for: screen, coordinate: coordinate, zoomLevel: zoomLevel)
+            tileRect = self.tileRect(for: screen, coordinate: coordinate, zoomLevel: zoomLevel, mainFrame: mainFrame)
             scale = tileScale(for: screen)
             displayScale = nil
         }
@@ -302,7 +310,12 @@ final class MapManager: NSObject, @preconcurrency CLLocationManagerDelegate {
         case "useCurrentLocation":
             handleLocationModeChange()
         case "randomLocationCategory":
-            if !useCurrentLocation {
+            // Switching location source writes useCurrentLocation and
+            // randomLocationCategory together, and the useCurrentLocation
+            // handler runs first and picks under the new category. Only
+            // re-pick if the category differs from the one the current
+            // location was picked under, so one change means one update.
+            if !useCurrentLocation && randomLocationCategory != currentRandomLocationCategory {
                 pickRandomLocationAndUpdate()
                 scheduleRotationTimer()
             }
@@ -352,6 +365,7 @@ final class MapManager: NSObject, @preconcurrency CLLocationManagerDelegate {
             rotationTimer?.invalidate()
             rotationTimer = nil
             currentRandomLocation = nil
+            currentRandomLocationCategory = nil
             lastSeenLocation = nil
             NotificationCenter.default.post(name: Self.locationLostNotification, object: nil)
 
@@ -369,8 +383,10 @@ final class MapManager: NSObject, @preconcurrency CLLocationManagerDelegate {
     }
 
     private func pickRandomLocationAndUpdate(force: Bool = false) {
-        guard let namedLocation = LocationStore.randomLocation(forCategory: randomLocationCategory) else { return }
+        let category = randomLocationCategory
+        guard let namedLocation = LocationStore.randomLocation(forCategory: category) else { return }
         currentRandomLocation = namedLocation
+        currentRandomLocationCategory = category
 
         let location = CLLocation(latitude: namedLocation.coordinate.latitude,
                                   longitude: namedLocation.coordinate.longitude)
@@ -394,9 +410,8 @@ final class MapManager: NSObject, @preconcurrency CLLocationManagerDelegate {
     }
 
     private func tileRect(for screen: NSScreen, coordinate: CLLocationCoordinate2D,
-                          zoomLevel: UInt16) -> CGRect {
+                          zoomLevel: UInt16, mainFrame: CGRect) -> CGRect {
         let centerTile = MapTile.coordinateToPoint(coordinate, zoomLevel: zoomLevel)
-        let mainFrame = NSScreen.main!.frame
         let targetFrame = screen.frame
 
         let mainTileH = mainFrame.height / baseTileSize
