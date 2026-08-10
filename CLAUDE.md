@@ -26,9 +26,9 @@ xcodebuild -workspace SatelliteEyes.xcworkspace -scheme "Satellite Eyes" clean
 | File | Role |
 |------|------|
 | `AppDelegate.swift` | Entry point (`@main`), owns all managers and window controllers |
-| `MapManager.swift` | Core orchestrator: location tracking (CLLocationManager), network monitoring (NWPathMonitor), preference observation (KVO on UserDefaults), wallpaper setting. Runs updates on a serial DispatchQueue |
-| `MapImage.swift` | Fetches tile grid using async/await TaskGroup, composites into single image with CGContext, applies CIFilter chains, writes to disk |
-| `MapTile.swift` | Models a single tile: URL construction from templates (`{x}`, `{y}`, `{z}`, `{q}` placeholders), coordinate math (Web Mercator projection) |
+| `MapManager.swift` | Core orchestrator: location tracking (CLLocationManager), network monitoring (NWPathMonitor), preference observation (KVO on UserDefaults), wallpaper setting. `@MainActor`; updates are chained onto `updateTask` so they run one at a time |
+| `MapImage.swift` | Sendable value type. Fetches tile grid using async/await TaskGroup, composites into single image with CGContext, applies CIFilter chains, writes to disk. `fetchTiles` is `@concurrent`, so this work never lands on the main actor. Also defines `ImageEffect`, the value-type form of a `Defaults.plist` filter chain |
+| `MapTile.swift` | Models a single tile (a value type): URL construction from templates (`{x}`, `{y}`, `{z}`, `{q}` placeholders), coordinate math (Web Mercator projection) |
 | `LocationStore.swift` | Loads bundled `Locations.plist` into `NamedLocation` values; supplies random locations by category |
 | `StatusItemController.swift` | Menu bar icon with animation frames, dropdown menu, observes MapManager notifications for state |
 | `PreferencesWindowController.swift` | SwiftUI preferences window (map style, zoom, effects, launch at login) |
@@ -72,6 +72,7 @@ Rebuild the app afterwards so the bundle picks up the new plist.
 ## Conventions
 
 - Pure Swift codebase. No Objective-C or bridging headers.
+- **Swift 6 language mode** (`SWIFT_VERSION = 6.0`), so strict concurrency checking is on and data races are compile errors. The UI classes and `MapManager` are `@MainActor`; only tile fetching and image compositing run off it, on `Sendable` value types. Don't turn on `SWIFT_APPROACHABLE_CONCURRENCY` without checking `MapImage`: it enables `NonisolatedNonsendingByDefault`, which would otherwise pull that work back onto the main actor.
 - SwiftUI for all window UI (Preferences, About, Manage Styles). AppKit for menu bar status item.
 - Logging via `os.Logger` with subsystem `uk.co.tomtaylor.SatelliteEyes`.
 - Tile fetching uses async/await with `TaskGroup` and a shared `URLSession` (4 concurrent connections per host).

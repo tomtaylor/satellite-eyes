@@ -2,19 +2,14 @@ import Foundation
 import CoreLocation
 import CoreGraphics
 
-class MapTile {
+/// A single map tile. A value type so tiles can be handed to concurrent fetch
+/// tasks; decoding is a static function on the fetched data rather than
+/// mutable state on the tile.
+struct MapTile {
     let source: String
     let x: UInt
     let y: UInt
     let z: UInt16
-    var imageData: Data?
-
-    init(source: String, x: UInt, y: UInt, z: UInt16) {
-        self.source = source
-        self.x = x
-        self.y = y
-        self.z = z
-    }
 
     var topLeftCoordinate: CLLocationCoordinate2D {
         MapTile.coordinate(forX: x, y: y, z: z)
@@ -40,8 +35,7 @@ class MapTile {
         return request
     }
 
-    func newImageRef() -> CGImage? {
-        guard let data = imageData else { return nil }
+    static func image(from data: Data) -> CGImage? {
         let cfData = data as CFData
         guard let provider = CGDataProvider(data: cfData) else { return nil }
         return CGImage(
