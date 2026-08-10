@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 54;
+	objectVersion = 100;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -104,7 +104,6 @@
 /* Begin PBXFrameworksBuildPhase section */
 		60237CDE65D0D58F1B5424CF0104AD02 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
 			files = (
 				22CE893F85191FDE937CDAAC746CBAF1 /* Cocoa.framework in Frameworks */,
 				EDB6435098CC69208BC70C0DE4B2BC86 /* CoreLocation.framework in Frameworks */,
@@ -114,7 +113,6 @@
 				AABB001122334455NETWORK01 /* Network.framework in Frameworks */,
 				AABB001122334455SPK001 /* Sparkle in Frameworks */,
 			);
-			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
@@ -234,8 +232,6 @@
 			);
 			buildRules = (
 			);
-			dependencies = (
-			);
 			name = "Satellite Eyes";
 			packageProductDependencies = (
 				AABB001122334455SPK002 /* Sparkle */,
@@ -264,7 +260,6 @@
 				};
 			};
 			buildConfigurationList = D54BBD44033465AFB8C5B7FA840E0FCC /* Build configuration list for PBXProject "SatelliteEyes" */;
-			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -272,9 +267,11 @@
 				Base,
 			);
 			mainGroup = 3042328FB5DA64A87C574DAB6001726C;
+			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
 				AABB001122334455SPK003 /* XCRemoteSwiftPackageReference "Sparkle" */,
 			);
+			preferredProjectObjectVersion = 100;
 			productRefGroup = 39E334E0B0491A2C2A07A1B9705B047A /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -287,7 +284,6 @@
 /* Begin PBXResourcesBuildPhase section */
 		42BD6E8FC2281A4AE00979FE1E7C1921 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
 			files = (
 				E261EA4719F9767D00F5341B /* status-icon-activity-2.png in Resources */,
 				CF56B60A90B705666B1E519C99D1F284 /* Credits.rtf in Resources */,
@@ -312,7 +308,6 @@
 				E261EA3719F9735B00F5341B /* status-icon-activity-0@2x.png in Resources */,
 				AABB00112233LOC001 /* Locations.plist in Resources */,
 			);
-			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
@@ -320,24 +315,26 @@
 		E2B80DDF199F6DFA002CD817 /* Update Build Number */ = {
 			isa = PBXShellScriptBuildPhase;
 			alwaysOutOfDate = 1;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
 			name = "Update Build Number";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "# From: http://zargony.com/2014/08/10/automatic-versioning-in-xcode-with-git-describe\nset -e\nset -x\nBUILD_NUMBER=`git rev-list HEAD | wc -l | tr -d ' '`\n# We increment this by 1000 because I did something stupid with an old release, and if the build number isn't higher than 438 then Sparkle won't prompt for an upgrade.\n((BUILD_NUMBER+=1000))\necho \"Updating Info.plist CFBundleVersion to: ${BUILD_NUMBER}\"\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion \\\"${BUILD_NUMBER}\\\"\" \"${TARGET_BUILD_DIR}/${INFOPLIST_PATH}\"\n/usr/bin/plutil -convert binary1 \"${TARGET_BUILD_DIR}/${INFOPLIST_PATH}\"\n";
+			shellScript = (
+				"# From: http://zargony.com/2014/08/10/automatic-versioning-in-xcode-with-git-describe",
+				"set -e",
+				"set -x",
+				"BUILD_NUMBER=`git rev-list HEAD | wc -l | tr -d ' '`",
+				"# We increment this by 1000 because I did something stupid with an old release, and if the build number isn't higher than 438 then Sparkle won't prompt for an upgrade.",
+				"((BUILD_NUMBER+=1000))",
+				"echo \"Updating Info.plist CFBundleVersion to: ${BUILD_NUMBER}\"",
+				"/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion \\\"${BUILD_NUMBER}\\\"\" \"${TARGET_BUILD_DIR}/${INFOPLIST_PATH}\"",
+				"/usr/bin/plutil -convert binary1 \"${TARGET_BUILD_DIR}/${INFOPLIST_PATH}\"",
+				"",
+			);
 		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		1BA14FD04AE46C791F4DC95096A0DE54 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
 			files = (
 				AABB00112233LIM002 /* LoginItemManager.swift in Sources */,
 				AABB00112233MD5001 /* MD5Digest.swift in Sources */,
@@ -353,7 +350,6 @@
 				AABB00112233APD002 /* AppDelegate.swift in Sources */,
 				AABB00112233LST001 /* LocationStore.swift in Sources */,
 			);
-			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
@@ -369,7 +365,7 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
-		11359C44A2D9A46B9B49EA7D67C17D89 /* Debug */ = {
+		11359C44A2D9A46B9B49EA7D67C17D89 /* Debug configuration for PBXNativeTarget "Satellite Eyes" */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = SatelliteEyes/SatelliteEyes.entitlements;
@@ -404,7 +400,7 @@
 			};
 			name = Debug;
 		};
-		9B4D81AD47A2A9B884A54B8DB7A6E2A1 /* Release */ = {
+		9B4D81AD47A2A9B884A54B8DB7A6E2A1 /* Release configuration for PBXProject "SatelliteEyes" */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -454,7 +450,7 @@
 			};
 			name = Release;
 		};
-		A7A2EE633075524C9013CC78F9888754 /* Release */ = {
+		A7A2EE633075524C9013CC78F9888754 /* Release configuration for PBXNativeTarget "Satellite Eyes" */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = SatelliteEyes/SatelliteEyes.entitlements;
@@ -489,7 +485,7 @@
 			};
 			name = Release;
 		};
-		E70101546B0B3926CC4950EB9E3797C1 /* Debug */ = {
+		E70101546B0B3926CC4950EB9E3797C1 /* Debug configuration for PBXProject "SatelliteEyes" */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -552,19 +548,17 @@
 		32E4CB75628C9D551998866DE380F5F5 /* Build configuration list for PBXNativeTarget "Satellite Eyes" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				11359C44A2D9A46B9B49EA7D67C17D89 /* Debug */,
-				A7A2EE633075524C9013CC78F9888754 /* Release */,
+				11359C44A2D9A46B9B49EA7D67C17D89 /* Debug configuration for PBXNativeTarget "Satellite Eyes" */,
+				A7A2EE633075524C9013CC78F9888754 /* Release configuration for PBXNativeTarget "Satellite Eyes" */,
 			);
-			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 		D54BBD44033465AFB8C5B7FA840E0FCC /* Build configuration list for PBXProject "SatelliteEyes" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				E70101546B0B3926CC4950EB9E3797C1 /* Debug */,
-				9B4D81AD47A2A9B884A54B8DB7A6E2A1 /* Release */,
+				E70101546B0B3926CC4950EB9E3797C1 /* Debug configuration for PBXProject "SatelliteEyes" */,
+				9B4D81AD47A2A9B884A54B8DB7A6E2A1 /* Release configuration for PBXProject "SatelliteEyes" */,
 			);
-			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
