@@ -1,6 +1,21 @@
 import Cocoa
 
-class StatusItemController: NSObject, NSMenuDelegate {
+/// Holds a `NotificationCenter` block-observer token and unregisters it when
+/// released, so observers go away with their owner.
+private final class ObserverToken {
+    private let token: any NSObjectProtocol
+
+    init(_ token: any NSObjectProtocol) {
+        self.token = token
+    }
+
+    deinit {
+        NotificationCenter.default.removeObserver(token)
+    }
+}
+
+@MainActor
+final class StatusItemController: NSObject, NSMenuDelegate {
 
     // MARK: - Private state
 
@@ -20,6 +35,7 @@ class StatusItemController: NSObject, NSMenuDelegate {
 
     private var animationFrameIndex: UInt = 0
     private var animationTimer: Timer?
+    private var observerTokens: [ObserverToken] = []
 
     // MARK: - Init
 
@@ -75,52 +91,54 @@ class StatusItemController: NSObject, NSMenuDelegate {
 
         updateStatus()
 
-        let nc = NotificationCenter.default
-
-        nc.addObserver(forName: MapManager.startedLoadNotification, object: nil, queue: nil) { [weak self] _ in
-            guard let self else { return }
-            self.didError = false
-            self.isActive = true
-            DispatchQueue.main.async { self.updateStatus() }
+        // Delivered on the main queue so the state below is only ever touched on
+        // the main actor.
+        observe(MapManager.startedLoadNotification) { controller, _ in
+            controller.didError = false
+            controller.isActive = true
         }
 
-        nc.addObserver(forName: MapManager.finishedLoadNotification, object: nil, queue: nil) { [weak self] _ in
-            guard let self else { return }
-            self.didError = false
-            self.isActive = false
-            self.mapLastUpdated = Date()
-            DispatchQueue.main.async { self.updateStatus() }
+        observe(MapManager.finishedLoadNotification) { controller, _ in
+            controller.didError = false
+            controller.isActive = false
+            controller.mapLastUpdated = Date()
         }
 
-        nc.addObserver(forName: MapManager.failedLoadNotification, object: nil, queue: nil) { [weak self] _ in
-            guard let self else { return }
-            self.didError = true
-            self.isActive = false
-            DispatchQueue.main.async { self.updateStatus() }
+        observe(MapManager.failedLoadNotification) { controller, _ in
+            controller.didError = true
+            controller.isActive = false
         }
 
-        nc.addObserver(forName: MapManager.locationUpdatedNotification, object: nil, queue: nil) { [weak self] _ in
-            guard let self else { return }
-            self.hasLocation = true
-            DispatchQueue.main.async { self.updateStatus() }
+        observe(MapManager.locationUpdatedNotification) { controller, _ in
+            controller.hasLocation = true
         }
 
-        nc.addObserver(forName: MapManager.locationLostNotification, object: nil, queue: nil) { [weak self] _ in
-            guard let self else { return }
-            self.hasLocation = false
-            self.currentLocationName = nil
-            DispatchQueue.main.async { self.updateStatus() }
+        observe(MapManager.locationLostNotification) { controller, _ in
+            controller.hasLocation = false
+            controller.currentLocationName = nil
         }
 
-        nc.addObserver(forName: MapManager.randomLocationSelectedNotification, object: nil, queue: nil) { [weak self] notification in
-            guard let self else { return }
-            self.currentLocationName = notification.object as? String
-            DispatchQueue.main.async { self.updateStatus() }
+        observe(MapManager.randomLocationSelectedNotification) { controller, locationName in
+            controller.currentLocationName = locationName
         }
     }
 
-    deinit {
-        NotificationCenter.default.removeObserver(self)
+    /// Observes `name` on the main queue, applies `handler` — passing the
+    /// notification's object if it is a string — then refreshes the menu bar
+    /// item. The observer is removed when this controller is released.
+    private func observe(_ name: NSNotification.Name,
+                         handler: @escaping @MainActor (StatusItemController, String?) -> Void) {
+        let token = NotificationCenter.default.addObserver(
+            forName: name, object: nil, queue: .main
+        ) { [weak self] notification in
+            let object = notification.object as? String
+            MainActor.assumeIsolated {
+                guard let self else { return }
+                handler(self, object)
+                self.updateStatus()
+            }
+        }
+        observerTokens.append(ObserverToken(token))
     }
 
     // MARK: - Status update

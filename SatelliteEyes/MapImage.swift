@@ -1,5 +1,7 @@
-import Cocoa
+import CoreGraphics
 import CoreImage
+import Foundation
+import ImageIO
 import os
 
 private let log = Logger(subsystem: Bundle.main.bundleIdentifier ?? "SatelliteEyes", category: "MapImage")
@@ -20,16 +22,68 @@ enum TileFetchError: LocalizedError {
     }
 }
 
-class MapImage {
+/// A CIFilter chain read from `Defaults.plist`, as a value type so it can be
+/// handed to the off-main-actor renderer.
+struct ImageEffect: Sendable, Hashable {
+    struct Parameter: Sendable, Hashable {
+        let name: String
+        let value: Double
+    }
+
+    struct Filter: Sendable, Hashable {
+        let name: String
+        let parameters: [Parameter]
+    }
+
+    let id: String
+    let filters: [Filter]
+
+    init(id: String = "", filters: [Filter] = []) {
+        self.id = id
+        self.filters = filters
+    }
+
+    init(dictionary: NSDictionary) {
+        self.id = dictionary["id"] as? String ?? ""
+        let filterDefs = dictionary["filters"] as? [[String: Any]] ?? []
+        self.filters = filterDefs.compactMap { filterDef in
+            guard let name = filterDef["name"] as? String else { return nil }
+            let paramDefs = filterDef["parameters"] as? [[String: Any]] ?? []
+            let parameters = paramDefs.compactMap { param -> Parameter? in
+                guard let paramName = param["name"] as? String,
+                      let value = (param["value"] as? NSNumber)?.doubleValue else { return nil }
+                return Parameter(name: paramName, value: value)
+            }
+            return Filter(name: name, parameters: parameters)
+        }
+    }
+
+    /// Stable textual form used in the cache filename hash. Unlike
+    /// `NSDictionary.description` the ordering here is defined, so the same
+    /// effect always hashes to the same file.
+    var cacheDescription: String {
+        let described = filters.map { filter in
+            let params = filter.parameters.map { "\($0.name)=\($0.value)" }.joined(separator: ",")
+            return "\(filter.name)(\(params))"
+        }
+        return "\(id)[\(described.joined(separator: ";"))]"
+    }
+}
+
+/// Fetches the tiles for a map view and composites them into a single image on
+/// disk. A `Sendable` value type: the main actor builds one, then awaits
+/// `fetchTiles(skipCache:)`, which does its network and CoreGraphics work off
+/// the main actor.
+struct MapImage: Sendable {
     private let tileRect: CGRect
     private let tileScale: Float
     private let displayScale: Float
     private let zoomLevel: UInt16
     private let source: String
-    private let imageEffect: NSDictionary
+    private let imageEffect: ImageEffect
     private let tiles: [[MapTile]]
     private let pixelShift: CGPoint
-    private let logoImage: NSImage?
+    private let logoData: Data?
     private let tileSize: UInt
 
     private static let sharedTileSession: URLSession = {
@@ -39,15 +93,15 @@ class MapImage {
     }()
 
     init(tileRect: CGRect, tileScale: Float, zoomLevel: UInt16,
-               source: String, effect: NSDictionary, logo: NSImage?,
-               displayScale: Float? = nil) {
+         source: String, effect: ImageEffect, logoData: Data?,
+         displayScale: Float? = nil) {
         self.tileRect = tileRect
         self.tileScale = tileScale
         self.displayScale = displayScale ?? tileScale
         self.zoomLevel = zoomLevel
         self.source = source
         self.imageEffect = effect
-        self.logoImage = logo
+        self.logoData = logoData
         self.tileSize = UInt(256 * tileScale)
 
         var dummy: Float = 0
@@ -83,19 +137,11 @@ class MapImage {
         return URL(fileURLWithPath: path)
     }
 
-    func fetchTilesWithSuccess(_ success: @escaping (URL) -> Void,
-                                     failure: @escaping (Error) -> Void,
-                                     skipCache: Bool) {
-        Task.detached { [self] in
-            do {
-                let url = try await self.fetchTiles(skipCache: skipCache)
-                success(url)
-            } catch {
-                failure(error)
-            }
-        }
-    }
-
+    /// Fetches every tile and composites the finished wallpaper to disk,
+    /// returning its location. Explicitly `@concurrent` so the tile decoding and
+    /// CoreGraphics compositing never run on the main actor, whatever the
+    /// caller's isolation.
+    @concurrent
     func fetchTiles(skipCache: Bool) async throws -> URL {
         let fileURL = self.fileURL
 
@@ -109,9 +155,11 @@ class MapImage {
 
         log.debug("Not found or skipping cache, fetching: \(fileURL.path, privacy: .public)")
 
-        try await withThrowingTaskGroup(of: Void.self) { group in
-            for row in tiles {
-                for tile in row {
+        var images: [[CGImage?]] = tiles.map { Array(repeating: nil, count: $0.count) }
+
+        try await withThrowingTaskGroup(of: (row: Int, column: Int, image: CGImage).self) { group in
+            for (rowIndex, row) in tiles.enumerated() {
+                for (columnIndex, tile) in row.enumerated() {
                     group.addTask {
                         let (data, response) = try await Self.sharedTileSession.data(for: tile.urlRequest)
                         let contentType = (response as? HTTPURLResponse)?.value(forHTTPHeaderField: "Content-Type")
@@ -119,17 +167,20 @@ class MapImage {
                         if let mimeType, !validTileContentTypes.contains(mimeType) {
                             throw TileFetchError.invalidContentType(url: tile.url, contentType: contentType)
                         }
-                        tile.imageData = data
-                        guard tile.newImageRef() != nil else {
+                        guard let image = MapTile.image(from: data) else {
                             throw TileFetchError.undecodableImage(url: tile.url)
                         }
+                        return (rowIndex, columnIndex, image)
                     }
                 }
             }
-            try await group.waitForAll()
+
+            for try await result in group {
+                images[result.row][result.column] = result.image
+            }
         }
 
-        return writeImageData()
+        return writeImageData(tileImages: images)
     }
 
     // MARK: - Private
@@ -141,12 +192,12 @@ class MapImage {
                          tileRect.size.width, tileRect.size.height,
                          tileScale,
                          displayScale,
-                         imageEffect.description,
+                         imageEffect.cacheDescription,
                          zoomLevel)
         return key.md5Digest()
     }
 
-    private func writeImageData() -> URL {
+    private func writeImageData(tileImages: [[CGImage?]]) -> URL {
         let width = Int(floor(tileRect.size.width * CGFloat(tileSize)))
         let height = Int(floor(tileRect.size.height * CGFloat(tileSize)))
         let colorSpace = CGColorSpaceCreateDeviceRGB()
@@ -164,9 +215,9 @@ class MapImage {
         }
 
         // Draw tiles
-        for (rowIndex, row) in tiles.enumerated() {
-            for (tileIndex, tile) in row.enumerated() {
-                if let tileImage = tile.newImageRef() {
+        for (rowIndex, row) in tileImages.enumerated() {
+            for (tileIndex, tileImage) in row.enumerated() {
+                if let tileImage {
                     let drawX = CGFloat(tileIndex) * CGFloat(tileSize) - pixelShift.x
                     let drawY = CGFloat(rowIndex) * CGFloat(tileSize) - pixelShift.y
                     context.draw(tileImage, in: CGRect(x: drawX, y: drawY,
@@ -195,23 +246,17 @@ class MapImage {
         }
 
         // Apply effect filters
-        if let filters = imageEffect["filters"] as? [[String: Any]] {
-            for filterDef in filters {
-                guard let name = filterDef["name"] as? String,
-                      let imageFilter = CIFilter(name: name) else { continue }
-                imageFilter.setDefaults()
-                imageFilter.setValue(ciOutput, forKey: kCIInputImageKey)
+        for filter in imageEffect.filters {
+            guard let imageFilter = CIFilter(name: filter.name) else { continue }
+            imageFilter.setDefaults()
+            imageFilter.setValue(ciOutput, forKey: kCIInputImageKey)
 
-                if let parameters = filterDef["parameters"] as? [[String: Any]] {
-                    for param in parameters {
-                        guard let paramName = param["name"] as? String else { continue }
-                        let value = scaledFilterValue(param["value"] as Any, key: paramName)
-                        imageFilter.setValue(value, forKey: paramName)
-                    }
-                }
-                if let output = imageFilter.outputImage {
-                    ciOutput = output
-                }
+            for parameter in filter.parameters {
+                let value = scaledFilterValue(parameter.value, key: parameter.name)
+                imageFilter.setValue(value, forKey: parameter.name)
+            }
+            if let output = imageFilter.outputImage {
+                ciOutput = output
             }
         }
 
@@ -221,8 +266,8 @@ class MapImage {
         }
 
         // Draw logo
-        if let logo = logoImage, let tiffData = logo.tiffRepresentation,
-           let imageSource = CGImageSourceCreateWithData(tiffData as CFData, nil),
+        if let logoData,
+           let imageSource = CGImageSourceCreateWithData(logoData as CFData, nil),
            let logoRef = CGImageSourceCreateImageAtIndex(imageSource, 0, nil) {
             let margin: CGFloat = 10
             let logoWidth = CGFloat(logoRef.width)
@@ -251,11 +296,10 @@ class MapImage {
         return outputURL
     }
 
-    private func scaledFilterValue(_ value: Any, key: String) -> Any {
-        if [kCIInputRadiusKey, kCIInputScaleKey, kCIInputWidthKey].contains(key),
-           let number = value as? NSNumber {
-            return NSNumber(value: number.floatValue * displayScale)
+    private func scaledFilterValue(_ value: Double, key: String) -> NSNumber {
+        if [kCIInputRadiusKey, kCIInputScaleKey, kCIInputWidthKey].contains(key) {
+            return NSNumber(value: Float(value) * displayScale)
         }
-        return value
+        return NSNumber(value: value)
     }
 }

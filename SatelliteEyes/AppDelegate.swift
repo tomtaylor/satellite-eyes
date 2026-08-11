@@ -3,6 +3,7 @@ import Sparkle
 
 @main
 struct SatelliteEyesApp {
+    @MainActor
     static func main() {
         let app = NSApplication.shared
         let delegate = AppDelegate()
@@ -11,6 +12,7 @@ struct SatelliteEyesApp {
         app.run()
     }
 
+    @MainActor
     private static func setupMainMenu() {
         let mainMenu = NSMenu()
         let appMenuItem = NSMenuItem()
@@ -47,7 +49,8 @@ struct SatelliteEyesApp {
     }
 }
 
-class AppDelegate: NSObject, NSApplicationDelegate {
+@MainActor
+final class AppDelegate: NSObject, NSApplicationDelegate {
 
     private var mapManager: MapManager!
     private var statusItemController: StatusItemController!
@@ -75,9 +78,11 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
         NotificationCenter.default.addObserver(
             forName: MapManager.locationPermissionDeniedNotification,
-            object: nil, queue: nil) { [weak self] _ in
-                guard UserDefaults.standard.bool(forKey: "useCurrentLocation") else { return }
-                self?.handleLocationPermissionDenied()
+            object: nil, queue: .main) { [weak self] _ in
+                MainActor.assumeIsolated {
+                    guard UserDefaults.standard.bool(forKey: "useCurrentLocation") else { return }
+                    self?.handleLocationPermissionDenied()
+                }
             }
 
         doFirstRun()
@@ -220,28 +225,30 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
 // MARK: - SPUStandardUserDriverDelegate
 
+// Sparkle doesn't promise which thread it calls its delegate on, so these stay
+// nonisolated and hop to the main actor themselves.
 extension AppDelegate: SPUStandardUserDriverDelegate {
 
-    var supportsGentleScheduledUpdateReminders: Bool { true }
+    nonisolated var supportsGentleScheduledUpdateReminders: Bool { true }
 
-    func standardUserDriverWillHandleShowingUpdate(
+    nonisolated func standardUserDriverWillHandleShowingUpdate(
         _ handleShowingUpdate: Bool,
         forUpdate update: SUAppcastItem,
         state: SPUUserUpdateState
     ) {
-        if !handleShowingUpdate {
-            DispatchQueue.main.async { [weak self] in
-                self?.statusItemController.setAvailableUpdate(version: update.displayVersionString)
-            }
+        guard !handleShowingUpdate else { return }
+        let version = update.displayVersionString
+        Task { @MainActor [weak self] in
+            self?.statusItemController.setAvailableUpdate(version: version)
         }
     }
 
-    func standardUserDriverDidReceiveUserAttention(forUpdate update: SUAppcastItem) {
+    nonisolated func standardUserDriverDidReceiveUserAttention(forUpdate update: SUAppcastItem) {
         // No-op — the badge clears when the update session ends.
     }
 
-    func standardUserDriverWillFinishUpdateSession() {
-        DispatchQueue.main.async { [weak self] in
+    nonisolated func standardUserDriverWillFinishUpdateSession() {
+        Task { @MainActor [weak self] in
             self?.statusItemController.setAvailableUpdate(version: nil)
         }
     }
