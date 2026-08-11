@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<!-- Direct (outside the Mac App Store) distribution, re-signed with the
+	     Developer ID Application certificate. -->
+	<key>method</key>
+	<string>developer-id</string>
+	<key>teamID</key>
+	<string>UY2GK6B69X</string>
+	<key>signingStyle</key>
+	<string>automatic</string>
+	<!-- "upload" sends the export to Apple's notary service instead of writing
+	     it to disk. This is the equivalent of Organizer's "Distribute App".
+	     The notarized, stapled app is retrieved afterwards with
+	     `xcodebuild -exportNotarizedApp`. -->
+	<key>destination</key>
+	<string>upload</string>
+</dict>
+</plist>
