@@ -22,6 +22,7 @@ class MapManager: NSObject, CLLocationManagerDelegate {
 
     private let locationManager = CLLocationManager()
     private var lastSeenLocation: CLLocation?
+    private var lastMapUpdateLocation: CLLocation?
     private let updateQueue = DispatchQueue(label: "uk.co.tomtaylor.satelliteeyes.mapupdate")
     private let pathMonitor = NWPathMonitor()
     private var networkSatisfied = false
@@ -243,6 +244,13 @@ class MapManager: NSObject, CLLocationManagerDelegate {
 
         NotificationCenter.default.post(name: Self.locationUpdatedNotification, object: newLocation)
         lastSeenLocation = newLocation
+
+        if let last = lastMapUpdateLocation,
+           newLocation.distance(from: last) < 300 {
+            return
+        }
+
+        lastMapUpdateLocation = newLocation
         updateMap(to: newLocation.coordinate, force: false)
     }
 
@@ -303,6 +311,7 @@ class MapManager: NSObject, CLLocationManagerDelegate {
         if useCurrentLocation {
             locationManager.stopUpdatingLocation()
             lastSeenLocation = nil
+            lastMapUpdateLocation = nil
             NotificationCenter.default.post(name: Self.locationLostNotification, object: nil)
             locationManager.startUpdatingLocation()
         } else {
@@ -320,6 +329,7 @@ class MapManager: NSObject, CLLocationManagerDelegate {
             rotationTimer = nil
             currentRandomLocation = nil
             lastSeenLocation = nil
+            lastMapUpdateLocation = nil
             NotificationCenter.default.post(name: Self.locationLostNotification, object: nil)
 
             guard CLLocationManager.locationServicesEnabled() else {
