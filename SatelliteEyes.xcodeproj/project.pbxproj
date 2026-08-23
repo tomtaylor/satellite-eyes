@@ -20,7 +20,6 @@
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				"SatelliteEyes-Info.plist",
-				SatelliteEyes.entitlements,
 			);
 			target = F0A509CCCBD50F0A3647B6633BE0F1C7 /* Satellite Eyes */;
 		};
