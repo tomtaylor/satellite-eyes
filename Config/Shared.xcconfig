@@ -10,21 +10,17 @@ WRAPPER_EXTENSION = app
 
 INFOPLIST_FILE = SatelliteEyes/SatelliteEyes-Info.plist
 INFOPLIST_KEY_LSApplicationCategoryType = public.app-category.utilities
-INFOPLIST_PREPROCESS = NO
 
 SWIFT_VERSION = 6.0
 COPY_PHASE_STRIP = NO
 DEAD_CODE_STRIPPING = YES
 COMBINE_HIDPI_IMAGES = YES
-FRAMEWORK_SEARCH_PATHS = $(inherited) $(PROJECT_DIR)
 LD_RUNPATH_SEARCH_PATHS = $(inherited) @executable_path/../Frameworks
 
 CODE_SIGN_ENTITLEMENTS = SatelliteEyes/SatelliteEyes.entitlements
-CODE_SIGN_IDENTITY = Mac Developer
-CODE_SIGN_IDENTITY[sdk=macosx*] = Apple Development
+CODE_SIGN_IDENTITY = Apple Development
 CODE_SIGN_STYLE = Automatic
 DEVELOPMENT_TEAM = UY2GK6B69X
-PROVISIONING_PROFILE_SPECIFIER =
 
 ENABLE_APP_SANDBOX = YES
 ENABLE_HARDENED_RUNTIME = YES
