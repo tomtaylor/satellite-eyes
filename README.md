@@ -8,7 +8,7 @@ It's available for download at [http://satelliteeyes.tomtaylor.co.uk](http://sat
 
 ## Building
 
-Satellite Eyes is a Swift project targeting macOS 13.0. Open `SatelliteEyes.xcworkspace` in Xcode to build. Dependencies are managed via SwiftPM and will resolve automatically.
+Satellite Eyes is a Swift project targeting macOS 13.0. Open `SatelliteEyes.xcodeproj` in Xcode to build. Dependencies are managed via SwiftPM and will resolve automatically.
 
 You might need to update the project to use your own team and certificates, but please don’t commit these changes.
 

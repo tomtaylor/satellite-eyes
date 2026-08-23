@@ -6,17 +6,17 @@ It is a menu bar utility, targeting MacOS 13.0. This is a **macOS-only** app —
 
 ## Build
 
-The project uses an Xcode workspace with SwiftPM dependencies. The scheme is "Satellite Eyes".
+The project is a plain Xcode project with SwiftPM dependencies. The scheme is "Satellite Eyes".
 
 ```bash
 # Build (Debug)
-xcodebuild -workspace SatelliteEyes.xcworkspace -scheme "Satellite Eyes" -configuration Debug build
+xcodebuild -project SatelliteEyes.xcodeproj -scheme "Satellite Eyes" -configuration Debug build
 
 # Build (Release)
-xcodebuild -workspace SatelliteEyes.xcworkspace -scheme "Satellite Eyes" -configuration Release build
+xcodebuild -project SatelliteEyes.xcodeproj -scheme "Satellite Eyes" -configuration Release build
 
 # Clean
-xcodebuild -workspace SatelliteEyes.xcworkspace -scheme "Satellite Eyes" clean
+xcodebuild -project SatelliteEyes.xcodeproj -scheme "Satellite Eyes" clean
 ```
 
 ## Architecture

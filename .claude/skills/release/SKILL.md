@@ -82,7 +82,7 @@ A few minutes. The project builds clean, so investigate any new warning before
 continuing.
 
 ```bash
-xcodebuild -workspace SatelliteEyes.xcworkspace -scheme "Satellite Eyes" \
+xcodebuild -project SatelliteEyes.xcodeproj -scheme "Satellite Eyes" \
   -configuration Release -archivePath "$SCRATCH/satellite-eyes-<version>.xcarchive" \
   archive
 ```
