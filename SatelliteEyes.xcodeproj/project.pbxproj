@@ -11,7 +11,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		AABB00112233TST011 /* Tests.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Tests.xcconfig; sourceTree = "<group>"; };
 		AABB00112233XCC001 /* Shared.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Shared.xcconfig; sourceTree = "<group>"; };
+		AABB00112233TST010 /* SatelliteEyesTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SatelliteEyesTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		E1AEB4FF42F09FC9228E2D87F4D88973 /* Satellite Eyes.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Satellite Eyes.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -34,6 +36,11 @@
 			path = SatelliteEyes;
 			sourceTree = "<group>";
 		};
+		AABB00112233TST001 /* SatelliteEyesTests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = SatelliteEyesTests;
+			sourceTree = "<group>";
+		};
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -42,6 +49,13 @@
 			files = (
 				AABB001122334455SPK001 /* Sparkle in Frameworks */,
 			);
+		};
+		AABB00112233TST003 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
@@ -52,6 +66,7 @@
 				AABB00112233XCC002 /* Config */,
 				39E334E0B0491A2C2A07A1B9705B047A /* Products */,
 				AABB00112233SYNC001 /* SatelliteEyes */,
+				AABB00112233TST001 /* SatelliteEyesTests */,
 			);
 			sourceTree = "<group>";
 		};
@@ -59,6 +74,7 @@
 			isa = PBXGroup;
 			children = (
 				E1AEB4FF42F09FC9228E2D87F4D88973 /* Satellite Eyes.app */,
+				AABB00112233TST010 /* SatelliteEyesTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -67,6 +83,7 @@
 			isa = PBXGroup;
 			children = (
 				AABB00112233XCC001 /* Shared.xcconfig */,
+				AABB00112233TST011 /* Tests.xcconfig */,
 			);
 			path = Config;
 			sourceTree = "<group>";
@@ -96,7 +113,37 @@
 			productReference = E1AEB4FF42F09FC9228E2D87F4D88973 /* Satellite Eyes.app */;
 			productType = "com.apple.product-type.application";
 		};
+		AABB00112233TST004 /* SatelliteEyesTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = AABB00112233TST005 /* Build configuration list for PBXNativeTarget "SatelliteEyesTests" */;
+			buildPhases = (
+				AABB00112233TST002 /* Sources */,
+				AABB00112233TST003 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				AABB00112233TST008 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				AABB00112233TST001 /* SatelliteEyesTests */,
+			);
+			name = SatelliteEyesTests;
+			productName = SatelliteEyesTests;
+			productReference = AABB00112233TST010 /* SatelliteEyesTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
+
+/* Begin PBXContainerItemProxy section */
+		AABB00112233TST009 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7999993EC22657DCF9F9FCC566D50840 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = F0A509CCCBD50F0A3647B6633BE0F1C7;
+			remoteInfo = "Satellite Eyes";
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXProject section */
 		7999993EC22657DCF9F9FCC566D50840 /* Project object */ = {
@@ -105,6 +152,10 @@
 				BuildIndependentTargetsInParallel = YES;
 				LastUpgradeCheck = 2650;
 				TargetAttributes = {
+					AABB00112233TST004 = {
+						CreatedOnToolsVersion = 26.5;
+						TestTargetID = F0A509CCCBD50F0A3647B6633BE0F1C7;
+					};
 					F0A509CCCBD50F0A3647B6633BE0F1C7 = {
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
@@ -133,9 +184,18 @@
 			projectRoot = "";
 			targets = (
 				F0A509CCCBD50F0A3647B6633BE0F1C7 /* Satellite Eyes */,
+				AABB00112233TST004 /* SatelliteEyesTests */,
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXTargetDependency section */
+		AABB00112233TST008 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = F0A509CCCBD50F0A3647B6633BE0F1C7 /* Satellite Eyes */;
+			targetProxy = AABB00112233TST009 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXResourcesBuildPhase section */
 		42BD6E8FC2281A4AE00979FE1E7C1921 /* Resources */ = {
@@ -171,6 +231,13 @@
 			isa = PBXSourcesBuildPhase;
 			files = (
 			);
+		};
+		AABB00112233TST002 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
@@ -220,6 +287,20 @@
 			};
 			name = Debug;
 		};
+		AABB00112233TST006 /* Debug configuration for PBXNativeTarget "SatelliteEyesTests" */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = AABB00112233TST011 /* Tests.xcconfig */;
+			buildSettings = {
+			};
+			name = Debug;
+		};
+		AABB00112233TST007 /* Release configuration for PBXNativeTarget "SatelliteEyesTests" */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = AABB00112233TST011 /* Tests.xcconfig */;
+			buildSettings = {
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -236,6 +317,14 @@
 			buildConfigurations = (
 				E70101546B0B3926CC4950EB9E3797C1 /* Debug configuration for PBXProject "SatelliteEyes" */,
 				9B4D81AD47A2A9B884A54B8DB7A6E2A1 /* Release configuration for PBXProject "SatelliteEyes" */,
+			);
+			defaultConfigurationName = Release;
+		};
+		AABB00112233TST005 /* Build configuration list for PBXNativeTarget "SatelliteEyesTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AABB00112233TST006 /* Debug configuration for PBXNativeTarget "SatelliteEyesTests" */,
+				AABB00112233TST007 /* Release configuration for PBXNativeTarget "SatelliteEyesTests" */,
 			);
 			defaultConfigurationName = Release;
 		};

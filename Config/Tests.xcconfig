@@ -1,0 +1,20 @@
+// Settings for the SatelliteEyesTests unit test bundle. The tests are hosted
+// by the app so they can @testable import its module; AppDelegate skips its
+// launch work when it detects a test run.
+
+PRODUCT_NAME = $(TARGET_NAME)
+PRODUCT_BUNDLE_IDENTIFIER = uk.co.tomtaylor.SatelliteEyesTests
+GENERATE_INFOPLIST_FILE = YES
+
+TEST_HOST = $(BUILT_PRODUCTS_DIR)/Satellite Eyes.app/Contents/MacOS/Satellite Eyes
+BUNDLE_LOADER = $(TEST_HOST)
+
+SWIFT_VERSION = 6.0
+CODE_SIGN_STYLE = Automatic
+DEVELOPMENT_TEAM = UY2GK6B69X
+LD_RUNPATH_SEARCH_PATHS = $(inherited) @executable_path/../Frameworks @loader_path/../Frameworks
+
+// XCTest.framework and Testing.framework are built for macOS 14, and the
+// tests only ever run on a development machine, so the bundle does not need
+// the app's macOS 13 floor.
+MACOSX_DEPLOYMENT_TARGET = 14.0

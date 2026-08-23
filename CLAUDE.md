@@ -6,7 +6,14 @@ It is a menu bar utility, targeting MacOS 13.0. This is a **macOS-only** app —
 
 ## Build
 
-The project is a plain Xcode project with SwiftPM dependencies. The scheme is "Satellite Eyes".
+The project is a plain Xcode project with SwiftPM dependencies. The scheme is "Satellite Eyes",
+and it has two targets: the app, and the `SatelliteEyesTests` unit test bundle.
+
+Both source folders are **file-system synchronized groups**, so a new file in
+`SatelliteEyes/` or `SatelliteEyesTests/` joins its target automatically — there
+is nothing to add to the project. Build settings live in `Config/Shared.xcconfig`
+(app) and `Config/Tests.xcconfig` (tests), which both configurations of each
+target inherit, so a setting like `MARKETING_VERSION` is written once.
 
 ```bash
 # Build (Debug)
@@ -15,9 +22,17 @@ xcodebuild -project SatelliteEyes.xcodeproj -scheme "Satellite Eyes" -configurat
 # Build (Release)
 xcodebuild -project SatelliteEyes.xcodeproj -scheme "Satellite Eyes" -configuration Release build
 
+# Test
+xcodebuild -project SatelliteEyes.xcodeproj -scheme "Satellite Eyes" -configuration Debug test
+
 # Clean
 xcodebuild -project SatelliteEyes.xcodeproj -scheme "Satellite Eyes" clean
 ```
+
+The tests are hosted by the app so they can `@testable import Satellite_Eyes`,
+which means a test run launches it. `AppDelegate.applicationDidFinishLaunching`
+returns early when it detects a test run — without that, running the tests would
+start the updater and set the wallpaper.
 
 ## Architecture
 
@@ -34,6 +49,7 @@ xcodebuild -project SatelliteEyes.xcodeproj -scheme "Satellite Eyes" clean
 | `PreferencesWindowController.swift` | SwiftUI preferences window (map style, zoom, effects, launch at login) |
 | `ManageMapStylesWindowController.swift` | SwiftUI window for adding/removing custom map tile sources |
 | `LoginItemManager.swift` | Launch at login via SMAppService |
+| `SatelliteEyesTests/MapTileTests.swift` | Swift Testing suite for the Web Mercator projection: expected values come from the equivalent `asinh(tan(φ))` form of the maths, so an error in one arrangement does not hide in the other |
 
 ### Communication Patterns
 

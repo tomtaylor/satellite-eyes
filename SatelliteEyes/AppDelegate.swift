@@ -58,7 +58,19 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     private var aboutWindowController: AboutWindowController!
     private var updaterController: SPUStandardUpdaterController!
 
+    /// The unit tests are hosted by this app so they can reach its internal
+    /// types, which means a test run launches it. Starting the updater, the
+    /// status item and a map update would set the wallpaper as a side effect
+    /// of running the tests, so skip all of it.
+    private var isRunningTests: Bool {
+        ProcessInfo.processInfo.environment["XCTestConfigurationFilePath"] != nil
+            || ProcessInfo.processInfo.environment["XCTestBundlePath"] != nil
+            || NSClassFromString("XCTestCase") != nil
+    }
+
     func applicationDidFinishLaunching(_ notification: Notification) {
+        guard !isRunningTests else { return }
+
         updaterController = SPUStandardUpdaterController(
             startingUpdater: true, updaterDelegate: nil, userDriverDelegate: self)
 
