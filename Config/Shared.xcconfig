@@ -1,0 +1,32 @@
+// Settings shared by the Debug and Release configurations of the
+// "Satellite Eyes" target. Anything that genuinely differs between the two
+// stays in the project's own configurations; everything here was previously
+// duplicated verbatim in both, MARKETING_VERSION included.
+
+MARKETING_VERSION = 2.1.2
+PRODUCT_BUNDLE_IDENTIFIER = uk.co.tomtaylor.SatelliteEyes
+PRODUCT_NAME = $(TARGET_NAME)
+WRAPPER_EXTENSION = app
+
+INFOPLIST_FILE = SatelliteEyes/SatelliteEyes-Info.plist
+INFOPLIST_KEY_LSApplicationCategoryType = public.app-category.utilities
+INFOPLIST_PREPROCESS = NO
+
+SWIFT_VERSION = 6.0
+COPY_PHASE_STRIP = NO
+DEAD_CODE_STRIPPING = YES
+COMBINE_HIDPI_IMAGES = YES
+FRAMEWORK_SEARCH_PATHS = $(inherited) $(PROJECT_DIR)
+LD_RUNPATH_SEARCH_PATHS = $(inherited) @executable_path/../Frameworks
+
+CODE_SIGN_ENTITLEMENTS = SatelliteEyes/SatelliteEyes.entitlements
+CODE_SIGN_IDENTITY = Mac Developer
+CODE_SIGN_IDENTITY[sdk=macosx*] = Apple Development
+CODE_SIGN_STYLE = Automatic
+DEVELOPMENT_TEAM = UY2GK6B69X
+PROVISIONING_PROFILE_SPECIFIER =
+
+ENABLE_APP_SANDBOX = YES
+ENABLE_HARDENED_RUNTIME = YES
+ENABLE_OUTGOING_NETWORK_CONNECTIONS = YES
+ENABLE_RESOURCE_ACCESS_LOCATION = YES

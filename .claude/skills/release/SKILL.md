@@ -29,9 +29,9 @@ that scratchpad path; substitute it, it is not an exported variable.
 
 ## How versioning works here
 
-- `MARKETING_VERSION` in `SatelliteEyes.xcodeproj/project.pbxproj` is the
-  human version (`CFBundleShortVersionString`). It appears **twice** — the
-  target's Debug and Release configurations — and both must be updated.
+- `MARKETING_VERSION` in `Config/Shared.xcconfig` is the human version
+  (`CFBundleShortVersionString`). Both of the target's configurations inherit
+  that file, so it appears once.
 - `CFBundleVersion` is *not* in the project. The "Update Build Number" script
   phase computes it at build time as `git rev-list HEAD | wc -l` + 1000, so it
   tracks the commit count (2.1.1 shipped as build 1221). Sparkle reads both
@@ -51,7 +51,7 @@ Report anything that fails and stop rather than working around it.
 git -C . status --short                     # app repo: expect clean
 git -C ../site status --short                # site repo: expect clean
 git branch --show-current                    # expect main
-grep -n "MARKETING_VERSION" SatelliteEyes.xcodeproj/project.pbxproj   # previous version
+grep -n "MARKETING_VERSION" Config/Shared.xcconfig                    # previous version
 git tag --list <version>                     # expect empty — tag must not exist yet
 command -v generate_appcast && ls ~/bin/BinaryDelta                   # Sparkle tools
 security find-generic-password -a ed25519 -s https://sparkle-project.org >/dev/null && echo "signing key present"
@@ -62,12 +62,11 @@ the current `MARKETING_VERSION`.
 
 ### 2. Bump the version and commit it
 
-Edit both `MARKETING_VERSION = <old>;` lines in
-`SatelliteEyes.xcodeproj/project.pbxproj` to the new version, then commit just
-that file:
+Edit the `MARKETING_VERSION = <old>` line in `Config/Shared.xcconfig` to the
+new version, then commit just that file:
 
 ```bash
-git add SatelliteEyes.xcodeproj/project.pbxproj
+git add Config/Shared.xcconfig
 git commit -m "Bump to <version>"
 ```
 
