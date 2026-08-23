@@ -7,27 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		22CE893F85191FDE937CDAAC746CBAF1 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D463EFD95CBA286EB082BDB24D79A26E /* Cocoa.framework */; };
-		42AAFFC44F7442D5DD0B75DFFFBD2DBB /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2B228E2AF542BCCC889815E95205213F /* SystemConfiguration.framework */; };
-		4B295289382D99D49EFFD429E752AE4E /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6A40ABB41F26D8EA6E44086547D8FEFE /* QuartzCore.framework */; };
-		984DEA9FA73332622AB3EB7F0BA2BD58 /* ServiceManagement.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B01A9B73C4CAA0FE6D446EF25495A3C1 /* ServiceManagement.framework */; };
-		AABB001122334455NETWORK01 /* Network.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AABB001122334455NETWORK02 /* Network.framework */; };
 		AABB001122334455SPK001 /* Sparkle in Frameworks */ = {isa = PBXBuildFile; productRef = AABB001122334455SPK002 /* Sparkle */; };
-		EDB6435098CC69208BC70C0DE4B2BC86 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FD9117BBE6B9ECE93973993CD69E03AA /* CoreLocation.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		2B228E2AF542BCCC889815E95205213F /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
-		6A40ABB41F26D8EA6E44086547D8FEFE /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
-		6B40139D1D111B91DA0BC3BA60984AC1 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
-		AABB001122334455NETWORK02 /* Network.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Network.framework; path = System/Library/Frameworks/Network.framework; sourceTree = SDKROOT; };
 		AABB00112233XCC001 /* Shared.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Shared.xcconfig; sourceTree = "<group>"; };
-		ABFCA6D5ED74F5F133B5E59675D404AD /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
-		B01A9B73C4CAA0FE6D446EF25495A3C1 /* ServiceManagement.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ServiceManagement.framework; path = System/Library/Frameworks/ServiceManagement.framework; sourceTree = SDKROOT; };
-		D463EFD95CBA286EB082BDB24D79A26E /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		E1AEB4FF42F09FC9228E2D87F4D88973 /* Satellite Eyes.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Satellite Eyes.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		F8BD6F1383BE75619ADDA70A0BA002D7 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
-		FD9117BBE6B9ECE93973993CD69E03AA /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -56,47 +41,16 @@
 		60237CDE65D0D58F1B5424CF0104AD02 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			files = (
-				22CE893F85191FDE937CDAAC746CBAF1 /* Cocoa.framework in Frameworks */,
-				EDB6435098CC69208BC70C0DE4B2BC86 /* CoreLocation.framework in Frameworks */,
-				4B295289382D99D49EFFD429E752AE4E /* QuartzCore.framework in Frameworks */,
-				984DEA9FA73332622AB3EB7F0BA2BD58 /* ServiceManagement.framework in Frameworks */,
-				42AAFFC44F7442D5DD0B75DFFFBD2DBB /* SystemConfiguration.framework in Frameworks */,
-				AABB001122334455NETWORK01 /* Network.framework in Frameworks */,
 				AABB001122334455SPK001 /* Sparkle in Frameworks */,
 			);
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		0E14D71311A0CDE79CD75225214B1D4C /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				0E75555BDA62D4CB5067685541E7E4E3 /* Other Frameworks */,
-				D463EFD95CBA286EB082BDB24D79A26E /* Cocoa.framework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		0E75555BDA62D4CB5067685541E7E4E3 /* Other Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				6B40139D1D111B91DA0BC3BA60984AC1 /* AppKit.framework */,
-				FD9117BBE6B9ECE93973993CD69E03AA /* CoreLocation.framework */,
-				F8BD6F1383BE75619ADDA70A0BA002D7 /* Foundation.framework */,
-				6A40ABB41F26D8EA6E44086547D8FEFE /* QuartzCore.framework */,
-				B01A9B73C4CAA0FE6D446EF25495A3C1 /* ServiceManagement.framework */,
-				2B228E2AF542BCCC889815E95205213F /* SystemConfiguration.framework */,
-				AABB001122334455NETWORK02 /* Network.framework */,
-				ABFCA6D5ED74F5F133B5E59675D404AD /* WebKit.framework */,
-			);
-			name = "Other Frameworks";
-			sourceTree = "<group>";
-		};
 		3042328FB5DA64A87C574DAB6001726C = {
 			isa = PBXGroup;
 			children = (
 				AABB00112233XCC002 /* Config */,
-				0E14D71311A0CDE79CD75225214B1D4C /* Frameworks */,
 				39E334E0B0491A2C2A07A1B9705B047A /* Products */,
 				AABB00112233SYNC001 /* SatelliteEyes */,
 			);
