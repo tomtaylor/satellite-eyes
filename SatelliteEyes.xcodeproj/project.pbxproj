@@ -7,99 +7,50 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		01F1DFE4B43F4BCBBCF33346C60DC0D7 /* icon.icns in Resources */ = {isa = PBXBuildFile; fileRef = 587E133F99CB13C340AD7810C27A1BFE /* icon.icns */; };
-		0BB90D5B4B314123AAB1D3D29CB74CD3 /* loading.png in Resources */ = {isa = PBXBuildFile; fileRef = CF2947CC3A221752A4A59C14595A9489 /* loading.png */; };
 		22CE893F85191FDE937CDAAC746CBAF1 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D463EFD95CBA286EB082BDB24D79A26E /* Cocoa.framework */; };
 		42AAFFC44F7442D5DD0B75DFFFBD2DBB /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2B228E2AF542BCCC889815E95205213F /* SystemConfiguration.framework */; };
 		4B295289382D99D49EFFD429E752AE4E /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6A40ABB41F26D8EA6E44086547D8FEFE /* QuartzCore.framework */; };
-		7BFB2574C28396D4F941CB71FAF526FB /* bing-logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 23F0F5ADE6F952464C80215F219E819C /* bing-logo.png */; };
 		984DEA9FA73332622AB3EB7F0BA2BD58 /* ServiceManagement.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B01A9B73C4CAA0FE6D446EF25495A3C1 /* ServiceManagement.framework */; };
 		AABB001122334455NETWORK01 /* Network.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AABB001122334455NETWORK02 /* Network.framework */; };
 		AABB001122334455SPK001 /* Sparkle in Frameworks */ = {isa = PBXBuildFile; productRef = AABB001122334455SPK002 /* Sparkle */; };
-		AABB00112233APD002 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AABB00112233APD001 /* AppDelegate.swift */; };
-		AABB00112233AWC002 /* AboutWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AABB00112233AWC001 /* AboutWindowController.swift */; };
-		AABB00112233BMS001 /* BuiltInMapStyles.plist in Resources */ = {isa = PBXBuildFile; fileRef = AABB00112233BMS002 /* BuiltInMapStyles.plist */; };
-		AABB00112233DTF001 /* DateFormatting.swift in Sources */ = {isa = PBXBuildFile; fileRef = AABB00112233DTF002 /* DateFormatting.swift */; };
-		AABB00112233FMP001 /* FileManagerPaths.swift in Sources */ = {isa = PBXBuildFile; fileRef = AABB00112233FMP002 /* FileManagerPaths.swift */; };
-		AABB00112233LIM002 /* LoginItemManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AABB00112233LIM001 /* LoginItemManager.swift */; };
-		AABB00112233LOC001 /* Locations.plist in Resources */ = {isa = PBXBuildFile; fileRef = AABB00112233LOC002 /* Locations.plist */; };
-		AABB00112233LST001 /* LocationStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = AABB00112233LST002 /* LocationStore.swift */; };
-		AABB00112233MD5001 /* MD5Digest.swift in Sources */ = {isa = PBXBuildFile; fileRef = AABB00112233MD5002 /* MD5Digest.swift */; };
-		AABB00112233MMG002 /* MapManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AABB00112233MMG001 /* MapManager.swift */; };
-		AABB00112233MPI001 /* MapImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = AABB00112233MPI002 /* MapImage.swift */; };
-		AABB00112233MPT001 /* MapTile.swift in Sources */ = {isa = PBXBuildFile; fileRef = AABB00112233MPT002 /* MapTile.swift */; };
-		AABB00112233MWC002 /* ManageMapStylesWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AABB00112233MWC001 /* ManageMapStylesWindowController.swift */; };
-		AABB00112233PWC002 /* PreferencesWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AABB00112233PWC001 /* PreferencesWindowController.swift */; };
-		AABB00112233SIC002 /* StatusItemController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AABB00112233SIC001 /* StatusItemController.swift */; };
-		CF56B60A90B705666B1E519C99D1F284 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = D91E37E8DFDA52C112A1E550DBF2E48F /* Credits.rtf */; };
-		D7569B7412ADF6DEEB9CAC8C1908D4A0 /* Defaults.plist in Resources */ = {isa = PBXBuildFile; fileRef = 459ED31A223FC63BAB241C074B5E7CFA /* Defaults.plist */; };
-		E261EA3719F9735B00F5341B /* status-icon-activity-0@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E261EA3019F9735B00F5341B /* status-icon-activity-0@2x.png */; };
-		E261EA3819F9735B00F5341B /* status-icon-activity-1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E261EA3119F9735B00F5341B /* status-icon-activity-1@2x.png */; };
-		E261EA3919F9735B00F5341B /* status-icon-activity-2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E261EA3219F9735B00F5341B /* status-icon-activity-2@2x.png */; };
-		E261EA3A19F9735B00F5341B /* status-icon-activity-3@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E261EA3319F9735B00F5341B /* status-icon-activity-3@2x.png */; };
-		E261EA3B19F9735B00F5341B /* status-icon-error@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E261EA3419F9735B00F5341B /* status-icon-error@2x.png */; };
-		E261EA3C19F9735B00F5341B /* status-icon-offline@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E261EA3519F9735B00F5341B /* status-icon-offline@2x.png */; };
-		E261EA3D19F9735B00F5341B /* status-icon-online@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E261EA3619F9735B00F5341B /* status-icon-online@2x.png */; };
-		E261EA4519F9767D00F5341B /* status-icon-activity-0.png in Resources */ = {isa = PBXBuildFile; fileRef = E261EA3E19F9767D00F5341B /* status-icon-activity-0.png */; };
-		E261EA4619F9767D00F5341B /* status-icon-activity-1.png in Resources */ = {isa = PBXBuildFile; fileRef = E261EA3F19F9767D00F5341B /* status-icon-activity-1.png */; };
-		E261EA4719F9767D00F5341B /* status-icon-activity-2.png in Resources */ = {isa = PBXBuildFile; fileRef = E261EA4019F9767D00F5341B /* status-icon-activity-2.png */; };
-		E261EA4819F9767D00F5341B /* status-icon-activity-3.png in Resources */ = {isa = PBXBuildFile; fileRef = E261EA4119F9767D00F5341B /* status-icon-activity-3.png */; };
-		E261EA4919F9767D00F5341B /* status-icon-error.png in Resources */ = {isa = PBXBuildFile; fileRef = E261EA4219F9767D00F5341B /* status-icon-error.png */; };
-		E261EA4A19F9767D00F5341B /* status-icon-offline.png in Resources */ = {isa = PBXBuildFile; fileRef = E261EA4319F9767D00F5341B /* status-icon-offline.png */; };
-		E261EA4B19F9767D00F5341B /* status-icon-online.png in Resources */ = {isa = PBXBuildFile; fileRef = E261EA4419F9767D00F5341B /* status-icon-online.png */; };
 		EDB6435098CC69208BC70C0DE4B2BC86 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FD9117BBE6B9ECE93973993CD69E03AA /* CoreLocation.framework */; };
-		EEE215AA71E67D5803115D53E13DAB0D /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 825ED7BA9FBAF7CA9EF82E2C21992A9C /* InfoPlist.strings */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		0029C68501DE05301897D5F082624579 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		23F0F5ADE6F952464C80215F219E819C /* bing-logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bing-logo.png"; sourceTree = "<group>"; };
 		2B228E2AF542BCCC889815E95205213F /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
-		459ED31A223FC63BAB241C074B5E7CFA /* Defaults.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Defaults.plist; sourceTree = "<group>"; };
-		587E133F99CB13C340AD7810C27A1BFE /* icon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = icon.icns; sourceTree = "<group>"; };
-		69153A4155AB94E51D4182A3C35312F6 /* SatelliteEyes-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "SatelliteEyes-Info.plist"; sourceTree = "<group>"; };
 		6A40ABB41F26D8EA6E44086547D8FEFE /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		6B40139D1D111B91DA0BC3BA60984AC1 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
-		857D35A23641C9C72A1B47CA8793D93B /* SatelliteEyes.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = SatelliteEyes.entitlements; sourceTree = "<group>"; };
 		AABB001122334455NETWORK02 /* Network.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Network.framework; path = System/Library/Frameworks/Network.framework; sourceTree = SDKROOT; };
-		AABB00112233APD001 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		AABB00112233AWC001 /* AboutWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutWindowController.swift; sourceTree = "<group>"; };
-		AABB00112233BMS002 /* BuiltInMapStyles.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = BuiltInMapStyles.plist; sourceTree = "<group>"; };
-		AABB00112233DTF002 /* DateFormatting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatting.swift; sourceTree = "<group>"; };
-		AABB00112233FMP002 /* FileManagerPaths.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileManagerPaths.swift; sourceTree = "<group>"; };
-		AABB00112233LIM001 /* LoginItemManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginItemManager.swift; sourceTree = "<group>"; };
-		AABB00112233LOC002 /* Locations.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Locations.plist; sourceTree = "<group>"; };
-		AABB00112233LST002 /* LocationStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationStore.swift; sourceTree = "<group>"; };
-		AABB00112233MD5002 /* MD5Digest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MD5Digest.swift; sourceTree = "<group>"; };
-		AABB00112233MMG001 /* MapManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapManager.swift; sourceTree = "<group>"; };
-		AABB00112233MPI002 /* MapImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapImage.swift; sourceTree = "<group>"; };
-		AABB00112233MPT002 /* MapTile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapTile.swift; sourceTree = "<group>"; };
-		AABB00112233MWC001 /* ManageMapStylesWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageMapStylesWindowController.swift; sourceTree = "<group>"; };
-		AABB00112233PWC001 /* PreferencesWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesWindowController.swift; sourceTree = "<group>"; };
-		AABB00112233SIC001 /* StatusItemController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusItemController.swift; sourceTree = "<group>"; };
 		ABFCA6D5ED74F5F133B5E59675D404AD /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		B01A9B73C4CAA0FE6D446EF25495A3C1 /* ServiceManagement.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ServiceManagement.framework; path = System/Library/Frameworks/ServiceManagement.framework; sourceTree = SDKROOT; };
-		CF2947CC3A221752A4A59C14595A9489 /* loading.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = loading.png; sourceTree = "<group>"; };
 		D463EFD95CBA286EB082BDB24D79A26E /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
-		D91E37E8DFDA52C112A1E550DBF2E48F /* Credits.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; path = Credits.rtf; sourceTree = "<group>"; };
 		E1AEB4FF42F09FC9228E2D87F4D88973 /* Satellite Eyes.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Satellite Eyes.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		E261EA3019F9735B00F5341B /* status-icon-activity-0@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "status-icon-activity-0@2x.png"; sourceTree = "<group>"; };
-		E261EA3119F9735B00F5341B /* status-icon-activity-1@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "status-icon-activity-1@2x.png"; sourceTree = "<group>"; };
-		E261EA3219F9735B00F5341B /* status-icon-activity-2@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "status-icon-activity-2@2x.png"; sourceTree = "<group>"; };
-		E261EA3319F9735B00F5341B /* status-icon-activity-3@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "status-icon-activity-3@2x.png"; sourceTree = "<group>"; };
-		E261EA3419F9735B00F5341B /* status-icon-error@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "status-icon-error@2x.png"; sourceTree = "<group>"; };
-		E261EA3519F9735B00F5341B /* status-icon-offline@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "status-icon-offline@2x.png"; sourceTree = "<group>"; };
-		E261EA3619F9735B00F5341B /* status-icon-online@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "status-icon-online@2x.png"; sourceTree = "<group>"; };
-		E261EA3E19F9767D00F5341B /* status-icon-activity-0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "status-icon-activity-0.png"; sourceTree = "<group>"; };
-		E261EA3F19F9767D00F5341B /* status-icon-activity-1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "status-icon-activity-1.png"; sourceTree = "<group>"; };
-		E261EA4019F9767D00F5341B /* status-icon-activity-2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "status-icon-activity-2.png"; sourceTree = "<group>"; };
-		E261EA4119F9767D00F5341B /* status-icon-activity-3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "status-icon-activity-3.png"; sourceTree = "<group>"; };
-		E261EA4219F9767D00F5341B /* status-icon-error.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "status-icon-error.png"; sourceTree = "<group>"; };
-		E261EA4319F9767D00F5341B /* status-icon-offline.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "status-icon-offline.png"; sourceTree = "<group>"; };
-		E261EA4419F9767D00F5341B /* status-icon-online.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "status-icon-online.png"; sourceTree = "<group>"; };
 		F8BD6F1383BE75619ADDA70A0BA002D7 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		FD9117BBE6B9ECE93973993CD69E03AA /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		AABB00112233SYNC002 /* Exceptions for "SatelliteEyes" folder in "Satellite Eyes" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				.gitignore,
+				"SatelliteEyes-Info.plist",
+				SatelliteEyes.entitlements,
+			);
+			target = F0A509CCCBD50F0A3647B6633BE0F1C7 /* Satellite Eyes */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		AABB00112233SYNC001 /* SatelliteEyes */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				AABB00112233SYNC002 /* Exceptions for "SatelliteEyes" folder in "Satellite Eyes" target */,
+			);
+			path = SatelliteEyes;
+			sourceTree = "<group>";
+		};
+/* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		60237CDE65D0D58F1B5424CF0104AD02 /* Frameworks */ = {
@@ -141,34 +92,12 @@
 			name = "Other Frameworks";
 			sourceTree = "<group>";
 		};
-		2092BE5B4DCE1D0798106CFC5FD15194 /* SatelliteEyes */ = {
-			isa = PBXGroup;
-			children = (
-				6B82C1F0425BF476D4B377C387C30283 /* Assets */,
-				4C4FB06924323AD48ACE142A23D13E5B /* Supporting Files */,
-				AABB00112233LIM001 /* LoginItemManager.swift */,
-				AABB00112233LST002 /* LocationStore.swift */,
-				AABB00112233MD5002 /* MD5Digest.swift */,
-				AABB00112233FMP002 /* FileManagerPaths.swift */,
-				AABB00112233DTF002 /* DateFormatting.swift */,
-				AABB00112233MPT002 /* MapTile.swift */,
-				AABB00112233MPI002 /* MapImage.swift */,
-				AABB00112233MMG001 /* MapManager.swift */,
-				AABB00112233SIC001 /* StatusItemController.swift */,
-				AABB00112233AWC001 /* AboutWindowController.swift */,
-				AABB00112233PWC001 /* PreferencesWindowController.swift */,
-				AABB00112233MWC001 /* ManageMapStylesWindowController.swift */,
-				AABB00112233APD001 /* AppDelegate.swift */,
-			);
-			path = SatelliteEyes;
-			sourceTree = "<group>";
-		};
 		3042328FB5DA64A87C574DAB6001726C = {
 			isa = PBXGroup;
 			children = (
 				0E14D71311A0CDE79CD75225214B1D4C /* Frameworks */,
 				39E334E0B0491A2C2A07A1B9705B047A /* Products */,
-				2092BE5B4DCE1D0798106CFC5FD15194 /* SatelliteEyes */,
+				AABB00112233SYNC001 /* SatelliteEyes */,
 			);
 			sourceTree = "<group>";
 		};
@@ -178,44 +107,6 @@
 				E1AEB4FF42F09FC9228E2D87F4D88973 /* Satellite Eyes.app */,
 			);
 			name = Products;
-			sourceTree = "<group>";
-		};
-		4C4FB06924323AD48ACE142A23D13E5B /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				D91E37E8DFDA52C112A1E550DBF2E48F /* Credits.rtf */,
-				AABB00112233BMS002 /* BuiltInMapStyles.plist */,
-				459ED31A223FC63BAB241C074B5E7CFA /* Defaults.plist */,
-				AABB00112233LOC002 /* Locations.plist */,
-				825ED7BA9FBAF7CA9EF82E2C21992A9C /* InfoPlist.strings */,
-				69153A4155AB94E51D4182A3C35312F6 /* SatelliteEyes-Info.plist */,
-				857D35A23641C9C72A1B47CA8793D93B /* SatelliteEyes.entitlements */,
-			);
-			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		6B82C1F0425BF476D4B377C387C30283 /* Assets */ = {
-			isa = PBXGroup;
-			children = (
-				E261EA3E19F9767D00F5341B /* status-icon-activity-0.png */,
-				E261EA3F19F9767D00F5341B /* status-icon-activity-1.png */,
-				E261EA4019F9767D00F5341B /* status-icon-activity-2.png */,
-				E261EA4119F9767D00F5341B /* status-icon-activity-3.png */,
-				E261EA4219F9767D00F5341B /* status-icon-error.png */,
-				E261EA4319F9767D00F5341B /* status-icon-offline.png */,
-				E261EA4419F9767D00F5341B /* status-icon-online.png */,
-				E261EA3019F9735B00F5341B /* status-icon-activity-0@2x.png */,
-				E261EA3119F9735B00F5341B /* status-icon-activity-1@2x.png */,
-				E261EA3219F9735B00F5341B /* status-icon-activity-2@2x.png */,
-				E261EA3319F9735B00F5341B /* status-icon-activity-3@2x.png */,
-				E261EA3419F9735B00F5341B /* status-icon-error@2x.png */,
-				E261EA3519F9735B00F5341B /* status-icon-offline@2x.png */,
-				E261EA3619F9735B00F5341B /* status-icon-online@2x.png */,
-				23F0F5ADE6F952464C80215F219E819C /* bing-logo.png */,
-				587E133F99CB13C340AD7810C27A1BFE /* icon.icns */,
-				CF2947CC3A221752A4A59C14595A9489 /* loading.png */,
-			);
-			name = Assets;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -231,6 +122,9 @@
 				E2B80DDF199F6DFA002CD817 /* Update Build Number */,
 			);
 			buildRules = (
+			);
+			fileSystemSynchronizedGroups = (
+				AABB00112233SYNC001 /* SatelliteEyes */,
 			);
 			name = "Satellite Eyes";
 			packageProductDependencies = (
@@ -285,28 +179,6 @@
 		42BD6E8FC2281A4AE00979FE1E7C1921 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			files = (
-				E261EA4719F9767D00F5341B /* status-icon-activity-2.png in Resources */,
-				CF56B60A90B705666B1E519C99D1F284 /* Credits.rtf in Resources */,
-				E261EA3919F9735B00F5341B /* status-icon-activity-2@2x.png in Resources */,
-				D7569B7412ADF6DEEB9CAC8C1908D4A0 /* Defaults.plist in Resources */,
-				AABB00112233BMS001 /* BuiltInMapStyles.plist in Resources */,
-				EEE215AA71E67D5803115D53E13DAB0D /* InfoPlist.strings in Resources */,
-				E261EA3A19F9735B00F5341B /* status-icon-activity-3@2x.png in Resources */,
-				7BFB2574C28396D4F941CB71FAF526FB /* bing-logo.png in Resources */,
-				01F1DFE4B43F4BCBBCF33346C60DC0D7 /* icon.icns in Resources */,
-				E261EA3819F9735B00F5341B /* status-icon-activity-1@2x.png in Resources */,
-				E261EA4B19F9767D00F5341B /* status-icon-online.png in Resources */,
-				0BB90D5B4B314123AAB1D3D29CB74CD3 /* loading.png in Resources */,
-				E261EA4619F9767D00F5341B /* status-icon-activity-1.png in Resources */,
-				E261EA4919F9767D00F5341B /* status-icon-error.png in Resources */,
-				E261EA3D19F9735B00F5341B /* status-icon-online@2x.png in Resources */,
-				E261EA3B19F9735B00F5341B /* status-icon-error@2x.png in Resources */,
-				E261EA3C19F9735B00F5341B /* status-icon-offline@2x.png in Resources */,
-				E261EA4519F9767D00F5341B /* status-icon-activity-0.png in Resources */,
-				E261EA4A19F9767D00F5341B /* status-icon-offline.png in Resources */,
-				E261EA4819F9767D00F5341B /* status-icon-activity-3.png in Resources */,
-				E261EA3719F9735B00F5341B /* status-icon-activity-0@2x.png in Resources */,
-				AABB00112233LOC001 /* Locations.plist in Resources */,
 			);
 		};
 /* End PBXResourcesBuildPhase section */
@@ -336,33 +208,9 @@
 		1BA14FD04AE46C791F4DC95096A0DE54 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			files = (
-				AABB00112233LIM002 /* LoginItemManager.swift in Sources */,
-				AABB00112233MD5001 /* MD5Digest.swift in Sources */,
-				AABB00112233FMP001 /* FileManagerPaths.swift in Sources */,
-				AABB00112233DTF001 /* DateFormatting.swift in Sources */,
-				AABB00112233MPT001 /* MapTile.swift in Sources */,
-				AABB00112233MPI001 /* MapImage.swift in Sources */,
-				AABB00112233MMG002 /* MapManager.swift in Sources */,
-				AABB00112233SIC002 /* StatusItemController.swift in Sources */,
-				AABB00112233AWC002 /* AboutWindowController.swift in Sources */,
-				AABB00112233PWC002 /* PreferencesWindowController.swift in Sources */,
-				AABB00112233MWC002 /* ManageMapStylesWindowController.swift in Sources */,
-				AABB00112233APD002 /* AppDelegate.swift in Sources */,
-				AABB00112233LST001 /* LocationStore.swift in Sources */,
 			);
 		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXVariantGroup section */
-		825ED7BA9FBAF7CA9EF82E2C21992A9C /* InfoPlist.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				0029C68501DE05301897D5F082624579 /* en */,
-			);
-			name = InfoPlist.strings;
-			sourceTree = "<group>";
-		};
-/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		11359C44A2D9A46B9B49EA7D67C17D89 /* Debug configuration for PBXNativeTarget "Satellite Eyes" */ = {
