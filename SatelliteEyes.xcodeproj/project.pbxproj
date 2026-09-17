@@ -10,10 +10,20 @@
 		AABB001122334455SPK001 /* Sparkle in Frameworks */ = {isa = PBXBuildFile; productRef = AABB001122334455SPK002 /* Sparkle */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		AABB00112233TST009 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7999993EC22657DCF9F9FCC566D50840 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = F0A509CCCBD50F0A3647B6633BE0F1C7;
+			remoteInfo = "Satellite Eyes";
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
+		AABB00112233TST010 /* SatelliteEyesTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SatelliteEyesTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		AABB00112233TST011 /* Tests.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Tests.xcconfig; sourceTree = "<group>"; };
 		AABB00112233XCC001 /* Shared.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Shared.xcconfig; sourceTree = "<group>"; };
-		AABB00112233TST010 /* SatelliteEyesTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SatelliteEyesTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		E1AEB4FF42F09FC9228E2D87F4D88973 /* Satellite Eyes.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Satellite Eyes.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -52,10 +62,8 @@
 		};
 		AABB00112233TST003 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
 			files = (
 			);
-			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
@@ -91,6 +99,26 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		AABB00112233TST004 /* SatelliteEyesTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = AABB00112233TST005 /* Build configuration list for PBXNativeTarget "SatelliteEyesTests" */;
+			buildPhases = (
+				AABB00112233TST002 /* Sources */,
+				AABB00112233TST003 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				AABB00112233TST008 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				AABB00112233TST001 /* SatelliteEyesTests */,
+			);
+			name = SatelliteEyesTests;
+			productName = SatelliteEyesTests;
+			productReference = AABB00112233TST010 /* SatelliteEyesTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		F0A509CCCBD50F0A3647B6633BE0F1C7 /* Satellite Eyes */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 32E4CB75628C9D551998866DE380F5F5 /* Build configuration list for PBXNativeTarget "Satellite Eyes" */;
@@ -113,44 +141,14 @@
 			productReference = E1AEB4FF42F09FC9228E2D87F4D88973 /* Satellite Eyes.app */;
 			productType = "com.apple.product-type.application";
 		};
-		AABB00112233TST004 /* SatelliteEyesTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = AABB00112233TST005 /* Build configuration list for PBXNativeTarget "SatelliteEyesTests" */;
-			buildPhases = (
-				AABB00112233TST002 /* Sources */,
-				AABB00112233TST003 /* Frameworks */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				AABB00112233TST008 /* PBXTargetDependency */,
-			);
-			fileSystemSynchronizedGroups = (
-				AABB00112233TST001 /* SatelliteEyesTests */,
-			);
-			name = SatelliteEyesTests;
-			productName = SatelliteEyesTests;
-			productReference = AABB00112233TST010 /* SatelliteEyesTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
 /* End PBXNativeTarget section */
-
-/* Begin PBXContainerItemProxy section */
-		AABB00112233TST009 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 7999993EC22657DCF9F9FCC566D50840 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = F0A509CCCBD50F0A3647B6633BE0F1C7;
-			remoteInfo = "Satellite Eyes";
-		};
-/* End PBXContainerItemProxy section */
 
 /* Begin PBXProject section */
 		7999993EC22657DCF9F9FCC566D50840 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = YES;
-				LastUpgradeCheck = 2650;
+				LastUpgradeCheck = 2700;
 				TargetAttributes = {
 					AABB00112233TST004 = {
 						CreatedOnToolsVersion = 26.5;
@@ -189,14 +187,6 @@
 		};
 /* End PBXProject section */
 
-/* Begin PBXTargetDependency section */
-		AABB00112233TST008 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = F0A509CCCBD50F0A3647B6633BE0F1C7 /* Satellite Eyes */;
-			targetProxy = AABB00112233TST009 /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
-
 /* Begin PBXResourcesBuildPhase section */
 		42BD6E8FC2281A4AE00979FE1E7C1921 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
@@ -234,18 +224,26 @@
 		};
 		AABB00112233TST002 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
 			files = (
 			);
-			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		AABB00112233TST008 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = F0A509CCCBD50F0A3647B6633BE0F1C7 /* Satellite Eyes */;
+			targetProxy = AABB00112233TST009 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		11359C44A2D9A46B9B49EA7D67C17D89 /* Debug configuration for PBXNativeTarget "Satellite Eyes" */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = AABB00112233XCC001 /* Shared.xcconfig */;
 			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				MACOSX_DEPLOYMENT_TARGET = "$(RECOMMENDED_MACOSX_DEPLOYMENT_TARGET)";
 			};
 			name = Debug;
 		};
@@ -254,9 +252,35 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
 				MACOSX_DEPLOYMENT_TARGET = 13.0;
 				SDKROOT = macosx;
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
@@ -268,6 +292,26 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = AABB00112233XCC001 /* Shared.xcconfig */;
 			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				MACOSX_DEPLOYMENT_TARGET = "$(RECOMMENDED_MACOSX_DEPLOYMENT_TARGET)";
+			};
+			name = Release;
+		};
+		AABB00112233TST006 /* Debug configuration for PBXNativeTarget "SatelliteEyesTests" */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = AABB00112233TST011 /* Tests.xcconfig */;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				MACOSX_DEPLOYMENT_TARGET = "$(RECOMMENDED_MACOSX_DEPLOYMENT_TARGET)";
+			};
+			name = Debug;
+		};
+		AABB00112233TST007 /* Release configuration for PBXNativeTarget "SatelliteEyesTests" */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = AABB00112233TST011 /* Tests.xcconfig */;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				MACOSX_DEPLOYMENT_TARGET = "$(RECOMMENDED_MACOSX_DEPLOYMENT_TARGET)";
 			};
 			name = Release;
 		};
@@ -276,30 +320,42 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				DEAD_CODE_STRIPPING = YES;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
 				MACOSX_DEPLOYMENT_TARGET = 13.0;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 			};
 			name = Debug;
-		};
-		AABB00112233TST006 /* Debug configuration for PBXNativeTarget "SatelliteEyesTests" */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = AABB00112233TST011 /* Tests.xcconfig */;
-			buildSettings = {
-			};
-			name = Debug;
-		};
-		AABB00112233TST007 /* Release configuration for PBXNativeTarget "SatelliteEyesTests" */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = AABB00112233TST011 /* Tests.xcconfig */;
-			buildSettings = {
-			};
-			name = Release;
 		};
 /* End XCBuildConfiguration section */
 
@@ -312,19 +368,19 @@
 			);
 			defaultConfigurationName = Release;
 		};
-		D54BBD44033465AFB8C5B7FA840E0FCC /* Build configuration list for PBXProject "SatelliteEyes" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				E70101546B0B3926CC4950EB9E3797C1 /* Debug configuration for PBXProject "SatelliteEyes" */,
-				9B4D81AD47A2A9B884A54B8DB7A6E2A1 /* Release configuration for PBXProject "SatelliteEyes" */,
-			);
-			defaultConfigurationName = Release;
-		};
 		AABB00112233TST005 /* Build configuration list for PBXNativeTarget "SatelliteEyesTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				AABB00112233TST006 /* Debug configuration for PBXNativeTarget "SatelliteEyesTests" */,
 				AABB00112233TST007 /* Release configuration for PBXNativeTarget "SatelliteEyesTests" */,
+			);
+			defaultConfigurationName = Release;
+		};
+		D54BBD44033465AFB8C5B7FA840E0FCC /* Build configuration list for PBXProject "SatelliteEyes" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E70101546B0B3926CC4950EB9E3797C1 /* Debug configuration for PBXProject "SatelliteEyes" */,
+				9B4D81AD47A2A9B884A54B8DB7A6E2A1 /* Release configuration for PBXProject "SatelliteEyes" */,
 			);
 			defaultConfigurationName = Release;
 		};
