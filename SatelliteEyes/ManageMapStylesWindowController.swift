@@ -132,8 +132,8 @@ struct ManageMapStylesView: View {
         }
         .frame(width: 600, height: 400)
         .onAppear { loadMapStyles() }
-        .onChange(of: mapStyles) { _ in save() }
-        .onChange(of: selection) { _ in save() }
+        .onChange(of: mapStyles) { save() }
+        .onChange(of: selection) { save() }
     }
     
     private var selectedIndex: Int? {
