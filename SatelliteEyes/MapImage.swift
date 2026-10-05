@@ -8,12 +8,72 @@ private let log = Logger(subsystem: Bundle.main.bundleIdentifier ?? "SatelliteEy
 
 private let validTileContentTypes: Set<String> = ["image/jpeg", "image/png"]
 
+/// How a failed tile fetch should be handled.
+enum TileFailureKind: Sendable, Equatable {
+    /// The server has no tile here, so another place may fare better.
+    case unavailable
+    /// A network blip or an overloaded server: worth retrying the same tile.
+    case transient
+    /// Anything else, such as a bad API key or a captive portal's HTML page.
+    case fatal
+
+    init(_ error: any Error) {
+        if let error = error as? TileFetchError {
+            self = error.kind
+        } else if let error = error as? URLError {
+            self = Self(urlErrorCode: error.code)
+        } else {
+            self = .fatal
+        }
+    }
+
+    init(statusCode: Int) {
+        switch statusCode {
+        case 204, 404, 410:
+            self = .unavailable
+        case 408, 429, 500...599:
+            self = .transient
+        default:
+            self = .fatal
+        }
+    }
+
+    init(urlErrorCode code: URLError.Code) {
+        switch code {
+        case .timedOut, .networkConnectionLost, .notConnectedToInternet,
+             .cannotFindHost, .cannotConnectToHost, .dnsLookupFailed,
+             .dataNotAllowed, .internationalRoamingOff:
+            self = .transient
+        default:
+            self = .fatal
+        }
+    }
+}
+
 enum TileFetchError: LocalizedError {
+    case httpStatus(url: URL, statusCode: Int)
+    /// A placeholder image the server flags as standing in for a missing tile.
+    case placeholderTile(url: URL)
     case invalidContentType(url: URL, contentType: String?)
     case undecodableImage(url: URL)
 
+    var kind: TileFailureKind {
+        switch self {
+        case .httpStatus(_, let statusCode):
+            return TileFailureKind(statusCode: statusCode)
+        case .placeholderTile:
+            return .unavailable
+        case .invalidContentType, .undecodableImage:
+            return .fatal
+        }
+    }
+
     var errorDescription: String? {
         switch self {
+        case .httpStatus(let url, let statusCode):
+            return "Tile at \(url) returned HTTP \(statusCode)"
+        case .placeholderTile(let url):
+            return "Tile at \(url) is a placeholder for missing imagery"
         case .invalidContentType(let url, let contentType):
             return "Tile at \(url) returned unexpected content type: \(contentType ?? "unknown")"
         case .undecodableImage(let url):
@@ -161,16 +221,7 @@ struct MapImage: Sendable {
             for (rowIndex, row) in tiles.enumerated() {
                 for (columnIndex, tile) in row.enumerated() {
                     group.addTask {
-                        let (data, response) = try await Self.sharedTileSession.data(for: tile.urlRequest)
-                        let contentType = (response as? HTTPURLResponse)?.value(forHTTPHeaderField: "Content-Type")
-                        let mimeType = contentType.flatMap { $0.split(separator: ";").first.map(String.init) }
-                        if let mimeType, !validTileContentTypes.contains(mimeType) {
-                            throw TileFetchError.invalidContentType(url: tile.url, contentType: contentType)
-                        }
-                        guard let image = MapTile.image(from: data) else {
-                            throw TileFetchError.undecodableImage(url: tile.url)
-                        }
-                        return (rowIndex, columnIndex, image)
+                        (rowIndex, columnIndex, try await Self.fetchImage(for: tile))
                     }
                 }
             }
@@ -184,6 +235,49 @@ struct MapImage: Sendable {
     }
 
     // MARK: - Private
+
+    /// How long to wait before each retry of a tile that failed transiently.
+    private static let retryDelays: [Duration] = [.seconds(1), .seconds(4)]
+
+    /// Fetches one tile, retrying transient failures. Any other failure throws
+    /// at once, so the task group can cancel the rest of the grid.
+    private static func fetchImage(for tile: MapTile) async throws -> CGImage {
+        var attempt = 0
+        while true {
+            do {
+                return try await fetchImageOnce(for: tile)
+            } catch let error where attempt < retryDelays.count && TileFailureKind(error) == .transient {
+                log.info("Retrying tile after transient failure: \(error.localizedDescription, privacy: .public)")
+                try await Task.sleep(for: retryDelays[attempt])
+                attempt += 1
+            }
+        }
+    }
+
+    private static func fetchImageOnce(for tile: MapTile) async throws -> CGImage {
+        let (data, response) = try await sharedTileSession.data(for: tile.urlRequest)
+        let httpResponse = response as? HTTPURLResponse
+
+        if let statusCode = httpResponse?.statusCode, !(200..<300).contains(statusCode) || statusCode == 204 {
+            throw TileFetchError.httpStatus(url: tile.url, statusCode: statusCode)
+        }
+
+        // Bing answers for areas without imagery with a 200 and a "no imagery"
+        // placeholder, flagged only by this header.
+        if httpResponse?.value(forHTTPHeaderField: "X-VE-Tile-Info") == "no-tile" {
+            throw TileFetchError.placeholderTile(url: tile.url)
+        }
+
+        let contentType = httpResponse?.value(forHTTPHeaderField: "Content-Type")
+        let mimeType = contentType.flatMap { $0.split(separator: ";").first.map(String.init) }
+        if let mimeType, !validTileContentTypes.contains(mimeType) {
+            throw TileFetchError.invalidContentType(url: tile.url, contentType: contentType)
+        }
+        guard let image = MapTile.image(from: data) else {
+            throw TileFetchError.undecodableImage(url: tile.url)
+        }
+        return image
+    }
 
     private var uniqueHash: String {
         let key = String(format: "%@_%.1f_%.1f_%.2f_%.2f_%.2f_%.2f_%@_%u",
