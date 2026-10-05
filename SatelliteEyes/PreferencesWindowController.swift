@@ -50,7 +50,7 @@ struct PreferencesView: View {
     var body: some View {
         Form {
             Toggle("Run Satellite Eyes at Startup", isOn: $startAtLogin)
-                .onChange(of: startAtLogin) { _, newValue in
+                .onChange(of: startAtLogin) { newValue in
                     LoginItemManager.setLaunchAtLogin(newValue)
                     startAtLogin = LoginItemManager.launchAtLogin
                 }.padding(.bottom, 16)
@@ -90,7 +90,7 @@ struct PreferencesView: View {
                     }
                 }
             }
-            .onChange(of: selectedMapTypeId) {
+            .onChange(of: selectedMapTypeId) { _ in
                 if zoomLevel > maxZoomForSelectedMap {
                     zoomLevel = maxZoomForSelectedMap
                 }

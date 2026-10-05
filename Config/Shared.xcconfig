@@ -11,6 +11,7 @@ WRAPPER_EXTENSION = app
 INFOPLIST_FILE = SatelliteEyes/SatelliteEyes-Info.plist
 INFOPLIST_KEY_LSApplicationCategoryType = public.app-category.utilities
 
+MACOSX_DEPLOYMENT_TARGET = 13.0
 SWIFT_VERSION = 6.0
 COPY_PHASE_STRIP = NO
 DEAD_CODE_STRIPPING = YES
