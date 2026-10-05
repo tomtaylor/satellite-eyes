@@ -34,7 +34,7 @@ enum LocationStore {
         return allLocations.filter { $0.category == category }
     }
 
-    static func randomLocation(forCategory category: String) -> NamedLocation? {
-        locations(forCategory: category).randomElement()
+    static func randomLocation(forCategory category: String, excluding excludedNames: Set<String> = []) -> NamedLocation? {
+        locations(forCategory: category).filter { !excludedNames.contains($0.name) }.randomElement()
     }
 }

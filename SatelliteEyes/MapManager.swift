@@ -30,6 +30,12 @@ final class MapManager: NSObject, @preconcurrency CLLocationManagerDelegate {
     /// Map updates are chained onto this task so they run one at a time, in the
     /// order they were requested.
     private var updateTask: Task<Void, Never>?
+    /// Incremented each time an update is queued, so a finished update can tell
+    /// whether another has been queued behind it.
+    private var updateGeneration = 0
+    /// How many places a random-location update tries, when the map style has
+    /// no tiles for them, before giving up until the next rotation.
+    private static let maxLocationAttempts = 5
     private let pathMonitor = NWPathMonitor()
     private var networkSatisfied = false
     private var hasStarted = false
@@ -122,7 +128,10 @@ final class MapManager: NSObject, @preconcurrency CLLocationManagerDelegate {
 
     func updateMap() {
         guard let location = lastSeenLocation else { return }
-        updateMap(to: location.coordinate, force: false)
+        // In random mode, a re-render (say, for a new map style) can still move
+        // on to another place if this one has no tiles.
+        let triedLocations = useCurrentLocation ? nil : currentRandomLocation.map { Set([$0.name]) }
+        enqueueUpdate(to: location.coordinate, force: false, triedLocations: triedLocations)
     }
 
     func forceUpdateMap() {
@@ -136,31 +145,66 @@ final class MapManager: NSObject, @preconcurrency CLLocationManagerDelegate {
     }
 
     func updateMap(to coordinate: CLLocationCoordinate2D, force: Bool) {
+        enqueueUpdate(to: coordinate, force: force, triedLocations: nil)
+    }
+
+    /// Chains an update onto `updateTask`. `triedLocations` is set for updates
+    /// to a random location, and holds the names of the places tried so far,
+    /// this one included; if the map style has no tiles here, the update moves
+    /// on to another place rather than reporting an error.
+    private func enqueueUpdate(to coordinate: CLLocationCoordinate2D, force: Bool, triedLocations: Set<String>?) {
         let previousUpdate = updateTask
+        updateGeneration += 1
+        let generation = updateGeneration
         updateTask = Task { [weak self] in
             await previousUpdate?.value
-            await self?.performUpdate(to: coordinate, force: force)
+            guard let self, let error = await performUpdate(to: coordinate, force: force) else { return }
+            handleFailedUpdate(error, force: force, triedLocations: triedLocations,
+                               isLatest: generation == updateGeneration)
         }
     }
 
-    /// Renders and applies the wallpaper for every screen, one at a time. Runs
-    /// on the main actor; only the tile fetching and compositing inside
-    /// `MapImage.fetchTiles` hops off it.
-    private func performUpdate(to coordinate: CLLocationCoordinate2D, force: Bool) async {
-        for screen in NSScreen.screens {
-            guard let mapImage = makeMapImage(for: screen, coordinate: coordinate) else { continue }
+    /// Renders the wallpaper for every screen, then applies them together, so
+    /// a failure partway through leaves every screen on the same place. Returns
+    /// the error that stopped the update, if any. Runs on the main actor; only
+    /// the tile fetching and compositing inside `MapImage.fetchTiles` hops off it.
+    private func performUpdate(to coordinate: CLLocationCoordinate2D, force: Bool) async -> (any Error)? {
+        let mapImages = NSScreen.screens.compactMap { screen in
+            makeMapImage(for: screen, coordinate: coordinate).map { (screen: screen, mapImage: $0) }
+        }
+        guard !mapImages.isEmpty else { return nil }
 
-            NotificationCenter.default.post(name: Self.startedLoadNotification, object: nil)
+        NotificationCenter.default.post(name: Self.startedLoadNotification, object: nil)
 
-            do {
-                let filePath = try await mapImage.fetchTiles(skipCache: force)
-                NotificationCenter.default.post(name: Self.finishedLoadNotification, object: nil)
-                await setDesktopImage(filePath, for: screen, force: force)
-            } catch {
-                NotificationCenter.default.post(name: Self.failedLoadNotification, object: nil)
-                log.error("Error fetching image: \(error.localizedDescription, privacy: .public)")
+        var filePaths: [(screen: NSScreen, filePath: URL)] = []
+        do {
+            for (screen, mapImage) in mapImages {
+                filePaths.append((screen, try await mapImage.fetchTiles(skipCache: force)))
+            }
+        } catch {
+            log.error("Error fetching image: \(error.localizedDescription, privacy: .public)")
+            return error
+        }
+
+        NotificationCenter.default.post(name: Self.finishedLoadNotification, object: nil)
+        for (screen, filePath) in filePaths {
+            await setDesktopImage(filePath, for: screen, force: force)
+        }
+        return nil
+    }
+
+    private func handleFailedUpdate(_ error: any Error, force: Bool, triedLocations: Set<String>?, isLatest: Bool) {
+        // Only move on if nothing has been queued since: a newer update, such
+        // as a map style change or a rotation, supersedes this one.
+        if let triedLocations, isLatest, !useCurrentLocation, TileFailureKind(error) == .unavailable {
+            if triedLocations.count < Self.maxLocationAttempts {
+                log.info("No tiles for \(self.currentRandomLocation?.name ?? "location", privacy: .public), trying another place")
+                if pickRandomLocationAndUpdate(force: force, triedLocations: triedLocations) { return }
+            } else {
+                log.error("No tiles for \(triedLocations.count) places in a row, giving up until the next rotation")
             }
         }
+        NotificationCenter.default.post(name: Self.failedLoadNotification, object: nil)
     }
 
     private func makeMapImage(for screen: NSScreen, coordinate: CLLocationCoordinate2D) -> MapImage? {
@@ -382,9 +426,13 @@ final class MapManager: NSObject, @preconcurrency CLLocationManagerDelegate {
         }
     }
 
-    private func pickRandomLocationAndUpdate(force: Bool = false) {
+    /// Picks a place other than those in `triedLocations` and queues an update
+    /// to it. Returns false if there was no place left to pick.
+    @discardableResult
+    private func pickRandomLocationAndUpdate(force: Bool = false, triedLocations: Set<String> = []) -> Bool {
         let category = randomLocationCategory
-        guard let namedLocation = LocationStore.randomLocation(forCategory: category) else { return }
+        guard let namedLocation = LocationStore.randomLocation(forCategory: category, excluding: triedLocations)
+        else { return false }
         currentRandomLocation = namedLocation
         currentRandomLocationCategory = category
 
@@ -394,7 +442,9 @@ final class MapManager: NSObject, @preconcurrency CLLocationManagerDelegate {
 
         NotificationCenter.default.post(name: Self.randomLocationSelectedNotification, object: namedLocation.name)
         NotificationCenter.default.post(name: Self.locationUpdatedNotification, object: location)
-        updateMap(to: namedLocation.coordinate, force: force)
+        enqueueUpdate(to: namedLocation.coordinate, force: force,
+                      triedLocations: triedLocations.union([namedLocation.name]))
+        return true
     }
 
     private func scheduleRotationTimer() {
@@ -403,7 +453,7 @@ final class MapManager: NSObject, @preconcurrency CLLocationManagerDelegate {
         // Scheduled from the main actor, so the timer fires on the main run loop.
         rotationTimer = Timer.scheduledTimer(withTimeInterval: interval, repeats: true) { [weak self] _ in
             MainActor.assumeIsolated {
-                self?.pickRandomLocationAndUpdate()
+                _ = self?.pickRandomLocationAndUpdate()
             }
         }
         rotationTimer?.tolerance = 60
