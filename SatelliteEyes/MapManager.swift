@@ -40,17 +40,14 @@ final class MapManager: NSObject, @preconcurrency CLLocationManagerDelegate {
     private var networkSatisfied = false
     private var hasStarted = false
     private var currentRandomLocation: LocationStore.NamedLocation?
-    /// The category `currentRandomLocation` was picked under, so a category
-    /// change that has already been handled can be recognised and skipped.
-    private var currentRandomLocationCategory: String?
     private var rotationTimer: Timer?
 
     private var useCurrentLocation: Bool {
         UserDefaults.standard.bool(forKey: "useCurrentLocation")
     }
 
-    private var randomLocationCategory: String {
-        UserDefaults.standard.string(forKey: "randomLocationCategory") ?? ""
+    private var randomLocationCategories: Set<String> {
+        Set(UserDefaults.standard.stringArray(forKey: "randomLocationCategories") ?? [])
     }
 
     private var rotationIntervalSeconds: TimeInterval {
@@ -83,7 +80,7 @@ final class MapManager: NSObject, @preconcurrency CLLocationManagerDelegate {
         UserDefaults.standard.addObserver(self, forKeyPath: "zoomLevel", options: .new, context: nil)
         UserDefaults.standard.addObserver(self, forKeyPath: "selectedImageEffectId", options: .new, context: nil)
         UserDefaults.standard.addObserver(self, forKeyPath: "useCurrentLocation", options: .new, context: nil)
-        UserDefaults.standard.addObserver(self, forKeyPath: "randomLocationCategory", options: .new, context: nil)
+        UserDefaults.standard.addObserver(self, forKeyPath: "randomLocationCategories", options: .new, context: nil)
         UserDefaults.standard.addObserver(self, forKeyPath: "rotationIntervalSeconds", options: .new, context: nil)
 
         NSWorkspace.shared.notificationCenter.addObserver(
@@ -103,7 +100,7 @@ final class MapManager: NSObject, @preconcurrency CLLocationManagerDelegate {
         UserDefaults.standard.removeObserver(self, forKeyPath: "zoomLevel")
         UserDefaults.standard.removeObserver(self, forKeyPath: "selectedImageEffectId")
         UserDefaults.standard.removeObserver(self, forKeyPath: "useCurrentLocation")
-        UserDefaults.standard.removeObserver(self, forKeyPath: "randomLocationCategory")
+        UserDefaults.standard.removeObserver(self, forKeyPath: "randomLocationCategories")
         UserDefaults.standard.removeObserver(self, forKeyPath: "rotationIntervalSeconds")
         rotationTimer?.invalidate()
         NSWorkspace.shared.notificationCenter.removeObserver(self)
@@ -353,13 +350,14 @@ final class MapManager: NSObject, @preconcurrency CLLocationManagerDelegate {
         switch keyPath {
         case "useCurrentLocation":
             handleLocationModeChange()
-        case "randomLocationCategory":
-            // Switching location source writes useCurrentLocation and
-            // randomLocationCategory together, and the useCurrentLocation
-            // handler runs first and picks under the new category. Only
-            // re-pick if the category differs from the one the current
-            // location was picked under, so one change means one update.
-            if !useCurrentLocation && randomLocationCategory != currentRandomLocationCategory {
+        case "randomLocationCategories":
+            // Only move on if the place on screen is no longer in a chosen
+            // category, so ticking another category keeps the current view.
+            let categories = randomLocationCategories
+            if !useCurrentLocation && hasStarted,
+               !categories.isEmpty,
+               let current = currentRandomLocation?.category,
+               !categories.contains(current) {
                 pickRandomLocationAndUpdate()
                 scheduleRotationTimer()
             }
@@ -409,7 +407,6 @@ final class MapManager: NSObject, @preconcurrency CLLocationManagerDelegate {
             rotationTimer?.invalidate()
             rotationTimer = nil
             currentRandomLocation = nil
-            currentRandomLocationCategory = nil
             lastSeenLocation = nil
             NotificationCenter.default.post(name: Self.locationLostNotification, object: nil)
 
@@ -430,11 +427,10 @@ final class MapManager: NSObject, @preconcurrency CLLocationManagerDelegate {
     /// to it. Returns false if there was no place left to pick.
     @discardableResult
     private func pickRandomLocationAndUpdate(force: Bool = false, triedLocations: Set<String> = []) -> Bool {
-        let category = randomLocationCategory
-        guard let namedLocation = LocationStore.randomLocation(forCategory: category, excluding: triedLocations)
+        guard let namedLocation = LocationStore.randomLocation(inCategories: randomLocationCategories,
+                                                               excluding: triedLocations)
         else { return false }
         currentRandomLocation = namedLocation
-        currentRandomLocationCategory = category
 
         let location = CLLocation(latitude: namedLocation.coordinate.latitude,
                                   longitude: namedLocation.coordinate.longitude)

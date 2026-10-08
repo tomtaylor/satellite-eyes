@@ -29,12 +29,14 @@ enum LocationStore {
         Array(Set(allLocations.map(\.category))).sorted()
     }()
 
-    static func locations(forCategory category: String) -> [NamedLocation] {
-        if category.isEmpty { return allLocations }
-        return allLocations.filter { $0.category == category }
+    /// The places in any of `categories`. An empty set means every category.
+    static func locations(inCategories categories: Set<String>) -> [NamedLocation] {
+        if categories.isEmpty { return allLocations }
+        return allLocations.filter { categories.contains($0.category) }
     }
 
-    static func randomLocation(forCategory category: String, excluding excludedNames: Set<String> = []) -> NamedLocation? {
-        locations(forCategory: category).filter { !excludedNames.contains($0.name) }.randomElement()
+    static func randomLocation(inCategories categories: Set<String>,
+                               excluding excludedNames: Set<String> = []) -> NamedLocation? {
+        locations(inCategories: categories).filter { !excludedNames.contains($0.name) }.randomElement()
     }
 }

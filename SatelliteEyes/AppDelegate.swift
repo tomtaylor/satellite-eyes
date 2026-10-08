@@ -155,6 +155,19 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         UserDefaults.standard.register(defaults: defaults)
 
         migrateCustomMapTypes()
+        migrateRandomLocationCategory()
+    }
+
+    /// Migrate the single `randomLocationCategory` choice to the
+    /// `randomLocationCategories` list. An empty string meant every category,
+    /// which is the registered default, so only a named category is carried over.
+    private func migrateRandomLocationCategory() {
+        let defaults = UserDefaults.standard
+        guard let category = defaults.string(forKey: "randomLocationCategory") else { return }
+        if !category.isEmpty {
+            defaults.set([category], forKey: "randomLocationCategories")
+        }
+        defaults.removeObject(forKey: "randomLocationCategory")
     }
 
     /// Migrate any user-added map types from the old `mapTypes` key to `customMapTypes`.

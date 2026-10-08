@@ -8,8 +8,9 @@ struct PreferencesView: View {
     @AppStorage("zoomLevel") private var zoomLevel = 15
     @AppStorage("selectedImageEffectId") private var selectedImageEffectId = "none"
     @AppStorage("useCurrentLocation") private var useCurrentLocation = true
-    @AppStorage("randomLocationCategory") private var randomLocationCategory = ""
     @AppStorage("rotationIntervalSeconds") private var rotationIntervalSeconds = 86400
+    // @AppStorage can't hold an array on macOS 13, so this is read and written by hand.
+    @State private var randomLocationCategories = PreferencesView.loadedRandomLocationCategories()
     @State private var startAtLogin = LoginItemManager.launchAtLogin
     @State private var manageStylesController: ManageMapStylesWindowController?
     // Loaded eagerly, not in onAppear: this view's body is built as soon as the
@@ -23,21 +24,27 @@ struct PreferencesView: View {
         builtInMapTypes + customMapTypes
     }
 
-    private var locationSourceBinding: Binding<String> {
+    /// The "Interesting Sights" categories, in display order. A new category in
+    /// `Locations.plist` needs a row here and in `Defaults.plist`.
+    private static let locationCategories: [(id: String, name: String)] = [
+        ("airport", "Airports"),
+        ("world_heritage_site", "World Heritage Sites"),
+        ("solar_farm", "Solar Farms"),
+        ("salt_pond_or_mine", "Salt Ponds & Mines"),
+    ]
+
+    private func categoryBinding(_ id: String) -> Binding<Bool> {
         Binding(
-            get: {
-                if useCurrentLocation { return "current_location" }
-                if randomLocationCategory.isEmpty { return "random" }
-                return randomLocationCategory
-            },
-            set: { newValue in
-                if newValue == "current_location" {
-                    useCurrentLocation = true
-                    randomLocationCategory = ""
-                } else {
-                    useCurrentLocation = false
-                    randomLocationCategory = newValue == "random" ? "" : newValue
-                }
+            get: { randomLocationCategories.contains(id) },
+            set: { isOn in
+                var categories = randomLocationCategories
+                if isOn { categories.insert(id) } else { categories.remove(id) }
+                // The checkbox for the last category is disabled, but never
+                // store an empty set, whatever the route here.
+                guard !categories.isEmpty else { return }
+                randomLocationCategories = categories
+                let ordered = Self.locationCategories.map(\.id).filter(categories.contains)
+                UserDefaults.standard.set(ordered, forKey: "randomLocationCategories")
             }
         )
     }
@@ -55,23 +62,34 @@ struct PreferencesView: View {
                     startAtLogin = LoginItemManager.launchAtLogin
                 }.padding(.bottom, 16)
 
-            Picker("Location:", selection: locationSourceBinding) {
-                Text("Your Location").tag("current_location")
-                Text("Interesting Sights").tag("random")
-                Section(header: Text("Interesting Sights")) {
-                    Text("Airports").tag("airport")
-                    Text("World Heritage Sites").tag("world_heritage_site")
-                    Text("Solar Farms").tag("solar_farm")
-                    Text("Salt Ponds & Mines").tag("salt_pond_or_mine")
+            Picker("Location:", selection: $useCurrentLocation) {
+                Text("Your Location").tag(true)
+                Text("Interesting Sights").tag(false)
+            }
+            .pickerStyle(.radioGroup)
+
+            // Indented under the "Interesting Sights" radio button's label.
+            // Disabled rather than hidden so the choices survive a trip to
+            // "Your Location" and the window keeps its size.
+            VStack(alignment: .leading, spacing: 6) {
+                ForEach(Self.locationCategories, id: \.id) { category in
+                    let binding = categoryBinding(category.id)
+                    Toggle(category.name, isOn: binding)
+                        .toggleStyle(.checkbox)
+                        .disabled(binding.wrappedValue && randomLocationCategories.count == 1)
                 }
             }
+            .padding(.leading, 20)
+            .disabled(useCurrentLocation)
 
             Picker("Change Every:", selection: $rotationIntervalSeconds) {
                 Text("1 hour").tag(3600)
                 Text("6 hours").tag(21600)
                 Text("24 hours").tag(86400)
             }
+            .fixedSize()
             .disabled(useCurrentLocation)
+            .padding(.top, 6)
             .padding(.bottom, 16)
 
             Picker("Map Style:", selection: $selectedMapTypeId) {
@@ -128,6 +146,15 @@ struct PreferencesView: View {
         .onReceive(NotificationCenter.default.publisher(for: .mapStylesDidChange)) { _ in
             loadMapTypes()
         }
+    }
+
+    /// The stored categories, limited to ones this version knows about and
+    /// never empty, so at least one checkbox is always ticked.
+    private static func loadedRandomLocationCategories() -> Set<String> {
+        let known = Set(locationCategories.map(\.id))
+        let stored = Set(UserDefaults.standard.stringArray(forKey: "randomLocationCategories") ?? [])
+            .intersection(known)
+        return stored.isEmpty ? known : stored
     }
 
     private static func loadedCustomMapTypes() -> [[String: Any]] {
