@@ -295,8 +295,13 @@
 	<true/>
 	<key>useCurrentLocation</key>
 	<true/>
-	<key>randomLocationCategory</key>
-	<string></string>
+	<key>randomLocationCategories</key>
+	<array>
+		<string>airport</string>
+		<string>world_heritage_site</string>
+		<string>solar_farm</string>
+		<string>salt_pond_or_mine</string>
+	</array>
 	<key>rotationIntervalSeconds</key>
 	<integer>86400</integer>
 </dict>
