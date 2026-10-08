@@ -43,6 +43,8 @@
 	<true/>
 	<key>NSHumanReadableCopyright</key>
 	<string>Copyright © 2026 Tom Taylor. All rights reserved.</string>
+	<key>NSLocationUsageDescription</key>
+	<string>Your location is used to set your desktop wallpaper to a map of where you are.</string>
 	<key>NSPrincipalClass</key>
 	<string>NSApplication</string>
 	<key>NSSupportsAutomaticGraphicsSwitching</key>
