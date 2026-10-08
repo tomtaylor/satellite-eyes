@@ -191,9 +191,9 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         alert.messageText = "Welcome to Satellite Eyes"
         alert.informativeText = """
             Satellite Eyes grants you a new perspective on the world. \
-            It runs in the status bar at the top of your screen.
+            It runs in the menu bar at the top of your screen.
 
-            Would you like it show your current location, or shuffle through \
+            Would you like it to show your current location, or shuffle through \
             interesting sights from around the world?
             """
         alert.addButton(withTitle: "Use My Location")
