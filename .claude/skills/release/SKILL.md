@@ -7,8 +7,9 @@ description: Make a new release of Satellite Eyes. Use when asked to release, cu
 
 Takes a new marketing version (e.g. `2.2.0`) and produces everything needed to
 publish it. The only thing it commits is the version bump in this repo, which it
-then tags. **Nothing is pushed, merged or uploaded** — the final report hands
-those steps to the user.
+then tags. **Nothing is pushed, merged or made public** — the one thing it puts
+on a server is a *draft* GitHub release, which only collaborators can see. The
+final report hands pushing and publishing to the user.
 
 If the user did not give a version number, ask for one before starting.
 
@@ -55,6 +56,8 @@ grep -n "MARKETING_VERSION" Config/Shared.xcconfig                    # previous
 git tag --list <version>                     # expect empty — tag must not exist yet
 command -v generate_appcast && ls ~/bin/BinaryDelta                   # Sparkle tools
 security find-generic-password -a ed25519 -s https://sparkle-project.org >/dev/null && echo "signing key present"
+gh auth status                               # GitHub CLI logged in
+gh release view <version>                    # expect "release not found"
 ```
 
 Never print the EdDSA key itself. Confirm the requested version is higher than
@@ -203,7 +206,42 @@ generate_appcast \
   `sparkle:version`, `edSignature`, an `enclosure` length matching the zip, and
   the release notes inlined as CDATA.
 
-### 11. Update the site
+### 11. Draft the GitHub release
+
+Create the release on `tomtaylor/satellite-eyes` as a draft, with the same
+notes and zip as the appcast. Use the final, approved notes from step 9.
+
+```bash
+gh api repos/tomtaylor/satellite-eyes/releases \
+  -f tag_name=<version> \
+  -f name="Satellite Eyes <version>" \
+  -F draft=true \
+  -F body=@"../sparkle/satellite-eyes-<version>.html" \
+  --jq .html_url
+gh release upload <version> "../sparkle/satellite-eyes-<version>.zip"
+gh release view <version>
+```
+
+- Don't use `gh release create`. It refuses a tag that exists locally but not on
+  the remote, even with `--draft`, and its `--target` workaround would make
+  GitHub create a new tag. The API call creates the draft without touching tags.
+- A draft's URL is `…/releases/tag/untagged-<hash>` until it is published. That
+  is expected.
+- The title and the HTML-fragment body match the published `2.0.0` release.
+  GitHub renders the HTML as-is, so the notes file needs no Markdown version.
+- It **must** be a draft. The tag has not been pushed yet. Publishing now would
+  make GitHub create its own unsigned tag at `origin/main`, which does not
+  contain the bump commit, and pushing the real tag would then be rejected.
+  GitHub does not create the tag for a draft, so the draft is safe.
+- Verify the release shows `draft: true`, the `<version>` tag, and the single
+  asset `satellite-eyes-<version>.zip`.
+- If the notes change after this, update both copies: rerun `generate_appcast`
+  (see Troubleshooting) and
+  `gh release edit <version> --notes-file "../sparkle/satellite-eyes-<version>.html"`.
+- If the release is abandoned, say the draft exists. Deleting it
+  (`gh release delete <version>`) is the user's call, as with the bump commit.
+
+### 12. Update the site
 
 In `../site/source/index.html.erb`, update the single download line — zip URL,
 version, and today's release date in the existing `7th August 2026` ordinal
@@ -216,19 +254,24 @@ style:
 Nothing else on the site references the version. Don't run the Middleman build
 or touch `build/`; past release commits changed only `source/index.html.erb`.
 
-### 12. Report and stop
+### 13. Report and stop
 
-Do not push, merge or upload. Summarise:
+Do not push, merge, upload or publish. Summarise:
 
 - New/changed files in `../sparkle` (zip + size, html, appcast.xml, deltas, anything
   moved to `old_updates/`), and the verified version / build number.
 - The bump commit and signed tag from steps 2 and 4, both unpushed, and the
   still-uncommitted `source/index.html.erb` edit in `site`.
-- What is left for the user: push `main` and the tag (`git push origin main
-  <version>`), commit the site change (`Release <version>`) and deploy it, and
-  upload the `../sparkle` contents — zips, deltas, `appcast.xml` and the
-  release-note HTML — to the `satellite-eyes` S3 bucket. The Homebrew cask is
-  updated upstream and is not part of this process.
+- The draft GitHub release URL from step 11.
+- What is left for the user, in this order:
+  1. Push `main` and the tag (`git push origin main <version>`).
+  2. Publish the GitHub release (`gh release edit <version> --draft=false`).
+     This must come after the tag push, for the reason given in step 11.
+  3. Commit the site change (`Release <version>`) and deploy it.
+  4. Upload the `../sparkle` contents (zips, deltas, `appcast.xml` and the
+     release-note HTML) to the `satellite-eyes` S3 bucket.
+
+  The Homebrew cask is updated upstream and is not part of this process.
 
 ## Troubleshooting
 
